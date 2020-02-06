@@ -54,7 +54,7 @@
 		<div class="m-grid m-grid--hor m-grid--root m-page">
 
 			<!-- BEGIN: Header -->
-			<header id="m_header" class="m-grid__item    m-header " style="background-color:#1b83c0" m-minimize-offset="200" m-minimize-mobile-offset="200">
+			<header id="m_header" class="m-grid__item    m-header " style="background-color:#f5aa42" m-minimize-offset="200" m-minimize-mobile-offset="200">
 				<div class="m-container m-container--fluid m-container--full-height">
 					<div class="m-stack m-stack--ver m-stack--desktop">
 
@@ -62,8 +62,8 @@
 						<div class="m-stack__item m-brand  m-brand--skin-light ">
 							<div class="m-stack m-stack--ver m-stack--general m-stack--fluid">
 								<div class="m-stack__item m-stack__item--middle m-brand__logo">
-									<a href="{{url('/')}}" class="m-brand__logo-wrapper">
-										<img alt="" src="{{url('images/logo/hipa_logo.jpg')}}" class="rata" />
+									<a href="{{url('/dashboard')}}" class="m-brand__logo-wrapper">
+										<img alt="kopaja_logo" src="{{url('/')}}/etrain/img/logo.png" class="rata" />
 										{{-- Logo --}}
 									</a>
 								</div>
@@ -108,7 +108,7 @@
 															</div>
 															<div class="m-card-user__details">
 																<span class="m-card-user__name m--font-weight-500">Profile name</span>
-															<a href="" class="m-card-user__email m--font-weight-300 m-link">Your phone</a>
+															<a href="" class="m-card-user__email m--font-weight-300 m-link">Your email</a>
 															</div>
 														</div>
 													</div>

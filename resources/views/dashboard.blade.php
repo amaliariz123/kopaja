@@ -1,4 +1,4 @@
- @extends('base.header')
+@extends('base.header')
 @section('title','Dashboard')
 @section('dashboard','m-menu__item--open')
 @section('custom-css')
@@ -74,7 +74,7 @@
                     </div>
                         <div class="row">
                           <div class="col-lg-12 ml-lg-auto">
-                            <button type="submit" name="search" id="search" onclick="search()" class="btn btn-brand">Search</button>
+                            <button type="submit" name="search" id="search" onclick="search()" class="btn btn-warning">Search</button>
                           </div>
                         </div>
                 </form>
@@ -89,11 +89,11 @@
                 <div class="row m-row--no-padding m-row--col-separator-xl">
                   <div class="col-md-12 col-lg-6 col-xl-3">
 
-                    <!--begin::Session-->
+                    <!--begin::Online Members-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Data entry session
+                          Online Members 
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -103,15 +103,15 @@
                       </div>
                     </div>
 
-                    <!--end::Session-->
+                    <!--end::Online Members -->
                   </div>
                   <div class="col-md-12 col-lg-6 col-xl-3">
 
-                    <!--begin::Customer dan sudah selesai isi-->
+                    <!--begin::Total Members-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Registered users &amp; DONE
+                          Total Members
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -121,15 +121,15 @@
                       </div>
                     </div>
 
-                    <!--end::Customer dan sudah selesai isi-->
+                    <!--end::Total Members-->
                   </div>
                   <div class="col-md-12 col-lg-6 col-xl-3">
 
-                    <!--begin::Customer dan belum selesai isi-->
+                    <!--begin::Taxes-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Registered users &amp; ONGOING
+                          Taxes
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -139,15 +139,15 @@
                       </div>
                     </div>
 
-                    <!--end::Customer dan belum selesai isi-->
+                    <!--end::Taxes-->
                   </div>
                   <div class="col-md-12 col-lg-6 col-xl-3">
 
-                    <!--begin::Subscription-->
+                    <!--begin::Testimonials-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Subscription
+                          Testimonials
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -157,7 +157,7 @@
                       </div>
                     </div>
 
-                    <!--end::Subscription-->
+                    <!--end::Testimonials-->
                   </div>
                 </div>
               </div>
@@ -175,7 +175,7 @@
                           <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                          Chart of Session Data, Registered Users, Completed SPT Tahunan, and Subcription
+                          Chart of Online Members, Total Members, Taxes, and Testimonials
                         </h3>
                       </div>
                     </div>

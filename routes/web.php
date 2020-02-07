@@ -16,12 +16,9 @@ use Illuminate\Support\Facades\Mail;
 
 Auth::routes();
 
-
-
 Route::get('/', function () {
     return view('index');
 })->name('index');
-
 
 
 Route::group( [ 'middleware' => 'auth' ], function () {
@@ -36,17 +33,12 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/downloadPasal4', 'DownloadController@materiPasal4')->name('downloadPasal4');
 
 
-
-
     Route::get('/soalpphpasal4ayat2',function(){
         return view('soal.soalpphpasal4ayat2');
     })->name('soalpphpasal4ayat2');
 
+
     Route::get('/cekSoalpphpasal4ayat2', 'soalController@cekSoalpphpasal4ayat2')->name('cekSoalpphpasal4ayat2');
-
-
-
-
 
 
     Route::get('/latihansoalpasal15',function(){
@@ -64,8 +56,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/cekSoalpphpasal15', 'soalController@cekSoalpphpasal15')->name('cekSoalpphpasal15');
 
     Route::get('/downloadPasal15', 'DownloadController@materiPasal15')->name('downloadPasal15');
-
-
 
 
     Route::get('/pajakpusatpasal21',function(){
@@ -89,19 +79,11 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/downloadPasal21', 'DownloadController@materiPasal21')->name('downloadPasal21');
 
 
-
-
     Route::get('/pphpasal26',function(){
         return view('soal.pphpasal26');
     })->name('pphpasal26');
 
     Route::get('/cekSoalpphpasal26', 'soalController@cekSoalpphpasal26')->name('cekSoalpphpasal26');
-
-
-
-
-
-
 
 
     Route::get('/pajakpusatpasal22',function(){
@@ -121,10 +103,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/downloadPasal22', 'DownloadController@materiPasal22')->name('downloadPasal22');
 
 
-
-
-
-
     Route::get('/pajakpusatpasal23',function(){
         return view('materi.pasal23');
     })->name('pasal23');
@@ -140,8 +118,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/cekSoalpphpasal23', 'soalController@cekSoalpphpasal23')->name('cekSoalpphpasal23');
 
     Route::get('/downloadPasal23', 'DownloadController@materiPasal23')->name('downloadPasal23');
-
-
 
 
     Route::get('/pajakpusatpasal25',function(){
@@ -161,10 +137,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/downloadPasal25', 'DownloadController@materiPasal25')->name('downloadPasal25');
 
 
-
-
-
-
     Route::get('/pajakpusatpasal26',function(){
         return view('materi.pasal26');
     })->name('pasal26');
@@ -176,10 +148,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/cekSoalpphpasal26', 'soalController@cekSoalpphpasal26')->name('cekSoalpphpasal26');
 
     Route::get('/downloadPasal26', 'DownloadController@materiPasal21')->name('downloadPasal26');
-
-
-
-
 
 
 
@@ -201,10 +169,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
 
 
-
-
-
-
     Route::get('/pajakpusatppnbm',function(){
         return view('materi.ppnbm');
     })->name('pnbm');
@@ -217,9 +181,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/cekSoalppnbm', 'soalController@soal')->name('cekSoalppnbm');
 
     Route::get('/downloadPpnbn', 'DownloadController@materiPpnbn')->name('downloadPpnbn');
-
-
-
 
 
 
@@ -244,10 +205,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/downloadBeaMaterai', 'DownloadController@materiBeaMaterai')->name('downloadBeaMaterai');
 
 
-
-
-
-
     Route::get('/pbb',function(){
         return view('materi.pbb');
     })->name('pbb');
@@ -266,9 +223,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
 
 
-
-
-
     Route::get('/pajakprovinsi',function(){
         return view('materi.pajakprov');
     })->name('pajakprovinsi');
@@ -281,9 +235,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
 
 
-
-
-
     Route::get('/pajakkabupaten',function(){
         return view('materi.pajakkab');
     })->name('pajakkabupaten');
@@ -293,10 +244,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     })->name('latsoalpajakkab');
 
     Route::get('/downloadPajakKab', 'DownloadController@materiPajakKab')->name('downloadPajakKab');
-
-
-
-
 
 
 
@@ -342,3 +289,5 @@ Route::get('/home', function () {
     return view('index');
 })->name('home');
 
+
+Route::get('/dashboard', 'DashboardController@index');

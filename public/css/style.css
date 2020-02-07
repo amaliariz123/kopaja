@@ -1,0 +1,110 @@
+#image-preview{
+    display:none;
+    width : 90%;
+    height : 90%;
+}
+
+.m-header.rata {
+    background-color: #c01720 !important;
+}
+
+img.rata {
+    height: 80px !important;
+}
+
+img.rata_login {
+    
+    height:150px !important;
+    padding-left: 15%;
+}
+
+img.rata_img {
+    height: 150px;
+    padding-left: 13%;
+   
+}
+
+.btn-focus.rata {
+    color: #fff;
+    background-color: #c01720 !important;
+    border-color: #c01720 !important
+    ;
+}
+
+.btn-focus.rata:hover {
+    background-color: #da2a32 !important;
+    border-color: #c43037 !important;
+    box-shadow: #c01720;
+}
+
+.btn-outline-focus.rata {
+    border-color: #c01720 !important;
+    color : #c01720 !important;
+}
+
+.btn-outline-focus.rata:hover{
+    border-color: #c01720 !important;
+    background-color: #d1444b !important;
+}
+
+.form-control.m-input--air.rata {
+    -webkit-box-shadow: 0px 3px 20px 0px rgba(145, 148, 206, 0.11);
+    box-shadow: 0px 3px 20px 0px rgba(68, 68, 68, 0.11);
+}
+
+
+.form-control.m-input--air.rata:focus {
+    border:1px solid #f5bbbe;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--single {
+    border-color: #f5bbbe;
+    background-color: #fff;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #575962;
+    background-color: white !important;
+    -webkit-box-shadow: 0px 3px 20px 0px rgba(145, 148, 206, 0.11);
+    box-shadow: 0px 3px 20px 0px rgba(68, 68, 68, 0.11);
+}
+
+@media (max-width: 1024px){
+.m-brand {
+    width: 100%;
+    position: relative;
+    height: 65px !important;
+    padding: 0px 25px;
+    background-color: #c01720 !important;
+    z-index: 2;
+}
+img.rata {
+    height: 65px !important;
+}
+
+.m-brand .m-brand__tools .m-brand__icon>i {
+    color: #ffffff;
+}
+}
+
+.bootstrap-select.show>.dropdown-toggle.btn-light, .bootstrap-select.show>.dropdown-toggle.btn-secondary.rata {
+    border-color:#f5bbbe !important;
+}
+.bootstrap-select>.dropdown-toggle.btn-light:focus, .bootstrap-select>.dropdown-toggle.btn-light.active, .bootstrap-select>.dropdown-toggle.btn-secondary:focus, .bootstrap-select>.dropdown-toggle.btn-secondary.active.rata {
+    background-color: transparent;
+    border-color: #f5bbbe !important;
+}
+
+.btn-rata {
+    color: #fff;
+    background-color: #c01720;
+    border-color: #c01720;
+}
+
+.borderless{
+    border: none;
+}
+
+button.btn.btn-secondary:hover{
+    background-color: #dce3de;
+}

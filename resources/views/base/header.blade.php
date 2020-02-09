@@ -116,10 +116,10 @@
 														<div class="m-dropdown__content">
 															<ul class="m-nav m-nav--skin-light">
 																<li class="m-nav__item">
-																	<a href="" class="btn m-btn--pill btn-secondary m-btn m-btn--custom btn-sm m-btn--label-brand m-btn--bolder">Logout</a>
+																	<a href="" class="btn m-btn--pill  btn-secondary m-btn m-btn--custom m-btn--label-warning">Logout</a>
 																</li>
 																<li class="m-nav__item edit-profile">
-																	 <a href="" class="btn m-btn--pill btn-info m-btn btn-sm m-btn--custom m-btn--label-brand m-btn--bolder">Edit Profile</a> 
+																	 <a href="" class="btn m-btn--pill btn-warning m-btn btn-sm m-btn--custom m-btn--label-brand m-btn--bolder">Edit Profile</a> 
 																</li>
 															</ul>
 														</div>

@@ -14,11 +14,11 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return view('index');
-})->name('index');
+})->middleware('verified')->name('index');
 
 
 Route::group( [ 'middleware' => 'auth' ], function () {
@@ -291,3 +291,6 @@ Route::get('/home', function () {
 
 
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/members', 'MemberController@indexMember');
+Route::get('/testimoni', 'MemberController@indexTesti');
+Route::get('/pajak_pusat', 'PajakPusatController@indexPajakPusat');

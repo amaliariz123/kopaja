@@ -88,7 +88,57 @@
               <div class="m-portlet__body  m-portlet__body--no-padding">
                 <div class="row m-row--no-padding m-row--col-separator-xl">
                   <div class="col-md-12 col-lg-6 col-xl-3">
+                    <!--begin::Total Members-->
+                    <div class="m-widget24">
+                      <div class="m-widget24__item">
+                        <h4 class="m-widget24__title">
+                          Total Members
+                        </h4><br>
+                        <span class="m-widget24__desc">
+                        </span>
+                        <span class="m-widget24__stats m--font-info" style="margin-top: 5px">
+                        </span>
+                        <div class="m--space-40"></div>
+                      </div>
+                    </div>
+                    <!--end::Total Members-->
+                  </div>
 
+                  <div class="col-md-12 col-lg-6 col-xl-3">
+                    <!--begin::Taxes-->
+                    <div class="m-widget24">
+                      <div class="m-widget24__item">
+                        <h4 class="m-widget24__title">
+                          Taxes
+                        </h4><br>
+                        <span class="m-widget24__desc">
+                        </span>
+                        <span class="m-widget24__stats m--font-success" style="margin-top: 5px">
+                        </span>
+                        <div class="m--space-40"></div>
+                      </div>
+                    </div>
+                    <!--end::Taxes-->
+                  </div>
+
+                  <div class="col-md-12 col-lg-6 col-xl-3">
+                    <!--begin::Testimonials-->
+                    <div class="m-widget24">
+                      <div class="m-widget24__item">
+                        <h4 class="m-widget24__title">
+                          Testimonials
+                        </h4><br>
+                        <span class="m-widget24__desc">
+                        </span>
+                        <span class="m-widget24__stats m--font-danger" style="margin-top: 5px">
+                        </span>
+                        <div class="m--space-40"></div>
+                      </div>
+                    </div>
+                    <!--end::Testimonials-->
+                  </div>
+
+                   <div class="col-md-12 col-lg-6 col-xl-3">
                     <!--begin::Online Members-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
@@ -104,60 +154,6 @@
                     </div>
 
                     <!--end::Online Members -->
-                  </div>
-                  <div class="col-md-12 col-lg-6 col-xl-3">
-
-                    <!--begin::Total Members-->
-                    <div class="m-widget24">
-                      <div class="m-widget24__item">
-                        <h4 class="m-widget24__title">
-                          Total Members
-                        </h4><br>
-                        <span class="m-widget24__desc">
-                        </span>
-                        <span class="m-widget24__stats m--font-info" style="margin-top: 5px">
-                        </span>
-                        <div class="m--space-40"></div>
-                      </div>
-                    </div>
-
-                    <!--end::Total Members-->
-                  </div>
-                  <div class="col-md-12 col-lg-6 col-xl-3">
-
-                    <!--begin::Taxes-->
-                    <div class="m-widget24">
-                      <div class="m-widget24__item">
-                        <h4 class="m-widget24__title">
-                          Taxes
-                        </h4><br>
-                        <span class="m-widget24__desc">
-                        </span>
-                        <span class="m-widget24__stats m--font-success" style="margin-top: 5px">
-                        </span>
-                        <div class="m--space-40"></div>
-                      </div>
-                    </div>
-
-                    <!--end::Taxes-->
-                  </div>
-                  <div class="col-md-12 col-lg-6 col-xl-3">
-
-                    <!--begin::Testimonials-->
-                    <div class="m-widget24">
-                      <div class="m-widget24__item">
-                        <h4 class="m-widget24__title">
-                          Testimonials
-                        </h4><br>
-                        <span class="m-widget24__desc">
-                        </span>
-                        <span class="m-widget24__stats m--font-danger" style="margin-top: 5px">
-                        </span>
-                        <div class="m--space-40"></div>
-                      </div>
-                    </div>
-
-                    <!--end::Testimonials-->
                   </div>
                 </div>
               </div>

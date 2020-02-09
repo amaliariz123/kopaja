@@ -12,7 +12,7 @@
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                         <li class="m-nav__item m-nav__item--home">
                             <a href="#" class="m-nav__link m-nav__link--icon">
-                                <i class="m-nav__link-icon fas fa-user-friends"></i>
+                                <i class="m-nav__link-icon fa fa-comment-dots"></i>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
@@ -119,19 +119,15 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Institution</th>
+                                    <th>Testimonial</th>
+                                    <th>Member Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td></td>
-                                    <td></td>
 									<td></td>
-                                    <td></td>
                                     <td></td>
                                     <td>
                                       
@@ -151,7 +147,7 @@
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Member Detail</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Testimonial Detail</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -159,36 +155,21 @@
                                   <div class="modal-body">
                                     <form>
                                       <div class="form-group">
-                                        <label for="name" class="col-form-label">Name</label>
+                                        <label for="testimonial" class="col-form-label">Testimonial</label>
+                                         <textarea type="text" class="form-control" id="testimonial" disabled>
+                                        </textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="name" class="col-form-label">Member Name</label>
                                         <input type="text" class="form-control" id="name" value="" disabled>
                                       </div>
-                                      <div class="form-group">
-                                        <label for="year" class="col-form-label">No. KTP</label>
-                                        <input type="text" class="form-control" id="ktp" value="" disabled>
+                                       <div class="form-group">
+                                        <label for="institution" class="col-form-label">Institution</label>
+                                        <input type="text" class="form-control" id="institution" value="" disabled>
                                       </div>
                                        <div class="form-group">
-                                        <label for="npwp" class="col-form-label">No. NPWP</label>
-                                        <input type="text" class="form-control" id="npwp" value="" disabled>
-                                      </div>
-                                       <div class="form-group">
-                                        <label for="efin" class="col-form-label">EFIN</label>
-                                         <input type="text" class="form-control" id="efin" value="" disabled>
-                                      </div>
-                                        <div class="form-group">
-                                        <label for="email" class="col-form-label">Email</label>
-                                        <input type="text" class="form-control" id="email" value="" disabled>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="phone" class="col-form-label">Phone</label>
-                                        <input type="text" class="form-control" id="phone" value="" disabled>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="address" class="col-form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" value="" disabled>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="register-at" class="col-form-label">Register Date</label>
-                                        <input type="text" class="form-control" id="created_at" value="" disabled>
+                                        <label for="created_at" class="col-form-label">Added at</label>
+                                         <input type="text" class="form-control" id="created_at" value="" disabled>
                                       </div>
                                     </form>
                                   </div>

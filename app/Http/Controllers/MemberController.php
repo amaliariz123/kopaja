@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Users;
+use App\Models\Users;
+
 
 class MemberController extends Controller
 {
@@ -14,6 +15,7 @@ class MemberController extends Controller
 
     public function indexTesti()
     {
+
     	return view('users.testimoni_index');
     }
 }

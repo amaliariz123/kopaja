@@ -18,7 +18,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return view('index');
-})->middleware('verified')->name('index');
+})->name('index');
 
 
 Route::group( [ 'middleware' => 'auth' ], function () {
@@ -287,7 +287,7 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
 Route::get('/home', function () {
     return view('index');
-})->name('home');
+})->middleware('verified')->name('home');
 
 
 Route::get('/dashboard', 'DashboardController@index');

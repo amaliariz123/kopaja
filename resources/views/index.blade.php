@@ -15,7 +15,7 @@
                                 Dilengkapi dengan materi perpajakan.
                             </p>
                             <a href="#" class="btn_1">View Course </a>
-                            <a href="{{ route('register') }}" class="btn_2">Sign Up </a>
+                            <a href="{{ route('registerPage') }}" class="btn_2">Sign Up </a>
                         </div>
                     </div>
                 </div>

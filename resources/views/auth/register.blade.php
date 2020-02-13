@@ -33,7 +33,7 @@
                     <div class="learning_member_text">
                     	<center>
                         <h1 style="font-weight: bold;">REGISTER</h1><br>
-							<form method="POST" action="{{ route('register') }}">
+							<form method="POST" action="{{ route('register.store') }}">
                         @csrf
                                 <div class="form-group">
                                     <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('First Name') }}" id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
@@ -49,6 +49,16 @@
                                         <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Last Name') }}" id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus></h5>
 
                                         @error('last_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+
+                                <div class="form-group">
+                                        <h5><input style="display:none" value="member" placeholder="{{ __('Role') }}" id="role" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ old('role') }}" required autocomplete="role" autofocus></h5>
+
+                                        @error('role')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

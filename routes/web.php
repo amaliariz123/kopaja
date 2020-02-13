@@ -20,6 +20,13 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
+Route::resource('register', 'Auth\RegisterController');
+
+Route::get('/registerPage',function(){
+    return view('auth.register');
+})->name('registerPage');
+
+
 
 Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/pajakpusatpasal4',function(){
@@ -252,20 +259,12 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     })->name('pajakprovdankab');
 
     Route::get('/cekSoalpajakprovdankab', 'soalController@cekSoalpajakprovdankab')->name('cekSoalpajakprovdankab');
+    
 
 
 
 
-
-    Route::get('/tentang',function(){
-        return view('tentang');
-    })->name('tentang');
-
-
-    Route::get('/bantuan',function(){
-        return view('bantuan');
-    })->name('bantuan');
-
+    
 
     Route::get('/contact',function(){
         return view('tentang');
@@ -283,6 +282,15 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
     Route::get('/downloadAllMateri', 'DownloadController@allMateri')->name('downloadAllMateri');
 });
+Route::get('/tentang',function(){
+    return view('tentang');
+})->name('tentang');
+
+
+Route::get('/bantuan',function(){
+    return view('bantuan');
+})->name('bantuan');
+
 
 
 Route::get('/home', function () {

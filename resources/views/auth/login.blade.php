@@ -61,16 +61,17 @@
                                     @enderror
 							    </h5>
 							  </div> 
-                              <br> 
+                            
 
                             <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="col-md-6 offset-md-1">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
                                     </div>
                                 </div>
                             </div>
+                            <br>
 
 	                        <div>
                                 <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('Login') }}</button></h5><br>
@@ -78,7 +79,7 @@
                                 @if (Route::has('password.request'))
                                     <a href="{{ route('password.request') }}"><h6>Forgot Username/Password?</h6></a><br><br><br>
                                 @endif
-								<h6><a class="btn_2" href="{{Route('register')}}" style="height: 20%">Create Account</a></h6><br>
+								<h6><a class="btn_2" href="{{Route('register.store')}}" style="height: 20%">Create Account</a></h6><br>
 	                        </div>
 							</form>    
 						</center>     

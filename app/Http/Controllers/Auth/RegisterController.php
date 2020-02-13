@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -37,9 +40,16 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $user = Auth::user();
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        
+ 
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -65,16 +75,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {       
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'tempat_lahir' => $data['tempat_lahir'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
-            'instansi' => $data['instansi'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+      
+        
+
+    public function store(Request $request)
+    {
+        $user = new User;
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->role = $request->input('role');
+        $user->tempat_lahir = $request->input('tempat_lahir');
+        $user->tanggal_lahir = $request->input('tanggal_lahir'); 
+        $user->instansi = $request->input('instansi');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        
+        if($user){
+            //$user->code=SendOTP::sendOTP($user->phone);
+            $user->save();
+            return redirect('login');
+        }
     }
+
+    
+
 }

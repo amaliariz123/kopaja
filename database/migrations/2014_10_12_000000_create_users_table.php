@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('role');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('instansi');

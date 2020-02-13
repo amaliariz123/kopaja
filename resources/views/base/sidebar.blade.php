@@ -76,19 +76,19 @@
 			</li>
 
 			<li class="m-menu__section m-menu__section--first">
-				<h4 class="m-menu__section-text">MATERI DAN LATIHAN</h4>
+				<h4 class="m-menu__section-text">SETTING SOAL-SOAL</h4>
 				<i class="m-menu__section-icon flaticon-more-v2"></i>
 			</li>
-		
-			<li class="m-menu__item  m-menu__item--submenu @yield('materi')" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="" class="m-menu__link m-menu__toggle">
+
+			<li class="m-menu__item  m-menu__item--submenu @yield('contoh')" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{url('/contoh_soal')}}" class="m-menu__link m-menu__toggle">
 				<i class="m-menu__link-icon fa fa-file-alt"></i>
-					<span class="m-menu__link-text">Materi Perpajakan</span>
+					<span class="m-menu__link-text">Contoh Soal</span>
 				</a>
 			</li>
 			
-			<li class="m-menu__item  m-menu__item--submenu @yield('latihan')" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-book-reader"></i><span class="m-menu__link-text">Latihan Soal</span>
+			<li class="m-menu__item @yield('latihan') m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{url('/latihan_soal')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-book-open"></i><span class="m-menu__link-text">Latihan Soal</span>
 				</a>
 			</li>
 			

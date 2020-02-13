@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return view('index');
@@ -295,7 +295,17 @@ Route::get('/bantuan',function(){
 
 Route::get('/home', function () {
     return view('index');
-})->name('home');
+})->middleware('verified')->name('home');
 
 
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/members', 'MemberController@indexMember');
+Route::get('/testimoni', 'MemberController@indexTesti');
+Route::get('/pajak_pusat', 'PajakPusatController@indexPajakPusat');
+Route::get('/pajak_daerah','PajakDaerahController@indexPajakDaerah');
+
+Route::get('/bantuan_aplikasi','BantuanController@indexBantuan');
+
+Route::get('/tentang_aplikasi','TentangController@indexTentang');
+Route::get('/contact_media','ContactController@indexContact');
+Route::get('/tim_pengembang','DevelopersController@indexDev');

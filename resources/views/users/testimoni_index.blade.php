@@ -31,8 +31,8 @@
             </div>
         </div>
     </div>
+    <!-- END: Subheader -->
 
-        <!-- END: Subheader -->
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">
@@ -53,56 +53,30 @@
                         @csrf
                          <div class="row m--margin-bottom-20">
                             <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label>Firts Name:</label>
-                                <input type="text" name="first_name" class="form-control m-input" placeholder="E.g: John" data-col-index="0" value="">
+                                <label>Institution:</label>
+                                <input type="text" name="institution" class="form-control m-input" placeholder="E.g: Universitas Gadjah Mada" data-col-index="0" value="">
                             </div>
                             <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label>Last Name:</label>
-                                <input type="text" name="last_name" class="form-control m-input" placeholder="E.g: Smith" data-col-index="0" value="">
+                                <label>Member Name:</label>
+                                <input type="text" name="member_name" class="form-control m-input" placeholder="E.g: John Doe" data-col-index="0" value="">
                             </div>
                             <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label>Email:</label>
-                                <input type="text" name="email" class="form-control m-input" placeholder="E.g: john@mail.com" data-col-index="0" value="">
+                                <label>Testimonial:</label>
+                                <input type="text" name="testi" class="form-control m-input" placeholder="E.g: This is good!" data-col-index="0" value="">
                             </div>
-                            <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label>Place of Birth:</label>
-                                <input type="text" name="ktp" class="form-control m-input" placeholder="E.g: Jakarta" data-col-index="0" value="">
+                           <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
+                                <label>Added at:</label>
+                                <div class="input-group date">
+                                   <input type="text" name="access_time" class="form-control m-input" placeholder="select date" id="m_datepicker_3" data-date-format="yyyy-mm-dd" value="" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar"></i>
+                                            </span>
+                                        </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row m--margin-bottom-20">
-                            <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label class="form-control-label">Age</label>
-                                <select class="form-control m-input" name="member_age">
-                                    <option value="">Select</option>
-                                    <?php
-                                        for($i=12; $i<60; $i++) {
-                                            echo "<option value=".$i.">".$i."</option>";
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label>Province:</label>
-                                <select class="form-control m-input" name="province">
-                                    <option value="">Select</option>
-                                    <option value="xxx">Jawa</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label>City:</label>
-                                <select class="form-control m-input" name="city">
-                                    <option value="">Select</option>
-                                    <option value="vvv">Solo</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
-                                <label>Register Date:</label>
-                                <select class="form-control m-input" name="institution">
-                                    <option value="">Select</option>
-                                    <option value="yyy">Universitas Gadjah Mada</option>
-                                </select>
-                            </div>
-                        </div>
+
                         <div class="m-separator m-separator--md m-separator--dashed"></div>
                         <div class="row">
                             <div class="col-lg-12">
@@ -197,6 +171,7 @@
         <!--End::Section-->
     </div>
 </div>
+
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{url('js/jquery-ui.min.js')}}"></script>

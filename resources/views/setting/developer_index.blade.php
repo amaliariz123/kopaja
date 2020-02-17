@@ -47,132 +47,82 @@
                                 </h3>
                             </div>
                         </div>
-                    </div>
-                  <div class="m-portlet__body">
-                        <!--begin: Search form -->
-                        <div class="d-flex justify-content-end">
-                            <form action="" class="m-form" method="POST">
-                                @csrf
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Name/Email" name="keyword" value="">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-warning m-btn m-btn--custom m-btn--outline-2x" type="submit">Search</button>
-                                    </div>
+                        <div class="m-portlet__head-tools">
+                                    <ul class="m-portlet__nav">
+                                        <li class="m-portlet__nav-item">
+                                            <a href="#" class="btn btn-warning m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air">
+                                                <span>
+                                                    <i class="la la-plus-circle"></i>
+                                                    <span>New Data</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="m-portlet__nav-item"></li>
+                                        <li class="m-portlet__nav-item">
+                                            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                                                <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+                                                    <i class="la la-ellipsis-h m--font-brand"></i>
+                                                </a>
+                                                <div class="m-dropdown__wrapper">
+                                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                    <div class="m-dropdown__inner">
+                                                        <div class="m-dropdown__body">
+                                                            <div class="m-dropdown__content">
+                                                                <ul class="m-nav">
+                                                                    <li class="m-nav__section m-nav__section--first">
+                                                                        <span class="m-nav__section-text">Quick Actions</span>
+                                                                    </li>
+                                                                    <li class="m-nav__item">
+                                                                        <a href="" class="m-nav__link">
+                                                                            <i class="m-nav__link-icon flaticon-share"></i>
+                                                                            <span class="m-nav__link-text">Create Post</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="m-nav__item">
+                                                                        <a href="" class="m-nav__link">
+                                                                            <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                                            <span class="m-nav__link-text">Send Messages</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="m-nav__item">
+                                                                        <a href="" class="m-nav__link">
+                                                                            <i class="m-nav__link-icon flaticon-multimedia-2"></i>
+                                                                            <span class="m-nav__link-text">Upload File</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </form>
-                        </div>
-                        <br><br>
-                        <!--end: Search form -->
+                    </div>
+
+                  <div class="m-portlet__body">
 
                         <!--begin: Datatable -->
-                        <table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
+                        <table class="table table-striped table-bordered" id="table_dev">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Action</th>
+                                    <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-                                            <div class="btn-group btn-group-sm" role="group" aria-label="button group">
-                                                <a href="#" data-id="{{url('images/picts/user.png')}}" class="btn btn-info m-btn m-btn--icon btn-sm m-btn--icon-only" data-toggle="modal" data-target="#detailModal">
-                                                    <i class="fa fa-info-circle"></i>
-                                                </a>
-                                                 
-                                                 <a href="#" class="btn btn-warning m-btn m-btn--icon btn-sm m-btn--icon-only">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                              
-                                                <a href="#" class="btn btn-danger m-btn m-btn--icon btn-sm m-btn--icon-only" data-toggle="modal" data-target="#deleteModal">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </div>
-                                        </div>    
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
-
-                        <!--begin: Detail Modal -->
-                        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Developer Detail</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <form>
-                                      <div class="form-group">
-                                        <img src="" />
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="name" class="col-form-label">Member Name</label>
-                                        <input type="text" class="form-control" id="name" value="" disabled>
-                                      </div>
-                                       <div class="form-group">
-                                        <label for="institution" class="col-form-label">Institution</label>
-                                        <input type="text" class="form-control" id="institution" value="" disabled>
-                                      </div>
-                                       <div class="form-group">
-                                        <label for="created_at" class="col-form-label">Added at</label>
-                                         <input type="text" class="form-control" id="created_at" value="" disabled>
-                                      </div>
-                                    </form>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <div class="row">
-                                        <div class="col-md-offset-4 col-md-1">
-                                             <button type="button" class="btn m-btn--pill    btn-outline-warning m-btn m-btn--outline-2x" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!--end: detail Modal -->
-
-                            <!--begin: Delete Modal -->
-                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Are You sure want to delete <b>the name</b> ?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                            <a class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-                                            <a href="" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <!--end: Delete Modal -->
+                        <!--End::Datatable-->
+                       
                     </div>
                 </div>
             </div>
         </div>
-        <!--begin::pagination-->
-        <div class="float-right">
-            Showing 0 to 0 of 0 entries
-           
-        </div>
-        <!--end::pagination-->
-
         <!--End::Section-->
     </div>
 </div>
@@ -180,8 +130,31 @@
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
+<script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.js')}}"></script>
 @endsection
 
 @section('custom-script')
-
+<script>
+    var thisTable;
+    $(document).ready(function(){
+        thisTable = $('#table_dev').DataTable({
+                serverSide: true,
+                stateSave: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search data"
+                },
+            ajax: {
+                url: "{{url('/get_data')}}",
+                type: "GET",
+            },
+            columns: [
+                {data: 'name', name:'name', visible:true},
+                {data: 'email', name:'email', visible:true},
+                {data: 'option', name:'option', visible:true},
+            ],
+        });
+    });
+</script>
 @endsection

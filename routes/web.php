@@ -301,6 +301,7 @@ Route::get('/bantuan_aplikasi','BantuanController@indexBantuan');
 Route::get('/tentang_aplikasi','TentangController@indexTentang');
 Route::get('/contact_media','ContactController@indexContact');
 Route::get('/tim_pengembang','DevelopersController@indexDev');
+Route::get('/get_data', 'DevelopersController@getData');
 
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');

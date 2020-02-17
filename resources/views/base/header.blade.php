@@ -33,6 +33,8 @@
 		<!--begin::Page Vendors Styles -->
 		<link href="{{ url ('assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ url ('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.css')}}">
+		
 		{{-- <link href="{{ url ('css/style.css')}}" rel="stylesheet" type="text/css" /> --}}
 		<link href="{{ url ('assets/style.css')}}" rel="stylesheet" type="text/css" />
 

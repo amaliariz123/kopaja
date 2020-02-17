@@ -42,7 +42,7 @@
 						<li class="m-menu__item @yield('members1')" aria-haspopup="true">
 							<a href="{{url('/members')}}" class="m-menu__link ">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
-								<span class="m-menu__link-text">List</span>
+								<span class="m-menu__link-text">Data Member</span>
 							</a>
 						</li>
 

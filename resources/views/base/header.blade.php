@@ -42,8 +42,12 @@
 		{{-- <link rel="stylesheet" href="{{url('gallery/css/gallery-clean.css')}}"> --}}
 		<link rel="stylesheet" href="{{url('gallery/css/ekko-lightbox.css')}}">
 
+		<!--Jasny-bootstrap-->
+		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}">
+
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="{{url('/')}}/etrain/img/favicon.png" />
+
 		@yield('custom-css')
 	</head>
 
@@ -165,13 +169,11 @@
 		<div id="m_scroll_top" class="m-scroll-top">
 			<i class="la la-arrow-up"></i>
 		</div>
-
 		<!-- end::Scroll Top -->
 
 		<!--begin::Global Theme Bundle -->
 		<script src="{{url('assets/vendors/base/vendors.bundle.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/base/scripts.bundle.js')}}" type="text/javascript"></script>
-
 		<!--end::Global Theme Bundle -->
 
 		<!--begin::Page Vendors -->
@@ -183,20 +185,6 @@
 		<script src="{{url('assets/app/js/dashboard.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
 		@yield('custom-script')
-		<script>
-			$("#delete1").click(function(e){
-				swal({
-					title:"Are you sure?",
-					text:"You won't be able to revert this!",
-					type:"warning",
-					showCancelButton:!0,
-					confirmButtonText:"Yes, delete it!",
-				}).then(function(e){
-					e.value&&swal("Deleted!","Your file has been deleted.","success")
-				})
-			})
-		</script>
-		
 
 		<!-- Datepicker -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
@@ -204,6 +192,7 @@
 
 		<!-- Summernote -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/summernote.js')}}" type="text/javascript"></script>
+
 		<!-- Select2 -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/select2.js')}}" type="text/javascript"></script>
 
@@ -212,7 +201,14 @@
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-select.js')}}" type="text/javascript"></script>
 		<!--end::Page Scripts -->
 
-		<!--Gallery-->
+		<!--Datatables-->
+		<script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
+		<script src="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.js')}}"></script>
+		<!--end::Datatables -->
+
+		<!--Jasny-bootstrap-->
+		<script src="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.js')}}"></script>
+
 	</body>
 
 	<!-- end::Body -->

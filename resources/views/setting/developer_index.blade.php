@@ -43,19 +43,19 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    List of Developer Team
+                                    Daftar Tim Pengembang
                                 </h3>
                             </div>
                         </div>
                         <div class="m-portlet__head-tools">
                                     <ul class="m-portlet__nav">
                                         <li class="m-portlet__nav-item">
-                                            <a href="#" class="btn btn-warning m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air">
+                                            <button type="button" class="btn btn-warning m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                                 <span>
                                                     <i class="la la-plus-circle"></i>
                                                     <span>New Data</span>
                                                 </span>
-                                            </a>
+                                            </button>
                                         </li>
                                         <li class="m-portlet__nav-item"></li>
                                         <li class="m-portlet__nav-item">
@@ -127,18 +127,27 @@
     </div>
 </div>
 
+@include('setting.developer_create')
+@include('setting.developer_edit')
+
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
-<script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.js')}}"></script>
 @endsection
 
 @section('custom-script')
 <script>
     var thisTable;
     $(document).ready(function(){
+        $("#btn-create").on('click', function(){
+            $('input[name=name]').val('');
+            $('input[email=email]').val('');
+            $('.fileinput-remove-button').click();
+            $('#dev-create-modal').modal('show');
+        });
+
         thisTable = $('#table_dev').DataTable({
+                processing: true,
                 serverSide: true,
                 stateSave: true,
                 language: {

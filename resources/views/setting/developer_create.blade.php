@@ -10,7 +10,6 @@
 			</div>
 			<div class="modal-body">
 				<form id="developer-store" method="post" enctype="multipart/form-data" files=true>
-					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
 						<label for="name" class="form-control-label">Name:</label>
@@ -38,13 +37,51 @@
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="reset" class="btn btn-secondary">Reset</button>
 						<button type="submit" class="btn btn-warning">Simpan</button>
+						<button type="reset" class="btn btn-outline-warning">Reset</button>				
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-
 <!--end::Modal-->
+
+@push('custom-script')
+<script>
+	$(document).ready(function(){
+		$.ajaxSetup({
+        	headers: {
+            	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        	}
+		});
+
+		$('#developer-store').on('submit', function(e){
+			e.preventDefault();
+			$.ajax({				
+				'type' : 'POST',
+				'url' : "{{url('/tim_pengembang/store')}}",
+				'data' : new FormData(this),
+				'processData' : false,
+				'contentType' : false,
+				'dataType' : 'JSON',
+				'success' : function(data){
+					if(data.success)
+					{
+						$('#dev-create-modal').modal('hide');
+						toastr.success('Success!', 'Success', {timeOut:5000});
+						thisTable.ajax.reload();
+					} else {
+						console.log(data);
+						for(var count=0; count < data.errors.length; count++)
+						{
+							toastr.error(data.errors[count], 'Error', {timeOut:5000});
+						}
+					}
+				}
+			})
+		})
+	})
+</script>
+@endpush

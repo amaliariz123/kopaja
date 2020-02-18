@@ -66,12 +66,9 @@ class DevelopersController extends Controller
 
     	$validator = Validator::make($request->all(), $rules);
 
-    	if($validator->fail())
+    	if($validator->fails())
     	{
-    		return response()->json([
-    			'status' => 'error',
-    			'messages' => $validator->errors()->all()
-    		]);
+    		return response()->json(['errors' => $validator->errors()->all()]);
     	} else {
     		if(!empty($request->picture))
     		{
@@ -85,11 +82,43 @@ class DevelopersController extends Controller
     	}
     	//store data to table developers_team
     		Developer::create([
-    			'name' => $request('name'),
-    			'email' => $request('email'),
+    			'name' => request('name'),
+    			'email' => request('email'),
     			'picture' => $filename
     		]);
 
-    	return view('setting.developer_index');
+    	//return view('setting.developer_index');
+    	 return response()->json(['success'=>'Data added successfully']);
     }
+
+     /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Response
+     */
+     public function edit($name)
+     {
+
+     }
+
+     /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+     public function update(Request $request)
+     {
+
+     }
+
+     /**
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return Response
+     */
+     public function delete($name)
+     {
+
+     }
 }

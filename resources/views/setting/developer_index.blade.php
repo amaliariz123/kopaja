@@ -135,10 +135,13 @@
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
 @endsection
 
-@section('custom-script')
+@push('custom-script')
 <script>
     var thisTable;
+
     $(document).ready(function(){
+
+        /*trigger dev-create-modal*/
         $("#btn-create").on('click', function(){
             $('input[name=name]').val('');
             $('input[email=email]').val('');
@@ -146,6 +149,7 @@
             $('#dev-create-modal').modal('show');
         });
 
+        /*parsing data to datatable*/
         thisTable = $('#table_dev').DataTable({
                 processing: true,
                 serverSide: true,
@@ -164,6 +168,9 @@
                 {data: 'option', name:'option', visible:true},
             ],
         });
+
+        /*trigger dev-edit-modal*/
+        
     });
 </script>
-@endsection
+@endpush

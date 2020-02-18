@@ -170,7 +170,37 @@
         });
 
         /*trigger dev-edit-modal*/
-        
+
+
+        /*trigger dev-delete-modal */
+        $('#table_dev tbody').on('click', 'button', function(){
+            var data = thisTable.row($(this).parents('tr')).data();
+            swal({
+                text: "Are you sure to delete this?",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true,
+                type: 'warning',
+            })
+            .then((result) => {
+                if(result.value) 
+                {
+                    $.ajax({
+                        url: "{{url('/tim_pengembang/delete')}}"+"/"+data['id'],
+                        method: 'get',
+                        success: function(result){
+                            thisTable.ajax.reload();
+                            swal('Deleted!','Your file has been deleted.','success')
+                        }  
+                    })
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swal('Cancelled','Delete data cancelled','info')
+                }
+            });
+        });
     });
 </script>
 @endpush
+

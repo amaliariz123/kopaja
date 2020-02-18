@@ -303,6 +303,7 @@ Route::get('/contact_media','ContactController@indexContact');
 Route::get('/tim_pengembang','DevelopersController@indexDev');
 Route::get('/get_data', 'DevelopersController@getData');
 Route::post('/tim_pengembang/store', 'DevelopersController@store');
+Route::get('/tim_pengembang/delete/{id}', 'DevelopersController@delete');
 
 
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');

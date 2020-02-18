@@ -96,7 +96,7 @@ class DevelopersController extends Controller
      * @param int $id
      * @return Response
      */
-     public function edit($name)
+     public function edit($id)
      {
 
      }
@@ -117,8 +117,12 @@ class DevelopersController extends Controller
      * @param int $id
      * @return Response
      */
-     public function delete($name)
+     public function delete($id)
      {
+     	$data = Developer::find($id);
+     	Storage::delete('public/images/developers_team/'.$data->picture);
+     	$data->delete();
 
+     	return view('setting.developer_index');
      }
 }

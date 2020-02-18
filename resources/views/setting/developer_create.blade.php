@@ -70,13 +70,13 @@
 					if(data.success)
 					{
 						$('#dev-create-modal').modal('hide');
-						toastr.success('Success!', 'Success', {timeOut:5000});
+						toastr.success('Success!', 'Success', {timeOut:6000});
 						thisTable.ajax.reload();
 					} else {
 						console.log(data);
 						for(var count=0; count < data.errors.length; count++)
 						{
-							toastr.error(data.errors[count], 'Error', {timeOut:5000});
+							toastr.error(data.errors[count], 'Error', {timeOut:6000});
 						}
 					}
 				}

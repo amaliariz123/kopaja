@@ -3,7 +3,9 @@
 	<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light " m-menu-vertical="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 			<li class="m-menu__item @yield('dashboard') m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="{{url ('/dashboard') }}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-dashboard"></i><span class="m-menu__link-text">Dashboard</span></a>
+				<a href="{{url ('/dashboard') }}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon la la-dashboard"></i>
+					<span class="m-menu__link-text">Dashboard</span>
+				</a>
 			</li>
 			<li class="m-menu__section m-menu__section--first">
 				<h4 class="m-menu__section-text">PENGGUNA</h4>
@@ -64,14 +66,7 @@
 			<li class="m-menu__item  m-menu__item--submenu @yield('pjkpusat')" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{url('/pajak_pusat')}}" class="m-menu__link m-menu__toggle">
 				<i class="m-menu__link-icon fa fa-calculator"></i>
-					<span class="m-menu__link-text">Pajak Pusat</span>
-				</a>
-			</li>
-			
-			<li class="m-menu__item  m-menu__item--submenu @yield('pjkdaerah')" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="{{url('/pajak_daerah')}}" class="m-menu__link m-menu__toggle">
-				<i class="m-menu__link-icon fas fa-newspaper"></i>
-					<span class="m-menu__link-text">Pajak Daerah</span>
+					<span class="m-menu__link-text">Pajak</span>
 				</a>
 			</li>
 
@@ -88,7 +83,7 @@
 			</li>
 			
 			<li class="m-menu__item @yield('latihan') m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="{{url('/latihan_soal')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-book-open"></i><span class="m-menu__link-text">Latihan Soal</span>
+				<a href="{{url('/latihan_soal')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon fa fa-book-open"></i><span class="m-menu__link-text">Kuis</span>
 				</a>
 			</li>
 			

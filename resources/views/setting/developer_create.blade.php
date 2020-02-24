@@ -1,6 +1,6 @@
 <!--begin::Modal-->
 <div class="modal fade" id="dev-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Anggota Pengembang</h5>
@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="developer-store" method="post" enctype="multipart/form-data" files=true>
+				<form id="developer-store" method="put" enctype="multipart/form-data" files=true>
 					<fieldset class="content-group">
 					<div class="form-group">
 						<label for="name" class="form-control-label">Name:</label>
@@ -23,15 +23,15 @@
 						<label for="Picture" class="form-control-label">Picture:</label>
 						<div class="col-md-9">
 							<div class="fileinput fileinput-new" data-provides="fileinput">
-						  <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
-						    <img src="{{url('images/no-image.png')}}"  alt="" />
-						  </div>
-						  <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-						  <div>
-						    <span class="btn btn-outline-warning btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-						    <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
-						  </div>
-						</div>
+							  <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
+							    <img src="{{url('images/no-image.png')}}"  alt="" />
+							  </div>
+							  <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+							  <div>
+							    <span class="btn btn-outline-warning btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+							    <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+							  </div>
+							</div>
 						</div>
 					</div>
 					</fieldset>
@@ -70,7 +70,7 @@
 					if(data.success)
 					{
 						$('#dev-create-modal').modal('hide');
-						toastr.success('Success!', 'Success', {timeOut:6000});
+						toastr.success('Success add new data!', 'Success', {timeOut:6000});
 						thisTable.ajax.reload();
 					} else {
 						console.log(data);

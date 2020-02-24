@@ -32,8 +32,7 @@ class DevelopersController extends Controller
     	$data = Developer::orderBy('created_at','desc')->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button type="button" id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"> <i class="la la-exclamation-circle"></i></button>';
-            $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"><i class="la la-pencil-square"></i></button>';
+            $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"> <i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only"><i class="la la-trash"></i></button>';
 
                 return $btn;
@@ -60,7 +59,7 @@ class DevelopersController extends Controller
     {
     	$rules = [
     		'name' => 'required|max:50',
-    		'email' => 'nullable',
+    		'email' => 'nullable|email',
     		'picture' => 'nullable|max:2048|mimes:png,jpg,jpeg',
     	];
 
@@ -98,7 +97,9 @@ class DevelopersController extends Controller
      */
      public function edit($id)
      {
+     	$data = Developer::find($id);
 
+     	return response()->json(['status' => 'OK', 'data' => $data], 200);
      }
 
      /**
@@ -107,9 +108,50 @@ class DevelopersController extends Controller
      * @param int $id
      * @return Response
      */
-     public function update(Request $request)
+     public function update(Request $request, $id)
      {
+     	$data = Developer::find($id);
 
+     	$rules = [
+     		'edit_name' => 'required|max:50',
+     		'edit_email' => 'nullable|email',
+     		'edit_picture' => 'nullable|max:2048|mimes:png,jpg,jpeg',
+     	];
+
+     	$validator = Validator::make($request->all(), $rules);
+     	if($validator->fails())
+     	{
+     		return response()->json(['errors' => $validator->errors()->all()]); 
+     	} else {
+     		if(!empty($request->picture))
+    		{
+    			$file = $request->file('edit_picture');
+    			$extensions = strtolower($file->getClientOriginalExtension());
+    			$filename = $request->title.'.'.$extensions;
+    			Storage::put('public/images/developers_team/'.$filename, File::get($file));    			
+    		} else {
+    			$filename = 'blank.jpg';
+    		}
+
+    		$data->name=$request->edit_name;
+		    $data->email=$request->edit_email;
+		    $data->picture=$filename;
+		    $data->save();
+		    return response()->json(['success'=>'Data updated successfully']);
+     	}
+     }
+
+
+     /**
+     * Fetch picture url from database.
+     * @param int $id
+     * @return Response
+     */
+     public function getPicture($id)
+     {
+     	$picture = Developer::find($id);
+
+     	return Image::make(Storage::get('public/images/developers_team/'.$picture->picture))->response();
      }
 
      /**

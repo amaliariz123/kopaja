@@ -39,8 +39,8 @@
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-warning">Simpan</button>
-						<button type="reset" class="btn btn-outline-warning">Reset</button>				
+						<button type="submit" class="btn btn-warning">Perbarui</button>
+						<button type="reset" class="btn btn-outline-warning">Reset</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 					</div>
 				</form>

@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="help-store" method="post" enctype="multipart/form-data" files=true>
+				<form id="help-store" method="post" enctype="multipart/form-data">
 					<fieldset class="content-group">
 					<div class="form-group">
 						<label for="question" class="form-control-label">Question:</label>

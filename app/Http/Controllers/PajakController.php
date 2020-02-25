@@ -3,21 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Help;
-use \Yajra\Datatables\Datatables;
-use Illuminate\Support\Facades\Input;
+use App\Models\Tax;
 use Validator;
+use \Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
+use File;
 
-class BantuanController extends Controller
+
+class PajakController extends Controller
 {
 
-	/**
+	 /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function indexBantuan()
+    public function indexPajak()
     {
-    	return view('setting.bantuan_index');
+    	return view('pajak.pajak_index');
     }
 
     /**
@@ -26,7 +29,7 @@ class BantuanController extends Controller
      */
     public function getData()
     {
-    	$data = Help::orderBy('created_at','desc')->get();
+    	$data = Tax::orderBy('created_at','desc')->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
             $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"> <i class="la la-pencil-square"></i></button>';
@@ -45,7 +48,7 @@ class BantuanController extends Controller
      */
     public function create()
     {
-    	return view('setting.bantuan_create');
+    	return view('pajak.pajak_create');
     }
 
     /**
@@ -55,25 +58,7 @@ class BantuanController extends Controller
      */
     public function store(Request $request)
     {
-    	$validate = [
-    		'question' => 'required',
-    		'answer' => 'required',
-    	];
 
-    	$validator = Validator::make($request->all(), $validate);
-
-    	if($validator->fails())
-    	{
-    		return response()->json(['errors' => $validator->errors()->all()]);
-    	} else {
-    		//store to table help
-	    	Help::create([
-	    		'question' => request('question'),
-	    		'answer' => request('answer')
-	    	]);
-    	}
-
-    	return response()->json(['success'=>'Data added successfully']);
     }
 
     /**
@@ -83,63 +68,37 @@ class BantuanController extends Controller
      */
     public function show($id)
     {
-    	$data = Help::find($id);
 
-    	return response()->json(['status' => 'OK', 'data' => $data], 200);
     }
 
-    /**
+     /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Response
      */
-    public function edit($id)
-    {
-    	$data = Help::find($id);
+     public function edit($id)
+     {
 
-    	return response()->json(['status' => 'OK', 'data' => $data], 200);
+     }
 
-    }
-
-    /**
+     /**
      * Update the specified resource in storage.
      * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
-    {
-    	$data = Help::find($id);
+     public function update(Request $request, $id)
+     {
 
-    	$validate = [
-    		'question' => 'required',
-    		'answer' => 'required',
-    	];
+     }
 
-    	$validator = Validator::make($request->all(), $validate);
-
-    	if($validator->fails())
-    	{
-    		return response()->json(['errors' => $validator->errors()->all()]);
-    	} else{
-    		$data->question = $request->edit_question;
-    		$data->answer = $request->edit_answer;
-    		$data->save();
-
-    		return response()->json(['success'=>'Data updated!']);
-    	}
-    }
-
-    /**
+     /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Response
      */
-    public function delete($id)
-    {
-    	$data = Help::find($id);
-    	$data->delete();
+     public function delete($id)
+     {
 
-    	return view('setting.bantuan_index');
-    }
+     }
 }

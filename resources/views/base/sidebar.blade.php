@@ -63,8 +63,8 @@
 				<i class="m-menu__section-icon flaticon-more-v2"></i>
 			</li>
 		
-			<li class="m-menu__item  m-menu__item--submenu @yield('pjkpusat')" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="{{url('/pajak_pusat')}}" class="m-menu__link m-menu__toggle">
+			<li class="m-menu__item  m-menu__item--submenu @yield('pajak')" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{url('/pajak')}}" class="m-menu__link m-menu__toggle">
 				<i class="m-menu__link-icon fa fa-calculator"></i>
 					<span class="m-menu__link-text">Pajak</span>
 				</a>

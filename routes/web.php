@@ -293,8 +293,10 @@ Route::get('/home', function () {
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');
-Route::get('/pajak_pusat', 'PajakPusatController@indexPajakPusat');
-Route::get('/pajak_daerah','PajakDaerahController@indexPajakDaerah');
+
+//pajak
+Route::get('/pajak', 'PajakController@indexPajak');
+Route::get('/pajak/get_data', 'PajakController@getData');
 
 //bantuan
 Route::get('/bantuan_aplikasi','BantuanController@indexBantuan');
@@ -302,8 +304,13 @@ Route::get('/bantuan_aplikasi/get_data','BantuanController@getData');
 Route::post('/bantuan_aplikasi/store', 'BantuanController@store');
 Route::get('/bantuan_aplikasi/delete/{id}', 'BantuanController@delete');
 Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
+Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
+Route::any('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
+
 
 Route::get('/tentang_aplikasi','TentangController@indexTentang');
+
+
 Route::get('/contact_media','ContactController@indexContact');
 
 //tim pengembang

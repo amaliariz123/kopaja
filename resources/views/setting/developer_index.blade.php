@@ -164,15 +164,15 @@
                     search: "_INPUT_",
                     searchPlaceholder: "Search..."
                 },
-            ajax: {
-                url: "{{url('/tim_pengembang/get_data')}}",
-                type: "GET",
-            },
-            columns: [
-                {data: 'name', name:'name', visible:true},
-                {data: 'email', name:'email', visible:true},
-                {data: 'option', name:'option', visible:true},
-            ],
+                ajax: {
+                    url: "{{url('/tim_pengembang/get_data')}}",
+                    type: "GET",
+                },
+                columns: [
+                    {data: 'name', name:'name', visible:true},
+                    {data: 'email', name:'email', visible:true},
+                    {data: 'option', name:'option', visible:true},
+                ],
         });
 
         /*trigger dev-delete-modal */

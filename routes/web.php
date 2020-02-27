@@ -297,6 +297,11 @@ Route::get('/testimoni', 'MemberController@indexTesti');
 //pajak
 Route::get('/pajak', 'PajakController@indexPajak');
 Route::get('/pajak/get_data', 'PajakController@getData');
+Route::post('/pajak/store','PajakController@store');
+Route::get('/pajak/show/{id}','PajakController@show');
+Route::get('/pajak/{id}/edit','PajakController@edit');
+Route::post('/pajak/update/{id}', 'PajakController@update');
+Route::get('/pajak/delete/{id}','PajakController@delete');
 
 //bantuan
 Route::get('/bantuan_aplikasi','BantuanController@indexBantuan');
@@ -309,7 +314,6 @@ Route::any('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 
 
 Route::get('/tentang_aplikasi','TentangController@indexTentang');
-
 
 Route::get('/contact_media','ContactController@indexContact');
 
@@ -327,4 +331,5 @@ Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
 
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
+    Route::get('pajak/{id}', 'DevelopersController@getPdf');
 });

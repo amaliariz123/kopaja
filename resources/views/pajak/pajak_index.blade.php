@@ -51,7 +51,7 @@
 
                                 <!--begin: Button add new data -->
                                 <li class="m-portlet__nav-item">
-                                    <button type="button" class="btn btn-warning m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
+                                    <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
                                             <span>New Data</span>
@@ -157,6 +157,7 @@
                 url: "{{url('pajak/get_data')}}",
                 type: "GET",
             },
+            deferRender: true,
             columns: [
                 {data:'name', name:'name', visible: true},
                 {data: 'tax_type', name: 'tax_type', visible: true},
@@ -164,6 +165,62 @@
                 {data: 'option', name: 'option', visible: true},
             ],
         });
+
+        //trigger to create-modal
+        $('#btn-create').on('click', function(){
+            $('input[name=name]').val('');
+            $('textarea[name=description]').val('');
+            $('input[name=tax_type]').val('');
+            $('input[name=module]').val('');
+            $('#tax-create-modal').modal('show');
+        });
+
+        //trigger to detail-modal
+        $('#table_pajak tbody').on('click', '#detail-btn', function(){
+            $("#tax-detail:input").val('');
+            $("#tax-detail-modal").modal('show');
+
+            var data = tabelPajak.row($(this).parents('tr')).data();
+            var id = data['id'];
+            var url = "{{url('/pajak/show')}}"+"/"+id;
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=name]').val(data['name']);
+            $('textarea[name=description]').val(data['description']);
+            $('input[name=tax_type]').val(data['tax_type']);
+            $('input[name=module]').val(data['module']);
+        });
+
+        //trigger to delete-modal
+        $('#table_pajak tbody').on('click', '#delete-btn', function(){
+            var data = tabelPajak.row($(this).parents('tr')).data();
+            swal({
+                text: "Are you sure to delete this?",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it.',
+                cancelButtonText: 'No, cancel.',
+                reverseButtons: true,
+                type: 'warning',
+            })
+            .then((result) => {
+                if(result.value) 
+                {
+                    $.ajax({
+                        url: "{{url('/pajak/delete')}}"+"/"+data['id'],
+                        method: 'get',
+                        success: function(result){
+                            tabelPajak.ajax.reload();
+                            swal('Deleted!','Your file has been deleted.','success')
+                        }  
+                    })
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swal('Cancelled','Delete data cancelled','info')
+                }
+            });
+        });
+
+
     });
 </script>
 @endpush

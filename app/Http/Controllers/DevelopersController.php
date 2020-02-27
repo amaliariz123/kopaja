@@ -32,8 +32,8 @@ class DevelopersController extends Controller
     	$data = Developer::orderBy('created_at','desc')->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"> <i class="la la-pencil-square"></i></button>';
-            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only"><i class="la la-trash"></i></button>';
+            $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"> <i class="la la-pencil-square"></i></button>';
+            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
 
                 return $btn;
         })
@@ -145,7 +145,7 @@ class DevelopersController extends Controller
      /**
      * Fetch picture url from database.
      * @param int $id
-     * @return Response
+     * @return Image
      */
      public function getPicture($id)
      {

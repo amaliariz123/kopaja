@@ -52,7 +52,7 @@
 
                                 <!--begin: Button add new data -->
                                 <li class="m-portlet__nav-item">
-                                    <button type="button" class="btn btn-warning m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
+                                    <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
                                             <span>New Data</span>
@@ -150,7 +150,7 @@
         /*trigger dev-create-modal*/
         $("#btn-create").on('click', function(){
             $('input[name=name]').val('');
-            $('input[email=email]').val('');
+            $('input[name=email]').val('');
             $('.fileinput-remove-button').click();
             $('#dev-create-modal').modal('show');
         });

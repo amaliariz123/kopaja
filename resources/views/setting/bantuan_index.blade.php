@@ -50,7 +50,7 @@
 
                                 <!--begin: Button add new data -->
                                 <li class="m-portlet__nav-item">
-                                    <button type="button" class="btn btn-warning m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
+                                    <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
                                             <span>New Data</span>

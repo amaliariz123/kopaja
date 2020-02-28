@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 </head>
 <body>
 	
@@ -66,22 +68,58 @@
                                 </div>
 
                                 <div class="form-group">
-                                        <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Tempat Lahir') }}" id="tempat_lahir" type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required autocomplete="tempat_lahir" autofocus></h5>
-                                        @error('tempat_lahir')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-
-                                <div class="form-group">
-                                        <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Tanggal Lahir') }}" id="tanggal_lahir" type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required autocomplete="tanggal_lahir" autofocus></h5>
+                                        <h5><input style="border: 0px; border-radius: 200px; padding: 5px 20px; background-color: rgba(0,0,0,0.05); width: 70%; height: 50px" placeholder="{{ __('Tanggal Lahir') }}" id="tanggal_lahir" type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required autocomplete="tanggal_lahir" autofocus></h5>
                                         @error('tanggal_lahir')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                 </div>
+
+                                
+                                <div class="form-group">
+                                        <h5><select id="province-select" name="province-select" class="form-control" style="border: 0px; border-radius: 200px; background-color: rgba(0,0,0,0.05); width: 70%; height: 50px"></h5>
+                                            <option value="">Provinsi</option>
+
+                                            @foreach ($province as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                            </select>
+                                            <!-- buat inputan kosong -->
+                                            <input type="hidden" name="province" id="hiddenProvince" value="">
+
+                                        @error('province')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                
+                                <div class="form-group">
+                                        <h5><select id="city-select" name="city-select" class="form-control" style="border: 0px; border-radius: 200px; background-color: rgba(0,0,0,0.05); width: 70%; height: 50px"></h5>
+                                            <option value="">Kota/Kabupaten</option>
+                                            </select>
+
+                                        @error('city')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                <div name="city" id="city"></div>
+
+                                <div class="form-group">
+                                        <h5><select id="kecamatan-select" name="kecamatan-select" class="form-control" style="border: 0px; border-radius: 200px; background-color: rgba(0,0,0,0.05); width: 70%; height: 50px"></h5>
+                                            <option value="">Kecamatan</option>
+                                            </select>
+
+                                        @error('kecamatan')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                <div name="kecamatan" id="kecamatan"></div>
 
                                 <div class="form-group">
                                     <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Nama Sekolah/Instansi') }}" id="instansi" type="text" class="form-control @error('instansi') is-invalid @enderror" name="instansi" value="{{ old('instansi') }}" required autocomplete="instansi" autofocus></h5>
@@ -114,7 +152,6 @@
                                 <div class="form-group">
                                     <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Confirm Password') }}"  id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"></h5>
                                 </div>
-
                               <br>
                                          
 	                        <div>
@@ -134,6 +171,11 @@
             </div>
         </div>
     </section>
+
+
+
+
+    
     <!-- learning part end-->
 
      <!-- jquery plugins here-->
@@ -151,13 +193,80 @@
      <script src="{{url('/')}}/etrain/js/masonry.pkgd.js"></script>
      <!-- particles js -->
      <script src="{{url('/')}}/etrain/js/owl.carousel.min.js"></script>
-     <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script>
+     <!-- <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script> -->
      <!-- swiper js -->
      <script src="{{url('/')}}/etrain/js/slick.min.js"></script>
      <script src="{{url('/')}}/etrain/js/jquery.counterup.min.js"></script>
      <script src="{{url('/')}}/etrain/js/waypoints.min.js"></script>
      <!-- custom js -->
      <script src="{{url('/')}}/etrain/js/custom.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#province-select').change(function(){
+                var provinsi_id = $(this).val();
+                var provinsi_name = $("select[name='province-select'] option:selected").text();  //add this
+                $('#hiddenProvince').val(provinsi_name);
+                if(provinsi_id){
+                    $.ajax({
+                        url: '/getCity/' + provinsi_id,
+                        type : 'GET',
+                        dataType : 'json',
+                        success: function(data){
+                            $('#province').empty();  //add this
+                            $('#province')
+                                .append("<input type='text' class='form-control' name='province' id='province' value='"+provinsi_name+"'>");
+                            console.log(data);
+                            $('#city-select').empty();
+                            $.each(data, function(key, value){
+                                $('#city-select')
+                                    .append('<option value="'+key+'">'+ value + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#city-select').empty();
+                }
+         });
+         $('#city-select').change(function(){
+                var kota_id = $(this).val();
+                var kota_name = $("select[name='city-select'] option:selected").text();  //add this
+                if(kota_id){
+                    $.ajax({
+                        url: '/getKecamatan/' + kota_id,
+                        type : 'GET',
+                        dataType : 'json',
+                        success: function(data){
+                            $('#city').empty();  //add this
+                            $('#city')
+                                .append("<input type='text' style='display:none' name='city' id='city' value='"+kota_name+"'>");
+                            console.log(data);
+                            $('#kecamatan-select').empty();
+                            $.each(data, function(key, value){
+                                $('#kecamatan-select')
+                                    .append('<option value="'+key+'">'+ value + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#kecamatan-select').empty();
+                }
+         });
+         $('#kecamatan-select').change(function(){
+                var kecamatan_name = $("select[name='kecamatan-select'] option:selected").text();  //add this
+                            $('#kecamatan').empty();  //add this
+                            $('#kecamatan')
+                                .append("<input type='text' style='display:none' name='kecamatan' id='kecamatan' value='"+kecamatan_name+"'>");
+                           
+         });
+        });
+    </script>
+ 
 
 </body>
 </html>

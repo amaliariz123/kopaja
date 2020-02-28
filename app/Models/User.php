@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'role', 'tempat_lahir', 'tanggal_lahir', 'instansi', 'email', 'password',
+        'first_name', 'last_name', 'role', 'tanggal_lahir', 'province', 'city', 'kecamatan', 'instansi', 'email', 'password',
     ];
 
     /**

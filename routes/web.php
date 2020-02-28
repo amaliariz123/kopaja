@@ -22,13 +22,9 @@ Route::get('/', function () {
 
 Route::resource('register', 'Auth\RegisterController');
 
-Route::get('/registerPage',function(){
-    return view('auth.register');
-})->name('registerPage');
-
-
-
 Route::group( [ 'middleware' => 'auth' ], function () {
+    Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
+
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');
     })->name('pasal4');
@@ -297,7 +293,8 @@ Route::get('/home', function () {
     return view('index');
 })->middleware('verified')->name('home');
 
-
+Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
+Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');

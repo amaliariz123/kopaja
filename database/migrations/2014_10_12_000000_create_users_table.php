@@ -18,8 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('role');
-            $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->string('province');
+            $table->string('city');
+            $table->string('kecamatan');
             $table->string('instansi');
             $table->string('email')->unique();
             $table->string('password');

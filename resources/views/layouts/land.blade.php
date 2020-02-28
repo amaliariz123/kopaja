@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg navbar-light">
+                    <nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom:0px;">
                         <a class="navbar-brand" href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" width="80px" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -85,10 +85,14 @@
                                     @else
                                         <li class="nav-item dropdown">
                                             <a id="navbarDropdown" class="btn_1 nav-link dropdown-toggle py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color:white;">
-                                                Halo, {{Auth::user()->first_name}}! <span class="caret"></span>
+                                                Halo, {{Auth::user()->first_name}}! 
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                                    {{ __('Profile') }}
+                                                </a>
+
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
@@ -183,7 +187,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/masonry.pkgd.js"></script>
     <!-- particles js -->
     <script src="{{url('/')}}/etrain/js/owl.carousel.min.js"></script>
-    <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script>
+    <!-- <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script> -->
     <!-- swiper js -->
     <script src="{{url('/')}}/etrain/js/slick.min.js"></script>
     <script src="{{url('/')}}/etrain/js/jquery.counterup.min.js"></script>

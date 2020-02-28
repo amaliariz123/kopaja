@@ -1,6 +1,6 @@
 @extends('base.header')
 @section('title','Dashboard')
-@section('dashboard','m-menu__item--open')
+@section('dashboard','m-menu__item--active')
 @section('custom-css')
 <style>
 #chartdiv {
@@ -143,7 +143,7 @@
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Online Members 
+                          Total Quiz 
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -195,7 +195,7 @@
 
   <!-- <script src="{{url('metronic/assets/demo/default/custom/components/charts/morris-charts.js')}}" type="text/javascript"></script> -->
 
-  <script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-daterangepicker.js')}}" type="text/javascript"></script>
+  <script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
 
   <!-- <script src="{{url('metronic/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
 

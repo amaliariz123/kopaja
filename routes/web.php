@@ -298,14 +298,43 @@ Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');
-Route::get('/pajak_pusat', 'PajakPusatController@indexPajakPusat');
-Route::get('/pajak_daerah','PajakDaerahController@indexPajakDaerah');
 
+//pajak
+Route::get('/pajak', 'PajakController@indexPajak');
+Route::get('/pajak/get_data', 'PajakController@getData');
+Route::post('/pajak/store','PajakController@store');
+Route::get('/pajak/show/{id}','PajakController@show');
+Route::get('/pajak/{id}/edit','PajakController@edit');
+Route::post('/pajak/update/{id}', 'PajakController@update');
+Route::get('/pajak/delete/{id}','PajakController@delete');
+
+//bantuan
 Route::get('/bantuan_aplikasi','BantuanController@indexBantuan');
+Route::get('/bantuan_aplikasi/get_data','BantuanController@getData');
+Route::post('/bantuan_aplikasi/store', 'BantuanController@store');
+Route::get('/bantuan_aplikasi/delete/{id}', 'BantuanController@delete');
+Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
+Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
+Route::any('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
+
 
 Route::get('/tentang_aplikasi','TentangController@indexTentang');
+
 Route::get('/contact_media','ContactController@indexContact');
+
+//tim pengembang
 Route::get('/tim_pengembang','DevelopersController@indexDev');
+Route::get('/tim_pengembang/get_data', 'DevelopersController@getData');
+Route::post('/tim_pengembang/store', 'DevelopersController@store');
+Route::get('/tim_pengembang/delete/{id}', 'DevelopersController@delete');
+Route::get('/tim_pengembang/{id}/edit', 'DevelopersController@edit');
+Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
+
 
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
+
+Route::group(['prefix' => '/storage'], function () {
+    Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
+    Route::get('pajak/{id}', 'DevelopersController@getPdf');
+});

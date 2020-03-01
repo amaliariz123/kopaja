@@ -97,8 +97,8 @@ class BantuanController extends Controller
     {
     	$data = Help::find($id);
 
-    	return response()->json(['status' => 'OK', 'data' => $data], 200);
-
+    	//return response()->json(['status' => 'OK', 'data' => $data], 200);
+        return view('setting.bantuan_edit')->with('data', $data);
     }
 
     /**
@@ -112,8 +112,8 @@ class BantuanController extends Controller
     	$data = Help::find($id);
 
     	$validate = [
-    		'question' => 'required',
-    		'answer' => 'required',
+    		'edit_question' => 'required',
+    		'edit_answer' => 'required',
     	];
 
     	$validator = Validator::make($request->all(), $validate);

@@ -29,14 +29,25 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="module" class="form-control-label">Module:</label><br>
-						<input type="file" name="module">
+						<label for="Picture" class="form-control-label">Picture:</label>
+						<div class="col-md-9">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+							  <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
+							    <img src="{{url('images/no-image.png')}}"  alt="" />
+							  </div>
+							  <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+							  <div>
+							    <span class="btn btn-outline-warning btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+							    <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+							  </div>
+							</div>
+						</div>
 					</div>
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-warning">Simpan</button>
-						<button type="reset" class="btn btn-outline-warning">Reset</button>				
+						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="reset" class="btn btn-outline-primary">Reset</button>				
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 					</div>
 				</form>

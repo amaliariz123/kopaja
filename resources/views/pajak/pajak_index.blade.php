@@ -30,8 +30,8 @@
             </div>
         </div>
     </div>
+    <!-- END: Subheader -->
 
-        <!-- END: Subheader -->
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">
@@ -220,7 +220,23 @@
             });
         });
 
+        //trigger to edit-modal
+        $('#table_pajak tbody').on('click', '#edit-btn', function(){
+            $("#tax-update:input").val('');
+            $("#tax-edit-modal").modal('show');
 
+            var data = tabelPajak.row($(this).parents('tr')).data();
+            var id = data['id'];
+            var token = $('input[name=_token]').val();
+            var urlData = "{{url('/pajak')}}"+"/"+id+"/edit";
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=_token]').val(token);
+            $('input[name=edit_name]').val(data['name']);
+            $('textarea[name=edit_description]').val(data['description']);
+            $("#edit_tax_type :selected").val(data['tax_type']);
+            $('input[name=edit_module]').val(data['module']);
+        });
     });
 </script>
 @endpush

@@ -310,7 +310,7 @@ Route::post('/bantuan_aplikasi/store', 'BantuanController@store');
 Route::get('/bantuan_aplikasi/delete/{id}', 'BantuanController@delete');
 Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
 Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
-Route::any('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
+Route::post('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 
 
 Route::get('/tentang_aplikasi','TentangController@indexTentang');

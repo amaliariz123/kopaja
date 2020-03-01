@@ -29,7 +29,7 @@ class DevelopersController extends Controller
      */
     public function getData()
     {
-    	$data = Developer::orderBy('created_at','desc')->get();
+    	$data = Developer::orderByDesc("created_at")->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
             $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"> <i class="la la-pencil-square"></i></button>';
@@ -73,7 +73,7 @@ class DevelopersController extends Controller
     		{
     			$file = $request->file('picture');
     			$extensions = strtolower($file->getClientOriginalExtension());
-    			$filename = $request->title.'.'.$extensions;
+    			$filename = $request->name.'.'.$extensions;
     			Storage::put('public/images/developers_team/'.$filename, File::get($file));    			
     		} else {
     			$filename = 'blank.jpg';
@@ -123,11 +123,11 @@ class DevelopersController extends Controller
      	{
      		return response()->json(['errors' => $validator->errors()->all()]); 
      	} else {
-     		if(!empty($request->picture))
+     		if(!empty($request->edit_picture))
     		{
     			$file = $request->file('edit_picture');
     			$extensions = strtolower($file->getClientOriginalExtension());
-    			$filename = $request->title.'.'.$extensions;
+    			$filename = $request->edit_name.'.'.$extensions;
     			Storage::put('public/images/developers_team/'.$filename, File::get($file));    			
     		} else {
     			$filename = 'blank.jpg';

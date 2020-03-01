@@ -32,7 +32,7 @@ class PajakController extends Controller
     	$data = Tax::orderBy('created_at','desc')->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"  data-toggle="tooltip" data-placement="top" title="Detail"><i class="la la-exclamation-circle"></i></button>';
+            $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"   data-toggle="m-tooltip" data-placement="top" title="Detail"><i class="la la-exclamation-circle"></i></button>';
             $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
 
@@ -62,7 +62,7 @@ class PajakController extends Controller
     		'name' => 'required',
     		'description' => 'required',
     		'tax_type' => 'required|in:Pajak pusat,Pajak daerah',
-    		'module' => 'nullable',
+    		'module' => 'nullable|mimetypes:application/pdf',
     	];
 
     	$validator = Validator::make($request->all(), $rules);
@@ -84,7 +84,7 @@ class PajakController extends Controller
     			$filename = $request->name.'.'.$pdf;
     			Storage::put('public/materi_pdf/'.$filename, File::get($file));
     		} else {
-    			$filename = 'blank.pdf';
+    			$filename = null;
     		}
     	}
 
@@ -96,6 +96,7 @@ class PajakController extends Controller
     		'module' => $filename,
     	]);
 
+    	//return $request['module'];
     	return response()->json(['success' => 'Data added successfully!']);
     }
 
@@ -130,7 +131,9 @@ class PajakController extends Controller
      */
      public function edit($id)
      {
+     	$data = Tax::find($id);
 
+     	return response()->json(['status' => 'OK', 'data' => $data], 200);
      }
 
      /**
@@ -141,7 +144,14 @@ class PajakController extends Controller
      */
      public function update(Request $request, $id)
      {
+     	$data =Tax::find($id);
 
+     	$rules = [
+     		'name' => 'required',
+    		'description' => 'required',
+    		'tax_type' => 'required|in:Pajak pusat,Pajak daerah',
+    		'module' => 'nullable|mimetypes:application/pdf',
+     	];
      }
 
      /**

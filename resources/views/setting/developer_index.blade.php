@@ -217,7 +217,6 @@
             var d = new Date();
             $.getJSON(urlData, function(data){
                 /*begin::fetch picture url */
-                $('#edit_picture').empty();
                 var img = $('<img id="edit_picture" src="{{url('images/no-image.png')}}" alt="Picture" >');
                 if(data['data']['picture'] != "blank.jpg") 
                 {
@@ -230,6 +229,7 @@
                 $('input[name=edit_name]').val(data['data']['name']);
                 $('input[name=edit_id]').val(data['data']['id']);
                 $('input[name=edit_email]').val(data['data']['email']);
+                //$('input[name=edit_picture]').val(data['picture']);
             });
         });
     });

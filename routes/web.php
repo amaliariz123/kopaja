@@ -20,8 +20,12 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
+Route::resource('register', 'Auth\RegisterController');
 
 Route::group( [ 'middleware' => 'auth' ], function () {
+    Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
+    Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
+
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');
     })->name('pasal4');
@@ -252,20 +256,12 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     })->name('pajakprovdankab');
 
     Route::get('/cekSoalpajakprovdankab', 'soalController@cekSoalpajakprovdankab')->name('cekSoalpajakprovdankab');
+    
 
 
 
 
-
-    Route::get('/tentang',function(){
-        return view('tentang');
-    })->name('tentang');
-
-
-    Route::get('/bantuan',function(){
-        return view('bantuan');
-    })->name('bantuan');
-
+    
 
     Route::get('/contact',function(){
         return view('tentang');
@@ -283,13 +279,23 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
     Route::get('/downloadAllMateri', 'DownloadController@allMateri')->name('downloadAllMateri');
 });
+Route::get('/tentang',function(){
+    return view('tentang');
+})->name('tentang');
+
+
+Route::get('/bantuan',function(){
+    return view('bantuan');
+})->name('bantuan');
+
 
 
 Route::get('/home', function () {
     return view('index');
 })->middleware('verified')->name('home');
 
-
+Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
+Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');

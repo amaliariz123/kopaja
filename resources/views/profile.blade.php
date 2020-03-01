@@ -26,13 +26,13 @@
 
             <div class="col-md-5 col-sm-5 col-xs-12">
                 <h5>{{ $u->first_name }} {{ $u->last_name }}</h5>
-                <p>{{ $u->instansi }}</p>
+                <!-- <p>{{ $u->instansi }}</p> -->
                 <ul>
-                    <li><span class="glyphicon glyphicon-briefcase"></span> 5 years</li>
-                    <li><span class="glyphicon glyphicon-map-marker"></span> U.S.A.</li>
+                    <li><span class="glyphicon glyphicon-briefcase"></span> {{ $u->instansi }}</li>
+                    <!-- <li><span class="glyphicon glyphicon-map-marker"></span> U.S.A.</li>
                     <li><span class="glyphicon glyphicon-home"></span> 555 street Address,toedo 43606 U.S.A.</li>
                     <li><span class="glyphicon glyphicon-phone"></span> <a href="#" title="call">(+021) 956 789123</a>
-                    </li>
+                    </li> -->
                     <li><span class="glyphicon glyphicon-envelope"></span><a href="#"
                             title="mail">{{ $u->email }}</a></li>
 
@@ -160,7 +160,7 @@
                     <div class="row">
                     @php $no = 1; @endphp
                     @foreach($user as $u)
-                        <form class="form-horizontal main_form text-left" action="{{ route('register.update', $u->id) }}" method="post" id="contact_form">
+                        <form class="form-horizontal main_form text-left" action="{{ url('profile/update/).$data->id }}" method="post" id="contact_form">
                             <fieldset>
 
 
@@ -189,8 +189,8 @@
                                     <label class="col-md-10 control-label">Instansi</label>
                                     <div class="col-md-12 inputGroupContainer">
                                         <div class="input-group">
-                                            <input type="text" id="instance"name="instance" class="form-control"
-                                                value="{{$u->instance}}">
+                                            <input type="text" id="instansi"name="instansi" class="form-control"
+                                                value="{{$u->instansi}}">
                                         </div>
                                     </div>
                                 </div>
@@ -276,7 +276,7 @@
 
 
                                 <!-- radio checks -->
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                     <label class="col-md-10 control-label">Gender</label>
                                     <div class="col-md-6">
                                         <div class="radio col-md-2">
@@ -333,9 +333,10 @@
 </section>
 <script>
         $(document).ready(function(){
+            var provinsi_id = $(this).val();
+                var provinsi_name = $("select[name='province-select'] option:selected").text(); 
             $('#province-select').change(function(){
-                var provinsi_id = $(this).val();
-                var provinsi_name = $("select[name='province-select'] option:selected").text();  //add this
+                 //add this
                 $('#hiddenProvince').val(provinsi_name);
                 if(provinsi_id){
                     $.ajax({

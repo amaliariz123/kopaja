@@ -103,7 +103,7 @@ class RegisterController extends Controller
         $data->first_name = $request->first_name;
         $data->last_name = $request->last_name;
         $data->tanggal_lahir = $request->tanggal_lahir;
-        $data->instance = $request->instance;
+        $data->instansi = $request->instansi;
         $data->province = $request->province;
         $data->city = $request->city;
         $data->kecamatan = $request->kecamatan;

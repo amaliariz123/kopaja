@@ -1,6 +1,6 @@
 @extends('base.header')
-@section('title','Latihan Soal Perpajakan')
-@section('latihan','m-menu__item--active')
+@section('title','Kuis')
+@section('kuis','m-menu__item--active')
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
 	<!-- BEGIN: Subheader -->
@@ -17,13 +17,13 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Soal</span>
+                                <span class="m-nav__link-text">Setting Soal</span>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Latihan Soal</span>
+                                <span class="m-nav__link-text">Kuis</span>
                             </a>
                         </li>
                     </ul>

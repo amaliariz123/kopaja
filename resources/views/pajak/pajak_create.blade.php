@@ -13,15 +13,15 @@
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Name:</label>
+						<label for="name" class="form-control-label">Name<span class="text-danger">*</span></label>
 						<input type="text" class="form-control" name="name" placeholder="PPh Pasal 23">
 					</div>
 					<div class="form-group">
-						<label for="description" class="form-control-label">Description:</label>
+						<label for="description" class="form-control-label">Description<span class="text-danger">*</span></label>
 						<textarea type="text" class="form-control" name="description" rows="5" placeholder="PPh Pasal 23 merupakan pajak yang dipotong atas penghasilan yang diterima. . ."></textarea>
 					</div>
 					<div class="form-group">
-						<label for="tax_type" class="form-control-label">Tax type:</label>
+						<label for="tax_type" class="form-control-label">Tax type<span class="text-danger">*</span></label>
 						<select class="form-control m-bootstrap-select m_selectpicker" name="tax_type" data-col-index="6">
 							<option value="">Select tax type</option>
 							<option value="Pajak pusat">Pajak pusat</option>
@@ -29,19 +29,24 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Picture:</label>
-						<div class="col-md-9">
-							<div class="fileinput fileinput-new" data-provides="fileinput">
-							  <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
-							    <img src="{{url('images/no-image.png')}}"  alt="" />
-							  </div>
-							  <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-							  <div>
-							    <span class="btn btn-outline-warning btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-							    <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
-							  </div>
-							</div>
+						<label for="Picture" class="form-control-label">Picture<span class="text-danger">*</span></label>
+						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+						  <div class="form-control" data-trigger="fileinput">
+						    <span class="fileinput-filename"></span>
+						  </div>
+						  <span class="input-group-append">
+						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
+						      Remove
+						    </span>
+
+						    <span class="input-group-text btn-file">
+						      <span class="fileinput-new">Select file</span>
+						      <span class="fileinput-exists">Change</span>
+						      <input type="file" name="edit_picture" accept="application/pdf">
+						    </span>
+						  </span>
 						</div>
+						<small id="emailHelp" class="form-text text-muted">Maximal size is 2 MB. (*pdf only)</small>
 					</div>
 					</fieldset>
 					<br>

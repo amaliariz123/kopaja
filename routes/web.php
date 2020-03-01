@@ -296,6 +296,10 @@ Route::get('/home', function () {
 
 Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
 Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
+
+
+/* ROUTE PANEL ADMIN */
+
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');
@@ -335,6 +339,7 @@ Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
 
+/* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
     Route::get('pajak/{id}', 'DevelopersController@getPdf');

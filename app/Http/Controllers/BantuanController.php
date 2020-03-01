@@ -97,8 +97,8 @@ class BantuanController extends Controller
     {
     	$data = Help::find($id);
 
-    	//return response()->json(['status' => 'OK', 'data' => $data], 200);
-        return view('setting.bantuan_edit')->with('data', $data);
+    	return response()->json(['status' => 'OK', 'data' => $data], 200);
+        //return view('setting.bantuan_edit')->with('data', $data);
     }
 
     /**

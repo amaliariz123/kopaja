@@ -13,16 +13,16 @@
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Name:</label>
+						<label for="name" class="form-control-label">Name<span class="text-danger">*</span></label>
 						<input type="hidden" name="edit_id" class="form-control">
 						<input type="text" class="form-control" name="edit_name" value="">
 					</div>
 					<div class="form-group">
-						<label for="description" class="form-control-label">Description:</label>
+						<label for="description" class="form-control-label">Description<span class="text-danger">*</span></label>
 						<textarea type="text" class="form-control" name="edit_description" rows="6" value=""></textarea>
 					</div>
 					<div class="form-group">
-						<label for="tax_type" class="form-control-label">Tax type:</label>
+						<label for="tax_type" class="form-control-label">Tax type<span class="text-danger">*</span></label>
 						<select class="form-control m-bootstrap-select m_selectpicker" name="edit_tax_type" id="edit_tax_type" data-col-index="6">
 							<option value="">Select tax type</option>
 							<option value="Pajak pusat" name="pajak_pusat">Pajak pusat</option>
@@ -30,8 +30,24 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="module" class="form-control-label">Module:</label><br>
-						<input type="file" name="edit_module">
+						<label for="module" class="form-control-label">Module<span class="text-danger">*</span></label><br>
+						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+						  <div class="form-control" data-trigger="fileinput">
+						    <span class="fileinput-filename"></span>
+						  </div>
+						  <span class="input-group-append">
+						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
+						      Remove
+						    </span>
+
+						    <span class="input-group-text btn-file">
+						      <span class="fileinput-new">Select file</span>
+						      <span class="fileinput-exists">Change</span>
+						      <input type="file" name="edit_picture" accept="application/pdf">
+						    </span>
+						  </span>
+						</div>
+						<small id="emailHelp" class="form-text text-muted">Maximal size is 2 MB. (*pdf only)</small>
 					</div>
 					</fieldset>
 					<br>

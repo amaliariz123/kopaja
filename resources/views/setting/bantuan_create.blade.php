@@ -12,11 +12,11 @@
 				<form id="help-store" method="post" enctype="multipart/form-data">
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="question" class="form-control-label">Question:</label>
+						<label for="question" class="form-control-label">Question<span class="text-danger">*</span></label>
 						<input type="text" class="form-control" name="question" placeholder="Apa itu KOPAJA?">
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Answer:</label>
+						<label for="answer" class="form-control-label">Answer<span class="text-danger">*</span></label>
 						<textarea type="text" class="form-control" name="answer" rows="2" placeholder="KOPAJA singkatan dari Kompas Pajak Ajaib..."></textarea>
 					</div>
 					</fieldset>

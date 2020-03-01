@@ -1,5 +1,5 @@
 @extends('base.header')
-@section('title','Contoh Soal Perpajakan')
+@section('title','Contoh Soal')
 @section('contoh','m-menu__item--active')
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -17,7 +17,7 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Soal</span>
+                                <span class="m-nav__link-text">Setting Soal</span>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>

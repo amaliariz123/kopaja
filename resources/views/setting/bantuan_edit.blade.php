@@ -13,12 +13,12 @@
 					 @csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="question" class="form-control-label">Question:</label>
+						<label for="question" class="form-control-label">Question<span class="text-danger">*</span></label>
 						<input type="hidden" name="edit_id" class="form-control">
 						<input type="text" class="form-control" name="edit_question" value="" >
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Answer:</label>
+						<label for="answer" class="form-control-label">Answer<span class="text-danger">*</span></label>
 						<textarea type="text" class="form-control" name="edit_answer" value=""></textarea>
 					</div>
 					</fieldset>

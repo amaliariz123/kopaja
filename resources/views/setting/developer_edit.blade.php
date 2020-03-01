@@ -13,17 +13,16 @@
 					@method('PUT')
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Name:</label>
+						<label for="name" class="form-control-label">Name<span class="text-danger">*</span></label>
 						<input type="hidden" name="edit_id" class="form-control" value="" placeholder="">
 						<input type="text" class="form-control" name="edit_name" value="" placeholder="">
 					</div>
 					<div class="form-group">
-						<label for="email" class="form-control-label">Email:</label>
+						<label for="email" class="form-control-label">Email<span class="text-danger">*</span></label>
 						<input type="email" class="form-control" name="edit_email" value="" placeholder="">
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Picture:</label>
-						<span class="m-form__help">Maximal size is 2MB</span>
+						<label for="Picture" class="form-control-label">Picture</label>
 						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
 						  <div class="form-control" data-trigger="fileinput">
 						    <span class="fileinput-filename"></span>
@@ -34,12 +33,13 @@
 						    </span>
 
 						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Select file</span>
+						      <span class="fileinput-new">Select image</span>
 						      <span class="fileinput-exists">Change</span>
-						      <input type="file" name="edit_picture" multiple>
+						      <input type="file" name="edit_picture" accept="image/jpg,image/jpeg,image/png">
 						    </span>
 						  </span>
 						</div>
+						<small id="emailHelp" class="form-text text-muted">Maximal size is 2 MB. (*jpg, *png, *jpeg)</small>
 					</div>
 					</fieldset>
 					<br>

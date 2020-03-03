@@ -3,7 +3,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data Pajak</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Edit Data Pajak</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -25,8 +25,8 @@
 						<label for="tax_type" class="form-control-label">Tax type<span class="text-danger">*</span></label>
 						<select class="form-control m-bootstrap-select m_selectpicker" name="edit_tax_type" id="edit_tax_type" data-col-index="6">
 							<option value="">Select tax type</option>
-							<option value="Pajak pusat" name="pajak_pusat">Pajak pusat</option>
-							<option value="Pajak daerah" name="pajak_daerah">Pajak daerah</option>
+							<option value="Pajak pusat">Pajak pusat</option>
+							<option value="Pajak daerah">Pajak daerah</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -53,7 +53,7 @@
 					<br>
 					<div class="col-md-12 text-right">
 						<button type="submit" class="btn btn-primary">Perbarui</button>
-						<button type="reset" class="btn btn-outline-primary">Reset</button>				
+						<button type="reset" class="btn btn-outline-primary">Reset</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 					</div>d
 				</form>

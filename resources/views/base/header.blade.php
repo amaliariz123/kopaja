@@ -47,8 +47,6 @@
 		<!--Jasny-bootstrap-->
 		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}">
 
-		<link rel="stylesheet" type="text/css" href="{{url('css/components.css')}}">		
-
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="{{url('/')}}/etrain/img/favicon.png" />
 
@@ -261,8 +259,6 @@
 
 		<!--Jasny-bootstrap-->
 		<script src="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.js')}}"></script>
-		
-		<script src="{{url('js/uploader_bootstrap.js')}}"></script>
 		<!--end::Page Scripts -->
 	</body>
 	<!-- end::Body -->

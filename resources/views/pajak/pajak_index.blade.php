@@ -234,7 +234,7 @@
             $('input[name=_token]').val(token);
             $('input[name=edit_name]').val(data['name']);
             $('textarea[name=edit_description]').val(data['description']);
-            $("#edit_tax_type :selected").val(data['tax_type']);
+            $('select[name=edit_tax_type]').val(data['tax_type']);
             $('input[name=edit_module]').val(data['module']);
         });
     });

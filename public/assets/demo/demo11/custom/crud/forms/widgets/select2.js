@@ -84,7 +84,7 @@ var Select2 = {
             placeholder: "Select an option"
         }), $("#m_select2_modal").on("shown.bs.modal", function() {
             $("#m_select2_1_modal").select2({
-                placeholder: "Select a state"
+                placeholder: "Select tax name"
             }), $("#m_select2_2_modal").select2({
                 placeholder: "Select a state"
             }), $("#m_select2_3_modal").select2({

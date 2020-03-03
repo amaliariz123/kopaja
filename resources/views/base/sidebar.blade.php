@@ -84,10 +84,10 @@
 					<span class="m-menu__link-text">Contoh Soal</span>
 				</a>	
 			</li>
-			<li class="m-menu__item m-menu__item--submenu @yield('kuis')" aria-haspopup="true" m-menu-submenu-toggle="hover">
+			<li class="m-menu__item m-menu__item--submenu @yield('latihan')" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{url('/latihan_soal')}}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon fa fa-book-open"></i>
-					<span class="m-menu__link-text">Kuis</span>
+					<span class="m-menu__link-text">Latihan Soal</span>
 				</a>
 			</li>
 

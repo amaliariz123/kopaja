@@ -301,6 +301,10 @@ Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('
 /* ROUTE PANEL ADMIN */
 
 Route::get('/dashboard', 'DashboardController@index');
+
+Route::get('/admin/edit/profil/{id}', 'AdminController@edit');
+Route::post('/admin/store/profil/{id}', 'AdminController@update');
+
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');
 
@@ -335,8 +339,16 @@ Route::get('/tim_pengembang/delete/{id}', 'DevelopersController@delete');
 Route::get('/tim_pengembang/{id}/edit', 'DevelopersController@edit');
 Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
 
-
+//contoh soal
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
+Route::get('/contoh_soal/get_data', 'SettingSoalController@getDataContoh');
+Route::get('/contoh_soal/create', 'SettingSoalController@create');
+Route::post('/contoh_soal/store', 'SettingSoalController@store');
+Route::get('/contoh_soal/{id}/edit','SettingSoalController@edit');
+Route::post('/contoh_soal/update/{id}', 'SettingSoalController@update');
+Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@delete');
+
+
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
 
 /* ROUTE FILE IN STORAGE */

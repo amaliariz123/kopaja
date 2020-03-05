@@ -86,7 +86,6 @@ class DevelopersController extends Controller
     			'picture' => $filename
     		]);
 
-    	//return view('setting.developer_index');
     	 return response()->json(['success'=>'Data added successfully']);
     }
 

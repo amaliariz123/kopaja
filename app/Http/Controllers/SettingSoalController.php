@@ -34,9 +34,22 @@ class SettingSoalController extends Controller
      */
      public function getDataContoh()
      {
-     	$data = ExampleExercise::with('taxes')->orderByDesc('created_at')->get();
+     	$example = ExampleExercise::with('tax')->orderByDesc('created_at')->get();
 
-     	return datatables()->of($data)->addColumn('option', function($row) {
+     	$data_example = [];
+     	for($i=0; $i<count($example) ;$i++)
+     	{
+     		$data['id_tax'] = $example[$i]->tax->name;
+     		$data['title'] = $example[$i]->title;
+     		$data['question_text'] = $example[$i]->question_text;
+     		$data['question_image'] = $example[$i]->question_image;
+     		$data['answer_text'] = $example[$i]->answer_text;
+     		$data['answer_image'] = $example[$i]->answer_image;
+
+     		$data_example[] = $data;
+     	}
+
+     	return datatables()->of($data_example)->addColumn('option', function($row) {
             $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
             $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
@@ -46,7 +59,7 @@ class SettingSoalController extends Controller
         ->rawColumns(['option'])
         ->make(true);
 
-     	//return $data;
+     	//return response()->json($data_example);
      }
 
      /**
@@ -80,7 +93,9 @@ class SettingSoalController extends Controller
     	{
     		return $validator->errors()->all();
     	} else {
-    		if(!empty($request->question_image) || !empty($request->answer_image))
+
+    		//if both field not null
+    		if(!empty($request->question_image && !empty($request->answer_image)))
     		{
     			$file1 = $request->file($request->question_image);
     			$file2 = $request->file($request->answer_image);
@@ -88,14 +103,34 @@ class SettingSoalController extends Controller
     			$extensions1 = strtolower(request('question_image')->getClientOriginalExtension());
     			$extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
 
-    			$date = date('YmdHis');
+    			$date = date('YmdHi');
 
-    			$question_image = 'question_image'.$date.'.'.$extensions1;
-    			$answer_image = 'answer_image'.$date.'.'.$extensions2;
+    			$question_image = 'question_image_'.$date.'.'.$extensions1;
+    			$answer_image = 'answer_image_'.$date.'.'.$extensions2;
 
-    			//Storage::put('public/images/developers_team/'.$filename, File::get($file));
-    			Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
-    			Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
+    			Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
+    			Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+    		} elseif(!empty($request->question_image) && empty($request->answer_image)) 
+    		//if field question_image is not null BUT field answer_image is null
+    		{
+    			$file1 = $request->file($request->question_image);
+    			$extensions1 = strtolower(request('question_image')->getClientOriginalExtension());
+    			$date = date('YmdHi');
+    			$question_image = 'question_image_'.$date.'.'.$extensions1;
+    			$answer_image = null;
+    			Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
+    		} elseif(empty($request->question_image) && !empty($request->answer_image)) 
+    		//if field question_image is null BUT field answer_image is not null
+    		{
+    			$file2 = $request->file($request->answer_image);
+    			$extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
+    			$date = date('YmdHi');
+    			$question_image = null;
+    			$answer_image = 'answer_image_'.$date.'.'.$extensions2;
+    			Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+    		} else{ //if both field is null
+    			$question_image = null;
+    			$answer_image = null;
     		} 
     	}
 
@@ -108,7 +143,8 @@ class SettingSoalController extends Controller
     		'answer_image' => $answer_image,
     	]);
 
-    	return $result;
+    	//return $result;
+    	return response()->json(['success'=>'Data added successfully']);
     }
 
      /**

@@ -117,6 +117,7 @@
                                     <th>Title</th>
                                     <th>Question</th>
                                     <th>Answer</th>
+                                    <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,11 +160,32 @@
             $('#m_select2_modal').modal('show');
         });
 
+        //get the id_tax with select2
         $('#m_select2_1_modal').change(function(){
             var id_pajak = $(this).val();
             var nama_pajak = $("select[name='tax_name'] option:selected").text();
             $('#hiddenTaxName').val(id_pajak);
         });
+
+        //parsing data to datatable
+        tabelContoh = $('#table_contoh').DataTable({
+            processing : true,
+            serverSide : true,
+            stateSave : true,
+            ajax : {
+                url : "{{url('/contoh_soal/get_data')}}",
+                type : "GET",
+            },
+            deferRender : true,
+            columns : [
+                {data:'id_tax', name:'id_tax', visible:true},
+                {data:'title', name:'title', visible:true},
+                {data: 'question_text', name: 'question_text', visible:true},
+                {data: 'answer_text', name:'answer_text', visible:true},
+                {data: 'option', name:'option', visible:true},
+            ],
+        });
+
     });
 </script>
 @endpush

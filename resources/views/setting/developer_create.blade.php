@@ -9,7 +9,8 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="developer-store" method="put" enctype="multipart/form-data" files=true>
+				<form id="developer-store" method="post" enctype="multipart/form-data" files=true>
+					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
 						<label for="name" class="form-control-label">Name<span class="text-danger">*</span></label>

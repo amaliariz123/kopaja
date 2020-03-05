@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="contoh-store" method="post" action="{{url('contoh_soal/store')}}" enctype="multipart/form-data" files=true>
+				<form id="contoh-store" method="post" enctype="multipart/form-data" files=true>
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
@@ -86,3 +86,41 @@
 	</div>
 </div>
 <!--end::Modal-->
+
+@push('custom-script')
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajaxSetup({
+        	headers: {
+            	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        	}
+		});
+
+		$('#contoh-store').on('submit', function(e){
+			e.preventDefault();
+			$.ajax({				
+				'type' : 'POST',
+				'url' : "{{url('/contoh_soal/store')}}",
+				'data' : new FormData(this),
+				'processData' : false,
+				'contentType' : false,
+				'dataType' : 'JSON',
+				'success' : function(data){
+					if(data.success)
+					{
+						$('#m_select2_modal').modal('hide');
+						toastr.success('Success add new data!', 'Success', {timeOut:6000});
+						tabelContoh.ajax.reload();
+					} else {
+						console.log(data);
+						for(var count=0; count < data.errors.length; count++)
+						{
+							toastr.error(data.errors[count], 'Error', {timeOut:6000});
+						}
+					}
+				}
+			})
+		})
+	})
+</script>
+@endpush

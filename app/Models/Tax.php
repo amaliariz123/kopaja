@@ -33,6 +33,6 @@ class Tax extends Model
      */
     public function exampleExercises()
     {
-        return $this->hasMany('App\ExampleExercise', 'id_tax');
+        return $this->hasMany('App\Models\ExampleExercise', 'id_tax');
     }
 }

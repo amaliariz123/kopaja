@@ -35,6 +35,6 @@ class ExampleExercise extends Model
      */
     public function tax()
     {
-        return $this->belongsTo('App\Tax', 'id_tax');
+        return $this->belongsTo('App\Models\Tax', 'id_tax');
     }
 }

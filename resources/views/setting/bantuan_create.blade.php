@@ -57,7 +57,8 @@
 					{
 						$('#help-create-modal').modal('hide');
 						toastr.success('Success add new data!', 'Success', {timeOut:6000});
-						helpTable.ajax.reload();
+						//helpTable.ajax.reload();
+						location.reload();
 					} else {
 						console.log(data);
 						for(var count=0; count < data.errors.length; count++)

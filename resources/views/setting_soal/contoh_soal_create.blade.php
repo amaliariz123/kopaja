@@ -110,7 +110,8 @@
 					{
 						$('#m_select2_modal').modal('hide');
 						toastr.success('Success add new data!', 'Success', {timeOut:6000});
-						tabelContoh.ajax.reload();
+						//tabelContoh.ajax.reload();
+						location.reload();
 					} else {
 						console.log(data);
 						for(var count=0; count < data.errors.length; count++)

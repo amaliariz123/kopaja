@@ -208,7 +208,8 @@
                         url: "{{url('/bantuan_aplikasi/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            helpTable.ajax.reload();
+                            //helpTable.ajax.reload();
+                            location.reload();
                             swal('Deleted!','Your file has been deleted.','success')
                         }  
                     })

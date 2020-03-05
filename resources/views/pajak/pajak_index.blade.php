@@ -210,7 +210,8 @@
                         url: "{{url('/pajak/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            tabelPajak.ajax.reload();
+                            //tabelPajak.ajax.reload();
+                            location.reload();
                             swal('Deleted!','Your file has been deleted.','success')
                         }  
                     })

@@ -80,7 +80,8 @@
 					{
 						$('#dev-edit-modal').modal('hide');
 						toastr.success('Success update data!', 'Success', {timeOut:6000});
-						thisTable.ajax.reload();
+						//thisTable.ajax.reload();
+						location.reload();
 					} else {
 						console.log(data);
 						for(var count=0; count < data.errors.length; count++)

@@ -136,7 +136,7 @@
 
 @include('setting_soal.contoh_soal_create')
 @include('setting_soal.contoh_soal_edit')
-
+@include('setting_soal.contoh_soal_detail')
 
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
@@ -186,6 +186,55 @@
             ],
         });
 
+        //trigger to delete-modal
+        $('#table_contoh tbody').on('click', '#delete-btn', function(){
+            var data = tabelContoh.row($(this).parents('tr')).data();
+
+           swal({
+                text: "Are you sure to delete this?",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it.',
+                cancelButtonText: 'No, cancel.',
+                reverseButtons: true,
+                type: 'warning',
+            })
+            .then((result) => {
+                if(result.value) 
+                {
+                    $.ajax({
+                        url: "{{url('/contoh_soal/delete')}}"+"/"+data['id'],
+                        method: 'get',
+                        success: function(result){
+                            //tabelContoh.ajax.reload();
+                            location.reload();
+                            swal('Deleted!','Your file has been deleted.','success')
+                        }  
+                    })
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swal('Cancelled','Delete data cancelled','info')
+                }
+            });
+        });
+
+        //trigger to detail-modal
+        $('#table_contoh tbody').on('click', '#detail-btn', function(){
+            //console.log('clicked');
+            $('#contoh-detail:input').val('');
+            $('#contoh-detail-modal').modal('show');
+
+            var data = tabelContoh.row($(this).parents('tr')).data();
+            var id = data['id'];
+            var url = "{{url('contoh_soal/show')}}"+"/"+id;
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=detail_tax_name]').val(data['id_tax']);
+            $('input[name=detail_title]').val(data['title']);
+            $('textarea[name=detail_question_text]').val(data['question_text']);
+            //$('input[name=detail_question_image]').val(data['question_image']);
+            $('textarea[name=detail_answer_text]').val(data['answer_text']);
+            //$('input[name=detail_answer_image]').val(data['answer_image']);
+        });
     });
 </script>
 @endpush

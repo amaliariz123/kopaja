@@ -344,6 +344,7 @@ Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
 Route::get('/contoh_soal/get_data', 'SettingSoalController@getDataContoh');
 Route::get('/contoh_soal/create', 'SettingSoalController@create');
 Route::post('/contoh_soal/store', 'SettingSoalController@store');
+Route::get('/contoh_soal/show/{id}', 'SettingSoalController@show');
 Route::get('/contoh_soal/{id}/edit','SettingSoalController@edit');
 Route::post('/contoh_soal/update/{id}', 'SettingSoalController@update');
 Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@delete');

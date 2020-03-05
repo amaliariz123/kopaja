@@ -194,7 +194,8 @@
                         url: "{{url('/tim_pengembang/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            thisTable.ajax.reload();
+                            //thisTable.ajax.reload();
+                            location.reload();
                             swal('Deleted!','Your file has been deleted.','success')
                         }  
                     })

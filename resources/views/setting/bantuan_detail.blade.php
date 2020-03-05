@@ -13,12 +13,12 @@
 					@method('PUT')
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="question" class="form-control-label">Question:</label>
+						<label for="question" class="form-control-label">Question</label>
 						<input type="hidden" name="show_id" class="form-control" value="" placeholder="">
 						<input type="text" class="form-control" name="show_question" value="" disabled>
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Answer:</label>
+						<label for="answer" class="form-control-label">Answer</label>
 						<textarea type="text" class="form-control" name="show_answer" rows="4" value="" disabled></textarea>
 					</div>
 					</fieldset>

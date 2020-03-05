@@ -39,6 +39,7 @@ class SettingSoalController extends Controller
      	$data_example = [];
      	for($i=0; $i<count($example) ;$i++)
      	{
+     		$data['id'] = $example[$i]->id;
      		$data['id_tax'] = $example[$i]->tax->name;
      		$data['title'] = $example[$i]->title;
      		$data['question_text'] = $example[$i]->question_text;
@@ -117,7 +118,7 @@ class SettingSoalController extends Controller
     			$extensions1 = strtolower(request('question_image')->getClientOriginalExtension());
     			$date = date('YmdHi');
     			$question_image = 'question_image_'.$date.'.'.$extensions1;
-    			$answer_image = null;
+    			$answer_image = 'blank.jpg';
     			Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
     		} elseif(empty($request->question_image) && !empty($request->answer_image)) 
     		//if field question_image is null BUT field answer_image is not null
@@ -125,12 +126,12 @@ class SettingSoalController extends Controller
     			$file2 = $request->file($request->answer_image);
     			$extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
     			$date = date('YmdHi');
-    			$question_image = null;
+    			$question_image = 'blank.jpg';
     			$answer_image = 'answer_image_'.$date.'.'.$extensions2;
     			Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
     		} else{ //if both field is null
-    			$question_image = null;
-    			$answer_image = null;
+    			$question_image = 'blank.jpg';
+    			$answer_image = 'blank.jpg';
     		} 
     	}
 
@@ -154,7 +155,21 @@ class SettingSoalController extends Controller
      */
      public function show($id)
      {
+     	$example = ExampleExercise::with('tax')->find($id);
 
+     	 	$data = [];
+     	
+     		$arr['id'] = $example->id;
+     		$arr['id_tax'] = $example->tax->name;
+     		$arr['title'] = $example->title;
+     		$arr['question_text'] = $example->question_text;
+     		$arr['question_image'] = $example->question_image;
+     		$arr['answer_text'] = $example->answer_text;
+     		$arr['answer_image'] = $example->answer_image;
+
+     		$data[] = $arr;
+
+     	return response()->json(['status'=>'OK', 'data' => $data], 200);
      }
 
      /**
@@ -185,8 +200,16 @@ class SettingSoalController extends Controller
      */
      public function delete($id)
      {
+     	$data = ExampleExercise::find($id);
+     	$tax = Tax::all()->pluck('name','id');
 
+     	Storage::delete('public/images/contoh_soal_image/'.$data->question_image);
+     	Storage::delete('public/images/contoh_soal_image/'.$data->answer_image);
+     	$data->delete();
+
+     	return view('setting_soal.contoh_soal_index', compact('tax'));
      }
+
 
 
     /*Latihan Soal */

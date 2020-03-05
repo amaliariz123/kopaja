@@ -302,8 +302,8 @@ Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('
 
 Route::get('/dashboard', 'DashboardController@index');
 
-Route::get('/admin/edit/profil/{id}', 'AdminController@edit');
-Route::post('/admin/store/profil/{id}', 'AdminController@update');
+Route::get('/admin/edit/profil/', 'AdminController@edit');
+Route::post('/admin/store/profil/', 'AdminController@update');
 
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');

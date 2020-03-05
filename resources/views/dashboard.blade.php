@@ -74,7 +74,7 @@
                     </div>
                         <div class="row">
                           <div class="col-lg-12 ml-lg-auto">
-                            <button type="submit" name="search" id="search" onclick="search()" class="btn btn-warning">Search</button>
+                            <button type="submit" name="search" id="search" class="btn btn-primary">Search</button>
                           </div>
                         </div>
                 </form>
@@ -190,12 +190,10 @@
         </div>
     </div>
 @endsection
-@section('custom-script')
+@push('custom-script')
   <script src="{{url('assets/demo/demo11/custom/crud/metronic-datatable/base/html-table.js')}}" type="text/javascript"></script>
 
   <!-- <script src="{{url('metronic/assets/demo/default/custom/components/charts/morris-charts.js')}}" type="text/javascript"></script> -->
-
-  <script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
 
   <!-- <script src="{{url('metronic/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
 
@@ -205,6 +203,5 @@
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-
-@endsection
+@endpush
 

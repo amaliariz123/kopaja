@@ -39,9 +39,9 @@ class AdminController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit()
     {
-
+        return view('users.admin_edit');
     }
 
     /**

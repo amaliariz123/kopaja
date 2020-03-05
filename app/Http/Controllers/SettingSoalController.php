@@ -148,6 +148,18 @@ class SettingSoalController extends Controller
     	return response()->json(['success'=>'Data added successfully']);
     }
 
+    /**
+     * Fetch image url from table.
+     * @param int $id
+     * @return Image
+     */
+     public function getPicture($id)
+     {
+     	$picture = ExampleExercise::find($id);
+
+     	return Image::make(Storage::get('public/images/developers_team/'.$picture->picture))->response();
+     }
+
      /**
      * Show specified resource.
      * @param int $id

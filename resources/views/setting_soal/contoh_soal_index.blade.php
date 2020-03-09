@@ -235,6 +235,26 @@
             $('textarea[name=detail_answer_text]').val(data['answer_text']);
             //$('input[name=detail_answer_image]').val(data['answer_image']);
         });
+
+
+        //trigger to edit-modal
+        $('#table_contoh tbody').on('click', '#edit-btn', function(){
+            $('contoh-update:input').val('');
+            $('#edit_modal').modal('show');
+
+            var data = tabelContoh.row($(this).parents('tr')).data();
+            var id = data['id'];
+            var url = "{{url('contoh_soal')}}"+"/"+id+"/edit";
+            var token = $('input[name=_token]').val();
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=edit_tax_name]').val(data['id_tax']);
+            $('input[name=edit_title]').val(data['title']);
+            $('textarea[name=edit_question_text]').val(data['question_text']);
+            //$('input[name=edit_question_image]').val(data['question_image']);
+            $('textarea[name=edit_answer_text]').val(data['answer_text']);
+            //$('input[name=edit_answer_image]').val(data['answer_image']);
+        });
     });
 </script>
 @endpush

@@ -22,11 +22,16 @@
 					</div>
 					<div class="form-group">
 						<label for="tax_type" class="form-control-label">Tax type<span class="text-danger">*</span></label>
-						<select class="form-control m-bootstrap-select m_selectpicker" name="tax_type" data-col-index="6">
-							<option value="">Select tax type</option>
-							<option value="Pajak pusat">Pajak pusat</option>
-							<option value="Pajak daerah">Pajak daerah</option>
-						</select>
+						<div class="m-radio-list">
+							<label class="m-radio m-radio--brand">
+								<input type="radio" name="tax_type" value="Pajak Pusat"> Pajak Pusat
+								<span></span>
+							</label>
+							<label class="m-radio m-radio--brand">
+								<input type="radio" name="tax_type" value="Pajak Daerah"> Pajak Daerah
+								<span></span>
+							</label>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="Picture" class="form-control-label">Picture<span class="text-danger">*</span></label>

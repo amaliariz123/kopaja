@@ -191,7 +191,11 @@ class SettingSoalController extends Controller
      */
      public function edit($id)
      {
+     	$data = ExampleExercise::find($id);
+     	//$tax = Tax::all()->pluck('name','id');
 
+     	return response()->json(['status' => 'OK', 'data' => $data], 200);
+        //return view('setting_soal.contoh_soal_edit')->compact('data', $data);
      }
 
      /**
@@ -202,8 +206,75 @@ class SettingSoalController extends Controller
      */
      public function update(Request $request)
      {
+     	$data = ExampleExercise::find($id);
 
-     }
+     	$rules = [
+     		'edit_id_tax' => 'required|integer',
+    		'edit_title' => 'required|string',
+    		'edit_question_text' => 'required',
+    		'edit_question_image' => 'nullable|max:2048|mimes:png,jpg,jpeg',
+    		'edit_answer_text' => 'required_without:answer_image',
+    		'edit_answer_image' => 'required_without:answer_text|max:2048|mimes:png,jpg,jpeg'
+     	];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails())
+        {
+            return $validator->errors()->all();
+        } else {
+            //if both field not null
+            if(!empty($request->edit_question_image && !empty($request->edit_answer_image)))
+            {
+                $file1 = $request->file($request->question_image);
+                $file2 = $request->file($request->answer_image);
+
+                $extensions1 = strtolower(request('edti_question_image')->getClientOriginalExtension());
+                $extensions2 = strtolower(request('edit_answer_image')->getClientOriginalExtension());
+
+                $date = date('YmdHi');
+
+                $question_image = 'question_image_'.$date.'.'.$extensions1;
+                $answer_image = 'answer_image_'.$date.'.'.$extensions2;
+
+                Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
+                Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+            } elseif(!empty($request->edit_question_image) && empty($request->edit_answer_image)) 
+            //if field question_image is not null BUT field answer_image is null
+            {
+                $file1 = $request->file($request->edit_question_image);
+                $extensions1 = strtolower(request('edit_question_image')->getClientOriginalExtension());
+                $date = date('YmdHi');
+                $question_image = 'question_image_'.$date.'.'.$extensions1;
+                $answer_image = 'blank.jpg';
+                Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
+            } elseif(empty($request->edit_question_image) && !empty($request->edit_answer_image)) 
+            //if field question_image is null BUT field answer_image is not null
+            {
+                $file2 = $request->file($request->edit_answer_image);
+                $extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
+                $date = date('YmdHi');
+                $question_image = 'blank.jpg';
+                $answer_image = 'answer_image_'.$date.'.'.$extensions2;
+                Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+            } else{ //if both field is null
+                $question_image = 'blank.jpg';
+                $answer_image = 'blank.jpg';
+            } 
+        }
+
+        return "question image : " .$question_image ." - answer image: " .$answer_image;
+
+        // $data->id_tax = $request->edit_id_tax;
+        // $data->title = $request->edit_title;
+        // $data->question_text = $request->edit_question_text;
+        // $data->question_image= $question_image;
+        // $data->answer_text = $request->edit_answer_text;
+        // $data->answer_image = $answer_image;
+        //$data->save();
+
+        //return response()->json(['success' => 'Data updated!']);
+     } 
 
      /**
      * Remove the specified resource from storage.

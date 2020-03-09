@@ -235,8 +235,10 @@
             $('input[name=_token]').val(token);
             $('input[name=edit_name]').val(data['name']);
             $('textarea[name=edit_description]').val(data['description']);
-            $('select[name=edit_tax_type]').val(data['tax_type']);
+            $('input[name=edit_tax_nam]').val(data['tax_name']);
             $('input[name=edit_module]').val(data['module']);
+
+            
         });
     });
 </script>

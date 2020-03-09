@@ -14,7 +14,6 @@
 					<div class="form-group">
 						<label for="name" class="form-control-label">Tax name</label>
 						<input type="text" name="detail_tax_name" class="form-control" value="" disabled>
-						<input type="hidden" name="tax_name" id="hiddenTaxName" value="">
 					</div>
 					<div class="form-group">
 						<label for="title" class="form-control-label">Title</label>

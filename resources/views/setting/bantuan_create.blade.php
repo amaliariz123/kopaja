@@ -23,8 +23,7 @@
 					<br>
 					<div class="col-md-12 text-right">
 						<button type="submit" class="btn btn-primary">Simpan</button>
-						<button type="reset" class="btn btn-outline-primary">Reset</button>				
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
 					</div>
 				</form>
 			</div>

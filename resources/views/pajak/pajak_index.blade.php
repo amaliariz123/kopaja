@@ -237,8 +237,6 @@
             $('textarea[name=edit_description]').val(data['description']);
             $('input[name=edit_tax_nam]').val(data['tax_name']);
             $('input[name=edit_module]').val(data['module']);
-
-            
         });
     });
 </script>

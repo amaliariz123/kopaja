@@ -248,6 +248,7 @@
             var token = $('input[name=_token]').val();
 
             $('input[name=_method]').val('PUT');
+            $('input[name=edit_id]').val(data['id']);
             $('input[name=edit_tax_name]').val(data['id_tax']);
             $('input[name=edit_title]').val(data['title']);
             $('textarea[name=edit_question_text]').val(data['question_text']);

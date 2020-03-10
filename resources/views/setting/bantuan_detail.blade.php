@@ -24,7 +24,7 @@
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+						<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Tutup</button>
 					</div>
 				</form>
 			</div>

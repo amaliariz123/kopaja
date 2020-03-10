@@ -66,7 +66,7 @@
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
 					</div>
 				</form>
 			</div>

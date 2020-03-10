@@ -14,11 +14,11 @@
 					<fieldset class="content-group">
 					<div class="form-group">
 						<label for="name" class="form-control-label">Name<span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="name" placeholder="E.g. Jane Doe">
+						<input type="text" class="form-control" name="name" placeholder="E.g. Jane Doe" required>
 					</div>
 					<div class="form-group">
 						<label for="email" class="form-control-label">Email<span class="text-danger">*</span></label>
-						<input type="email" class="form-control" name="email" placeholder="E.g. jane.doe@mail.com">
+						<input type="email" class="form-control" name="email" required placeholder="E.g. jane.doe@mail.com">
 					</div>
 					<div class="form-group">
 						<label for="Picture" class="form-control-label">Picture</label>
@@ -44,8 +44,7 @@
 					<br>
 					<div class="col-md-12 text-right">
 						<button type="submit" class="btn btn-primary">Simpan</button>
-						<button type="reset" class="btn btn-outline-primary">Reset</button>				
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
 					</div>
 				</form>
 			</div>

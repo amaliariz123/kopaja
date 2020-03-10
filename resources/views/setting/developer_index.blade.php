@@ -114,7 +114,8 @@
                         <!--begin: Datatable -->
                         <table class="table table-striped table-bordered" id="table_dev">
                             <thead>
-                                <tr>                                    
+                                <tr>
+                                    <th><input type="checkbox" name="select_all" id="select_all"></th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Option</th>
@@ -135,6 +136,7 @@
 
 @include('setting.developer_create')
 @include('setting.developer_edit')
+@include('setting.developer_detail')
 
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
@@ -215,15 +217,6 @@
             var id = data['id'];
             var token = $('input[name=_token]').val();
             var urlData = " {{ url('/tim_pengembang') }}"+"/"+id+"/edit";
-            var d = new Date();
-            $.getJSON(urlData, function(data){
-                /*begin::fetch picture url */
-                var img = $('<img id="edit_picture" src="{{url('images/no-image.png')}}" alt="Picture" >');
-                if(data['data']['picture'] != "blank.jpg") 
-                {
-                    var img = $('<img id="edit_picture" src="{{ url('storage/developers_team/') }}/'+id+'?'+d.getTime()+'" alt="Picture" >');
-                }
-                /*end::fetch picture url */
 
                 $('input[name=_method]').val('PUT');
                 $('input[name=_token]').val(token);
@@ -231,6 +224,31 @@
                 $('input[name=edit_id]').val(data['data']['id']);
                 $('input[name=edit_email]').val(data['data']['email']);
                 //$('input[name=edit_picture]').val(data['picture']);
+        });
+
+        /*trigger detail-modal*/
+        $('#table_dev tbody').on('click', '#detail-btn', function(){
+            $("#developer-detail:input").val('');
+            $("#dev-detail-modal").modal('show');
+
+            var data = thisTable.row($(this).parents('tr')).data();
+            var id = data['id'];
+            var token = $('input[name=_token]').val();
+            var urlData = "{{url('/tim_pengembang/show')}}"+"/"+id;
+            var d = new Date();
+            $.getJSON(urlData, function(data){
+                $('#show_picture').empty();
+                var img = $('<img id="image-developer" class="img-responsive" src="{{asset('images/blank.png')}}" alt="picture_developer" width="100" height="50"><br>');
+                if(data['data']['picture'] != 'blank.jpg') {
+                    var img = $('<img id="image-developer" class="img-responsive" src="{{ url('storage/tim_pengembang/') }}/'+id+'?'+d.getTime()+'" alt="picture_developer" width="300" height="185"><br>');
+                }
+                $('#show_picture').append(img);
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=_token]').val(token);
+            $('input[name=show_name]').val(data['data']['name']);
+            $('input[name=show_id]').val(data['data']['id']);
+            $('input[name=show_email]').val(data['data']['email']);
             });
         });
     });

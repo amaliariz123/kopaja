@@ -337,6 +337,7 @@ Route::get('/tim_pengembang/get_data', 'DevelopersController@getData');
 Route::post('/tim_pengembang/store', 'DevelopersController@store');
 Route::get('/tim_pengembang/delete/{id}', 'DevelopersController@delete');
 Route::get('/tim_pengembang/{id}/edit', 'DevelopersController@edit');
+Route::get('/tim_pengembang/show/{id}', 'DevelopersController@show');
 Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
 
 //contoh soal

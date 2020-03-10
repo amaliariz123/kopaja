@@ -204,7 +204,7 @@ class SettingSoalController extends Controller
      * @param int $id
      * @return Response
      */
-     public function update(Request $request)
+     public function update(Request $request, $id)
      {
      	$data = ExampleExercise::find($id);
 
@@ -213,8 +213,8 @@ class SettingSoalController extends Controller
     		'edit_title' => 'required|string',
     		'edit_question_text' => 'required',
     		'edit_question_image' => 'nullable|max:2048|mimes:png,jpg,jpeg',
-    		'edit_answer_text' => 'required_without:answer_image',
-    		'edit_answer_image' => 'required_without:answer_text|max:2048|mimes:png,jpg,jpeg'
+    		'edit_answer_text' => 'required_without:edit_answer_image',
+    		'edit_answer_image' => 'required_without:edit_answer_text|max:2048|mimes:png,jpg,jpeg'
      	];
 
         $validator = Validator::make($request->all(), $rules);
@@ -226,8 +226,8 @@ class SettingSoalController extends Controller
             //if both field not null
             if(!empty($request->edit_question_image && !empty($request->edit_answer_image)))
             {
-                $file1 = $request->file($request->question_image);
-                $file2 = $request->file($request->answer_image);
+                $file1 = $request->file($request->edit_question_image);
+                $file2 = $request->file($request->edit_answer_image);
 
                 $extensions1 = strtolower(request('edti_question_image')->getClientOriginalExtension());
                 $extensions2 = strtolower(request('edit_answer_image')->getClientOriginalExtension());
@@ -263,17 +263,15 @@ class SettingSoalController extends Controller
             } 
         }
 
-        return "question image : " .$question_image ." - answer image: " .$answer_image;
+        $data->id_tax = $request->edit_id_tax;
+        $data->title = $request->edit_title;
+        $data->question_text = $request->edit_question_text;
+        $data->question_image= $question_image;
+        $data->answer_text = $request->edit_answer_text;
+        $data->answer_image = $answer_image;
+        $data->save();
 
-        // $data->id_tax = $request->edit_id_tax;
-        // $data->title = $request->edit_title;
-        // $data->question_text = $request->edit_question_text;
-        // $data->question_image= $question_image;
-        // $data->answer_text = $request->edit_answer_text;
-        // $data->answer_image = $answer_image;
-        //$data->save();
-
-        //return response()->json(['success' => 'Data updated!']);
+        return response()->json(['success' => 'Data updated!']);
      } 
 
      /**

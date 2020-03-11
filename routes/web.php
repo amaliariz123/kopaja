@@ -300,13 +300,17 @@ Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('
 
 /* ROUTE PANEL ADMIN */
 
+//dashboard
 Route::get('/dashboard', 'DashboardController@index');
 
+//profil admin
 Route::get('/admin/edit/profil/', 'AdminController@edit');
 Route::post('/admin/store/profil/', 'AdminController@update');
 
+//members
 Route::get('/members', 'MemberController@indexMember');
 Route::get('/testimoni', 'MemberController@indexTesti');
+Route::get('/testimoni/get_data', 'MemberController@getDataTesti');
 
 //pajak
 Route::get('/pajak', 'PajakController@indexPajak');
@@ -326,10 +330,14 @@ Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
 Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
 Route::post('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 
-
+//tentang aplikasi
 Route::get('/tentang_aplikasi','TentangController@indexTentang');
-
-Route::get('/contact_media','ContactController@indexContact');
+Route::get('/tentang_aplikasi/get_data', 'TentangController@getDataTentang');
+Route::post('/tentang_aplikasi/store', 'TentangController@store');
+Route::get('/tentang_aplikasi/show/{id}', 'TentangController@show');
+Route::get('/tentang_aplikasi/{id}/edit', 'TentangController@edit');
+Route::post('tentang_aplikasi/update/{id}', 'TentangController@update');
+Route::get('/tentang_aplikasi/delete/{id}', 'TentangController@delete');
 
 //tim pengembang
 Route::get('/tim_pengembang','DevelopersController@indexDev');
@@ -350,7 +358,7 @@ Route::get('/contoh_soal/{id}/edit','SettingSoalController@edit');
 Route::post('/contoh_soal/update/{id}', 'SettingSoalController@update');
 Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@delete');
 
-
+//latihan soal
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
 
 /* ROUTE FILE IN STORAGE */

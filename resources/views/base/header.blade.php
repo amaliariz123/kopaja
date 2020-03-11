@@ -23,29 +23,22 @@
 
 		<!--begin::Global Theme Styles -->
 		<link href="{{ url ('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
-
-		<!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 		<link href="{{ url ('assets/vendors/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-
-		<!--RTL version:<link href="assets/demo/default/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
-
 		<!--end::Global Theme Styles -->
 
 		<!--begin::Page Vendors Styles -->
 		<link href="{{ url ('assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ url ('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.css')}}">
-
-		<!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
+		<link rel="stylesheet" type="text/css" href="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.css')}}" />
 
 		<link href="{{ url ('assets/style.css')}}" rel="stylesheet" type="text/css" />
 
 		<!--Gallery-->
 		{{-- <link rel="stylesheet" href="{{url('gallery/css/gallery-clean.css')}}"> --}}
-		<link rel="stylesheet" href="{{url('gallery/css/ekko-lightbox.css')}}">
+		<link rel="stylesheet" href="{{url('gallery/css/ekko-lightbox.css')}}" />
 
 		<!--Jasny-bootstrap-->
-		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}" />
 
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="{{url('/')}}/etrain/img/favicon.png" />
@@ -54,8 +47,7 @@
 	</head>
 	<!-- end::Head -->
 
-	<body>
-		<!-- begin::Body -->
+	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 
 		<!-- begin:: Page -->
@@ -128,6 +120,7 @@
 																					<span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
 																					<span class="m-list-timeline__text">12 new users registered</span>
 																					<span class="m-list-timeline__time">Just now</span>
+																				</div>
 																			</div>
 																		</div>
 																	</div>
@@ -135,10 +128,11 @@
 															</div>
 														</div>
 													</div>
-
 												</div>
 											</div>
 										</li>
+
+										<!-- BEGIN: User profile -->
 										<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
@@ -186,11 +180,12 @@
 													</div>
 												</div>
 											</div>
-										</li>										
+										</li>
+										<!-- END: User profile -->
+
 									</ul>
 								</div>
 							</div>
-
 							<!-- END: Topbar -->
 						</div>
 					</div>
@@ -209,12 +204,13 @@
 				@yield('content')
 				
 			</div>
-			<!-- end:: Body -->
 
-			<!-- begin::Footer -->
+			<!-- begin:: Footer -->
 			@include('base.footer')
-			<!-- end::Footer -->
+			<!-- end:: Footer -->
+
 		</div>
+
 		<!-- end:: Page -->
 
 		<!-- begin::Scroll Top -->
@@ -262,7 +258,6 @@
 		<!--Jasny-bootstrap-->
 		<script src="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.js')}}"></script>
 		<!--end::Page Scripts -->
-	</body>
 	<!-- end::Body -->
-
+	</body>
 </html>

@@ -305,7 +305,7 @@ Route::get('/dashboard', 'DashboardController@index');
 
 //profil admin
 Route::get('/admin/edit/profil/', 'AdminController@edit');
-Route::post('/admin/store/profil/', 'AdminController@update');
+Route::post('/admin/update/profil/', 'AdminController@update');
 
 //members
 Route::get('/members', 'MemberController@indexMember');
@@ -365,4 +365,6 @@ Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
     Route::get('pajak/{id}', 'DevelopersController@getPdf');
+    Route::get('contoh_soal/question_image/{id}', 'SettingSoalController@getQuestionImage');
+    Route::get('contoh_soal/answer_image/{id}', 'SettingSoalController@getAnswerImage');
 });

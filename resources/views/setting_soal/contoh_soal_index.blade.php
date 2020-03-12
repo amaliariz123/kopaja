@@ -219,21 +219,38 @@
 
         //trigger to detail-modal
         $('#table_contoh tbody').on('click', '#detail-btn', function(){
-            //console.log('clicked');
             $('#contoh-detail:input').val('');
             $('#contoh-detail-modal').modal('show');
 
             var data = tabelContoh.row($(this).parents('tr')).data();
             var id = data['id'];
-            var url = "{{url('contoh_soal/show')}}"+"/"+id;
+            var token = $('input[name=_token]').val();
+            var urlData = "{{url('contoh_soal/show')}}"+"/"+id;
+            var d = new Date();
+
+            $.getJSON(urlData, function(data){
+                $('#detail_question_image').empty();
+                var question_img = $('<img id="question_image" class="img-responsive" src="{{asset('images/blank.png')}}" alt="question_image" width="100" height="50"><br>');
+
+                if(data['data']['question_image'] != 'blank.jpg'){
+                    var question_img = $('<img id="question_image" class="img-responsive" src="{{ url('storage/contoh_soal/question_image') }}/'+id+'?'+d.getTime()+'" alt="question_image" width="100" height="50"><br>');
+                }
+                $('#detail_question_image').append(question_img);
+
+                $('#detail_answer_image').empty();
+                var answer_img = $('<img id="answer_image" class="img-responsive" src="{{asset('images/blank.png')}}" alt="answer_image" width="100" height="50"><br>');
+                if (data['data']['answer_image'] != 'blank.jpg' ) {
+                    var answer_img = $('<img id="answer_image" class="img-responsive" src="{{ url('storage/contoh_soal/answer_image') }}/'+id+'?'+d.getTime()+'" alt="answer_image" width="100" height="50"><br>');
+                }
+                $('#detail_answer_image').append(answer_img);
 
             $('input[name=_method]').val('PUT');
-            $('input[name=detail_tax_name]').val(data['id_tax']);
-            $('input[name=detail_title]').val(data['title']);
-            $('textarea[name=detail_question_text]').val(data['question_text']);
-            //$('input[name=detail_question_image]').val(data['question_image']);
-            $('textarea[name=detail_answer_text]').val(data['answer_text']);
-            //$('input[name=detail_answer_image]').val(data['answer_image']);
+            $('input[name=_token]').val(token);
+            $('input[name=detail_tax_name]').val(data['data']['id_tax']);
+            $('input[name=detail_title]').val(data['data']['title']);
+            $('textarea[name=detail_question_text]').val(data['data']['question_text']);
+            $('textarea[name=detail_answer_text]').val(data['data']['answer_text']);
+            });
         });
 
 

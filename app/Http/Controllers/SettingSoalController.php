@@ -98,37 +98,37 @@ class SettingSoalController extends Controller
     		//if both field not null
     		if(!empty($request->question_image && !empty($request->answer_image)))
     		{
-    			$file1 = $request->file($request->question_image);
-    			$file2 = $request->file($request->answer_image);
+    			$file1 = $request->file('question_image');
+    			$file2 = $request->file('answer_image');
 
-    			$extensions1 = strtolower(request('question_image')->getClientOriginalExtension());
-    			$extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
+    			$extension1 = strtolower(request('question_image')->getClientOriginalExtension());
+    			$extension2 = strtolower(request('answer_image')->getClientOriginalExtension());
 
     			$date = date('YmdHi');
 
-    			$question_image = 'question_image_'.$date.'.'.$extensions1;
-    			$answer_image = 'answer_image_'.$date.'.'.$extensions2;
+    			$question_image = 'question_image_'.$date.'.'.$extension1;
+    			$answer_image = 'answer_image_'.$date.'.'.$extension2;
 
-    			Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
-    			Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+    			Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
+    			Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
     		} elseif(!empty($request->question_image) && empty($request->answer_image)) 
     		//if field question_image is not null BUT field answer_image is null
     		{
-    			$file1 = $request->file($request->question_image);
+    			$file1 = $request->file('question_image');
     			$extensions1 = strtolower(request('question_image')->getClientOriginalExtension());
     			$date = date('YmdHi');
     			$question_image = 'question_image_'.$date.'.'.$extensions1;
     			$answer_image = 'blank.jpg';
-    			Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
+    			Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
     		} elseif(empty($request->question_image) && !empty($request->answer_image)) 
     		//if field question_image is null BUT field answer_image is not null
     		{
-    			$file2 = $request->file($request->answer_image);
+    			$file2 = $request->file('answer_image');
     			$extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
     			$date = date('YmdHi');
     			$question_image = 'blank.jpg';
     			$answer_image = 'answer_image_'.$date.'.'.$extensions2;
-    			Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+    			Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
     		} else{ //if both field is null
     			$question_image = 'blank.jpg';
     			$answer_image = 'blank.jpg';
@@ -149,15 +149,28 @@ class SettingSoalController extends Controller
     }
 
     /**
-     * Fetch image url from table.
+     * Fetch question_image url from table.
      * @param int $id
      * @return Image
      */
-     public function getPicture($id)
+     public function getQuestionImage($id)
      {
-     	$picture = ExampleExercise::find($id);
+     	$data = ExampleExercise::find($id);
 
-     	return Image::make(Storage::get('public/images/developers_team/'.$picture->picture))->response();
+     	return Image::make(Storage::get('public/images/contoh_soal_image/'.$data->question_image))->response();
+     }
+
+     /**
+     * Fetch answer_image url from table.
+     * @param int $id
+     * @return Image
+     */
+     public function getAnswerImage($id)
+     {
+        $data = ExampleExercise::find($id);
+
+        return Image::make(Storage::get('public/images/contoh_soal_image/'.$data->answer_image))->response();
+        // return Image::make(Storage::get('public/images/developers_team/'.$picture->picture))->response();
      }
 
      /**
@@ -178,6 +191,8 @@ class SettingSoalController extends Controller
      		$arr['question_image'] = $example->question_image;
      		$arr['answer_text'] = $example->answer_text;
      		$arr['answer_image'] = $example->answer_image;
+            $arr['created_at'] = $example->created_at;
+            $arr['updated_at'] = $example->updated_at;
 
      		$data[] = $arr;
 
@@ -226,10 +241,10 @@ class SettingSoalController extends Controller
             //if both field not null
             if(!empty($request->edit_question_image && !empty($request->edit_answer_image)))
             {
-                $file1 = $request->file($request->edit_question_image);
-                $file2 = $request->file($request->edit_answer_image);
+                $file1 = $request->file('edit_question_image');
+                $file2 = $request->file('edit_answer_image');
 
-                $extensions1 = strtolower(request('edti_question_image')->getClientOriginalExtension());
+                $extensions1 = strtolower(request('edit_question_image')->getClientOriginalExtension());
                 $extensions2 = strtolower(request('edit_answer_image')->getClientOriginalExtension());
 
                 $date = date('YmdHi');
@@ -237,26 +252,26 @@ class SettingSoalController extends Controller
                 $question_image = 'question_image_'.$date.'.'.$extensions1;
                 $answer_image = 'answer_image_'.$date.'.'.$extensions2;
 
-                Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
-                Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+                Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
+                Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
             } elseif(!empty($request->edit_question_image) && empty($request->edit_answer_image)) 
             //if field question_image is not null BUT field answer_image is null
             {
-                $file1 = $request->file($request->edit_question_image);
+                $file1 = $request->file('edit_question_image');
                 $extensions1 = strtolower(request('edit_question_image')->getClientOriginalExtension());
                 $date = date('YmdHi');
                 $question_image = 'question_image_'.$date.'.'.$extensions1;
                 $answer_image = 'blank.jpg';
-                Storage::put('public/images/contoh_soal_image/'.$question_image, $file1);
+                Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
             } elseif(empty($request->edit_question_image) && !empty($request->edit_answer_image)) 
             //if field question_image is null BUT field answer_image is not null
             {
-                $file2 = $request->file($request->edit_answer_image);
+                $file2 = $request->file('edit_answer_image');
                 $extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
                 $date = date('YmdHi');
                 $question_image = 'blank.jpg';
                 $answer_image = 'answer_image_'.$date.'.'.$extensions2;
-                Storage::put('public/images/contoh_soal_image/'.$answer_image, $file2);
+                Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
             } else{ //if both field is null
                 $question_image = 'blank.jpg';
                 $answer_image = 'blank.jpg';

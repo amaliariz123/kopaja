@@ -24,21 +24,8 @@
 						<textarea class="form-control" name="detail_question_text" value="" disabled></textarea>
 					</div>
 					<div class="form-group">
-						<label for="question_image" class="form-control-label">Image</label>
-						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
-						  <div class="form-control" data-trigger="fileinput">
-						    <span class="fileinput-filename"></span>
-						  </div>
-						  <span class="input-group-append">
-						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Remove
-						    </span>
-						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Select image</span>
-						      <span class="fileinput-exists">Change</span>
-						      <input type="file" name="detail_question_image" accept="image/jpg,image/jpeg,image/png" >
-						    </span>
-						  </span>
+						<label for="question_image" class="form-control-label">Image <small class="form-text text-muted">For question</small></label>
+						<div id="detail_question_image">
 						</div>
 					</div>
 					<div class="form-group">
@@ -46,21 +33,8 @@
 						<textarea class="form-control" name="detail_answer_text" value="" disabled></textarea>
 					</div>
 					<div class="form-group">
-						<label for="answer_image" class="form-control-label">Image</label>
-						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
-						  <div class="form-control" data-trigger="fileinput">
-						    <span class="fileinput-filename"></span>
-						  </div>
-						  <span class="input-group-append">
-						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Remove
-						    </span>
-						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Select image</span>
-						      <span class="fileinput-exists">Change</span>
-						      <input type="file" name="detail_answer_image" accept="image/jpg,image/jpeg,image/png" >
-						    </span>
-						  </span>
+						<label for="answer_image" class="form-control-label">Image <small class="form-text text-muted">For question</small></label>
+						<div id="detail_answer_image">
 						</div>
 					</div>
 					</fieldset>

@@ -41,7 +41,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Daftar Pertanyaan Bantuan
+                                    Tabel Pertanyaan Bantuan
                                 </h3>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                     <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
-                                            <span>New Data</span>
+                                            <span>Tambah</span>
                                         </span>
                                     </button>
                                 </li>
@@ -113,9 +113,9 @@
                         <table class="table table-striped table-bordered" id="table_help">
                             <thead>
                                 <tr>                                    
-                                    <th>Question</th>
-                                    <th>Answer</th>
-                                    <th>Option</th>
+                                    <th>Pertanyaan</th>
+                                    <th>Jawaban</th>
+                                    <th>Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>                                
@@ -133,7 +133,8 @@
 
 @include('setting.bantuan_create')
 @include('setting.bantuan_edit')
-@include('setting.bantuan_detail')
+
+
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
@@ -174,7 +175,7 @@
         });
 
         //trigger modal detail data
-        $('#table_help tbody').on('click', '#detail-btn', function(){
+        /* $('#table_help tbody').on('click', '#detail-btn', function(){
             $('#help-detail:input').val();
             $('#help-detail-modal').modal('show');
 
@@ -187,17 +188,18 @@
             $('input[name=show_question]').val(data['question']);
             $('input[name=show_id]').val(data['id']);
             $('textarea[name=show_answer]').val(data['answer']);
-        });
+        }); */
 
         //trigger modal delete
         $('#table_help tbody').on('click', '#delete-btn', function(){
             var data = helpTable.row($(this).parents('tr')).data();
+
             swal({
-                text: "Are you sure to delete this?",
+                text: "Yakin untuk menghapus data ini?",
                 showCloseButton: true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it.',
-                cancelButtonText: 'No, cancel.',
+                confirmButtonText: 'Ya, hapus sekarang.',
+                cancelButtonText: 'Tidak, batalkan.',
                 reverseButtons: true,
                 type: 'warning',
             })
@@ -210,11 +212,11 @@
                         success: function(result){
                             //helpTable.ajax.reload();
                             location.reload();
-                            swal('Deleted!','Your file has been deleted.','success')
+                            swal('Dihapus!','Data berhasil dihapus.','success')
                         }  
                     })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swal('Cancelled','Delete data cancelled','info')
+                    swal('Dibatalkan','Data batal dihapus','error')
                 }
             });
         });

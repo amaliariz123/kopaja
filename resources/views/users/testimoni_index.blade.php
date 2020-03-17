@@ -42,7 +42,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    List of Data Testimoni
+                                    Tabel Data Testimoni
                                 </h3>
                             </div>
                         </div>
@@ -53,10 +53,10 @@
                         <table class="table table-striped table-bordered" id="table_testi">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Testimonial</th>
-                                    <th>Member Name</th>
-                                    <th>Action</th>
+                                    <th>Nama member</th>
+                                    <th>Instansi</th>
+                                    <th>Ditambahkan pada</th>
+                                    <th>Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,6 +70,8 @@
         <!--End::Section-->
     </div>
 </div>
+
+@include('users.testimoni_detail')
 
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>

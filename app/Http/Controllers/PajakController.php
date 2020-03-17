@@ -58,10 +58,11 @@ class PajakController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request;
     	$rules = [
     		'name' => 'required',
     		'description' => 'required',
-    		'tax_type' => 'required|in:Pajak pusat,Pajak daerah',
+    		'tax_type' => 'required',
     		'module' => 'nullable|max:2048|mimetypes:application/pdf',
     	];
 
@@ -69,7 +70,7 @@ class PajakController extends Controller
 
     	if($validator->fails())
     	{
-    		return response()->json(['errors' => $rules->errors()->all()]);
+    		return response()->json(['errors' => $validator->errors()->all()]);
     	} else {
     		if(!empty($request->module))
     		{
@@ -83,14 +84,15 @@ class PajakController extends Controller
     	}
 
     	//store data to table taxes
-    	Tax::create([
+    	$result = Tax::create([
     		'name' => request('name'),
     		'description' => request('description'),
     		'tax_type' => request('tax_type'),
     		'module' => $filename,
     	]);
 
-    	//return $request['module'];
+        //return $result;
+
     	return response()->json(['success' => 'Data added successfully!']);
     }
 

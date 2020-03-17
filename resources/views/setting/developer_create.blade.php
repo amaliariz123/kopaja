@@ -13,38 +13,38 @@
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Name<span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="name" placeholder="E.g. Jane Doe" required>
+						<label for="name" class="form-control-label">Nama<span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="name" placeholder="..." required>
 					</div>
 					<div class="form-group">
 						<label for="email" class="form-control-label">Email<span class="text-danger">*</span></label>
-						<input type="email" class="form-control" name="email" required placeholder="E.g. jane.doe@mail.com">
+						<input type="email" class="form-control" name="email" required placeholder="...">
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Picture</label>
+						<label for="Picture" class="form-control-label">Gambar</label>
 						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
 						  <div class="form-control" data-trigger="fileinput">
 						    <span class="fileinput-filename"></span>
 						  </div>
 						  <span class="input-group-append">
 						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Remove
+						      Hapus
 						    </span>
 
 						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Select image</span>
-						      <span class="fileinput-exists">Change</span>
+						      <span class="fileinput-new">Pilih berkas</span>
+						      <span class="fileinput-exists">Ubah</span>
 						      <input type="file" name="picture" accept="image/jpg,image/jpeg,image/png" >
 						    </span>
 						  </span>
 						</div>
-						<small id="emailHelp" class="form-text text-muted">Maximal size is 2 MB. (*jpg, *png, *jpeg)</small>
+						<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 					</div>
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-primary">Simpan</button>
 						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
 					</div>
 				</form>
 			</div>
@@ -75,7 +75,7 @@
 					if(data.success)
 					{
 						$('#dev-create-modal').modal('hide');
-						toastr.success('Success add new data!', 'Success', {timeOut:6000});
+						toastr.success('Data berhasil ditambahkan!', 'Success', {timeOut:6000});
 						//thisTable.ajax.reload();
 						location.reload();
 					} else {

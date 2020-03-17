@@ -43,7 +43,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Daftar Tim Pengembang
+                                    Tabel Tim Pengembang
                                 </h3>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                     <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
-                                            <span>New Data</span>
+                                            <span>Tambah</span>
                                         </span>
                                     </button>
                                 </li>
@@ -116,9 +116,9 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" name="select_all" id="select_all"></th>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Option</th>
+                                    <th>Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>                                
@@ -180,12 +180,14 @@
         /*trigger dev-delete-modal */
         $('#table_dev tbody').on('click', '#delete-btn', function(){
             var data = thisTable.row($(this).parents('tr')).data();
+            var name = data['name'];
+
             swal({
-                text: "Are you sure to delete this?",
+                text: "Yakin untuk menghapus "+name+"?",
                 showCloseButton: true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it.',
-                cancelButtonText: 'No, cancel.',
+                confirmButtonText: 'Ya, hapus sekarang.',
+                cancelButtonText: 'Tidak, batalkan.',
                 reverseButtons: true,
                 type: 'warning',
             })
@@ -198,11 +200,11 @@
                         success: function(result){
                             //thisTable.ajax.reload();
                             location.reload();
-                            swal('Deleted!','Your file has been deleted.','success')
+                            swal('Dihapus!','Data '+name+' telah dihapus.','success')
                         }  
                     })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swal('Cancelled','Delete data cancelled','info')
+                    swal('Dibatalkan','Data '+name+ ' batal dihapus.','info')
                 }
             });
         });
@@ -218,12 +220,12 @@
             var token = $('input[name=_token]').val();
             var urlData = " {{ url('/tim_pengembang') }}"+"/"+id+"/edit";
 
-                $('input[name=_method]').val('PUT');
-                $('input[name=_token]').val(token);
-                $('input[name=edit_name]').val(data['data']['name']);
-                $('input[name=edit_id]').val(data['data']['id']);
-                $('input[name=edit_email]').val(data['data']['email']);
-                //$('input[name=edit_picture]').val(data['picture']);
+            $('input[name=_method]').val('PUT');
+            $('input[name=_token]').val(token);
+            $('input[name=edit_name]').val(data['name']);
+            $('input[name=edit_id]').val(data['id']);
+            $('input[name=edit_email]').val(data['email']);
+            //$('input[name=edit_picture]').val(data['picture']);
         });
 
         /*trigger detail-modal*/

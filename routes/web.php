@@ -256,12 +256,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     })->name('pajakprovdankab');
 
     Route::get('/cekSoalpajakprovdankab', 'soalController@cekSoalpajakprovdankab')->name('cekSoalpajakprovdankab');
-    
-
-
-
-
-    
 
     Route::get('/contact',function(){
         return view('tentang');
@@ -296,6 +290,7 @@ Route::get('/home', function () {
 
 Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
 Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
+
 
 
 /* ROUTE PANEL ADMIN */

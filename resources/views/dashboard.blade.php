@@ -32,7 +32,6 @@
                           </div>
             </div>
         </div>
-		@include('base.notification')
         <!-- END: Subheader -->
         <div class="m-content">
             <!--Begin::Section-->
@@ -56,7 +55,7 @@
                 <form action="" method="POST">
                   @csrf
                     <div class="form-group m-form__group row">
-                      <label class="col-form-label col-lg-3 col-sm-12">Define Ranges</label>
+                      <label class="col-form-label col-lg-3 col-sm-12">Pilih rentang</label>
                       <div class="col-lg-4 col-md-9 col-sm-12">
                         <div class='input-group pull-right' id='m_daterangepicker_6'>
                           <input type="text" class="form-control m-input" readonly placeholder="Select date range" name="range" />
@@ -66,7 +65,7 @@
                         </div>
                         <div style="margin-top: 60px">
                           <label class="m-checkbox">
-                              <input type="checkbox" name="test" value="1" id="test"> All Time
+                              <input type="checkbox" name="test" value="1" id="test"> Sepanjang waktu
                               <span></span>
                           </label>
                         </div>
@@ -74,7 +73,7 @@
                     </div>
                         <div class="row">
                           <div class="col-lg-12 ml-lg-auto">
-                            <button type="submit" name="search" id="search" class="btn btn-primary">Search</button>
+                            <button type="submit" name="search" id="search" class="btn btn-primary">Cari</button>
                           </div>
                         </div>
                 </form>
@@ -92,7 +91,7 @@
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Total Members
+                          Member
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -109,7 +108,7 @@
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Taxes
+                          Testimoni
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -126,7 +125,7 @@
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Testimonials
+                          Pajak
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -143,7 +142,7 @@
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Total Quiz 
+                          Latihan Soal 
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -171,7 +170,7 @@
                           <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                          Chart of Online Members, Total Members, Taxes, and Testimonials
+                          Chart dari data member, testimoni, pajak dan latihan soal.
                         </h3>
                       </div>
                     </div>

@@ -12,20 +12,20 @@
 				<form id="tax-detail" method="GET" enctype="multipart/form-data" file=true>
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Name</label>
-						<input type="text" class="form-control" name="name" value="" disabled>
+						<label for="name" class="form-control-label">Nama</label>
+						<input type="text" class="form-control" name="detail_name" value="" disabled>
 					</div>
 					<div class="form-group">
-						<label for="description" class="form-control-label">Description</label>
-						<textarea type="text" class="form-control" name="description" rows="5" value="" disabled></textarea>
+						<label for="description" class="form-control-label">Deskripsi</label>
+						<textarea type="text" class="form-control" name="detail_description" rows="5" value="" disabled></textarea>
 					</div>
 					<div class="form-group">
-						<label for="tax_type" class="form-control-label">Tax type</label>
-						<input type="text" name="tax_type" class="form-control" value="" disabled>
+						<label for="tax_type" class="form-control-label">Tipe Pajak</label>
+						<input type="text" name="detail_tax_type" class="form-control" value="" disabled>
 					</div>
 					<div class="form-group">
-						<label for="module" class="form-control-label">Module</label><br>
-						<input type="text" name="module" class="form-control" value="" disabled>
+						<label for="module" class="form-control-label">Materi</label><br>
+						<input type="text" name="detail_module" class="form-control" value="" disabled>
 					</div>
 					</fieldset>
 					<br>

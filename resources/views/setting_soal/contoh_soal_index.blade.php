@@ -41,7 +41,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Daftar Contoh Soal
+                                    Tabel Contoh Soal
                                 </h3>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                     <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
-                                            <span>New Data</span>
+                                            <span>Tambah</span>
                                         </span>
                                     </button>
                                 </li>
@@ -113,11 +113,11 @@
                         <table class="table table-striped table-bordered" id="table_contoh">
                             <thead>
                                 <tr>
-                                    <th>Tax name</th>
-                                    <th>Title</th>
-                                    <th>Question</th>
-                                    <th>Answer</th>
-                                    <th>Option</th>
+                                    <th>Nama pajak </th>
+                                    <th>Judul</th>
+                                    <th>Pertanyaan</th>
+                                    <th>Penjelasan</th>
+                                    <th>Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -189,13 +189,14 @@
         //trigger to delete-modal
         $('#table_contoh tbody').on('click', '#delete-btn', function(){
             var data = tabelContoh.row($(this).parents('tr')).data();
+            var title = data['title'];
 
            swal({
-                text: "Are you sure to delete this?",
+                text: "Yakin untuk menghapus "+title+" ?",
                 showCloseButton: true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it.',
-                cancelButtonText: 'No, cancel.',
+                confirmButtonText: 'Ya, hapus sekarang.',
+                cancelButtonText: 'Tidak, batalkan.',
                 reverseButtons: true,
                 type: 'warning',
             })
@@ -208,11 +209,11 @@
                         success: function(result){
                             //tabelContoh.ajax.reload();
                             location.reload();
-                            swal('Deleted!','Your file has been deleted.','success')
+                            swal('Dihapus!','Data '+title+' telah dihapus.','success')
                         }  
                     })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swal('Cancelled','Delete data cancelled','info')
+                    swal('Dibatalkan','Data '+title+' batal dihapus.','error')
                 }
             });
         });
@@ -230,26 +231,28 @@
 
             $.getJSON(urlData, function(data){
                 $('#detail_question_image').empty();
-                var question_img = $('<img id="question_image" class="img-responsive" src="{{asset('images/blank.png')}}" alt="question_image" width="100" height="50"><br>');
+                var question_img = $('<img id="question_image" class="img-responsive" src="{{asset('images/blank.png')}}" alt="question_image" width="100" height="50" /><br>');
 
-                if(data['data']['question_image'] != 'blank.jpg'){
-                    var question_img = $('<img id="question_image" class="img-responsive" src="{{ url('storage/contoh_soal/question_image') }}/'+id+'?'+d.getTime()+'" alt="question_image" width="100" height="50"><br>');
+                if(data['data'][0]['question_image'] != "blank.jpg"){
+                    var question_img = $('<img id="question_image" class="img-responsive" src="{{ url('storage/contoh_soal/question_image') }}/'+id+'?'+d.getTime()+'" alt="question_image" width="100" height="50" /><br>');
                 }
                 $('#detail_question_image').append(question_img);
 
                 $('#detail_answer_image').empty();
-                var answer_img = $('<img id="answer_image" class="img-responsive" src="{{asset('images/blank.png')}}" alt="answer_image" width="100" height="50"><br>');
-                if (data['data']['answer_image'] != 'blank.jpg' ) {
-                    var answer_img = $('<img id="answer_image" class="img-responsive" src="{{ url('storage/contoh_soal/answer_image') }}/'+id+'?'+d.getTime()+'" alt="answer_image" width="100" height="50"><br>');
+                var answer_img = $('<img id="answer_image" class="img-responsive" src="{{asset('images/blank.png')}}" alt="answer_image" width="100" height="50" /><br>');
+                if (data['data'][0]['answer_image'] != "blank.jpg" ) {
+                    var answer_img = $('<img id="answer_image" class="img-responsive" src="{{ url('storage/contoh_soal/answer_image') }}/'+id+'?'+d.getTime()+'" alt="answer_image" width="100" height="50" /><br>');
                 }
                 $('#detail_answer_image').append(answer_img);
 
             $('input[name=_method]').val('PUT');
             $('input[name=_token]').val(token);
-            $('input[name=detail_tax_name]').val(data['data']['id_tax']);
-            $('input[name=detail_title]').val(data['data']['title']);
-            $('textarea[name=detail_question_text]').val(data['data']['question_text']);
-            $('textarea[name=detail_answer_text]').val(data['data']['answer_text']);
+            $('input[name=detail_id]').val(data['data'][0]['id']);
+            $('input[name=detail_tax_name]').val(data['data'][0]['id_tax']);
+            $('input[name=detail_title]').val(data['data'][0]['title']);
+            $('textarea[name=detail_question_text]').val(data['data'][0]['question_text']);
+            $('textarea[name=detail_answer_text]').val(data['data'][0]['answer_text']);
+
             });
         });
 

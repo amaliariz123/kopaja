@@ -3,7 +3,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Data Pajak</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Ubah Data Pajak</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -13,52 +13,52 @@
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Name<span class="text-danger">*</span></label>
+						<label for="name" class="form-control-label">Nama<span class="text-danger">*</span></label>
 						<input type="hidden" name="edit_id" class="form-control">
 						<input type="text" class="form-control" name="edit_name" value="">
 					</div>
 					<div class="form-group">
-						<label for="description" class="form-control-label">Description<span class="text-danger">*</span></label>
+						<label for="description" class="form-control-label">Deskripsi<span class="text-danger">*</span></label>
 						<textarea type="text" class="form-control" name="edit_description" rows="6" value=""></textarea>
 					</div>
 					<div class="form-group">
-						<label for="tax_type" class="form-control-label">Tax type<span class="text-danger">*</span></label>
+						<label for="tax_type" class="form-control-label">Tipe Pajak<span class="text-danger">*</span></label>
 						<div class="m-radio-list">
 							<label class="m-radio m-radio--brand">
-								<input type="radio" name="tax_type" value="Pajak Pusat"> Pajak Pusat
+								<input type="radio" name="edit_tax_type" value="Pajak Pusat"> Pajak Pusat
 								<span></span>
 							</label>
 							<label class="m-radio m-radio--brand">
-								<input type="radio" name="tax_type" value="Pajak Daerah"> Pajak Daerah
+								<input type="radio" name="edit_tax_type" value="Pajak Daerah"> Pajak Daerah
 								<span></span>
 							</label>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="module" class="form-control-label">Module<span class="text-danger">*</span></label><br>
+						<label for="module" class="form-control-label">Materi<span class="text-danger">*</span></label><br>
 						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
 						  <div class="form-control" data-trigger="fileinput">
 						    <span class="fileinput-filename"></span>
 						  </div>
 						  <span class="input-group-append">
 						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Remove
+						      Hapus
 						    </span>
 
 						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Select file</span>
-						      <span class="fileinput-exists">Change</span>
+						      <span class="fileinput-new">Pilih berkas</span>
+						      <span class="fileinput-exists">Ubah</span>
 						      <input type="file" name="edit_picture" accept="application/pdf">
 						    </span>
 						  </span>
 						</div>
-						<small id="emailHelp" class="form-text text-muted">Maximal size is 2 MB. (*pdf only)</small>
+						<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (format *pdf)</small>
 					</div>
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-primary">Perbarui</button>
 						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Perbarui</button>
 					</div>
 				</form>
 			</div>
@@ -89,7 +89,7 @@
 					if(data.success)
 					{
 						$('#tax-edit-modal').modal('hide');
-						toastr.success('Success update data!', 'Success', {timeOut:6000});
+						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
 						//tabelPajak.ajax.reload();
 						location.reload();
 					} else {

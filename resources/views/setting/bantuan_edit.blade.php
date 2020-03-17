@@ -3,7 +3,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Pertanyaan Bantuan</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Ubah Pertanyaan Bantuan</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -13,19 +13,19 @@
 					 @csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="question" class="form-control-label">Question<span class="text-danger">*</span></label>
+						<label for="question" class="form-control-label">Pertanyaan<span class="text-danger">*</span></label>
 						<input type="hidden" name="edit_id" class="form-control">
 						<input type="text" class="form-control" name="edit_question" value="" >
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Answer<span class="text-danger">*</span></label>
+						<label for="answer" class="form-control-label">Jawaban<span class="text-danger">*</span></label>
 						<textarea type="text" class="form-control" name="edit_answer" value=""></textarea>
 					</div>
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-primary">Perbarui</button>
 						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Perbarui</button>
 					</div>
 				</form>
 			</div>
@@ -57,7 +57,7 @@
 					if(data.success)
 					{
 						$('#help-edit-modal').modal('hide');
-						toastr.success('Success update data!', 'Success', {timeOut:6000});
+						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
 						//helpTable.ajax.reload();
 						location.reload();
 					} else {

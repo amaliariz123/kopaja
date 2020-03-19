@@ -16,7 +16,7 @@ class CreateTestimonialsTable extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->increments('id_testimonial');
             $table->text('content');
-            $table->unsignedInteger('id_user');
+            $table->unsignedBigInteger('id_user')->unsigned();
             $table->timestamps();
 
             $table->foreign('id_user')

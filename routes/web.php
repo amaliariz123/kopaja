@@ -14,17 +14,15 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::resource('register', 'Auth\RegisterController');
-
 Route::group( [ 'middleware' => 'auth' ], function () {
-    Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
-    Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
+    // Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
+    // Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
 
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');

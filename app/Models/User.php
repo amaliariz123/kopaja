@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoleAndPermission;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'role', 'tanggal_lahir', 'province', 'city', 'kecamatan', 'instansi', 'email', 'password',
+         'email', 'password',
     ];
 
     /**

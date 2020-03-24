@@ -14,7 +14,7 @@ class Provinces extends Migration
     public function up()
     {
         Schema::create('provinces', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('provinsi');
             $table->string('p_bsni');
         });

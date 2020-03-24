@@ -153,7 +153,7 @@ class PajakController extends Controller
 
         if($validator->fails())
         {
-            return response()->json(['errors' => $rules->errors()->all()]);
+            return response()->json(['errors' => $validator->errors()->all()]);
         } else {
             if(!empty($request->edit_module))
             {

@@ -58,8 +58,8 @@
 					{
 						$('#help-edit-modal').modal('hide');
 						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
-						//helpTable.ajax.reload();
-						location.reload();
+						helpTable.ajax.reload();
+						//location.reload();
 					} else {
 						console.log(data);
 						for(var count=0; count < data.errors.length; count++)

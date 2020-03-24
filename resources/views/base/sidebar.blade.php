@@ -13,13 +13,14 @@
 			</li>
 
 			<li class="m-menu__section ">
-				<h4 class="m-menu__section-text">PENGGUNA</h4>
+				<h4 class="m-menu__section-text">AKUN</h4>
 				<i class="m-menu__section-icon flaticon-more-v2"></i>
 			</li>
+
 			<li class="m-menu__item m-menu__item--submenu @yield('user')" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon fas fa-user-cog"></i>
-					<span class="m-menu__link-text">Admin</span>					
+					<span class="m-menu__link-text">Pengguna</span>					
 				</a>
 			</li>
 

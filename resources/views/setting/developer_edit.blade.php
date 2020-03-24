@@ -79,8 +79,8 @@
 					{
 						$('#dev-edit-modal').modal('hide');
 						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
-						//thisTable.ajax.reload();
-						location.reload();
+						thisTable.ajax.reload();
+						//location.reload();
 					} else {
 						console.log(data);
 						for(var count=0; count < data.errors.length; count++)

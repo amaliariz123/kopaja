@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -41,11 +41,20 @@ class LoginController extends Controller
 
     protected function authenticated(\Illuminate\Http\Request $request, $user)
     {
-        if($user->role=='admin')
+        // if($user->role=='admin')
+        // {
+        //     return redirect('/dashboard');
+        // }
+        // else if(auth()->user()->role=='member')
+        // {
+        //     return redirect('/');
+        // }
+
+        if($user->hasRole('admin'))
         {
             return redirect('/dashboard');
-        }
-        else if(auth()->user()->role=='member')
+        } 
+        else if($user->hasRole('user'))
         {
             return redirect('/');
         }

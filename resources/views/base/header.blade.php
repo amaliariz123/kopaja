@@ -137,8 +137,14 @@
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="" />
+													@if(Auth::user()->profile_picture != null)
+													<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+													@else
+													<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+													@endif
 												</span>
+												&nbsp;&nbsp;
+												<span class="m-nav__link-text">{{Auth::user()->fullname}}</span>
 											</a>
 											<div class="m-dropdown__wrapper">
 												<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
@@ -146,11 +152,15 @@
 													<div class="m-dropdown__header m--align-center">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-																<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="" />
+																@if(Auth::user()->profile_picture != null)
+																<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+																@else
+																<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+																@endif
 															</div>
 															<div class="m-card-user__details">
-																<span class="m-card-user__name m--font-weight-500">Admin</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">admin@gmail.com</a>
+																<span class="m-card-user__name m--font-weight-500">{{Auth::user()->fullname}}</span>
+																<a href="" class="m-card-user__email m--font-weight-300 m-link">{{Auth::user()->email}}</a>
 															</div>
 														</div>
 													</div>
@@ -161,7 +171,7 @@
 																	<span class="m-nav__section-text">Section</span>
 																</li>
 																<li class="m-nav__item">
-																	<a href="{{url('/admin/edit/profil')}}" class="m-nav__link">
+																	<a href="{{url('/admin/edit/profil/'.Auth::user()->id)}}" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-profile-1"></i>
 																		<span class="m-nav__link-title">
 																			<span class="m-nav__link-wrap">
@@ -173,7 +183,11 @@
 																<li class="m-nav__separator m-nav__separator--fit">
 																</li>
 																<li class="m-nav__item">
-																	<a href="" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+																	<a href="{{route('logout')}}" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder" onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				                                                    @csrf
+				                                                </form>
 																</li>
 															</ul>
 														</div>

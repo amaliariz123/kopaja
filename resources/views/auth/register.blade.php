@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SIGNUP</title>
+    <title>KOPAJA | SIGNUP</title>
     <link rel="icon" href="{{url('/')}}/etrain/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/bootstrap.min.css">
@@ -37,36 +37,45 @@
                         <h1 style="font-weight: bold;">REGISTER</h1><br>
 							<form method="POST" action="{{ route('register') }}">
                             @csrf
-                                <div class="form-group">
-                                    <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Email') }}"  id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></h5>
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
+                            <div class="form-group">
+                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Name') }}"  id="fullname" type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" required autocomplete="fullname"></h5>
+                                    @error('fullname')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
 
-                                <div class="form-group">
-                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Password') }}" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <div class="form-group">
+                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Email') }}"  id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></h5>
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
 
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
+                            <div class="form-group">
+                            <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Password') }}" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                                <div class="form-group">
-                                    <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Confirm Password') }}"  id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"></h5>
-                                </div>
-                              <br>
-                                         
-	                        <div>
-	                            <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('REGISTER') }}</button></h5>
-	                            <br><br><br><br>
-								<h6><a class="btn_2" href="{{Route('login')}}" style="height: 20%">Already Have Account</a></h6><br>
-	                        </div>
-							</form>    
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Confirm Password') }}"  id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"></h5>
+                            </div>
+                          <br>
+                                     
+                            <div>
+                                <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('REGISTER') }}</button></h5>
+                                <br><br><br><br>
+    							<h6><a class="btn_2" href="{{Route('login')}}" style="height: 20%">Already Have Account</a></h6><br>
+                            </div>
+						</form>    
 						</center>     
                     </div>
                 </div>

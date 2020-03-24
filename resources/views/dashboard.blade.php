@@ -52,7 +52,7 @@
                 <div class="m-portlet__body">
 
                 <!--begin: Search Form -->
-                <form action="" method="POST">
+                <form action="{{url('/dashboard')}}" method="POST">
                   @csrf
                     <div class="form-group m-form__group row">
                       <label class="col-form-label col-lg-3 col-sm-12">Pilih rentang</label>
@@ -87,11 +87,11 @@
               <div class="m-portlet__body  m-portlet__body--no-padding">
                 <div class="row m-row--no-padding m-row--col-separator-xl">
                   <div class="col-md-12 col-lg-6 col-xl-3">
-                    <!--begin::Total Members-->
+                    <!--begin::Total Member Premium-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Member
+                          Member Premium
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -104,11 +104,11 @@
                   </div>
 
                   <div class="col-md-12 col-lg-6 col-xl-3">
-                    <!--begin::Taxes-->
+                    <!--begin::Total Member Reguler-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Testimoni
+                          Member Reguler
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -117,7 +117,7 @@
                         <div class="m--space-40"></div>
                       </div>
                     </div>
-                    <!--end::Taxes-->
+                    <!--end::Total member Reguler-->
                   </div>
 
                   <div class="col-md-12 col-lg-6 col-xl-3">
@@ -125,7 +125,7 @@
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Pajak
+                          Testimoni
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -138,7 +138,7 @@
                   </div>
 
                    <div class="col-md-12 col-lg-6 col-xl-3">
-                    <!--begin::Online Members-->
+                    <!--begin::Latihan soal-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
@@ -152,7 +152,7 @@
                       </div>
                     </div>
 
-                    <!--end::Online Members -->
+                    <!--end::Latihan soal -->
                   </div>
                 </div>
               </div>

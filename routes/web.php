@@ -42,7 +42,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
     Route::get('/cekSoalpphpasal4ayat2', 'soalController@cekSoalpphpasal4ayat2')->name('cekSoalpphpasal4ayat2');
 
-
     Route::get('/latihansoalpasal15',function(){
         return view('latihansoal.latsoalpasal15');
     })->name('latsoalpasal15');
@@ -270,7 +269,7 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/downloadAllSoal', 'DownloadController@allSOal')->name('downloadAllSoal');
 
     Route::get('/downloadAllMateri', 'DownloadController@allMateri')->name('downloadAllMateri');
-});
+
 Route::get('/tentang',function(){
     return view('tentang');
 })->name('tentang');
@@ -290,20 +289,26 @@ Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
 Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
 
 
-
-/* ROUTE PANEL ADMIN */
+/** 
+===========================
+ ** Route for panel admin **
+============================
+**/
 
 //dashboard
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard/{year}/{month}', 'DashboardController@index');
+Route::get('/dashboard/{month}', 'DashboardController@index');
+Route::post('/dashboard', 'DashboardController@filter');
 
 //profil admin
-Route::get('/admin/edit/profil/', 'AdminController@edit');
-Route::post('/admin/update/profil/', 'AdminController@update');
+Route::get('/admin/edit/profil/{id}', 'UserController@edit');
+Route::post('/admin/update/profil/{id}', 'UserController@update');
 
-//members
-Route::get('/members', 'MemberController@indexMember');
-Route::get('/testimoni', 'MemberController@indexTesti');
-Route::get('/testimoni/get_data', 'MemberController@getDataTesti');
+//users
+Route::get('/members', 'UserController@indexMember');
+Route::get('/testimoni', 'UserController@indexTesti');
+Route::get('/testimoni/get_data', 'UserController@getDataTesti');
 
 //pajak
 Route::get('/pajak', 'PajakController@indexPajak');
@@ -360,4 +365,6 @@ Route::group(['prefix' => '/storage'], function () {
     Route::get('pajak/{id}', 'DevelopersController@getPdf');
     Route::get('contoh_soal/question_image/{id}', 'SettingSoalController@getQuestionImage');
     Route::get('contoh_soal/answer_image/{id}', 'SettingSoalController@getAnswerImage');
+});
+
 });

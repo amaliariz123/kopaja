@@ -198,8 +198,8 @@
                         url: "{{url('/tim_pengembang/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            //thisTable.ajax.reload();
-                            location.reload();
+                            thisTable.ajax.reload();
+                            //location.reload();
                             swal('Dihapus!','Data '+name+' telah dihapus.','success')
                         }  
                     })

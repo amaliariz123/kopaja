@@ -207,8 +207,8 @@
                         url: "{{url('/contoh_soal/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            //tabelContoh.ajax.reload();
-                            location.reload();
+                            tabelContoh.ajax.reload();
+                            //location.reload();
                             swal('Dihapus!','Data '+title+' telah dihapus.','success')
                         }  
                     })

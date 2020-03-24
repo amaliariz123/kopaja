@@ -16,13 +16,13 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Profile</span>
+                                <span class="m-nav__link-text">Profil</span>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Edit Profile</span>
+                                <span class="m-nav__link-text">Edit Profil</span>
                             </a>
                         </li>
                     </ul>
@@ -30,6 +30,8 @@
         </div>
     </div>
     <!-- END: Subheader -->
+    
+@include('base.notification')
 
     <div class="m-content">
     	<div class="row">
@@ -40,21 +42,21 @@
 						<div class="m-portlet__head-caption">
 							<div class="m-portlet__head-title">
 								<h3 class="m-portlet__head-text">
-									Edit Profile Admin
+									Ubah Profil Admin
 								</h3>
 							</div>
 						</div>
 					</div>
 
 					<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-right" method="POST">
+					<form class="m-form m-form--fit m-form--label-align-right" action="{{url('/admin/update/profil/'.Auth::user()->id)}}" method="POST">
+						@csrf
 						<div class="m-portlet__body">
 							<div class="form-group m-form__group row">
-								<label class="col-form-label col-lg-3 col-sm-12">Full name</label>
+								<label class="col-form-label col-lg-3 col-sm-12">Nama</label>
 								<div class="col-lg-4 col-md-9 col-sm-12">
 									<div class="input-group">
-										<input type="text" class="form-control m-input" aria-describedby="basic-addon2">
-										<div class="input-group-append"><span class="input-group-text" id="basic-addon2"><i class="la la-user"></i></span></div>
+										<input type="text" class="form-control m-input" name="fullname" value="{{$user['fullname']}}" required>
 									</div>
 								</div>
 							</div>
@@ -62,44 +64,37 @@
 								<label class="col-form-label col-lg-3 col-sm-12">Email</label>
 								<div class="col-lg-4 col-md-9 col-sm-12">
 									<div class="input-group">
-										<input type="email" class="form-control m-input" aria-describedby="basic-addon2">
-										<div class="input-group-append"><span class="input-group-text" id="basic-addon2"><i class="la la-at"></i></span></div>
+										<input type="email" class="form-control m-input" name="email" value="{{$user['email']}}" required>
 									</div>
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
-								<label class="col-form-label col-lg-3 col-sm-12">Phone number</label>
+								<label class="col-form-label col-lg-3 col-sm-12">Kata sandi lama</label>
 								<div class="col-lg-4 col-md-9 col-sm-12">
 									<div class="input-group">
-										<input type="text" class="form-control m-input" aria-describedby="basic-addon2">
-										<div class="input-group-append"><span class="input-group-text" id="basic-addon2"><i class="la la-phone"></i></span></div>
+										<input type="password" class="form-control m-input" name="old_password" value="" id="currentPass">
+										<i onclick="show('currentPass')" class="fas fa-eye-slash" id="currentPass"></i>
+									</div><br>
+									<a href="">
+									<small id="emailHelp" class="form-text text-muted">Lupa kata sandi? </small>
+									</a>
+								</div>
+							</div>
+							<div class="form-group m-form__group row">
+								<label class="col-form-label col-lg-3 col-sm-12">Kata sandi baru</label>
+								<div class="col-lg-4 col-md-9 col-sm-12">
+									<div class="input-group">
+										<input type="password" class="form-control m-input" name="new_password" id="newPass" value="">
+										<i onclick="show('newPass')" class="fas fa-eye-slash" id="newPass"></i>
 									</div>
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
-								<label class="col-form-label col-lg-3 col-sm-12">Old password</label>
+								<label class="col-form-label col-lg-3 col-sm-12">Konfirmasi kata sandi baru</label>
 								<div class="col-lg-4 col-md-9 col-sm-12">
 									<div class="input-group">
-										<input type="password" class="form-control m-input" aria-describedby="basic-addon2">
-										<div class="input-group-append"><span class="input-group-text" id="basic-addon2"><i class="la la-unlock"></i></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group m-form__group row">
-								<label class="col-form-label col-lg-3 col-sm-12">New password</label>
-								<div class="col-lg-4 col-md-9 col-sm-12">
-									<div class="input-group">
-										<input type="password" class="form-control m-input" aria-describedby="basic-addon2">
-										<div class="input-group-append"><span class="input-group-text" id="basic-addon2"><i class="la la-unlock-alt"></i></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group m-form__group row">
-								<label class="col-form-label col-lg-3 col-sm-12">Re-type new password</label>
-								<div class="col-lg-4 col-md-9 col-sm-12">
-									<div class="input-group">
-										<input type="password" class="form-control m-input" aria-describedby="basic-addon2">
-										<div class="input-group-append"><span class="input-group-text" id="basic-addon2"><i class="la la-check-circle"></i></span></div>
+										<input type="password" class="form-control m-input" name="confirm_new_password" value="" id="confirm_password">
+										<i onclick="show('confirm_password')" class="fas fa-eye-slash" id="confirm_password"></i>
 									</div>
 								</div>
 							</div>
@@ -108,8 +103,8 @@
 							<div class="m-form__actions m-form__actions">
 								<div class="row">
 									<div class="col-lg-9 ml-lg-auto">
-										<button type="submit" class="btn btn-brand">Save change(s)</button>
-										<button type="reset" class="btn btn-secondary" onclick="window.location='{{ URL::previous() }}'">Cancel</button>
+										<button type="submit" class="btn btn-brand">Perbarui</button>
+										<button type="reset" class="btn btn-secondary" onclick="window.location='{{ URL::previous() }}'">Batal</button>
 									</div>
 								</div>
 							</div>
@@ -123,3 +118,29 @@
     </div>
 </div>
 @endsection
+
+@push('custom-script')
+<script type="text/javascript" src="{{url('assets/demo/demo11/custom/components/base/toastr.js')}}"></script>
+<script type="text/javascript">
+	function show(a)
+	{
+		var x = document.getElementById(a);
+		var i= x.nextElementSibling
+
+		if(x.getAttribute("type") == "password")
+		{
+			x.removeAttribute("type");
+			x.setAttribute("type", "text");
+			i.removeAttribute("class");
+			i.setAttribute("class","fas fa-eye");
+			//console.log(i);
+		} else {
+			x.removeAttribute("type");
+			x.setAttribute("type", "password");
+			i.removeAttribute("class");
+			i.setAttribute("class","fas fa-eye-slash");
+			//console.log(i);
+		}
+	}
+</script>
+@endpush

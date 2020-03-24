@@ -238,6 +238,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
-        'Image' => Intervention\Image\Facades\Image::class, 
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class, 
     ],
 ];

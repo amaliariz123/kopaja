@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +10,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Member;
+use Ramsey\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
@@ -64,6 +66,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'fullname' => ['required', 'string', 'max:35'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -83,12 +86,19 @@ class RegisterController extends Controller
         // ]);
 
         $user = config('roles.models.defaultUser')::create([
+            'id' => Uuid::uuid4()->getHex(),
+            'fullname' => $data['fullname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
         $role = config('roles.models.role')::where('name', '=', 'User')->first(); //default role for new user
-        $user->attachRole($role);
+        $user->attachRole($role); //assign role to new user
+
+        //insert user_id to members table
+        $member = Member::create([
+            'user_id' => $user['id'],
+        ]);
 
         return $user;
     }

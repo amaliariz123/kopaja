@@ -210,8 +210,8 @@
                         url: "{{url('/pajak/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            //tabelPajak.ajax.reload();
-                            location.reload();
+                            tabelPajak.ajax.reload();
+                            //location.reload();
                             swal('Dihapus!','Data '+name+' telah dihapus.','success')
                         }  
                     })

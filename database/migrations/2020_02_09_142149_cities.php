@@ -14,7 +14,7 @@ class Cities extends Migration
     public function up()
     {
         Schema::create('cities', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('provinsi_id');
             $table->string('kabupaten_kota');
             $table->string('ibu_kota');

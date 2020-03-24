@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>LOGIN</title>
+    <title>KOPAJA | LOGIN</title>
     <link rel="icon" href="{{url('/')}}/etrain/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/bootstrap.min.css">
@@ -31,7 +31,7 @@
             <div class="row align-items-sm-center align-items-l-stretch">
                 <div class="col-lg-7 col-md-5">
                     <div class="learning_img">
-                        <img src="{{url('/')}}/etrain/img/advance_feature_img.png" alt="">
+                        <img src="{{url('/etrain/img/advance_feature_img.png')}}" alt="">
                     </div>
                 </div>
                 <div class="col-md-7 col-lg-5">

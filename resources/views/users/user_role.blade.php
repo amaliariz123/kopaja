@@ -1,25 +1,38 @@
 <!--begin::Modal-->
-<div class="modal fade" id="help-edit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="user-role-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Ubah Pertanyaan Bantuan</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Ubah Status Pengguna</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="help-update" method="POST" enctype="multipart/form-data">
+				<form id="user-role" method="POST" enctype="multipart/form-data">
 					 @csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="question" class="form-control-label">Pertanyaan<span class="text-danger">*</span></label>
-						<input type="hidden" name="edit_id" class="form-control">
-						<input type="text" class="form-control" name="edit_question" value="" >
+						<label for="question" class="form-control-label">Nama</label>
+						<input type="hidden" name="id" class="form-control" value="">
+						<input type="text" class="form-control" name="fullname" value="" disabled>
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Jawaban<span class="text-danger">*</span></label>
-						<textarea type="text" class="form-control" name="edit_answer" value=""></textarea>
+						<label for="answer" class="form-control-label">Email</label>
+						<input type="text" name="email" class="form-control" value="" disabled>
+					</div>
+					<div class="form-group">
+						<label for="answer" class="form-control-label">Status<span class="text-danger">*</span></label>
+						<div class="m-radio-list">
+							<label class="m-radio m-radio--brand">
+								<input type="radio" name="role_edit" value="1">Admin
+								<span></span>
+							</label>
+							<label class="m-radio m-radio--brand">
+								<input type="radio" name="role_edit" value="2">User
+								<span></span>
+							</label>
+						</div>
 					</div>
 					</fieldset>
 					<br>
@@ -35,20 +48,18 @@
 <!--end::Modal-->
 
 @push('custom-script')
-<script>
+<script type="text/javascript">
 	$(document).ready(function(){
 		$.ajaxSetup({
         	headers: {
             	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         	}
 		});
-
-		$('#help-update').on('submit', function(e){
+		$('#tax-store').on('submit', function(e){
 			e.preventDefault();
-
-			$.ajax({
-				'type' : 'post',
-				'url' : "{{url('/bantuan_aplikasi/update')}}"+"/"+$('input[name=edit_id]').val(),
+			$.ajax({				
+				'type' : 'POST',
+				'url' : "{{url('/user/role/update')}}"+"/"+$("input[name=id]").val(),
 				'data' : new FormData(this),
 				'processData' : false,
 				'contentType' : false,
@@ -56,9 +67,9 @@
 				'success' : function(data){
 					if(data.success)
 					{
-						$('#help-edit-modal').modal('hide');
+						$('#user-role-modal').modal('hide');
 						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
-						helpTable.ajax.reload();
+						tabelPajak.ajax.reload();
 						//location.reload();
 					} else {
 						//console.log(data);
@@ -70,6 +81,6 @@
 				}
 			})
 		})
-	});
+	})
 </script>
 @endpush

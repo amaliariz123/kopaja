@@ -306,9 +306,16 @@ Route::get('/admin/edit/profil/{id}', 'UserController@edit');
 Route::post('/admin/update/profil/{id}', 'UserController@update');
 
 //users
+Route::get('/users/index', 'UserController@index');
+Route::get('/users/get_data', 'UserController@getDataUsers');
+Route::get('/user/role/{id}/edit','UserController@editRole');
+Route::post('/user/role/update/{id}','UserController@changeUserRole');
 Route::get('/members', 'UserController@indexMember');
-Route::get('/testimoni', 'UserController@indexTesti');
-Route::get('/testimoni/get_data', 'UserController@getDataTesti');
+Route::get('/members/get_data','UserController@getDataMember');
+
+//testi
+Route::get('/testimoni', 'TestiController@indexTesti');
+Route::get('/testimoni/get_data', 'TestiController@getDataTesti');
 
 //pajak
 Route::get('/pajak', 'PajakController@indexPajak');

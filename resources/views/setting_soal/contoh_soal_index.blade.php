@@ -150,8 +150,7 @@
 
     $(document).ready(function(){
         //trigger to create-modal
-        $('#btn-create').on('click', function(){
-            $('select[name=tax_name]').val('');
+        $('#btn-create').on('click', function(){            
             $('input[name=title]').val('');
             $('textarea[name=question_text]').val();
             $('input[name=question_image]').val('');
@@ -162,8 +161,8 @@
 
         //get the id_tax with select2
         $('#m_select2_1_modal').change(function(){
-            var id_pajak = $(this).val();
-            var nama_pajak = $("select[name='tax_name'] option:selected").text();
+            let id_pajak = $(this).val();
+            let nama_pajak = $("select[name='tax_name'] option:selected").text();
             $('#hiddenTaxName').val(id_pajak);
         });
 
@@ -188,8 +187,8 @@
 
         //trigger to delete-modal
         $('#table_contoh tbody').on('click', '#delete-btn', function(){
-            var data = tabelContoh.row($(this).parents('tr')).data();
-            var title = data['title'];
+            let data = tabelContoh.row($(this).parents('tr')).data();
+            let title = data['title'];
 
            swal({
                 text: "Yakin untuk menghapus "+title+" ?",
@@ -223,11 +222,11 @@
             $('#contoh-detail:input').val('');
             $('#contoh-detail-modal').modal('show');
 
-            var data = tabelContoh.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var token = $('input[name=_token]').val();
-            var urlData = "{{url('contoh_soal/show')}}"+"/"+id;
-            var d = new Date();
+            let data = tabelContoh.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let urlData = "{{url('contoh_soal/show')}}"+"/"+id;
+            let d = new Date();
 
             $.getJSON(urlData, function(data){
                 $('#detail_question_image').empty();
@@ -262,14 +261,14 @@
             $('contoh-update:input').val('');
             $('#edit_modal').modal('show');
 
-            var data = tabelContoh.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var url = "{{url('contoh_soal')}}"+"/"+id+"/edit";
-            var token = $('input[name=_token]').val();
+            let data = tabelContoh.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let url = "{{url('contoh_soal')}}"+"/"+id+"/edit";
+            let token = $('input[name=_token]').val();
 
             $('input[name=_method]').val('PUT');
             $('input[name=edit_id]').val(data['id']);
-            $('input[name=edit_tax_name]').val(data['id_tax']);
+            // $('input[name=edit_tax_name]').val(data['id_tax']);
             $('input[name=edit_title]').val(data['title']);
             $('textarea[name=edit_question_text]').val(data['question_text']);
             //$('input[name=edit_question_image]').val(data['question_image']);

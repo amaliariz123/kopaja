@@ -158,10 +158,6 @@
             processing: true,
             serverSide: true,
             stateSave: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search..."
-            },
             ajax: {
                 url: "{{url('/bantuan_aplikasi/get_data')}}",
                 type: "GET",
@@ -192,7 +188,7 @@
 
         //trigger modal delete
         $('#table_help tbody').on('click', '#delete-btn', function(){
-            var data = helpTable.row($(this).parents('tr')).data();
+            let data = helpTable.row($(this).parents('tr')).data();
 
             swal({
                 text: "Yakin untuk menghapus data ini?",
@@ -226,10 +222,10 @@
             $('#help-update:input').val('');
             $('#help-edit-modal').modal('show');
 
-            var data = helpTable.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var token = $('input[name=_token]').val();
-            var url = "{{url('/bantuan_aplikasi')}}"+"/"+id+"/edit";
+            let data = helpTable.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let url = "{{url('/bantuan_aplikasi')}}"+"/"+id+"/edit";
 
             $('input[name=_method]').val('POST');
             $('input[name=_token]').val(token);

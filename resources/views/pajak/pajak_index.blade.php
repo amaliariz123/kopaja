@@ -179,9 +179,9 @@
             $("#tax-detail:input").val('');
             $("#tax-detail-modal").modal('show');
 
-            var data = tabelPajak.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var url = "{{url('/pajak/show')}}"+"/"+id;
+            let data = tabelPajak.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let url = "{{url('/pajak/show')}}"+"/"+id;
 
             $('input[name=_method]').val('PUT');
             $('input[name=detail_name]').val(data['name']);
@@ -192,8 +192,8 @@
 
         //trigger to delete-modal
         $('#table_pajak tbody').on('click', '#delete-btn', function(){
-            var data = tabelPajak.row($(this).parents('tr')).data();
-            var name = data['name'];
+            let data = tabelPajak.row($(this).parents('tr')).data();
+            let name = data['name'];
             swal({
                 text: "Yakin untuk menghapus "+name+" ?",
                 showCloseButton: true,
@@ -223,13 +223,10 @@
 
         //trigger to edit-modal
         $('#table_pajak tbody').on('click', '#edit-btn', function(){
-            $("#tax-update:input").val('');
-            $("#tax-edit-modal").modal('show');
-
-            var data = tabelPajak.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var token = $('input[name=_token]').val();
-            var urlData = "{{url('/pajak')}}"+"/"+id+"/edit";
+            let data = tabelPajak.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let urlData = "{{url('/pajak')}}"+"/"+id+"/edit";
 
             $('input[name=_method]').val('PUT');
             $('input[name=_token]').val(token);
@@ -237,6 +234,20 @@
             $('textarea[name=edit_description]').val(data['description']);
             $('input[name=edit_tax_nam]').val(data['tax_name']);
             $('input[name=edit_module]').val(data['module']);
+
+            let rbButton = $('input[name=edit_tax_type]');
+            for(let i=0;i<rbButton.length;i++)
+            {
+                if(rbButton[i].value == data['tax_type'])
+                {
+                    rbButton[i].checked = true;
+                } else {
+                    rbButton.checked =false;
+                }
+            }
+
+            $("#tax-update:input").val('');
+            $("#tax-edit-modal").modal('show');
         });
     });
 </script>

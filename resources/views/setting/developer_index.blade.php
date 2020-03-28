@@ -179,8 +179,8 @@
 
         /*trigger dev-delete-modal */
         $('#table_dev tbody').on('click', '#delete-btn', function(){
-            var data = thisTable.row($(this).parents('tr')).data();
-            var name = data['name'];
+            let data = thisTable.row($(this).parents('tr')).data();
+            let name = data['name'];
 
             swal({
                 text: "Yakin untuk menghapus "+name+"?",
@@ -215,10 +215,10 @@
             $("#developer-update:input").val('');
             $("#dev-edit-modal").modal('show');
 
-            var data = thisTable.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var token = $('input[name=_token]').val();
-            var urlData = " {{ url('/tim_pengembang') }}"+"/"+id+"/edit";
+            let data = thisTable.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let urlData = " {{ url('/tim_pengembang') }}"+"/"+id+"/edit";
 
             $('input[name=_method]').val('PUT');
             $('input[name=_token]').val(token);
@@ -233,11 +233,11 @@
             $("#developer-detail:input").val('');
             $("#dev-detail-modal").modal('show');
 
-            var data = thisTable.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var token = $('input[name=_token]').val();
-            var urlData = "{{url('/tim_pengembang/show')}}"+"/"+id;
-            var d = new Date();
+            let data = thisTable.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let urlData = "{{url('/tim_pengembang/show')}}"+"/"+id;
+            let d = new Date();
             $.getJSON(urlData, function(data){
                 $('#show_picture').empty();
                 var img = $('<img id="image-developer" class="img-responsive" src="{{asset('images/blank.png')}}" alt="picture_developer" width="100" height="50"><br>');

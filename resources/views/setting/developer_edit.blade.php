@@ -82,8 +82,8 @@
 						thisTable.ajax.reload();
 						//location.reload();
 					} else {
-						console.log(data);
-						for(var count=0; count < data.errors.length; count++)
+						//console.log(data);
+						for(let count=0; count < data.errors.length; count++)
 						{
 							toastr.error(data.errors[count], 'Error', {timeOut:6000});
 						}

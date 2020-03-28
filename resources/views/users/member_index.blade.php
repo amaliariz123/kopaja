@@ -19,13 +19,13 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">List</span>
+                                <span class="m-nav__link-text">Tabel</span>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Data Members</span>
+                                <span class="m-nav__link-text">Tabel Member</span>
                             </a>
                         </li>
                     </ul>
@@ -43,7 +43,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    List of Data Members
+                                    Tabel Member
                                 </h3>
                             </div>
                         </div>
@@ -54,11 +54,11 @@
                         <table class="table table-striped table-bordered" id="table_member">
                             <thead>
                                 <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Institution</th>
-                                    <th>Action</th>
+                                    <th>Nama</th>
+                                    <th>Instansi</th>
+                                    <th>Usia (tahun)</th>
+                                    <th>Status</th>
+                                    <th>Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +72,36 @@
         <!--End::Section-->
     </div>
 </div>
+
+@include('users.member_detail')
+
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
 @endsection
+
+@push('custom-script')
+<script type="text/javascript">
+    var member_table;
+
+    $(document).ready(function(){
+        tabel_user = $('#table_member').DataTable({
+            processing : true,
+            serverSide : true,
+            stateSave : true,
+            ajax : {
+                url : "{{url('/members/get_data')}}",
+                type : "GET",
+            },
+            deferRender : true,
+            columns : [
+                {data: 'fullname', name: 'fullname', visible:true},
+                {data: 'institution', name: 'institution', visible:true},
+                {data: 'age', name: 'age', visible:true},
+                {data: 'status', name:'status', visible:true},
+                {data: 'option', name: 'option', visible:true},
+            ],
+        });
+    }); 
+</script>
+@endpush

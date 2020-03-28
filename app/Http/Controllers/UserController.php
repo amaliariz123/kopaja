@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Member;
 use Auth;
 use \Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
@@ -13,6 +14,8 @@ use Validator;
 use File;
 use Illuminate\Support\Facades\Hash;
 use Session;
+use Carbon\Carbon;
+use DB;
 
 class UserController extends Controller
 {
@@ -27,9 +30,79 @@ class UserController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index(){
-        //
+    public function index()
+    {
+        return view('users.user_index');
     }
+
+    /**
+     * Fetch data from model with datatables.
+     * @return Response
+     */
+    public function getDataUsers()
+    {
+        $users = User::with('roles')->orderByDesc('created_at')->get();
+
+        $data = [];
+        for ($i=0; $i < count($users); $i++) { 
+            $user['id'] = $users[$i]->id;
+            $user['fullname'] = $users[$i]->fullname;
+            $user['email'] = $users[$i]->email;
+            $user['created_at'] = $users[$i]->created_at;
+            $user['updated_at'] = $users[$i]->updated_at;
+            for ($j=0; $j < count($users[0]['roles']) ; $j++) {
+                $user['role_id'] = $users[$i]['roles'][$j]['id'];
+                $user['role'] = $users[$i]['roles'][$j]['name'];
+            }
+
+            $data[] = $user;
+        }
+
+        return datatables()->of($data)->addColumn('option', function($row) {
+            $btn = '<button type="button" id="edit-btn" class="btn m-btn--pill m-btn--air         btn-success m-btn--wide btn-sm">Edit status</button>';
+
+                return $btn;
+        })
+        ->rawColumns(['option'])
+        ->make(true);
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Response
+     */
+    public function editRole($id)
+    {
+        $user = User::with('roles')->find($id);
+        
+        $edit['id'] = $user->id;
+        $edit['fullname'] = $user->fullname;
+        $edit['email'] = $user->email;
+        $edit['created_at'] = $user->created_at;
+        $edit['updated_at'] = $user->updated_at;
+        for ($j=0; $j < count($user->roles) ; $j++) {
+            $edit['role_id'] = $user->roles[$j]['id']; 
+            $edit['role'] = $user->roles[$j]['name'];
+        }
+
+        return $edit;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function changeUserRole(Request $request, $id)
+    {
+        $data = DB::table('role_user')->where('user_id','=', $id)->get();
+
+        return $data;
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -119,15 +192,53 @@ class UserController extends Controller
     ============================
     **/
 
+
+    /**
+     * Display a listing of the resource.
+     * @return Response
+     */
     public function indexMember()
     {
-    	return view('users.members_index');
+    	return view('users.member_index');
     }
 
-    public function indexTesti()
+    /**
+    * Fetch data from model with datatables.
+    * @return Response
+    */
+    public function getDataMember()
     {
+        $members = Member::with('user','province','city')->orderByDesc('created_at')->get();
 
-    	return view('users.testimoni_index');
+        $data = [];
+        for ($i=0; $i <count($members) ; $i++) { 
+            $member['fullname'] = $members[$i]->user->fullname;
+            if($members[$i]->date_of_birth != null)
+            {
+                $member['age'] = Carbon::parse($members[$i]->date_of_birth)->age;
+            }
+            $member['institution'] = $members[$i]->institution; 
+            $member['province'] = $members[$i]->province->provinsi;
+            $member['city'] = $members[$i]->city->kabupaten_kota;
+            $member['status'] = $members[$i]->member_status;
+            $member['premium_code'] = $members[$i]->premium_code;
+            $member['created_at'] = $members[$i]->created_at;
+            $member['updated_at'] = $members[$i]->updated_at;
+
+            $data[] = $member;
+        }
+
+        //return $data;
+        return datatables()->of($data)->addColumn('option', function($row) {
+            $btn = '<button type="button" id="detail-btn" class="btn m-btn--pill btn-primary btn-sm">Detail</button>';
+
+                return $btn;
+        })
+        ->rawColumns(['option'])
+        ->make(true);
+
     }
+
+
     
 }

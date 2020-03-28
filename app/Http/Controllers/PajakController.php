@@ -129,7 +129,7 @@ class PajakController extends Controller
      {
      	$data = Tax::find($id);
 
-     	return response()->json(['status' => 'OK', 'data' => $data], 200);
+     	return $data;
      }
 
      /**

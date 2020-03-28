@@ -86,12 +86,12 @@
 					if(data.success)
 					{
 						$('#tax-create-modal').modal('hide');
-						toastr.success('Success add new data!', 'Success', {timeOut:6000});
+						toastr.success('Berhasil menambahkan data!', 'Success', {timeOut:6000});
 						tabelPajak.ajax.reload();
 						//location.reload();
 					} else {
-						console.log(data);
-						for(var count=0; count < data.errors.length; count++)
+						//console.log(data);
+						for(let count=0; count < data.errors.length; count++)
 						{
 							toastr.error(data.errors[count], 'Error', {timeOut:6000});
 						}

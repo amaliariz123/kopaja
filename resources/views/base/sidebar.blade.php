@@ -18,8 +18,8 @@
 			</li>
 
 			<li class="m-menu__item m-menu__item--submenu @yield('user')" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="" class="m-menu__link m-menu__toggle">
-					<i class="m-menu__link-icon fas fa-user-cog"></i>
+				<a href="{{url('/users/index')}}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon fa fa-users"></i>
 					<span class="m-menu__link-text">Pengguna</span>					
 				</a>
 			</li>

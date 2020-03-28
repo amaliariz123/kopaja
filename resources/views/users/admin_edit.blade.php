@@ -74,7 +74,7 @@
 									<div class="input-group">
 										<input type="password" class="form-control m-input" name="old_password" value="" id="currentPass">
 										<i onclick="show('currentPass')" class="fas fa-eye-slash" id="currentPass"></i>
-									</div><br>
+									</div>
 									<a href="">
 									<small id="emailHelp" class="form-text text-muted">Lupa kata sandi? </small>
 									</a>

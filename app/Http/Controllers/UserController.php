@@ -98,9 +98,22 @@ class UserController extends Controller
      */
     public function changeUserRole(Request $request, $id)
     {
-        $data = DB::table('role_user')->where('user_id','=', $id)->get();
+        $data = DB::table('role_user')
+                ->where('user_id', $id)
+                ->update(['role_id' => $request->role_edit]);
 
-        return $data;
+        if($request->role_edit == '1')
+        {
+            $delete = Member::where('user_id', $id)->delete();
+        }
+
+        if ($request->role_edit == '2') {
+            $member = Member::create([
+                'user_id' => $id,
+            ]);
+        }
+    
+        return response()->json(['success' => 'Status updated!']);
     }
 
 

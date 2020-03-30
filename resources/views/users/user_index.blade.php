@@ -108,6 +108,7 @@
 
             $('input[name=_method]').val('PUT');
             $('input[name=_token]').val(token);
+            $('input[name=id]').val(data['id']);
             $('input[name=fullname]').val(data['fullname']);
             $('input[name=email]').val(data['email']);
 

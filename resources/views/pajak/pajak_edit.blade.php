@@ -48,7 +48,7 @@
 						    <span class="input-group-text btn-file">
 						      <span class="fileinput-new">Pilih berkas</span>
 						      <span class="fileinput-exists">Ubah</span>
-						      <input type="file" name="edit_picture" accept="application/pdf">
+						      <input type="file" name="edit_module" accept="application/pdf" required>
 						    </span>
 						  </span>
 						</div>
@@ -76,11 +76,12 @@
         	}
 		});
 
-		$('#tax-update').on('submit', function(){
+		$('#tax-update').on('submit', function(e){
 			e.preventDefault();
+
 			$.ajax({
-				'type' : 'POST',
-				'url' : "{{url('pajak/update')}}"+"/"+$('input[name=edit_id]').val(),
+				'type' : 'post',
+				'url' : "{{url('/pajak/update')}}"+"/"+$('input[name=edit_id]').val(),
 				'data' : new FormData(this),
 				'processData' : false,
 				'contentType' : false,
@@ -101,7 +102,7 @@
 					}
 				}
 			})
-		});
+		})
 	});
 </script>
 @endpush

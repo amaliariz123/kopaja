@@ -17,7 +17,7 @@
 					</div>
 					<div class="form-group">
 						<label for="answer" class="form-control-label">Jawaban<span class="text-danger">*</span></label>
-						<textarea type="text" class="form-control" name="answer" rows="2" placeholder="..." required></textarea>
+						<textarea type="text" class="form-control" name="answer" rows="8" placeholder="..." required></textarea>
 					</div>
 					</fieldset>
 					<br>

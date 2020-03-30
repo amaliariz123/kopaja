@@ -19,7 +19,7 @@
 					</div>
 					<div class="form-group">
 						<label for="answer" class="form-control-label">Jawaban<span class="text-danger">*</span></label>
-						<textarea type="text" class="form-control" name="edit_answer" value=""></textarea>
+						<textarea type="text" rows="8" class="form-control" name="edit_answer" value=""></textarea>
 					</div>
 					</fieldset>
 					<br>

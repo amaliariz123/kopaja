@@ -223,6 +223,7 @@
 
         //trigger to edit-modal
         $('#table_pajak tbody').on('click', '#edit-btn', function(){
+
             let data = tabelPajak.row($(this).parents('tr')).data();
             let id = data['id'];
             let token = $('input[name=_token]').val();
@@ -230,11 +231,10 @@
 
             $('input[name=_method]').val('PUT');
             $('input[name=_token]').val(token);
+            $('input[name=edit_id]').val(data['id']);
             $('input[name=edit_name]').val(data['name']);
             $('textarea[name=edit_description]').val(data['description']);
-            $('input[name=edit_tax_nam]').val(data['tax_name']);
-            $('input[name=edit_module]').val(data['module']);
-
+            
             let rbButton = $('input[name=edit_tax_type]');
             for(let i=0;i<rbButton.length;i++)
             {

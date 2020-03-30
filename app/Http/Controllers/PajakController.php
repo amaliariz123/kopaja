@@ -21,6 +21,7 @@ class PajakController extends Controller
     public function indexPajak()
     {
     	return view('pajak.pajak_index');
+
     }
 
     /**
@@ -63,7 +64,7 @@ class PajakController extends Controller
     		'name' => 'required',
     		'description' => 'required',
     		'tax_type' => 'required',
-    		'module' => 'nullable|max:2048|mimetypes:application/pdf',
+    		'module' => 'required|max:2048|mimetypes:application/pdf',
     	];
 
     	$validator = Validator::make($request->all(), $rules);
@@ -71,17 +72,12 @@ class PajakController extends Controller
     	if($validator->fails())
     	{
     		return response()->json(['errors' => $validator->errors()->all()]);
-    	} else {
-    		if(!empty($request->module))
-    		{
-    			$file = $request->file('module'); //menyimpan data file yang diupload ke variabel $file
-    			$pdf = strtolower($request->file('module')->getClientOriginalExtension()); //get file extension
-    			$filename = $request->name.'.'.$pdf;
-    			Storage::put('public/materi_pdf/'.$filename, File::get($file));
-    		} else {
-    			$filename = null;
-    		}
     	}
+    		
+		$file = $request->file('module'); //menyimpan data file yang diupload ke variabel $file
+		$pdf = strtolower($request->file('module')->getClientOriginalExtension()); //get file extension
+		$filename = 'Materi '.$request->name.'.'.$pdf;
+		Storage::put('public/materi_pdf/'.$filename, File::get($file));
 
     	//store data to table taxes
     	$result = Tax::create([
@@ -145,8 +141,8 @@ class PajakController extends Controller
      	$rules = [
      		'edit_name' => 'required',
     		'edit_description' => 'required',
-    		'edit_tax_type' => 'required|in:Pajak pusat,Pajak daerah',
-    		'edit_module' => 'nullable|max:2048|mimetypes:application/pdf',
+    		'edit_tax_type' => 'required',
+    		'edit_module' => 'required|max:2048|mimetypes:application/pdf',
      	];
 
         $validator = Validator::make($request->all(), $rules);
@@ -154,33 +150,22 @@ class PajakController extends Controller
         if($validator->fails())
         {
             return response()->json(['errors' => $validator->errors()->all()]);
-        } else {
-            if(!empty($request->edit_module))
-            {
-                $file = $request->file('edit_module'); //menyimpan data file yang diupload ke variabel $file
-                $pdf = strtolower($request->file('edit_module')->getClientOriginalExtension()); //get file extension
-                $size = $request->file('edit_module')->getSize(); //get file size
-                if($size >= 2000000)
-                {
-                    DB::rollback();
-                    return response()->json(['errors' => 'Fie size too large. Maximum file size : 2MB.']);
-                }
-                $filename = $request->name.'.'.$pdf;
-                Storage::put('public/materi_pdf/'.$filename, File::get($file));
-            } else {
-                $filename = null;
-            }
-
-            $data->name=$request->edit_name;
-            $data->description=$request->edit_description;
-            $data->tax_type=$request->edit_tax_type;
-            $data->module=$filename;
-            $data->save();
-            return response()->json(['success'=>'Data updated successfully']);
         }
 
+        $file = $request->file('edit_module');
+        $pdf = strtolower($request->file('edit_module')->getClientOriginalExtension());
+        $filename = "Materi ".$request->edit_name.'.'.$pdf;
+        Storage::put('public/materi_pdf/'.$filename, File::get($file));
+    
+        $data->name = $request->edit_name;
+        $data->description = $request->edit_description;
+        $data->tax_type = $request->edit_tax_type;
+        $data->module = $filename;
+        $data->save();
 
-     }
+        //return $data;
+        return response()->json(['success'=>'Data updated successfully']);
+    }
 
      /**
      * Remove the specified resource from storage.

@@ -46,7 +46,7 @@
 						    <span class="input-group-text btn-file">
 						      <span class="fileinput-new">Pilih berkas</span>
 						      <span class="fileinput-exists">Ubah</span>
-						      <input type="file" name="module" accept="application/pdf">
+						      <input type="file" name="module" accept="application/pdf" required>
 						    </span>
 						  </span>
 						</div>

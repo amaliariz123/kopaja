@@ -47,6 +47,7 @@
 </div>
 <!--end::Modal-->
 
+
 @push('custom-script')
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -55,7 +56,7 @@
             	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         	}
 		});
-		$('#tax-store').on('submit', function(e){
+		$('#user-role').on('submit', function(e){
 			e.preventDefault();
 			$.ajax({				
 				'type' : 'POST',
@@ -69,7 +70,7 @@
 					{
 						$('#user-role-modal').modal('hide');
 						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
-						tabelPajak.ajax.reload();
+						tabel_user.ajax.reload();
 						//location.reload();
 					} else {
 						//console.log(data);

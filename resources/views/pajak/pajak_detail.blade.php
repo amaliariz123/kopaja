@@ -17,7 +17,7 @@
 					</div>
 					<div class="form-group">
 						<label for="description" class="form-control-label">Deskripsi</label>
-						<textarea type="text" class="form-control" name="detail_description" rows="5" value="" disabled></textarea>
+						<textarea type="text" class="form-control" name="detail_description" rows="7" value="" disabled></textarea>
 					</div>
 					<div class="form-group">
 						<label for="tax_type" class="form-control-label">Tipe Pajak</label>

@@ -48,6 +48,7 @@ class UserController extends Controller
             $user['id'] = $users[$i]->id;
             $user['fullname'] = $users[$i]->fullname;
             $user['email'] = $users[$i]->email;
+            $user['profile_picture'] = $users[$i]->profile_picture;
             $user['created_at'] = $users[$i]->created_at;
             $user['updated_at'] = $users[$i]->updated_at;
             for ($j=0; $j < count($users[0]['roles']) ; $j++) {
@@ -80,6 +81,7 @@ class UserController extends Controller
         $edit['id'] = $user->id;
         $edit['fullname'] = $user->fullname;
         $edit['email'] = $user->email;
+        $edit['profile_picture'] = $user->profile_picture;
         $edit['created_at'] = $user->created_at;
         $edit['updated_at'] = $user->updated_at;
         for ($j=0; $j < count($user->roles) ; $j++) {
@@ -224,20 +226,38 @@ class UserController extends Controller
         $members = Member::with('user','province','city')->orderByDesc('created_at')->get();
 
         $data = [];
-        for ($i=0; $i <count($members) ; $i++) { 
+        for ($i=0; $i <count($members) ; $i++) {
+            $member['user_id'] = $members[$i]->user->id;
+            $member['id'] = $members[$i]->id; 
             $member['fullname'] = $members[$i]->user->fullname;
+
             if($members[$i]->date_of_birth != null)
             {
                 $member['age'] = Carbon::parse($members[$i]->date_of_birth)->age;
+            } else {
+                $member['age'] = null;
             }
-            $member['institution'] = $members[$i]->institution; 
-            $member['province'] = $members[$i]->province->provinsi;
-            $member['city'] = $members[$i]->city->kabupaten_kota;
-            $member['status'] = $members[$i]->member_status;
+            $member['institution'] = $members[$i]->institution;
+
+            if($members[$i]->province_id != null)
+            {
+                $member['province'] = $members[$i]->province->provinsi;   
+            } else {
+                $member['province'] = null;
+            }
+
+            if($members[$i]->city_id != null)
+            {
+                $member['city'] = $members[$i]->city->kabupaten_kota;    
+            } else {
+                $member['city'] = null;
+            }
+
+            $member['member_status'] = $members[$i]->member_status;
             $member['premium_code'] = $members[$i]->premium_code;
+            $member['status'] = $members[$i]->member_status;
             $member['created_at'] = $members[$i]->created_at;
             $member['updated_at'] = $members[$i]->updated_at;
-
             $data[] = $member;
         }
 
@@ -249,9 +269,5 @@ class UserController extends Controller
         })
         ->rawColumns(['option'])
         ->make(true);
-
     }
-
-
-    
 }

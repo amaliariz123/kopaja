@@ -310,12 +310,12 @@ Route::get('/users/index', 'UserController@index');
 Route::get('/users/get_data', 'UserController@getDataUsers');
 Route::get('/user/role/{id}/edit','UserController@editRole');
 Route::post('/user/role/update/{id}','UserController@changeUserRole');
-Route::get('/members', 'UserController@indexMember');
+Route::get('/members','UserController@indexMember');
 Route::get('/members/get_data','UserController@getDataMember');
 
 //testi
 Route::get('/testimoni', 'TestiController@indexTesti');
-Route::get('/testimoni/get_data', 'TestiController@getDataTesti');
+Route::get('/testimoni/get_data', 'TestiController@getData');
 
 //pajak
 Route::get('/pajak', 'PajakController@indexPajak');

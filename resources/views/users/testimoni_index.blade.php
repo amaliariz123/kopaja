@@ -50,7 +50,7 @@
                   <div class="m-portlet__body">
 
                         <!--begin: Datatable -->
-                        <table class="table table-striped table-bordered" id="table_testi">
+                        <table class="table table-striped table-bordered" id="tabel_testi">
                             <thead>
                                 <tr>
                                     <th>Nama member</th>
@@ -77,3 +77,44 @@
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
 @endsection
+
+@push('custom-script')
+<script type="text/javascript">
+    var testi_table;
+
+    $(document).ready(function(){
+        testi_table = $('#tabel_testi').DataTable({
+            processing: true,
+            serverSide: true,
+            stateSave: true,
+            ajax : {
+                url : "{{url('/testimoni/get_data')}}",
+                type : "GET",
+            },
+            deferRender: true,
+            columns: [
+                {data: 'fullname', name:'fullname', visible: true},
+                {data: 'institution', name: 'institution', visible: true},
+                {data: 'created_at', name: 'created_at', visible: true},
+                {data: 'option', name: 'option', visible: true},
+            ],
+        });
+
+        $('#tabel_testi tbody').on('click', '#detail-btn', function(){
+            let data = testi_table.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            //let url = "{{url('')}}"
+
+            $('textarea[name=testimonial]').val(data['content']);
+            $('input[name=member_name]').val(data['fullname']);
+            $('input[name=institution]').val(data['institution']);
+            $('input[name=created_at]').val(data['created_at']);
+            $('input[name=updated_at]').val(data['updated_at']);
+
+            $("#testi-detail:input").val('');
+            $("#testi-detail-modal").modal('show');
+        });
+    });
+</script>
+@endpush

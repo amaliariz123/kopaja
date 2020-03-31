@@ -13,16 +13,16 @@
 					 @csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="question" class="form-control-label">Nama</label>
+						<label for="fullname" class="form-control-label">Nama</label>
 						<input type="hidden" name="id" class="form-control" value="">
 						<input type="text" class="form-control" name="fullname" value="" disabled>
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Email</label>
+						<label for="email" class="form-control-label">Email</label>
 						<input type="text" name="email" class="form-control" value="" disabled>
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Status<span class="text-danger">*</span></label>
+						<label for="role" class="form-control-label">Status<span class="text-danger">*</span></label>
 						<div class="m-radio-list">
 							<label class="m-radio m-radio--brand">
 								<input type="radio" name="role_edit" value="1">Admin

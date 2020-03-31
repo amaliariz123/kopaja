@@ -85,7 +85,7 @@
     var member_table;
 
     $(document).ready(function(){
-        tabel_user = $('#table_member').DataTable({
+        member_table = $('#table_member').DataTable({
             processing : true,
             serverSide : true,
             stateSave : true,
@@ -98,10 +98,34 @@
                 {data: 'fullname', name: 'fullname', visible:true},
                 {data: 'institution', name: 'institution', visible:true},
                 {data: 'age', name: 'age', visible:true},
-                {data: 'status', name:'status', visible:true},
+                {data: 'member_status', name:'member_status', visible:true},
                 {data: 'option', name: 'option', visible:true},
             ],
         });
+
+        $('#table_member tbody').on('click', "#detail-btn", function(){
+            
+            let data = member_table.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let user_id = data['user_id'];
+            let token = $('input[name=_token]').val();
+            let urlData = "{{url('/member/show')}}"+"/"+id+"/"+user_id;
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=_token]').val(token);
+            $('input[name=detail_name]').val(data['fullname']);
+            $('input[name=detail_institution]').val(data['institution']);
+            $('input[name=detail_age').val(data['age']);
+            $('input[name=detail_status_member]').val(data['member_status']);
+            $('input[name=detail_province]').val(data['province']);
+            $('input[name=detail_city]').val(data['city']);
+            $('input[name=detail_premium_code]').val(data['premium_code']);
+
+            // console.log(data['name']);
+
+            $("#member-detail:input").val('');
+            $("#member-detail-modal").modal('show');
+        })
     }); 
 </script>
 @endpush

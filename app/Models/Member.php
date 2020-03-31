@@ -63,4 +63,12 @@ class Member extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function testimonial()
+    {
+        return $this->hasMany('App\Models\Testimonial');
+    }
 }

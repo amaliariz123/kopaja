@@ -43,7 +43,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Daftar Tim Pengembang
+                                    Tabel Tim Pengembang
                                 </h3>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                     <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
-                                            <span>New Data</span>
+                                            <span>Tambah</span>
                                         </span>
                                     </button>
                                 </li>
@@ -114,10 +114,11 @@
                         <!--begin: Datatable -->
                         <table class="table table-striped table-bordered" id="table_dev">
                             <thead>
-                                <tr>                                    
-                                    <th>Name</th>
+                                <tr>
+                                    <th><input type="checkbox" name="select_all" id="select_all"></th>
+                                    <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Option</th>
+                                    <th>Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>                                
@@ -135,6 +136,7 @@
 
 @include('setting.developer_create')
 @include('setting.developer_edit')
+@include('setting.developer_detail')
 
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
@@ -177,13 +179,15 @@
 
         /*trigger dev-delete-modal */
         $('#table_dev tbody').on('click', '#delete-btn', function(){
-            var data = thisTable.row($(this).parents('tr')).data();
+            let data = thisTable.row($(this).parents('tr')).data();
+            let name = data['name'];
+
             swal({
-                text: "Are you sure to delete this?",
+                text: "Yakin untuk menghapus "+name+"?",
                 showCloseButton: true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it.',
-                cancelButtonText: 'No, cancel.',
+                confirmButtonText: 'Ya, hapus sekarang.',
+                cancelButtonText: 'Tidak, batalkan.',
                 reverseButtons: true,
                 type: 'warning',
             })
@@ -195,11 +199,12 @@
                         method: 'get',
                         success: function(result){
                             thisTable.ajax.reload();
-                            swal('Deleted!','Your file has been deleted.','success')
+                            //location.reload();
+                            swal('Dihapus!','Data '+name+' telah dihapus.','success')
                         }  
                     })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swal('Cancelled','Delete data cancelled','info')
+                    swal('Dibatalkan','Data '+name+ ' batal dihapus.','info')
                 }
             });
         });
@@ -210,26 +215,42 @@
             $("#developer-update:input").val('');
             $("#dev-edit-modal").modal('show');
 
-            var data = thisTable.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var token = $('input[name=_token]').val();
-            var urlData = " {{ url('/tim_pengembang') }}"+"/"+id+"/edit";
-            var d = new Date();
-            $.getJSON(urlData, function(data){
-                /*begin::fetch picture url */
-                $('#edit_picture').empty();
-                var img = $('<img id="edit_picture" src="{{url('images/no-image.png')}}" alt="Picture" >');
-                if(data['data']['picture'] != "blank.jpg") 
-                {
-                    var img = $('<img id="edit_picture" src="{{ url('storage/developers_team/') }}/'+id+'?'+d.getTime()+'" alt="Picture" >');
-                }
-                /*end::fetch picture url */
+            let data = thisTable.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let urlData = " {{ url('/tim_pengembang') }}"+"/"+id+"/edit";
 
-                $('input[name=_method]').val('PUT');
-                $('input[name=_token]').val(token);
-                $('input[name=edit_name]').val(data['data']['name']);
-                $('input[name=edit_id]').val(data['data']['id']);
-                $('input[name=edit_email]').val(data['data']['email']);
+            $('input[name=_method]').val('PUT');
+            $('input[name=_token]').val(token);
+            $('input[name=edit_name]').val(data['name']);
+            $('input[name=edit_id]').val(data['id']);
+            $('input[name=edit_email]').val(data['email']);
+            //$('input[name=edit_picture]').val(data['picture']);
+        });
+
+        /*trigger detail-modal*/
+        $('#table_dev tbody').on('click', '#detail-btn', function(){
+            $("#developer-detail:input").val('');
+            $("#dev-detail-modal").modal('show');
+
+            let data = thisTable.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let urlData = "{{url('/tim_pengembang/show')}}"+"/"+id;
+            let d = new Date();
+            $.getJSON(urlData, function(data){
+                $('#show_picture').empty();
+                var img = $('<img id="image-developer" class="img-responsive" src="{{asset('images/blank.png')}}" alt="picture_developer" width="100" height="50"><br>');
+                if(data['data']['picture'] != 'blank.jpg') {
+                    var img = $('<img id="image-developer" class="img-responsive" src="{{ url('storage/tim_pengembang/') }}/'+id+'?'+d.getTime()+'" alt="picture_developer" width="300" height="185"><br>');
+                }
+                $('#show_picture').append(img);
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=_token]').val(token);
+            $('input[name=show_name]').val(data['data']['name']);
+            $('input[name=show_id]').val(data['data']['id']);
+            $('input[name=show_email]').val(data['data']['email']);
             });
         });
     });

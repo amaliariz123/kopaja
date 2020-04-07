@@ -12,19 +12,18 @@
 				<form id="help-store" method="post" enctype="multipart/form-data">
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="question" class="form-control-label">Question:</label>
-						<input type="text" class="form-control" name="question" placeholder="Apa itu KOPAJA?">
+						<label for="question" class="form-control-label">Pertanyaan<span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="question" placeholder="..." required>
 					</div>
 					<div class="form-group">
-						<label for="answer" class="form-control-label">Answer:</label>
-						<textarea type="text" class="form-control" name="answer" rows="2" placeholder="KOPAJA singkatan dari Kompas Pajak Ajaib..."></textarea>
+						<label for="answer" class="form-control-label">Jawaban<span class="text-danger">*</span></label>
+						<textarea type="text" class="form-control" name="answer" rows="8" placeholder="..." required></textarea>
 					</div>
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-warning">Simpan</button>
-						<button type="reset" class="btn btn-outline-warning">Reset</button>				
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
 					</div>
 				</form>
 			</div>
@@ -58,9 +57,10 @@
 						$('#help-create-modal').modal('hide');
 						toastr.success('Success add new data!', 'Success', {timeOut:6000});
 						helpTable.ajax.reload();
+						//location.reload();
 					} else {
-						console.log(data);
-						for(var count=0; count < data.errors.length; count++)
+						//console.log(data);
+						for(let count=0; count < data.errors.length; count++)
 						{
 							toastr.error(data.errors[count], 'Error', {timeOut:6000});
 						}

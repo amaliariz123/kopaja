@@ -16,7 +16,7 @@
                             </p>
                             <a href="#" class="btn_1">View Course </a>
                             @guest
-                                <a href="{{ route('register.index') }}" class="btn_2">Sign Up </a>                          
+                                <a href="{{ route('register') }}" class="btn_2">Sign Up </a>                          
                             @else
                             
                             @endguest

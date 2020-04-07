@@ -3,7 +3,7 @@
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Kopaja | Dashboard</title>
+		<title>Kopaja | @yield('title')</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -23,30 +23,22 @@
 
 		<!--begin::Global Theme Styles -->
 		<link href="{{ url ('assets/vendors/base/vendors.bundle.css')}}" rel="stylesheet" type="text/css" />
-
-		<!--RTL version:<link href="assets/vendors/base/vendors.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 		<link href="{{ url ('assets/vendors/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-
-		<!--RTL version:<link href="assets/demo/default/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
-
 		<!--end::Global Theme Styles -->
 
 		<!--begin::Page Vendors Styles -->
 		<link href="{{ url ('assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{ url ('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.css')}}">
-
-		<!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
+		<link rel="stylesheet" type="text/css" href="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.css')}}" />
 
 		<link href="{{ url ('assets/style.css')}}" rel="stylesheet" type="text/css" />
 
-
 		<!--Gallery-->
 		{{-- <link rel="stylesheet" href="{{url('gallery/css/gallery-clean.css')}}"> --}}
-		<link rel="stylesheet" href="{{url('gallery/css/ekko-lightbox.css')}}">
+		<link rel="stylesheet" href="{{url('gallery/css/ekko-lightbox.css')}}" />
 
 		<!--Jasny-bootstrap-->
-		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}" />
 
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="{{url('/')}}/etrain/img/favicon.png" />
@@ -55,8 +47,7 @@
 	</head>
 	<!-- end::Head -->
 
-	<body>
-		<!-- begin::Body -->
+	<!-- begin::Body -->
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 
 		<!-- begin:: Page -->
@@ -114,7 +105,7 @@
 											<div class="m-dropdown__wrapper">
 												<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
 												<div class="m-dropdown__inner">
-													<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/notification_bg.jpg); background-size: cover;">
+													<div class="m-dropdown__header m--align-center">
 														<span class="m-dropdown__header-title">9 New</span>
 														<span class="m-dropdown__header-subtitle">Notifications</span>
 													</div>
@@ -129,6 +120,7 @@
 																					<span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
 																					<span class="m-list-timeline__text">12 new users registered</span>
 																					<span class="m-list-timeline__time">Just now</span>
+																				</div>
 																			</div>
 																		</div>
 																	</div>
@@ -136,28 +128,39 @@
 															</div>
 														</div>
 													</div>
-
 												</div>
 											</div>
 										</li>
+
+										<!-- BEGIN: User profile -->
 										<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="" />
+													@if(Auth::user()->profile_picture != null)
+													<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+													@else
+													<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+													@endif
 												</span>
+												&nbsp;&nbsp;
+												<span class="m-nav__link-text">{{Auth::user()->fullname}}</span>
 											</a>
 											<div class="m-dropdown__wrapper">
 												<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
 												<div class="m-dropdown__inner">
-													<div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
+													<div class="m-dropdown__header m--align-center">
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
-																<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="" />
+																@if(Auth::user()->profile_picture != null)
+																<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+																@else
+																<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+																@endif
 															</div>
 															<div class="m-card-user__details">
-																<span class="m-card-user__name m--font-weight-500">Admin</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">admin@gmail.com</a>
+																<span class="m-card-user__name m--font-weight-500">{{Auth::user()->fullname}}</span>
+																<a href="" class="m-card-user__email m--font-weight-300 m-link">{{Auth::user()->email}}</a>
 															</div>
 														</div>
 													</div>
@@ -168,7 +171,7 @@
 																	<span class="m-nav__section-text">Section</span>
 																</li>
 																<li class="m-nav__item">
-																	<a href="" class="m-nav__link">
+																	<a href="{{url('/admin/edit/profil/'.Auth::user()->id)}}" class="m-nav__link">
 																		<i class="m-nav__link-icon flaticon-profile-1"></i>
 																		<span class="m-nav__link-title">
 																			<span class="m-nav__link-wrap">
@@ -180,18 +183,23 @@
 																<li class="m-nav__separator m-nav__separator--fit">
 																</li>
 																<li class="m-nav__item">
-																	<a href="snippets/pages/user/login-1.html" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+																	<a href="{{route('logout')}}" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder" onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				                                                    @csrf
+				                                                </form>
 																</li>
 															</ul>
 														</div>
 													</div>
 												</div>
 											</div>
-										</li>										
+										</li>
+										<!-- END: User profile -->
+
 									</ul>
 								</div>
 							</div>
-
 							<!-- END: Topbar -->
 						</div>
 					</div>
@@ -210,12 +218,13 @@
 				@yield('content')
 				
 			</div>
-			<!-- end:: Body -->
 
-			<!-- begin::Footer -->
+			<!-- begin:: Footer -->
 			@include('base.footer')
-			<!-- end::Footer -->
+			<!-- end:: Footer -->
+
 		</div>
+
 		<!-- end:: Page -->
 
 		<!-- begin::Scroll Top -->
@@ -241,6 +250,8 @@
 		<!-- Datepicker -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>
+		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
+
 
 		<!-- Summernote -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/summernote.js')}}" type="text/javascript"></script>
@@ -260,9 +271,7 @@
 
 		<!--Jasny-bootstrap-->
 		<script src="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.js')}}"></script>
-		
 		<!--end::Page Scripts -->
-	</body>
 	<!-- end::Body -->
-
+	</body>
 </html>

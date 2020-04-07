@@ -16,4 +16,9 @@ class DashboardController extends Controller
     {
     	return view('dashboard');
     }
+
+    public function filter(Request $request)
+    {
+    	
+    }
 }

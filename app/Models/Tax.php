@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $module
  * @property string $created_at
  * @property string $updated_at
+ * @property ExampleExercise[] $exampleExercises
  */
 class Tax extends Model
 {
@@ -27,4 +28,11 @@ class Tax extends Model
      */
     protected $fillable = ['name', 'description', 'tax_type', 'module', 'created_at', 'updated_at'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function exampleExercises()
+    {
+        return $this->hasMany('App\Models\ExampleExercise', 'id_tax');
+    }
 }

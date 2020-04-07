@@ -84,7 +84,18 @@ var Select2 = {
             placeholder: "Select an option"
         }), $("#m_select2_modal").on("shown.bs.modal", function() {
             $("#m_select2_1_modal").select2({
+                placeholder: "Pilih.."
+            }), $("#m_select2_2_modal").select2({
                 placeholder: "Select a state"
+            }), $("#m_select2_3_modal").select2({
+                placeholder: "Select a state"
+            }), $("#m_select2_4_modal").select2({
+                placeholder: "Select a state",
+                allowClear: !0
+            })
+        }), $("#edit_modal").on("shown.bs.modal", function() {
+            $("#m_select2_edit_modal").select2({
+                placeholder: "Pilih.."
             }), $("#m_select2_2_modal").select2({
                 placeholder: "Select a state"
             }), $("#m_select2_3_modal").select2({

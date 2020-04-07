@@ -32,7 +32,6 @@
                           </div>
             </div>
         </div>
-		@include('base.notification')
         <!-- END: Subheader -->
         <div class="m-content">
             <!--Begin::Section-->
@@ -53,10 +52,10 @@
                 <div class="m-portlet__body">
 
                 <!--begin: Search Form -->
-                <form action="" method="POST">
+                <form action="{{url('/dashboard')}}" method="POST">
                   @csrf
                     <div class="form-group m-form__group row">
-                      <label class="col-form-label col-lg-3 col-sm-12">Define Ranges</label>
+                      <label class="col-form-label col-lg-3 col-sm-12">Pilih rentang</label>
                       <div class="col-lg-4 col-md-9 col-sm-12">
                         <div class='input-group pull-right' id='m_daterangepicker_6'>
                           <input type="text" class="form-control m-input" readonly placeholder="Select date range" name="range" />
@@ -66,7 +65,7 @@
                         </div>
                         <div style="margin-top: 60px">
                           <label class="m-checkbox">
-                              <input type="checkbox" name="test" value="1" id="test"> All Time
+                              <input type="checkbox" name="test" value="1" id="test"> Sepanjang waktu
                               <span></span>
                           </label>
                         </div>
@@ -74,7 +73,7 @@
                     </div>
                         <div class="row">
                           <div class="col-lg-12 ml-lg-auto">
-                            <button type="submit" name="search" id="search" onclick="search()" class="btn btn-warning">Search</button>
+                            <button type="submit" name="search" id="search" class="btn btn-primary">Cari</button>
                           </div>
                         </div>
                 </form>
@@ -88,11 +87,11 @@
               <div class="m-portlet__body  m-portlet__body--no-padding">
                 <div class="row m-row--no-padding m-row--col-separator-xl">
                   <div class="col-md-12 col-lg-6 col-xl-3">
-                    <!--begin::Total Members-->
+                    <!--begin::Total Member Premium-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Total Members
+                          Member Premium
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -105,11 +104,11 @@
                   </div>
 
                   <div class="col-md-12 col-lg-6 col-xl-3">
-                    <!--begin::Taxes-->
+                    <!--begin::Total Member Reguler-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Taxes
+                          Member Reguler
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -118,7 +117,7 @@
                         <div class="m--space-40"></div>
                       </div>
                     </div>
-                    <!--end::Taxes-->
+                    <!--end::Total member Reguler-->
                   </div>
 
                   <div class="col-md-12 col-lg-6 col-xl-3">
@@ -126,7 +125,7 @@
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Testimonials
+                          Testimoni
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -139,11 +138,11 @@
                   </div>
 
                    <div class="col-md-12 col-lg-6 col-xl-3">
-                    <!--begin::Online Members-->
+                    <!--begin::Latihan soal-->
                     <div class="m-widget24">
                       <div class="m-widget24__item">
                         <h4 class="m-widget24__title">
-                          Total Quiz 
+                          Latihan Soal 
                         </h4><br>
                         <span class="m-widget24__desc">
                         </span>
@@ -153,7 +152,7 @@
                       </div>
                     </div>
 
-                    <!--end::Online Members -->
+                    <!--end::Latihan soal -->
                   </div>
                 </div>
               </div>
@@ -171,7 +170,7 @@
                           <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                          Chart of Online Members, Total Members, Taxes, and Testimonials
+                          Chart dari data member, testimoni, pajak dan latihan soal.
                         </h3>
                       </div>
                     </div>
@@ -190,12 +189,10 @@
         </div>
     </div>
 @endsection
-@section('custom-script')
+@push('custom-script')
   <script src="{{url('assets/demo/demo11/custom/crud/metronic-datatable/base/html-table.js')}}" type="text/javascript"></script>
 
   <!-- <script src="{{url('metronic/assets/demo/default/custom/components/charts/morris-charts.js')}}" type="text/javascript"></script> -->
-
-  <script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
 
   <!-- <script src="{{url('metronic/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
 
@@ -205,6 +202,5 @@
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-
-@endsection
+@endpush
 

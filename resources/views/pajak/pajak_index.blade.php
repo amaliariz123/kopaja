@@ -30,8 +30,8 @@
             </div>
         </div>
     </div>
+    <!-- END: Subheader -->
 
-        <!-- END: Subheader -->
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">
@@ -41,7 +41,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Daftar Pajak
+                                    Tabel Pajak
                                 </h3>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                     <button type="button" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
-                                            <span>New Data</span>
+                                            <span>Tambah</span>
                                         </span>
                                     </button>
                                 </li>
@@ -113,10 +113,10 @@
                         <table class="table table-striped table-bordered" id="table_pajak">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th>Tipe Pajak</th>
                                     <th>Materi</th>
-                                    <th>Option</th>
+                                    <th>Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -170,7 +170,6 @@
         $('#btn-create').on('click', function(){
             $('input[name=name]').val('');
             $('textarea[name=description]').val('');
-            $('input[name=tax_type]').val('');
             $('input[name=module]').val('');
             $('#tax-create-modal').modal('show');
         });
@@ -180,26 +179,27 @@
             $("#tax-detail:input").val('');
             $("#tax-detail-modal").modal('show');
 
-            var data = tabelPajak.row($(this).parents('tr')).data();
-            var id = data['id'];
-            var url = "{{url('/pajak/show')}}"+"/"+id;
+            let data = tabelPajak.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let url = "{{url('/pajak/show')}}"+"/"+id;
 
             $('input[name=_method]').val('PUT');
-            $('input[name=name]').val(data['name']);
-            $('textarea[name=description]').val(data['description']);
-            $('input[name=tax_type]').val(data['tax_type']);
-            $('input[name=module]').val(data['module']);
+            $('input[name=detail_name]').val(data['name']);
+            $('textarea[name=detail_description]').val(data['description']);
+            $('input[name=detail_tax_type]').val(data['tax_type']);
+            $('input[name=detail_module]').val(data['module']);
         });
 
         //trigger to delete-modal
         $('#table_pajak tbody').on('click', '#delete-btn', function(){
-            var data = tabelPajak.row($(this).parents('tr')).data();
+            let data = tabelPajak.row($(this).parents('tr')).data();
+            let name = data['name'];
             swal({
-                text: "Are you sure to delete this?",
+                text: "Yakin untuk menghapus "+name+" ?",
                 showCloseButton: true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it.',
-                cancelButtonText: 'No, cancel.',
+                confirmButtonText: 'Ya, hapus sekarang.',
+                cancelButtonText: 'Tidak, batalkan.',
                 reverseButtons: true,
                 type: 'warning',
             })
@@ -211,16 +211,44 @@
                         method: 'get',
                         success: function(result){
                             tabelPajak.ajax.reload();
-                            swal('Deleted!','Your file has been deleted.','success')
+                            //location.reload();
+                            swal('Dihapus!','Data '+name+' telah dihapus.','success')
                         }  
                     })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swal('Cancelled','Delete data cancelled','info')
+                    swal('Dibatalkan', 'Data '+name+' batal dihapus.','error')
                 }
             });
         });
 
+        //trigger to edit-modal
+        $('#table_pajak tbody').on('click', '#edit-btn', function(){
 
+            let data = tabelPajak.row($(this).parents('tr')).data();
+            let id = data['id'];
+            let token = $('input[name=_token]').val();
+            let urlData = "{{url('/pajak')}}"+"/"+id+"/edit";
+
+            $('input[name=_method]').val('PUT');
+            $('input[name=_token]').val(token);
+            $('input[name=edit_id]').val(data['id']);
+            $('input[name=edit_name]').val(data['name']);
+            $('textarea[name=edit_description]').val(data['description']);
+            
+            let rbButton = $('input[name=edit_tax_type]');
+            for(let i=0;i<rbButton.length;i++)
+            {
+                if(rbButton[i].value == data['tax_type'])
+                {
+                    rbButton[i].checked = true;
+                } else {
+                    rbButton.checked =false;
+                }
+            }
+
+            $("#tax-update:input").val('');
+            $("#tax-edit-modal").modal('show');
+        });
     });
 </script>
 @endpush

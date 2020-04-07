@@ -14,15 +14,11 @@ class CreateTestimonialsTable extends Migration
     public function up()
     {
         Schema::create('testimonials', function (Blueprint $table) {
-            $table->increments('id_testimonial');
+            $table->increments('id');
             $table->text('content');
-            $table->unsignedInteger('id_user');
+            $table->unsignedInteger('id_member')->unsigned();
+            $table->foreign('id_member')->references('id')->on('members')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('id_user')
-                ->references('id')->on('users')
-                ->onDelete('CASCADE')
-                ->onUpdate('CASCADE');
         });
     }
 

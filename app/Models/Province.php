@@ -4,6 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $provinsi
+ * @property string $p_bsni
+ * @property City[] $cities
+ * @property Member[] $members
+ */
 class Province extends Model
 {
     /**
@@ -13,4 +20,24 @@ class Province extends Model
      */
     protected $table = 'provinces';
 
+    /**
+     * @var array
+     */
+    protected $fillable = ['provinsi', 'p_bsni'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cities()
+    {
+        return $this->hasMany('App\Models\City', 'provinsi_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function members()
+    {
+        return $this->hasMany('App\Models\Member');
+    }
 }

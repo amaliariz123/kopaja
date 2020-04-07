@@ -9,37 +9,42 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="developer-store" method="put" enctype="multipart/form-data" files=true>
+				<form id="developer-store" method="post" enctype="multipart/form-data" files=true>
+					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Name:</label>
-						<input type="text" class="form-control" name="name" placeholder="E.g. Jane Doe">
+						<label for="name" class="form-control-label">Nama<span class="text-danger">*</span></label>
+						<input type="text" class="form-control" name="name" placeholder="..." required>
 					</div>
 					<div class="form-group">
-						<label for="email" class="form-control-label">Email:</label>
-						<input type="text" class="form-control" name="email" placeholder="E.g. jane.doe@mail.com">
+						<label for="email" class="form-control-label">Email<span class="text-danger">*</span></label>
+						<input type="email" class="form-control" name="email" required placeholder="...">
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Picture:</label>
-						<div class="col-md-9">
-							<div class="fileinput fileinput-new" data-provides="fileinput">
-							  <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
-							    <img src="{{url('images/no-image.png')}}"  alt="" />
-							  </div>
-							  <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-							  <div>
-							    <span class="btn btn-outline-warning btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-							    <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
-							  </div>
-							</div>
+						<label for="Picture" class="form-control-label">Gambar</label>
+						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+						  <div class="form-control" data-trigger="fileinput">
+						    <span class="fileinput-filename"></span>
+						  </div>
+						  <span class="input-group-append">
+						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
+						      Hapus
+						    </span>
+
+						    <span class="input-group-text btn-file">
+						      <span class="fileinput-new">Pilih berkas</span>
+						      <span class="fileinput-exists">Ubah</span>
+						      <input type="file" name="picture" accept="image/jpg,image/jpeg,image/png" >
+						    </span>
+						  </span>
 						</div>
+						<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 					</div>
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">
-						<button type="submit" class="btn btn-warning">Simpan</button>
-						<button type="reset" class="btn btn-outline-warning">Reset</button>				
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
 					</div>
 				</form>
 			</div>
@@ -70,11 +75,12 @@
 					if(data.success)
 					{
 						$('#dev-create-modal').modal('hide');
-						toastr.success('Success add new data!', 'Success', {timeOut:6000});
+						toastr.success('Data berhasil ditambahkan!', 'Success', {timeOut:6000});
 						thisTable.ajax.reload();
+						//location.reload();
 					} else {
-						console.log(data);
-						for(var count=0; count < data.errors.length; count++)
+						//console.log(data);
+						for(let count=0; count < data.errors.length; count++)
 						{
 							toastr.error(data.errors[count], 'Error', {timeOut:6000});
 						}

@@ -29,8 +29,8 @@ class BantuanController extends Controller
     	$data = Help::orderBy('created_at','desc')->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
-            $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
+            //$btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
+            $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
 
                 return $btn;
@@ -98,7 +98,7 @@ class BantuanController extends Controller
     	$data = Help::find($id);
 
     	return response()->json(['status' => 'OK', 'data' => $data], 200);
-
+        //return view('setting.bantuan_edit')->with('data', $data);
     }
 
     /**
@@ -112,8 +112,8 @@ class BantuanController extends Controller
     	$data = Help::find($id);
 
     	$validate = [
-    		'question' => 'required',
-    		'answer' => 'required',
+    		'edit_question' => 'required',
+    		'edit_answer' => 'required',
     	];
 
     	$validator = Validator::make($request->all(), $validate);

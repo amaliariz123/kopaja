@@ -17,7 +17,7 @@ class CreateTaxesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->enum('tax_type', ['pajak_pusat','pajak_daerah']);
+            $table->string('tax_type');
             $table->string('module');            
             $table->timestamps();
         });

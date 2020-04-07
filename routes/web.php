@@ -20,12 +20,16 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::resource('register', 'Auth\RegisterController');
+Route::get('/home', function () {
+    return view('home');
+})->middleware('verified')->name('home');
 
 Route::group( [ 'middleware' => 'auth' ], function () {
-    Route::get('profile', 'Auth\RegisterController@profileMember')->name('profile');
-    Route::get('editprofile', 'Auth\RegisterController@editProfile');
-    
+    Route::get('/index', function () {
+        return view('index');
+        })->name('index');
+    // Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
+    // Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
 
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');
@@ -44,7 +48,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
 
     Route::get('/cekSoalpphpasal4ayat2', 'soalController@cekSoalpphpasal4ayat2')->name('cekSoalpphpasal4ayat2');
-
 
     Route::get('/latihansoalpasal15',function(){
         return view('latihansoal.latsoalpasal15');
@@ -257,12 +260,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     })->name('pajakprovdankab');
 
     Route::get('/cekSoalpajakprovdankab', 'soalController@cekSoalpajakprovdankab')->name('cekSoalpajakprovdankab');
-    
-
-
-
-
-    
 
     Route::get('/contact',function(){
         return view('tentang');
@@ -279,7 +276,7 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/downloadAllSoal', 'DownloadController@allSOal')->name('downloadAllSoal');
 
     Route::get('/downloadAllMateri', 'DownloadController@allMateri')->name('downloadAllMateri');
-});
+
 Route::get('/tentang',function(){
     return view('tentang');
 })->name('tentang');
@@ -291,15 +288,39 @@ Route::get('/bantuan',function(){
 
 
 
-Route::get('/home', function () {
-    return view('index');
-})->middleware('verified')->name('home');
+
 
 Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
 Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
+
+
+/** 
+===========================
+ ** Route for panel admin **
+============================
+**/
+
+//dashboard
 Route::get('/dashboard', 'DashboardController@index');
-Route::get('/members', 'MemberController@indexMember');
-Route::get('/testimoni', 'MemberController@indexTesti');
+Route::get('/dashboard/{year}/{month}', 'DashboardController@index');
+Route::get('/dashboard/{month}', 'DashboardController@index');
+Route::post('/dashboard', 'DashboardController@filter');
+
+//profil admin
+Route::get('/admin/edit/profil/{id}', 'UserController@edit');
+Route::post('/admin/update/profil/{id}', 'UserController@update');
+
+//users
+Route::get('/users/index', 'UserController@index');
+Route::get('/users/get_data', 'UserController@getDataUsers');
+Route::get('/user/role/{id}/edit','UserController@editRole');
+Route::post('/user/role/update/{id}','UserController@changeUserRole');
+Route::get('/members','UserController@indexMember');
+Route::get('/members/get_data','UserController@getDataMember');
+
+//testi
+Route::get('/testimoni', 'TestiController@indexTesti');
+Route::get('/testimoni/get_data', 'TestiController@getData');
 
 //pajak
 Route::get('/pajak', 'PajakController@indexPajak');
@@ -317,12 +338,16 @@ Route::post('/bantuan_aplikasi/store', 'BantuanController@store');
 Route::get('/bantuan_aplikasi/delete/{id}', 'BantuanController@delete');
 Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
 Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
-Route::any('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
+Route::post('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 
-
+//tentang aplikasi
 Route::get('/tentang_aplikasi','TentangController@indexTentang');
-
-Route::get('/contact_media','ContactController@indexContact');
+Route::get('/tentang_aplikasi/get_data', 'TentangController@getDataTentang');
+Route::post('/tentang_aplikasi/store', 'TentangController@store');
+Route::get('/tentang_aplikasi/show/{id}', 'TentangController@show');
+Route::get('/tentang_aplikasi/{id}/edit', 'TentangController@edit');
+Route::post('tentang_aplikasi/update/{id}', 'TentangController@update');
+Route::get('/tentang_aplikasi/delete/{id}', 'TentangController@delete');
 
 //tim pengembang
 Route::get('/tim_pengembang','DevelopersController@indexDev');
@@ -330,13 +355,31 @@ Route::get('/tim_pengembang/get_data', 'DevelopersController@getData');
 Route::post('/tim_pengembang/store', 'DevelopersController@store');
 Route::get('/tim_pengembang/delete/{id}', 'DevelopersController@delete');
 Route::get('/tim_pengembang/{id}/edit', 'DevelopersController@edit');
+Route::get('/tim_pengembang/show/{id}', 'DevelopersController@show');
 Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
 
-
+//contoh soal
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
+Route::get('/contoh_soal/get_data', 'SettingSoalController@getDataContoh');
+Route::get('/contoh_soal/create', 'SettingSoalController@create');
+Route::post('/contoh_soal/store', 'SettingSoalController@store');
+Route::get('/contoh_soal/show/{id}', 'SettingSoalController@show');
+Route::get('/contoh_soal/{id}/edit','SettingSoalController@edit');
+Route::post('/contoh_soal/update/{id}', 'SettingSoalController@update');
+Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@delete');
+
+//latihan soal
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
 
+/* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
     Route::get('pajak/{id}', 'DevelopersController@getPdf');
+    Route::get('contoh_soal/question_image/{id}', 'SettingSoalController@getQuestionImage');
+    Route::get('contoh_soal/answer_image/{id}', 'SettingSoalController@getAnswerImage');
 });
+
+});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

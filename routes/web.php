@@ -23,8 +23,9 @@ Route::get('/', function () {
 Route::resource('register', 'Auth\RegisterController');
 
 Route::group( [ 'middleware' => 'auth' ], function () {
-    Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
-    Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
+    Route::get('profile', 'Auth\RegisterController@profileMember')->name('profile');
+    Route::get('editprofile', 'Auth\RegisterController@editProfile');
+    
 
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');

@@ -69,6 +69,12 @@ class RegisterController extends Controller
         $user = User::where('id', '=', Auth::user()->id)->get();
         return view('profile', compact('data', 'province', 'user'));
     }
+    public function editProfile(){
+        $data = User::where('id', '=', Auth::user()->id)->get();
+        $province = Province::all()->pluck("provinsi", "id");
+        $user = User::where('id', '=', Auth::user()->id)->get();
+        return view('editprofile', compact('data', 'province', 'user'));
+    }
         
     public function store(Request $request)
     {
@@ -107,7 +113,6 @@ class RegisterController extends Controller
         $data->province = $request->province;
         $data->city = $request->city;
         $data->kecamatan = $request->kecamatan;
-        $data->email = $request->email;
         $data->save();
         if ($data ['role'] == 'member'){
         return redirect('profile')->withMessage('Berhasil Merubah Data');
@@ -116,10 +121,7 @@ class RegisterController extends Controller
         }
     }
 
-    public function data(){
-        $data = User::where('id', '=', Auth::user()->id)->get();
-        return view('dashboard_admin.profileAdmin', compact('data'));
-    }
+    
 
     
 

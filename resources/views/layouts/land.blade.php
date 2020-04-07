@@ -123,7 +123,7 @@
             <div class="row justify-content-between">
                 <div class="col-sm-6 col-md-4 col-xl-3">
                     <div class="single-footer-widget footer_1">
-                        <a href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" alt="gambar"> </a>
+                        <a href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" alt="gambar" style="max-width: 60%;"> </a>
                         <p>Kopaja adalah organisasi yang bergerak pada bidang pendidikan di Indonesia yang berfokus pada layanan
                             berbasis pendidikan khususnya Pajak. </p>
                         <p></p>

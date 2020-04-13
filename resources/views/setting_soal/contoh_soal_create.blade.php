@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="contoh-store" method="post" enctype="multipart/form-data" files=true>
+				<form id="contoh-store" method="post" action="{{url('/contoh_soal/store')}}" enctype="multipart/form-data" files=true>
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
@@ -18,10 +18,9 @@
 						<select class="form-control m-select2"  id="m_select2_1_modal" name="id_tax" required>
 							<option value="">Pilih..</option>
 							@foreach($tax as $key => $value)
-							<option value="{{$key}}" name="{{$key}}">{{$value}}</option>
+							<option value="{{$key}}" name="{{$value}}">{{$value}}</option>
 							@endforeach
 						</select>
-						<input type="hidden" name="tax_name" id="hiddenTaxName" value="">
 					</div>
 					<div class="form-group">
 						<label for="title" class="form-control-label">Judul<span class="text-danger">*</span></label>

@@ -62,6 +62,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\Admin::class,
         'member' => \App\Http\Middleware\User::class,
+        'role' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
+        'permission' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyPermission::class,
+        'level' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyLevel::class,
         
     ];
 

@@ -161,7 +161,7 @@
 
         //get the id_tax with select2
         $('#m_select2_1_modal').change(function(){
-            let id_pajak = $(this).val();
+            var id_pajak = $(this).val();
             let nama_pajak = $("select[name='tax_name'] option:selected").text();
             $('#hiddenTaxName').val(id_pajak);
         });
@@ -258,8 +258,6 @@
 
         //trigger to edit-modal
         $('#table_contoh tbody').on('click', '#edit-btn', function(){
-            $('contoh-update:input').val('');
-            $('#edit_modal').modal('show');
 
             let data = tabelContoh.row($(this).parents('tr')).data();
             let id = data['id'];
@@ -268,12 +266,24 @@
 
             $('input[name=_method]').val('PUT');
             $('input[name=edit_id]').val(data['id']);
-            // $('input[name=edit_tax_name]').val(data['id_tax']);
             $('input[name=edit_title]').val(data['title']);
             $('textarea[name=edit_question_text]').val(data['question_text']);
             //$('input[name=edit_question_image]').val(data['question_image']);
             $('textarea[name=edit_answer_text]').val(data['answer_text']);
             //$('input[name=edit_answer_image]').val(data['answer_image']);
+
+            let option = $('#m_select2_edit_modal > option');
+            for (let i = 0; i<option.length ; i++) {
+                if(option[i].value == data['id_pajak']) {
+                   //console.log(option[i]);
+                   //option[i].prop("selected", true);
+                   // $(option[i]).prop("selected");
+                   option[i].selected = true;
+                }
+            }
+
+            $('contoh-update:input').val('');
+            $('#edit_modal').modal('show');
         });
     });
 </script>

@@ -40,6 +40,7 @@ class SettingSoalController extends Controller
      	for($i=0; $i<count($example) ;$i++)
      	{
      		$data['id'] = $example[$i]->id;
+            $data['id_pajak'] = $example[$i]->tax->id;
      		$data['id_tax'] = $example[$i]->tax->name;
      		$data['title'] = $example[$i]->title;
      		$data['question_text'] = $example[$i]->question_text;
@@ -79,6 +80,7 @@ class SettingSoalController extends Controller
     */
     public function store(Request $request)
     {
+        return $request;
     	$rules = [
     		'id_tax' => 'required|integer',
     		'title' => 'required|string',
@@ -144,8 +146,7 @@ class SettingSoalController extends Controller
     		'answer_image' => $answer_image,
     	]);
 
-    	//return $result;
-    	return response()->json(['success'=>'Data added successfully']);
+    	//return response()->json(['success'=>'Data added successfully']);
     }
 
     /**

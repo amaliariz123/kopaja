@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Kecamatans extends Migration
+class CreateExercisesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class Kecamatans extends Migration
      */
     public function up()
     {
-        Schema::create('kecamatans', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('kab_id');
-            $table->string('kecamatan');
+        Schema::create('exercises', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_tax')->unsigned();
+            $table->
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class Kecamatans extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kecamatans');
+        Schema::dropIfExists('exercises');
     }
 }

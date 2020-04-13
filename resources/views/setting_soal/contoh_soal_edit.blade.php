@@ -19,10 +19,9 @@
 						<select class="form-control m-select2"  id="m_select2_edit_modal" name="edit_id_tax">
 							<option value="">Pilih..</option>
 							@foreach($tax as $key => $value)
-							<option value="{{$key}}" name="{{$key}}">{{$value}}</option>
+							<option value="{{$key}}" name="{{$value}}">{{$value}}</option>
 							@endforeach
 						</select>
-						<input type="hidden" name="tax_name" id="hiddenTaxName" value="">
 					</div>
 					<div class="form-group">
 						<label for="title" class="form-control-label">Judul<span class="text-danger">*</span></label>

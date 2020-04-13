@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Member;
 
 class LoginController extends Controller
 {
@@ -41,22 +42,22 @@ class LoginController extends Controller
 
     protected function authenticated(\Illuminate\Http\Request $request, $user)
     {
-        // if($user->role=='admin')
-        // {
-        //     return redirect('/dashboard');
-        // }
-        // else if(auth()->user()->role=='member')
-        // {
-        //     return redirect('/');
-        // }
-
         if($user->hasRole('admin'))
         {
             return redirect('/dashboard');
         } 
         else if($user->hasRole('user'))
         {
-            return redirect('/');
+            $detail = Member::where('user_id', '=', $user->id)->first();
+
+            session([
+                'user_id' => $user->id,
+                'name' => $user->fullname,
+                'member_status' => $detail->member_status,
+                'premium_code' => $detail->premium_code,
+            ]);
+
+            return  redirect('/');
         }
         
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Member;
 
 class LoginController extends Controller
 {
@@ -56,6 +57,16 @@ class LoginController extends Controller
         } 
         else if($user->hasRole('user'))
         {
+            $detail = Member::where('user_id','=', $user->id)->first();
+
+            session([
+                'user_id' => $user->id,
+                'fullname' => $user->fullname,
+                'institution' => $detail->institution,
+                'member_status' => $detail->member_status,
+                'premium_code' => $detail->premium_code
+            ]);
+
             return redirect('/');
         }
         

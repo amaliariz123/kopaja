@@ -15,6 +15,7 @@ use File;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use Carbon\Carbon;
+use App\Models\Province;
 use DB;
 
 class UserController extends Controller
@@ -271,16 +272,36 @@ class UserController extends Controller
         ->make(true);
     }
 
-    public function profileMember(){
-        $data = User::where('id', '=', Auth::user()->id)->get();
+    public function profileMember($id){
+        $data = [];
+
+        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
         $province = Province::all()->pluck("provinsi", "id");
-        $user = User::where('id', '=', Auth::user()->id)->get();
-        return view('profile', compact('data', 'province', 'user'));
+        $data['member'] = Member::where('user_id','=',$id)->first();
+        return  view('profile', compact('data'));;
     }
-    public function editProfile(){
+    public function changePass(){
         $data = User::where('id', '=', Auth::user()->id)->get();
         $province = Province::all()->pluck("provinsi", "id");
         $user = User::where('id', '=', Auth::user()->id)->get();
-        return view('editprofile', compact('data', 'province', 'user'));
+        return view('change-pass', compact('data', 'province', 'user'));
+    }
+    public function updateMemberProfile(Request $request, $id){
+        //return $request;
+        $data = [];
+
+        $data['user'] = DB::table('users')
+                ->where('id',$id)
+                ->update(['fullname' => $request->fullname]);
+
+        $data['member'] = DB::table('members')
+                    ->where('user_id', $id)
+                    ->update(['institution' => $request->institution]);
+
+            session(['success' => ['Profil berhasil diperbarui.']]);
+            return $data;
+            //return redirect()->back();
+
+        //return $member;
     }
 }

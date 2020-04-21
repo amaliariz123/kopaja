@@ -28,7 +28,10 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/index', function () {
         return view('index');
         })->name('index');
-    // Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
+        
+    Route::get('profile/{id}','UserController@profileMember')->name('profile');
+    Route::get('change-pass','UserController@changePass')->name('change-pass');
+    Route::post('update/profile/{id}', 'UserController@updateMemberProfile');
     // Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
 
     Route::get('/pajakpusatpasal4',function(){

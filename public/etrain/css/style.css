@@ -2427,16 +2427,6 @@ ul {
     padding: 0px 16px;
   }
 }
-.main-profile {
-  margin-top: 150px;
-  height: 400px;
-  position: relative;
-  overflow: hidden;
-  background-color: #fff;
-  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  padding: 20px;
-}
 
 /* line 284, E:/172 Etrain Education/172_Etrain_Education_html/sass/_menu.scss */
 .menu_fixed {

@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
+    
 </head>
 
 <body>
@@ -85,11 +86,14 @@
                                     @else
                                         <li class="nav-item dropdown">
                                             <a id="navbarDropdown" class="btn_1 nav-link dropdown-toggle py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color:white;">
-                                                Halo, {{Auth::user()->email}}! 
+                                                Halo, {{Auth::user()->fullname}}! 
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            
+                                        
+                                                <a class="dropdown-item" href="{{ url('/profile/'.Auth::user()->id) }}">
+                                                    {{ __('Profile') }}
+                                                </a>
 
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();

@@ -57,7 +57,17 @@ class LoginController extends Controller
                 'premium_code' => $detail->premium_code,
             ]);
 
-            return  redirect('/');
+            $detail = Member::where('user_id','=', $user->id)->first();
+
+            session([
+                'user_id' => $user->id,
+                'fullname' => $user->fullname,
+                'institution' => $detail->institution,
+                'member_status' => $detail->member_status,
+                'premium_code' => $detail->premium_code
+            ]);
+
+            return redirect('/');
         }
         
     }

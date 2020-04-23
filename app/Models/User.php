@@ -23,7 +23,7 @@ use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
  * @property RoleUser[] $roleUsers
  * @property Testimonial[] $testimonials
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
 
     use Notifiable;

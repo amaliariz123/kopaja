@@ -34,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */     
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/email/verify';
 
     /**
      * Create a new controller instance.
@@ -43,32 +43,26 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-       $this->middleware('guest');
+        $user = Auth::user();
     }
 
-    //after registration, user will be redirect to login page first
-     public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
+    // //after registration, user will be redirect to login page first
+    //  public function register(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->create($request->all())));
+    //     event(new Registered($user = $this->create($request->all())));
 
-        return redirect('/login');
-        //return "valid";
-    }
-
-     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    //     return redirect('/email/verify');
+    //     //return "valid";
+    // }
+        
+    public function validator(array $data)
     {
         return Validator::make($data, [
             'fullname' => ['required', 'string', 'max:35'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:5', 'confirmed'],
         ]);
     }
 

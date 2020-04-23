@@ -14,14 +14,24 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
 
+Route::get('/home', function () {
+    return view('home');
+})->middleware('verified')->name('home');
+
 Route::group( [ 'middleware' => 'auth' ], function () {
-    // Route::get('profile','Auth\RegisterController@profileMember')->name('profile');
+    Route::get('/index', function () {
+        return view('index');
+        })->name('index');
+        
+    Route::get('profile/{id}','UserController@profileMember')->name('profile');
+    Route::get('change-pass','UserController@changePass')->name('change-pass');
+    Route::post('update/profile/{id}', 'UserController@updateMemberProfile');
     // Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
 
     Route::get('/pajakpusatpasal4',function(){
@@ -281,9 +291,7 @@ Route::get('/bantuan',function(){
 
 
 
-Route::get('/home', function () {
-    return view('index');
-})->middleware('verified')->name('home');
+
 
 Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
 Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
@@ -375,3 +383,6 @@ Route::group(['prefix' => '/storage'], function () {
 });
 
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

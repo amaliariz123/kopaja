@@ -43,7 +43,7 @@
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="{{url('/')}}/etrain/img/favicon.png" />
 
-		@yield('custom-css')
+		@stack('custom-css')
 	</head>
 	<!-- end::Head -->
 

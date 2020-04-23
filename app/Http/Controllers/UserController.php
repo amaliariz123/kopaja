@@ -272,36 +272,79 @@ class UserController extends Controller
         ->make(true);
     }
 
-    public function profileMember($id){
+    public function editProfile($id){
         $data = [];
 
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
         $province = Province::all()->pluck("provinsi", "id");
         $data['member'] = Member::where('user_id','=',$id)->first();
-        return  view('profile', compact('data'));;
+        return  view('users.member_edit_profile', compact('data'));
     }
-    public function changePass(){
-        $data = User::where('id', '=', Auth::user()->id)->get();
-        $province = Province::all()->pluck("provinsi", "id");
-        $user = User::where('id', '=', Auth::user()->id)->get();
-        return view('change-pass', compact('data', 'province', 'user'));
-    }
-    public function updateMemberProfile(Request $request, $id){
-        //return $request;
-        $data = [];
 
-        $data['user'] = DB::table('users')
+    public function editAccount($id){
+        $data = User::where('id', '=', $id)->first();
+
+        return view('users.member_change_pass', compact('data'));
+    }
+
+    public function updateMemberProfile(Request $request, $id){
+
+        $user = DB::table('users')
                 ->where('id',$id)
                 ->update(['fullname' => $request->fullname]);
 
-        $data['member'] = DB::table('members')
+        $member = DB::table('members')
                     ->where('user_id', $id)
                     ->update(['institution' => $request->institution]);
 
-            session(['success' => ['Profil berhasil diperbarui.']]);
-            return $data;
-            //return redirect()->back();
+        $data = [];
+        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
+        $province = Province::all()->pluck("provinsi", "id");
+        $data['member'] = Member::where('user_id','=',$id)->first();
 
-        //return $member;
+            //session(['success' => ['Profil berhasil diperbarui.']]);
+        return  view('users.member_edit_profile', compact('data'));
+    }
+
+    public function updateAccount(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $rules = [
+            'email' => 'required|email',
+            'old_password' => 'nullable|min:8|max:20',
+            'new_password' => 'nullable|min:8|max:20|different:old_password',
+            'confirm_new_pass' => 'same:new_password',
+        ];
+
+        $validate = Validator::make($request->all(), $rules);
+
+        if($validate->fails())
+        {
+            // $notification = array(
+            //     'message' => [$validate->errors()->all()], 
+            //     'alert-type' => 'error'
+            // );
+            return redirect()->withInput();
+        } else {
+
+            // $notification = array(
+            //     'message' => 'Berhasil diperbarui.', 
+            //     'alert-type' => 'success'
+            // );
+
+            $user->email = $request->email;
+            if(Hash::check($request->old_password, $user->password))
+            {
+                $user->fill([
+                    'password' => Hash::make($request->new_password)
+                ]);
+            }
+            $user->save();
+
+            // session(['success' => ['Profil berhasil diperbarui.']]);
+
+            return redirect()->back(); 
+        }
     }
 }

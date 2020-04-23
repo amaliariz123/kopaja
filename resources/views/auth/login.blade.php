@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>KOPAJA | LOGIN</title>
+    <title>KOPAJA | Masuk</title>
     <link rel="icon" href="{{url('/')}}/etrain/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/bootstrap.min.css">
@@ -37,12 +37,12 @@
                 <div class="col-md-7 col-lg-5">
                     <div class="learning_member_text">
                     	<center>
-                        <h1 style="font-weight: bold;">LOG IN</h1><br>
+                        <h1 style="font-weight: bold;">MASUK</h1><br>
 							<form method="POST" action="{{ route('login') }}">
                             @csrf
 							  <!-- Default input -->
 							  <div class="form-group">
-                              <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('E-Mail Address') }}" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                              <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Email') }}" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
 							  <!-- Default input -->
 							  <div class="form-group">							    
 							    <h5>
-                                <input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Password') }}" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Kata sandi') }}" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -74,12 +74,12 @@
                             <br>
 
 	                        <div>
-                                <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('Login') }}</button></h5><br>
+                                <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('Masuk') }}</button></h5><br>
 
                                 @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}"><h6>Forgot Username/Password?</h6></a><br><br><br>
+                                    <a href="{{ route('password.request') }}"><h6>Lupa kata sandi?</h6></a><br><br><br>
                                 @endif
-								<h6><a class="btn_2" href="{{Route('register')}}" style="height: 20%">Create Account</a></h6><br>
+								<h6><a class="btn_2" href="{{Route('register')}}" style="height: 20%">Buat Akun</a></h6><br>
 	                        </div>
 							</form>    
 						</center>     

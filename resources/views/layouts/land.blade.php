@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     
 </head>
 
@@ -81,7 +83,7 @@
                                 </li>
                                 <li class="d-none d-lg-block">
                                     @guest
-                                        <a class="btn_1" href="{{ route('login') }}">Sign In</a>
+                                        <a class="btn_1" href="{{ route('login') }}">Masuk</a>
                                                                                
                                     @else
                                         <li class="nav-item dropdown">
@@ -91,14 +93,14 @@
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         
-                                                <a class="dropdown-item" href="{{ url('/profile/'.Auth::user()->id) }}">
-                                                    {{ __('Profile') }}
+                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
+                                                    {{ __('Profil') }}
                                                 </a>
 
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
+                                                    {{ __('Keluar') }}
                                                 </a>
 
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -196,6 +198,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/waypoints.min.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js"></script>
+    @stack('custom-js')
 </body>
 
 </html>

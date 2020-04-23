@@ -28,11 +28,11 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/index', function () {
         return view('index');
         })->name('index');
-        
-    Route::get('profile/{id}','UserController@profileMember')->name('profile');
-    Route::get('change-pass','UserController@changePass')->name('change-pass');
-    Route::post('update/profile/{id}', 'UserController@updateMemberProfile');
-    // Route::post('profile/update/{id}','Auth\RegisterController@update')->name('profile');
+    
+    Route::get('/profile/edit/{id}', 'UserController@editProfile');
+    Route::get('/account/edit/{id}','UserController@editAccount');
+    Route::post('/update/profile/{id}', 'UserController@updateMemberProfile');
+    Route::post('/update/account/{id}', 'UserController@updateAccount');
 
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');

@@ -6,13 +6,13 @@
             <div class="row ">
                 <div class="card card-profile">
                     <div class="info-profile">
-                        <div class="profile__ava" style="background-image: url(../etrain/img/user.png);"></div>
-                        <h5>Azza Ulil</h5>
+                        <div class="profile__ava" style="background-image: url('{{ asset('/etrain/img/user.png') }}');"></div>
+                        <h5>{{$data['user']['fullname']}}</h5>
                     </div>
                     <nav class="profile-nav">
-                        <a class="profile-nav__link active" aria-current="true" href="/profile">Profil</a>
-                        <a class="profile-nav__link" aria-current="false" href="/change-pass">Ubah Kata Sandi dan Email</a>
-                        <a class="profile-nav__link" aria-current="false" href="/testi">Testimoni</a>
+                        <a class="profile-nav__link active" aria-current="true" href="{{url('/profile/edit/'.Auth::user()->id)}}">Profil</a>
+                        <a class="profile-nav__link" aria-current="false" href="{{url('/account/edit/'.Auth::user()->id)}}">Ubah Kata Sandi dan Email</a>
+                        <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/'.Auth::user()->id)}}">Testimoni</a>
                     </nav>
                 </div>
 
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="form-edit__avatar">
-                            <div class="profile__ava" style="width:70px; height:70px; background-image: url(../etrain/img/user.png);"></div>
+                            <div class="profile__ava" style="width:70px; height:70px; background-image: url('{{ asset('/etrain/img/user.png') }}');"></div>
                             
                             <div>
                                 <button class="form-edit__change-photo">Ganti foto</button>
@@ -36,7 +36,7 @@
                         <div>
                             <div class="fields">
                                 <label class="fields__label">Nama Lengkap</label>
-                                <input class="fields__input" name="fullname" value="{{Auth::user()->fullname}}" placeholder="" required=""></input>
+                                <input class="fields__input" name="fullname" value="{{$data['user']['fullname']}}" placeholder="" required=""></input>
                             </div>
                         </div>
                         <div>

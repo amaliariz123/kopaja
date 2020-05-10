@@ -115,7 +115,6 @@
                         <table class="table table-striped table-bordered" id="table_dev">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" name="select_all" id="select_all"></th>
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>Opsi</th>

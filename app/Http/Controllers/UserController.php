@@ -167,9 +167,9 @@ class UserController extends Controller
             {
                 $file = $request->file('profile_picture');
                 $extension = strtolower($file->getClientOriginalExtension());
-                $filename = uniqid().'.'.$extension;
-                \Storage::delete('public/images/user'.$user->profile_picture);
-                \Storage::put('public/images/user'.$filename, \File::get($file));
+                $filename = $id.'.'.$extension;
+                \Storage::delete('public/images/user/'.$user->profile_picture);
+                \Storage::put('public/images/user/'.$filename, \File::get($file));
             } else {
                 $filename = $user->profile_picture;
             }

@@ -31,22 +31,19 @@
 						<textarea class="form-control" rows="3" name="question_text" placeholder="..." required></textarea>
 					</div>
 					<div class="form-group">
-						<label for="question_image" class="form-control-label">Gambar <small class="form-text text-muted">Opsional. Untuk melengkapi pertanyaan</small></label>
-						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
-						  <div class="form-control" data-trigger="fileinput">
-						    <span class="fileinput-filename"></span>
-						  </div>
-						  <span class="input-group-append">
-						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Hapus
-						    </span>
-						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Pilih berkas</span>
-						      <span class="fileinput-exists">Ubah</span>
-						      <input type="file" name="question_image" accept="image/jpg,image/jpeg,image/png" >
-						    </span>
-						  </span>
-						</div>
+						<label for="question_image" class="form-control-label">Gambar <sub>Opsional. Untuk melengkapi <b>pertanyaan</b></sub></label><br>
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                <img src="{{asset('images/blank.png')}}" alt="" /> </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                            <div>
+                                <span class="btn btn-info btn-sm btn-file">
+                                    <span class="fileinput-new"> Select image </span>
+                                    <span class="fileinput-exists"> Change </span>
+                                    <input type="file" name="question_image" accept="image/jpg,image/jpeg,image/png"> </span>
+                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                            </div>
+                        </div>
 						<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 					</div>
 					<div class="form-group">
@@ -54,22 +51,19 @@
 						<textarea class="form-control" rows="3" name="answer_text" placeholder="..."></textarea>
 					</div>
 					<div class="form-group">
-						<label for="answer_image" class="form-control-label">Gambar <small class="form-text text-muted">Opsional. Untuk melengkapi penjelasan</small></label>
-						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
-						  <div class="form-control" data-trigger="fileinput">
-						    <span class="fileinput-filename"></span>
-						  </div>
-						  <span class="input-group-append">
-						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Hapus
-						    </span>
-						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Pilih berkas</span>
-						      <span class="fileinput-exists">Ubah</span>
-						      <input type="file" name="answer_image" accept="image/jpg,image/jpeg,image/png" >
-						    </span>
-						  </span>
-						</div>
+						<label for="answer_image" class="form-control-label">Gambar <sub>Opsional. Untuk melengkapi <b>penjelasan</b></sub></label><br>
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                <img src="{{asset('images/blank.png')}}" alt="" /> </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                            <div>
+                                <span class="btn btn-info btn-sm btn-file">
+                                    <span class="fileinput-new"> Select image </span>
+                                    <span class="fileinput-exists"> Change </span>
+                                    <input type="file" name="answer_image" accept="image/jpg,image/jpeg,image/png"> </span>
+                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                            </div>
+                        </div>
 						<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 					</div>
 					</fieldset>

@@ -22,23 +22,19 @@
 						<input type="email" class="form-control" name="edit_email" value="">
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Gambar</label>
-						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
-						  <div class="form-control" data-trigger="fileinput">
-						    <span class="fileinput-filename"></span>
-						  </div>
-						  <span class="input-group-append">
-						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Hapus
-						    </span>
-
-						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Pilih berkas</span>
-						      <span class="fileinput-exists">Ubah</span>
-						      <input type="file" name="edit_picture" accept="image/jpg,image/jpeg,image/png">
-						    </span>
-						  </span>
-						</div>
+						<label for="Picture" class="form-control-label">Gambar</label><br>
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                <img src="{{asset('images/blank.png')}}" alt="" /> </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                            <div>
+                                <span class="btn btn-info btn-sm btn-file">
+                                    <span class="fileinput-new"> Select image </span>
+                                    <span class="fileinput-exists"> Change </span>
+                                    <input type="file" name="edit_picture" accept="image/jpg,image/jpeg,image/png"> </span>
+                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                            </div>
+                        </div>
 						<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 					</div>
 					</fieldset>

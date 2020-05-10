@@ -343,14 +343,10 @@ Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
 Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
 Route::post('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 
-//tentang aplikasi
-Route::get('/tentang_aplikasi','TentangController@indexTentang');
-Route::get('/tentang_aplikasi/get_data', 'TentangController@getDataTentang');
-Route::post('/tentang_aplikasi/store', 'TentangController@store');
-Route::get('/tentang_aplikasi/show/{id}', 'TentangController@show');
-Route::get('/tentang_aplikasi/{id}/edit', 'TentangController@edit');
-Route::post('tentang_aplikasi/update/{id}', 'TentangController@update');
-Route::get('/tentang_aplikasi/delete/{id}', 'TentangController@delete');
+//generate kode
+Route::get('/generate_kode','KodeController@indexKode');
+Route::get('/kode_premium/get_data', 'KodeController@getData');
+
 
 //tim pengembang
 Route::get('/tim_pengembang','DevelopersController@indexDev');

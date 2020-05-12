@@ -346,6 +346,7 @@ Route::post('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 //generate kode
 Route::get('/generate_kode','KodeController@indexKode');
 Route::get('/kode_premium/get_data', 'KodeController@getData');
+Route::post('/generate_kode_premium', 'KodeController@generateCode');
 
 
 //tim pengembang

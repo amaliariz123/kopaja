@@ -9,22 +9,23 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="generate-kode" method="post" enctype="multipart/form-data" files=true>
+				<form id="generate-kode" action="{{url('/generate_kode_premium')}}" method="post">
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
-						<label for="name" class="form-control-label">Nama<span class="text-danger">*</span></label>
-						<input type="text" class="form-control" name="name" placeholder="..." required>
-					</div>
-					<div class="form-group">
-						<label for="email" class="form-control-label">Email<span class="text-danger">*</span></label>
-						<input type="email" class="form-control" name="email" required placeholder="...">
+						<label for="Jumlah kode" class="form-control-label">Jumlah kode<span class="text-danger">*</span></label><br>
+						<select  class="form-control m-input" id="exampleSelect1" name="jumlah_kode" required>
+							<option value="10">10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+						</select>
 					</div>
 					</fieldset>
 					<br>
+					<br>
 					<div class="col-md-12 text-right">
 						<button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="submit" class="btn btn-primary">Buat</button>
 					</div>
 				</form>
 			</div>
@@ -32,3 +33,4 @@
 	</div>
 </div>
 <!--end::Modal-->
+

@@ -9,6 +9,7 @@ use App\Models\PremiumCode;
 
 class KodeController extends Controller
 {
+
     public function indexKode()
     {
     	return view('setting.kode_index');
@@ -28,4 +29,33 @@ class KodeController extends Controller
         ->rawColumns(['option'])
         ->make(true);
     }
+
+    public function generateCode(Request $request)
+    {
+    	$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    	$total_code = $request->jumlah_kode;
+    	$input_length = strlen($permitted_chars);
+    	$string = "";
+    	$code = "";
+
+    	for ($j=0; $j < $total_code; $j++) { 
+    		
+	    	for($i=0;$i<20;$i++)
+	    	{
+	    		$random_character = $permitted_chars[mt_rand(0, $input_length-1)];
+	    		$string .= $random_character;
+	    	}
+
+	    	if(strlen($string) > 20) {
+		    	$code = substr($string, 0, 20);
+		    	echo $code . "<br>";
+		   	}
+    	}
+    }
 }
+
+
+// PremiumCode::create([
+// 	'code' => $code,
+// 	'status' => 'inactive'
+// ]);

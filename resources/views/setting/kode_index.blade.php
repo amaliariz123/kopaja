@@ -66,7 +66,7 @@
                                     <th>Kode</th>
                                     <th>Status</th>
                                     <th>Tanggal dibuat</th>
-                                    <th>Opsi</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -109,7 +109,7 @@ $(document).ready(function(){
                 {data:'code', name:'code', visible:true},
                 {data:'status', name:'status', visible:true},
                 {data: 'created_at', name: 'created_at', visible:true},
-                {data: 'option', name:'option', visible:true},
+                
             ],
         });
 

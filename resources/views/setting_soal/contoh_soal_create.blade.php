@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="contoh-store" method="post" action="{{url('/contoh_soal/store')}}" enctype="multipart/form-data" files=true>
+				<form id="contoh-store" method="post" enctype="multipart/form-data" files=true>
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
@@ -105,7 +105,7 @@
 						tabelContoh.ajax.reload();
 						//location.reload();
 					} else {
-						console.log(data);
+						//console.log(data);
 						for(var count=0; count < data.errors.length; count++)
 						{
 							toastr.error(data.errors[count], 'Error', {timeOut:6000});

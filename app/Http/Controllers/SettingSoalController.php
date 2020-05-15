@@ -80,7 +80,7 @@ class SettingSoalController extends Controller
     */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
     	$rules = [
     		'id_tax' => 'required|integer',
     		'title' => 'required|string',
@@ -146,7 +146,7 @@ class SettingSoalController extends Controller
     		'answer_image' => $answer_image,
     	]);
 
-    	//return response()->json(['success'=>'Data added successfully']);
+    	return response()->json(['success'=>'Data added successfully']);
     }
 
     /**

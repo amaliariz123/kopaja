@@ -9,7 +9,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="generate-kode" action="{{url('/generate_kode_premium')}}" method="post">
+				<form id="generate-kode" method="post">
 					@csrf
 					<fieldset class="content-group">
 					<div class="form-group">
@@ -33,4 +33,44 @@
 	</div>
 </div>
 <!--end::Modal-->
+
+@push('custom-script')
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajaxSetup({
+        	headers: {
+            	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        	}
+		});
+
+		$('#generate-kode').on('submit', function(e){
+			e.preventDefault();
+			$.ajax({				
+				'type' : 'POST',
+				'url' : "{{url('/generate_kode_premium')}}",
+				'data' : new FormData(this),
+				'processData' : false,
+				'contentType' : false,
+				'dataType' : 'JSON',
+				'success' : function(data){
+					if(data.success)
+					{
+						$('#generate-kode-modal').modal('hide');
+						toastr.success('Data berhasil ditambahkan!', 'Success', {timeOut:6000});
+						code_table.ajax.reload();
+						//location.reload();
+					} else {
+						//console.log(data);
+						for(var count=0; count < data.errors.length; count++)
+						{
+							toastr.error(data.errors[count], 'Error', {timeOut:6000});
+						}
+					}
+				}
+			})
+		})
+	})
+</script>
+@endpush
+
 

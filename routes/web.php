@@ -361,15 +361,21 @@ Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
 //contoh soal
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
 Route::get('/contoh_soal/get_data', 'SettingSoalController@getDataContoh');
-Route::get('/contoh_soal/create', 'SettingSoalController@create');
-Route::post('/contoh_soal/store', 'SettingSoalController@store');
-Route::get('/contoh_soal/show/{id}', 'SettingSoalController@show');
-Route::get('/contoh_soal/{id}/edit','SettingSoalController@edit');
-Route::post('/contoh_soal/update/{id}', 'SettingSoalController@update');
-Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@delete');
+Route::post('/contoh_soal/store', 'SettingSoalController@storeContoh');
+Route::get('/contoh_soal/show/{id}', 'SettingSoalController@showContoh');
+Route::get('/contoh_soal/{id}/edit','SettingSoalController@editContoh');
+Route::post('/contoh_soal/update/{id}', 'SettingSoalController@updateContoh');
+Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@deleteContoh');
 
 //latihan soal
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
+Route::get('/latihan_soal/get_data','SettingSoalController@getDataLatihan');
+Route::get('/latihan_soal/show/{id}/{nama_pajak}', 'SettingSoalController@showLatihan');
+Route::get('/latihan_soal/create/soal/{id}/{nama_pajak}', 'SettingSoalController@createSoal');
+Route::post('/latihan_soal/store/soal', 'SettingSoalController@storeSoal');
+Route::get('/latihan_soal/edit/soal/{id}', 'SettingSoalController@editSoal');
+Route::post('/latihan_soal/update/soal/{id}','SettingSoalController@updateSoal');
+Route::get('/latihan_soal/delete/soal/{id}', 'SettingSoalController@deleteSoal');
 
 /* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {

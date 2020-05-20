@@ -16,7 +16,7 @@ class CreateExerciseQuestionsTable extends Migration
         Schema::create('exercise_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_tax')->unsigned();
-            $table->string('question');
+            $table->text('question');
             $table->string('option_a');
             $table->string('option_b');
             $table->string('option_c');

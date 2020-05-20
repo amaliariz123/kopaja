@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ExampleExercise;
+use App\Models\ExerciseQuestion;
 use App\Models\Tax;
 use \Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Validator;
 use File;
 use Illuminate\Validation\Rule;
+use Redirect;
 
 class SettingSoalController extends Controller
 {
@@ -64,21 +66,12 @@ class SettingSoalController extends Controller
      	//return response()->json($data_example);
      }
 
-     /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-    	return view('setting_soal.contoh_soal_create');
-    }
-
     /**
      * Store a newly created resource in storage.
      * @param Request $request
      * @return Response
     */
-    public function store(Request $request)
+    public function storeContoh(Request $request)
     {
         // return $request;
     	$rules = [
@@ -179,7 +172,7 @@ class SettingSoalController extends Controller
      * @param int $id
      * @return Response
      */
-     public function show($id)
+     public function showContoh($id)
      {
      	$example = ExampleExercise::with('tax')->find($id);
 
@@ -205,7 +198,7 @@ class SettingSoalController extends Controller
      * @param int $id
      * @return Response
      */
-     public function edit($id)
+     public function editContoh($id)
      {
      	$data = ExampleExercise::find($id);
      	//$tax = Tax::all()->pluck('name','id');
@@ -220,7 +213,7 @@ class SettingSoalController extends Controller
      * @param int $id
      * @return Response
      */
-     public function update(Request $request, $id)
+     public function updateContoh(Request $request, $id)
      {
      	$data = ExampleExercise::find($id);
 
@@ -295,7 +288,7 @@ class SettingSoalController extends Controller
      * @param int $id
      * @return Response
      */
-     public function delete($id)
+     public function deleteContoh($id)
      {
      	$data = ExampleExercise::find($id);
      	$tax = Tax::all()->pluck('name','id');
@@ -317,6 +310,86 @@ class SettingSoalController extends Controller
      */
     public function indexLatihanSoal()
     {
-    	return view('setting_soal.latihan_soal_index');
+        $tax = Tax::all()->pluck('name','id');
+
+    	return view('setting_soal.latihan_soal_index', compact('tax'));
     }
+
+    /**
+     * Fetch data from model with datatables.
+     * @return Response
+     */
+    public function getDataLatihan()
+    {
+        $latihan = ExerciseQuestion::with('tax')->where('id_tax','=', 'tax.id')->get();
+        $pajak = Tax::all();
+
+        $data = [];
+        for ($i=0; $i <count($pajak) ; $i++) { 
+            $data_pajak['id'] = $pajak[$i]->id;
+            $data_pajak['id_tax'] = $pajak[$i]->name;
+            $data_pajak['question_total'] = count($latihan);
+
+
+           $data[] = $data_pajak;
+        }
+
+        return datatables()->of($data)->addColumn('option', function($row) {
+            $btn = '<a href="'.url('latihan_soal/show/'.$row['id']).'/'.$row['id_tax'].'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+
+                return $btn;
+        })
+        ->rawColumns(['option'])
+        ->make(true);
+    }
+
+    /**
+    * Show the form for creating a new resource.
+    * @return Response
+    */
+    public function createSoal($id, $nama_pajak)
+    {
+        $tax = Tax::find($id);
+
+        return view('setting_soal.latihan_soal_create', compact('tax'));
+    }
+
+    /**
+     * Show specified resource.
+     * @param int $id
+     * @return Response
+     */
+    public function showLatihan($id, $nama_pajak)
+    {
+        $tax = Tax::find($id);
+
+        return view('setting_soal.latihan_soal_detail', compact('tax'));
+    }
+
+    public function storeSoal(Request $request)
+    {
+
+    }
+
+    public function editSoal($id)
+    {
+
+    }
+
+    public function updateSoal(Request $request, $id)
+    {
+
+    }
+
+    public function deleteSoal($id)
+    {
+        $data = ExerciseQuestion::find($id);
+        Storage::delete('public/images/latihan_soal/'.$data->image);
+        $data->delete();
+
+        return response()->json(['success' => 'Data deleted successfully']);
+    }
+
+
+
 }

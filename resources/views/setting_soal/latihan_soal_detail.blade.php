@@ -1,5 +1,5 @@
 @extends('base.header')
-@section('title','Latihan Soal')
+@section('title','Detail Latihan Soal')
 @section('latihan','m-menu__item--active')
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -7,7 +7,7 @@
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h3 class="m-subheader__title m-subheader__title--separator">Setting</h3>
+                <h3 class="m-subheader__title m-subheader__title--separator">Setting Soal</h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                         <li class="m-nav__item m-nav__item--home">
                             <a href="#" class="m-nav__link m-nav__link--icon">
@@ -17,13 +17,13 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Setting Soal</span>
+                                <span class="m-nav__link-text">Latihan Soal</span>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Latihan Soal</span>
+                                <span class="m-nav__link-text">Detail Latihan Soal</span>
                             </a>
                         </li>
                     </ul>
@@ -33,7 +33,7 @@
     <!-- END: Subheader -->
 
     <div class="m-content">
-        <!--Begin::Section-->
+                <!--Begin::Section-->
         <div class="row">
             <div class="col-xl-12">
                 <div class="m-portlet m-portlet--mobile">
@@ -41,13 +41,23 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Tabel Latihan Soal
+                                    Detail Latihan Soal {{$tax->name}}
                                 </h3>
                             </div>
                         </div>
 
                         <div class="m-portlet__head-tools">
                             <ul class="m-portlet__nav">
+                                <!--begin: Button add new data -->
+                                <li class="m-portlet__nav-item">
+                                    <a  href="{{url('/latihan_soal/create/soal/'.$tax->id.'/'.$tax->name)}}" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
+                                        <span>
+                                            <i class="la la-plus-circle"></i>
+                                            <span>Buat soal baru</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!--end: Button add new data -->
 
                                 <li class="m-portlet__nav-item"></li>
 
@@ -64,24 +74,18 @@
                                                     <div class="m-dropdown__content">
                                                         <ul class="m-nav">
                                                             <li class="m-nav__section m-nav__section--first">
-                                                                <span class="m-nav__section-text">Quick Actions</span>
+                                                                <span class="m-nav__section-text">Opsi lain</span>
                                                             </li>
                                                             <li class="m-nav__item">
                                                                 <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-share"></i>
-                                                                    <span class="m-nav__link-text">Create Post</span>
+                                                                    <i class="m-nav__link-icon fa fa-file-import"></i>
+                                                                    <span class="m-nav__link-text">Impor soal</span>
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
                                                                 <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                    <span class="m-nav__link-text">Send Messages</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-multimedia-2"></i>
-                                                                    <span class="m-nav__link-text">Upload File</span>
+                                                                    <i class="m-nav__link-icon fa fa-file-export"></i>
+                                                                    <span class="m-nav__link-text">Ekspor soal</span>
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -96,22 +100,25 @@
 
                         </div>
                     </div>
-                  <div class="m-portlet__body">
-                     
-                        <!--begin: Datatable -->
-                        <table class="table table-striped table-bordered" id="tabel_latihan">
-                            <thead>
-                                <tr>
-                                    <th>Nama Pajak</th>
-                                    <th>Jumlah Soal</th>
-                                    <th>Opsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-                        </table>
-                        <!--end:: Datatable -->
+                    <div class="m-portlet__body">
+
+                        <!--begin: Search Form -->
+                        <div class="d-flex justify-content-end" style="margin-bottom: 1.5em">
+                            <form action="" class="m-form" method="POST">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search..." name="keyword" value="" id="search">
+                                    <div class="input-group-append">
+                                        <a href="#" class="btn btn-secondary"><i class="flaticon-search"></i></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--end: Search Form -->
+
+                        <div id="container-soal">
+                            @include('setting_soal.latihan_soal_persoal')
+                        </div>
+                        <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                     </div>
                 </div>
             </div>
@@ -120,33 +127,17 @@
         <!--End::Section-->
     </div>
 </div>
-
-<!-- Jquery -->
-<script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
-<script src="{{url('js/jquery-ui.min.js')}}"></script>
 @endsection
 
 @push('custom-script')
 <script type="text/javascript">
-    var latihan_table;
+    var tabel_soal;
 
-    $(document).ready(function(){
-
-        latihan_table = $('#tabel_latihan').DataTable({
-            processing : true,
-            serverSide : true,
-            stateSave : true,
-            ajax : {
-                url : "{{url('/latihan_soal/get_data')}}",
-                type : "GET",
-            },
-            deferRender : true,
-            columns : [
-                {data:'id_tax', name:'id_tax', visible:true},
-                {data: 'question_total', name: 'question_total', visible:true},
-                {data: 'option', name:'option', visible:true},
-            ],
-        });
-    });
+    // $(document).ready(function(){
+    //     //delete soal
+    //     $('button#delete-specific-question').on('click', function(){
+    //         let idQuestion = $()
+    //     })
+    // })
 </script>
 @endpush

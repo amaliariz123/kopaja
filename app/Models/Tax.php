@@ -35,4 +35,12 @@ class Tax extends Model
     {
         return $this->hasMany('App\Models\ExampleExercise', 'id_tax');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function exerciseQuestions()
+    {
+        return $this->hasMany('App\Models\ExerciseQuestion', 'id_tax');
+    }
 }

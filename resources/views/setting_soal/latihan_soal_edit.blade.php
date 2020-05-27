@@ -1,5 +1,5 @@
 @extends('base.header')
-@section('title','Tambah Soal')
+@section('title','Edit Soal')
 @section('latihan','m-menu__item--active')
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -23,7 +23,7 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Buat Soal</span>
+                                <span class="m-nav__link-text">Edit Soal</span>
                             </a>
                         </li>
                     </ul>
@@ -41,14 +41,14 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Buat soal baru {{$tax->name}}
+                                    Edit soal baru {{$tax->name}}
                                 </h3>
                             </div>
                         </div>
                     </div>
                 	<div class="m-portlet__body">
                 	<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-left" action="{{url('/latihan_soal/store/soal')}}" method="POST" enctype="multipart/form-data" files=true>
+					<form class="m-form m-form--fit m-form--label-align-left" action="" method="POST" enctype="multipart/form-data">
 						@csrf
 						<div class="m-portlet__body">
 							<div class="row">
@@ -82,13 +82,13 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi a</h6>
+										<h6>Jawaban 1</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="1" name="jawaban">
+												<input type="checkbox" class="custom-control-input">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_a" required />
+													<input type="text" class="form-control" name="form-jawaban1" required />
 												</div>
 											</label>
 										</div>
@@ -96,13 +96,13 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi c</h6>
+										<h6>Jawaban 3</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="3" name="jawaban">
+												<input type="checkbox" class="custom-control-input">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_c" required />
+													<input type="text" class="form-control" name="form-jawaban1" required />
 												</div>
 											</label>
 										</div>
@@ -112,13 +112,13 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi b</h6>
+										<h6>Jawaban 2</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="2" name="jawaban">
+												<input type="checkbox" class="custom-control-input">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_b" required />
+													<input type="text" class="form-control" name="form-jawaban1" required />
 												</div>
 											</label>
 										</div>
@@ -126,13 +126,13 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi d</h6>
+										<h6>Jawaban 4</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="4" name="jawaban">
+												<input type="checkbox" class="custom-control-input">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_d" required />
+													<input type="text" class="form-control" name="form-jawaban1" required />
 												</div>
 											</label>
 										</div>

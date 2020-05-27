@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use File;
+use DB;
 use Illuminate\Validation\Rule;
 use Redirect;
 
@@ -87,7 +88,7 @@ class SettingSoalController extends Controller
 
     	if($validator->fails())
     	{
-    		return $validator->errors()->all();
+    		return response()->json(['errors' => $validator->errors()->all()]);
     	} else {
 
     		//if both field not null
@@ -321,18 +322,23 @@ class SettingSoalController extends Controller
      */
     public function getDataLatihan()
     {
-        $latihan = ExerciseQuestion::with('tax')->where('id_tax','=', 'tax.id')->get();
         $pajak = Tax::all();
-
+        //$latihan = ExerciseQuestion::with('tax')->where('id_tax','=','id')->get();
+        
         $data = [];
         for ($i=0; $i <count($pajak) ; $i++) { 
             $data_pajak['id'] = $pajak[$i]->id;
             $data_pajak['id_tax'] = $pajak[$i]->name;
-            $data_pajak['question_total'] = count($latihan);
+            $data_pajak['question_total'] = count( $latihan = DB::table('exercise_questions')
+                                                            ->where('id_tax','=',$data_pajak['id'])
+                                                            ->get()
+                                                );
 
 
            $data[] = $data_pajak;
         }
+
+        //return $data;
 
         return datatables()->of($data)->addColumn('option', function($row) {
             $btn = '<a href="'.url('latihan_soal/show/'.$row['id']).'/'.$row['id_tax'].'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
@@ -341,6 +347,21 @@ class SettingSoalController extends Controller
         })
         ->rawColumns(['option'])
         ->make(true);
+
+    }
+
+    /**
+     * Show specified resource.
+     * @param int $id
+     * @return Response
+     */
+    public function showLatihan($id, $nama_pajak)
+    {
+        $tax = Tax::find($id);
+        $questions = ExerciseQuestion::where('id_tax','=',$id)->paginate(10);
+        $number = $questions->firstItem();
+
+        return view('setting_soal.latihan_soal_detail', compact('tax','questions','number'));
     }
 
     /**
@@ -355,25 +376,63 @@ class SettingSoalController extends Controller
     }
 
     /**
-     * Show specified resource.
-     * @param int $id
+     * Store a newly created resource in storage.
+     * @param Request $request
      * @return Response
-     */
-    public function showLatihan($id, $nama_pajak)
-    {
-        $tax = Tax::find($id);
-
-        return view('setting_soal.latihan_soal_detail', compact('tax'));
-    }
-
+    */
     public function storeSoal(Request $request)
     {
+        // return $request;
+        $rules = [
+            'id_tax' => 'required|integer',
+            'question' => 'required',
+            'image' => 'nullable|max:2048|mimes:png,jpg,jpeg',
+            'opsi_a' => 'required|string',
+            'opsi_b' => 'required|string',
+            'opsi_c' => 'required|string',
+            'opsi_d' => 'required|string',
+            'jawaban' => 'required|integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails())
+        {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        } else {
+            if(!empty($request->image))
+            {
+                $file = $request->file('image');
+                $extensions = strtolower($file->getClientOriginalExtension());
+                $date = date('YmdHi');
+                $filename = 'image_'.$date.'.'.$extensions;
+                Storage::put('public/images/latihan_soal_image/'.$filename, File::get($file));
+            } else {
+                $filename = 'blank.jpg';
+            }
+        }
+
+        ExerciseQuestion::create([
+            'id_tax' => request('id_tax'),
+            'question' => request('question'),
+            'option_a' => request('opsi_a'),
+            'option_b' => request('opsi_b'),
+            'option_c' => request('opsi_c'),
+            'option_d' => request('opsi_d'),
+            'right_answer' => request('jawaban'),
+            'image' => $filename,
+        ]);
+
+        return response()->json(['success'=>'Data added successfully']);
 
     }
 
     public function editSoal($id)
     {
+        $latihan = ExerciseQuestion::find($id);
+        // $tax = Tax::
 
+        return view('setting_soal.latihan_soal_create', compact('latihan'));
     }
 
     public function updateSoal(Request $request, $id)

@@ -100,6 +100,7 @@
 
                         </div>
                     </div>
+
                     <div class="m-portlet__body">
 
                         <!--begin: Search Form -->
@@ -134,10 +135,8 @@
     var tabel_soal;
 
     // $(document).ready(function(){
-    //     //delete soal
-    //     $('button#delete-specific-question').on('click', function(){
-    //         let idQuestion = $()
-    //     })
+        
+
     // })
 </script>
 @endpush

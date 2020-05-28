@@ -10,7 +10,7 @@
 
                     @if(!empty($value->image))
                     <div class="col-sm-2">
-                        <img class="img-responsive" src="{{asset('/images/blank.png')}}" alt="gambar soal" width="100" height="50" />
+                        <img class="img-responsive" src="{{asset('/storage/images/latihan_soal_image/'.$value->image)}}" alt="gambar soal" width="100" height="50" />
                     </div>
                     @endif
 
@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-3">
                 <button id="delete-specific-question" value="{{$value->id}}" style="margin-top:-8px;" class="btn btn-sm btn-outline-danger m-btn m-btn--outline-2x pull-right"><i class="flaticon-delete position-left"></i> Hapus </button>
-                <a style="margin-top:-8px;margin-right:10px" href="{{url('/latihan_soal/edit/soal/')}}" class="btn btn-sm btn-outline-success m-btn m-btn--outline-2x pull-right"><i class="flaticon-edit position-left"></i> &nbsp; Edit </a>
+                <a style="margin-top:-8px;margin-right:10px" href="{{url('/latihan_soal/edit/soal/'.$value->id.'/'.$tax->name)}}" class="btn btn-sm btn-outline-success m-btn m-btn--outline-2x pull-right"><i class="flaticon-edit position-left"></i> &nbsp; Edit </a>
             </div>
         </div>
     </div>
@@ -32,7 +32,11 @@
             <div class="col-sm-6 form-group">
                <div class="row">
                     <div class="col-md-1">
+                     @if($value->right_answer == '1')
                      <p><i style="color:#4CAF50;" class="fa fa-check-circle position-left"></i></p>
+                     @else
+                     <p><i style="color:#F44336;" class="fa fa-times-circle position-left"></i></p>
+                     @endif
                     </div>
                     <div class="col-md-1">
                         <p><b>a</b></p>
@@ -45,7 +49,11 @@
             <div class="col-sm-6 form-group">
                 <div class="row">
                     <div class="col-md-1">
+                     @if($value->right_answer == '3')
                      <p><i style="color:#4CAF50;" class="fa fa-check-circle position-left"></i></p>
+                     @else
+                     <p><i style="color:#F44336;" class="fa fa-times-circle position-left"></i></p>
+                     @endif
                     </div>
                     <div class="col-md-1">
                         <p><b>c</b></p>
@@ -60,7 +68,11 @@
             <div class="col-sm-6 form-group">
                 <div class="row">
                     <div class="col-md-1">
+                     @if($value->right_answer == '2')
                      <p><i style="color:#4CAF50;" class="fa fa-check-circle position-left"></i></p>
+                     @else
+                     <p><i style="color:#F44336;" class="fa fa-times-circle position-left"></i></p>
+                     @endif
                     </div>
                     <div class="col-md-1">
                         <p><b>b</b></p>
@@ -73,7 +85,11 @@
             <div class="col-sm-6 form-group">
                 <div class="row">
                     <div class="col-md-1">
+                     @if($value->right_answer == '4')
                      <p><i style="color:#4CAF50;" class="fa fa-check-circle position-left"></i></p>
+                     @else
+                     <p><i style="color:#F44336;" class="fa fa-times-circle position-left"></i></p>
+                     @endif
                     </div>
                     <div class="col-md-1">
                         <p><b>d</b></p>

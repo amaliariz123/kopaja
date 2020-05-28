@@ -48,7 +48,7 @@
 					</div>
 
 					<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-left" action="{{url('/admin/update/profil/'.Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
+					<form class="m-form m-form--fit m-form--label-align-left" action="{{url('/admin/update/profil/'.Auth::user()->id)}}" method="POST" enctype="multipart/form-data" files=true>
 						@csrf
 						<div class="m-portlet__body">
 							<div class="row">

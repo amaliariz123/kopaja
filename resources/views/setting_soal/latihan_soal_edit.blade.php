@@ -32,6 +32,8 @@
     </div>
     <!-- END: Subheader -->
 
+    @include('base.notification')
+
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">
@@ -41,21 +43,21 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Edit soal baru {{$tax->name}}
+                                    Edit soal {{$tax->name}}
                                 </h3>
                             </div>
                         </div>
                     </div>
                 	<div class="m-portlet__body">
                 	<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-left" action="" method="POST" enctype="multipart/form-data">
+					<form class="m-form m-form--fit m-form--label-align-left" action="{{url('latihan_soal/update/soal/'.$latihan->id)}}" method="POST" enctype="multipart/form-data" files=true>
 						@csrf
 						<div class="m-portlet__body">
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group m-form__group">
 										<h6>Soal</h6>
-										<textarea class="form-control m-input" id="exampleTextarea" rows="10" name="question" required>
+										<textarea class="form-control m-input" rows="10" name="question" required> {{$latihan->question}}
 										</textarea>
 										<input type="hidden" name="id_tax" value="{{$tax->id}}" />
 									</div>
@@ -65,7 +67,14 @@
 										<h6>Gambar</h6>
 										<div class="fileinput fileinput-new" data-provides="fileinput">
 				                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-				                                <img src="{{asset('images/blank.png')}}" alt="" /> </div>
+
+				                            	@if($latihan->image == null)
+				                                <img src="{{asset('images/blank.png')}}" alt="gambar soal" />
+				                                @else
+				                                <img src="{{asset('storage/images/latihan_soal_image/'.$latihan->image)}}" alt="gambar soal" />
+				                                @endif
+
+				                            </div>
 				                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
 				                            <div>
 				                                <span class="btn btn-info btn-sm btn-file">
@@ -85,10 +94,10 @@
 										<h6>Jawaban 1</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input">
+												<input type="checkbox" name="jawaban" value="1" class="custom-control-input" @if($latihan->right_answer=='1') checked @endif >
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="form-jawaban1" required />
+													<input type="text" class="form-control" name="opsi_a" value="{{$latihan->option_a}}" required />
 												</div>
 											</label>
 										</div>
@@ -99,10 +108,10 @@
 										<h6>Jawaban 3</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input">
+												<input type="checkbox" value="3" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '3') checked @endif>
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="form-jawaban1" required />
+													<input type="text" class="form-control" name="opsi_c" value="{{$latihan->option_c}}" required />
 												</div>
 											</label>
 										</div>
@@ -115,10 +124,10 @@
 										<h6>Jawaban 2</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input">
+												<input type="checkbox" value="2" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '2') checked @endif>
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="form-jawaban1" required />
+													<input type="text" class="form-control" name="opsi_b" value="{{$latihan->option_b}}" required />
 												</div>
 											</label>
 										</div>
@@ -129,10 +138,10 @@
 										<h6>Jawaban 4</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input">
+												<input type="checkbox" value="4" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '4') checked @endif>
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="form-jawaban1" required />
+													<input type="text" class="form-control" name="opsi_d" value="{{$latihan->option_d}}" required />
 												</div>
 											</label>
 										</div>
@@ -145,7 +154,7 @@
 						</div>
 						<div class="m-portlet__foot m-portlet__foot--fit">
 							<div class="m-form__actions m-form__actions">
-								<button type="submit" class="btn btn-brand">Buat</button>
+								<button type="submit" class="btn btn-brand">Simpan</button>
 								<button type="reset" class="btn btn-secondary" onclick="window.location='{{ URL::previous() }}'">Batal</button>
 							</div>
 						</div>
@@ -161,8 +170,9 @@
 @endsection
 @push('custom-script')
 <script type="text/javascript">
+
 	$('.custom-control-input').on('change', function() {
 			$('.custom-control-input').not(this).prop('checked', false);  
-		});
+	});
 </script>
 @endpush

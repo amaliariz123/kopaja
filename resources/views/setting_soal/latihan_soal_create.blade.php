@@ -48,7 +48,7 @@
                     </div>
                 	<div class="m-portlet__body">
                 	<!--begin::Form-->
-					<form class="m-form m-form--fit m-form--label-align-left" action="{{url('/latihan_soal/store/soal')}}" method="POST" enctype="multipart/form-data" files=true>
+					<form id="latihan-store" class="m-form m-form--fit m-form--label-align-left" action="{{url('/latihan_soal/store/soal')}}" method="POST" enctype="multipart/form-data" files=true>
 						@csrf
 						<div class="m-portlet__body">
 							<div class="row">
@@ -162,7 +162,7 @@
 @push('custom-script')
 <script type="text/javascript">
 	$('.custom-control-input').on('change', function() {
-			$('.custom-control-input').not(this).prop('checked', false);  
-		});
+		$('.custom-control-input').not(this).prop('checked', false);  
+	});
 </script>
 @endpush

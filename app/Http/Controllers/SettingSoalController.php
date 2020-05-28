@@ -247,6 +247,9 @@ class SettingSoalController extends Controller
                 $question_image = 'question_image_'.$date.'.'.$extensions1;
                 $answer_image = 'answer_image_'.$date.'.'.$extensions2;
 
+                Storage::delete('public/images/contoh_soal_image/' . $data->question_image);
+                Storage::delete('public/images/contoh_soal_image/' . $data->answer_image);
+
                 Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
                 Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
             } elseif(!empty($request->edit_question_image) && empty($request->edit_answer_image)) 
@@ -257,6 +260,7 @@ class SettingSoalController extends Controller
                 $date = date('YmdHi');
                 $question_image = 'question_image_'.$date.'.'.$extensions1;
                 $answer_image = 'blank.jpg';
+                Storage::delete('public/images/contoh_soal_image/' . $data->question_image);
                 Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
             } elseif(empty($request->edit_question_image) && !empty($request->edit_answer_image)) 
             //if field question_image is null BUT field answer_image is not null
@@ -266,22 +270,23 @@ class SettingSoalController extends Controller
                 $date = date('YmdHi');
                 $question_image = 'blank.jpg';
                 $answer_image = 'answer_image_'.$date.'.'.$extensions2;
+                Storage::delete('public/images/contoh_soal_image/' . $data->answer_image);
                 Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
             } else{ //if both field is null
-                $question_image = 'blank.jpg';
-                $answer_image = 'blank.jpg';
+                $question_image = $data->question_image;
+                $answer_image = $data->answer_image;
             } 
+
+            $data->id_tax = $request->edit_id_tax;
+            $data->title = $request->edit_title;
+            $data->question_text = $request->edit_question_text;
+            $data->question_image= $question_image;
+            $data->answer_text = $request->edit_answer_text;
+            $data->answer_image = $answer_image;
+            $data->save();
+
+            return response()->json(['success' => 'Data updated!']);
         }
-
-        $data->id_tax = $request->edit_id_tax;
-        $data->title = $request->edit_title;
-        $data->question_text = $request->edit_question_text;
-        $data->question_image= $question_image;
-        $data->answer_text = $request->edit_answer_text;
-        $data->answer_image = $answer_image;
-        $data->save();
-
-        return response()->json(['success' => 'Data updated!']);
      } 
 
      /**
@@ -398,7 +403,11 @@ class SettingSoalController extends Controller
 
         if($validator->fails())
         {
-            return response()->json(['errors' => $validator->errors()->all()]);
+            //return response()->json(['errors' => $validator->errors()->all()]);
+            session(['error' => $validator->errors()->all()]);
+
+            return back()->withInput();
+
         } else {
             if(!empty($request->image))
             {
@@ -410,9 +419,8 @@ class SettingSoalController extends Controller
             } else {
                 $filename = 'blank.jpg';
             }
-        }
 
-        ExerciseQuestion::create([
+            ExerciseQuestion::create([
             'id_tax' => request('id_tax'),
             'question' => request('question'),
             'option_a' => request('opsi_a'),
@@ -421,23 +429,78 @@ class SettingSoalController extends Controller
             'option_d' => request('opsi_d'),
             'right_answer' => request('jawaban'),
             'image' => $filename,
-        ]);
+            ]);
 
-        return response()->json(['success'=>'Data added successfully']);
+            $pajak = Tax::find($request->id_tax);
 
+            //return response()->json(['success'=>'Data added successfully']);
+            session(['success' => ['Soal berhasil ditambahkan.']]);
+
+            //return redirect()->route('');
+            return redirect()->route('detail.soal', [$request->id_tax, $pajak->name]);
+        }
     }
 
-    public function editSoal($id)
+    public function editSoal($id_soal, $nama_pajak)
     {
-        $latihan = ExerciseQuestion::find($id);
-        // $tax = Tax::
+        $latihan = ExerciseQuestion::find($id_soal);
+        $tax = Tax::find($latihan->id_tax);
 
-        return view('setting_soal.latihan_soal_create', compact('latihan'));
+        return view('setting_soal.latihan_soal_edit', compact('latihan', 'tax'));
     }
 
     public function updateSoal(Request $request, $id)
     {
+        $latihan = ExerciseQuestion::find($id);
 
+        $rules = [
+            'id_tax' => 'required|integer',
+            'question' => 'required',
+            'image' => 'nullable|max:2048|mimes:png,jpg,jpeg',
+            'opsi_a' => 'required|string',
+            'opsi_b' => 'required|string',
+            'opsi_c' => 'required|string',
+            'opsi_d' => 'required|string',
+            'jawaban' => 'required|integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails())
+        {
+            //return response()->json(['errors' => $validator->errors()->all()]);
+            session(['error' => $validator->errors()->all()]);
+
+            return back()->withInput();
+
+        } else {
+            if(!empty($request->image))
+            {
+                $file = $request->file('image');
+                $extensions = strtolower($file->getClientOriginalExtension());
+                $date = date('YmdHi');
+                $filename = 'image_'.$date.'.'.$extensions;
+                Storage::delete('public/images/latihan_soal_image/' . $latihan->image);
+                Storage::put('public/images/latihan_soal_image/'.$filename, File::get($file));
+            } else {
+                $filename = $latihan->image;
+            }
+        }
+        $latihan->id_tax = $request->id_tax;
+            $latihan->question = $request->question;
+            $latihan->image = $filename;
+            $latihan->option_a = $request->opsi_a;
+            $latihan->option_b = $request->opsi_b;
+            $latihan->option_c = $request->opsi_c;
+            $latihan->option_d = $request->opsi_d;
+            $latihan->right_answer = $request->jawaban;
+            $latihan->save();
+
+            session(['success' => ['Soal berhasil diperbarui!']]);
+
+            $pajak = Tax::find($request->id_tax);
+
+            return redirect()->route('detail.soal', [$request->id_tax, $pajak->name]);
     }
 
     public function deleteSoal($id)

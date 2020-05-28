@@ -32,6 +32,8 @@
     </div>
     <!-- END: Subheader -->
 
+    @include('base.notification')
+
     <div class="m-content">
                 <!--Begin::Section-->
         <div class="row">
@@ -134,9 +136,35 @@
 <script type="text/javascript">
     var tabel_soal;
 
-    // $(document).ready(function(){
-        
+    $(document).ready(function(){
 
-    // })
+        $('button#delete-specific-question').on('click', function () {
+          let idQuestion = $(this).val();
+          swal({
+            text: "Yakin untuk menghapus soal ini ?",
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Ya, hapus sekarang.',
+            cancelButtonText: 'Tidak, batalkan.',
+            reverseButtons: true,
+            type: 'warning',
+        })
+        .then((result) => {
+            if(result.value) 
+            {
+                $.ajax({
+                    url: "{{url('/latihan_soal/delete/soal')}}"+"/"+idQuestion,
+                    method: 'get',
+                    success: function(result){
+                        swal('Dihapus!','Soal telah dihapus.','success')
+                        location.reload();
+                    }  
+                })
+            } else {
+                swal('Dibatalkan','Soal batal dihapus.','error')
+            }
+        });
+      });
+    })
 </script>
 @endpush

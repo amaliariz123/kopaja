@@ -370,10 +370,10 @@ Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@deleteContoh');
 //latihan soal
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
 Route::get('/latihan_soal/get_data','SettingSoalController@getDataLatihan');
-Route::get('/latihan_soal/show/{id}/{nama_pajak}', 'SettingSoalController@showLatihan');
+Route::get('/latihan_soal/show/{id}/{nama_pajak}', 'SettingSoalController@showLatihan')->name('detail.soal');
 Route::get('/latihan_soal/create/soal/{id}/{nama_pajak}', 'SettingSoalController@createSoal');
 Route::post('/latihan_soal/store/soal', 'SettingSoalController@storeSoal');
-Route::get('/latihan_soal/edit/soal/{id}', 'SettingSoalController@editSoal');
+Route::get('/latihan_soal/edit/soal/{id_soal}/{nama_pajak}', 'SettingSoalController@editSoal');
 Route::post('/latihan_soal/update/soal/{id}','SettingSoalController@updateSoal');
 Route::get('/latihan_soal/delete/soal/{id}', 'SettingSoalController@deleteSoal');
 

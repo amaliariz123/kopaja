@@ -365,8 +365,9 @@ class SettingSoalController extends Controller
         $tax = Tax::find($id);
         $questions = ExerciseQuestion::where('id_tax','=',$id)->paginate(5);
         $number = $questions->firstItem();
+        $total_question = DB::table('exercise_questions')->where('id_tax','=',$id)->get();
 
-        return view('setting_soal.latihan_soal_detail', compact('tax','questions','number'));
+        return view('setting_soal.latihan_soal_detail', compact('tax','questions','number','total_question'));
     }
 
     public function search(Request $request, $id)

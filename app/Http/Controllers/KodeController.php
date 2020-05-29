@@ -49,7 +49,7 @@ class KodeController extends Controller
 
             PremiumCode::create([
              'code' => $code,
-             'status' => 'inactive'
+             'status' => 'non-aktif'
             ]);
 
         //return $code;

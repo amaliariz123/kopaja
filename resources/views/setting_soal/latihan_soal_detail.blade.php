@@ -102,9 +102,11 @@
 
                         </div>
                     </div>
-
+                   
                     <div class="m-portlet__body">
 
+                     @if(count($total_question) > 0 )
+                      
                         <!--begin: Search Form -->
                         <div class="d-flex justify-content-end" style="margin-bottom: 1.5em">
                             <div class="m-form">
@@ -122,6 +124,13 @@
                             @include('setting_soal.latihan_soal_persoal')
                         </div>
                         <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+
+                    @else
+
+                        <p> Tidak ada soal yang ditampilkan.</p>
+
+                    @endif
+
                     </div>
                 </div>
             </div>

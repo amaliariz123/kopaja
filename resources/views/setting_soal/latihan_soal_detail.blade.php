@@ -35,7 +35,7 @@
     @include('base.notification')
 
     <div class="m-content">
-                <!--Begin::Section-->
+    <!--Begin::Section-->
         <div class="row">
             <div class="col-xl-12">
                 <div class="m-portlet m-portlet--mobile">
@@ -107,14 +107,14 @@
 
                         <!--begin: Search Form -->
                         <div class="d-flex justify-content-end" style="margin-bottom: 1.5em">
-                            <form action="" class="m-form" method="POST">
+                            <div class="m-form">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." name="keyword" value="" id="search">
+                                    <input type="text" class="form-control m-input" placeholder="Search..." id="search">
                                     <div class="input-group-append">
-                                        <a href="#" class="btn btn-secondary"><i class="flaticon-search"></i></a>
+                                        <span class="input-group-text" id="basic-addon2"><i class="flaticon-search"></i></span>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <!--end: Search Form -->
 
@@ -134,13 +134,13 @@
 
 @push('custom-script')
 <script type="text/javascript">
-    var tabel_soal;
 
-    $(document).ready(function(){
+$(document).ready(function(){
 
-        $('button#delete-specific-question').on('click', function () {
-          let idQuestion = $(this).val();
-          swal({
+    //delete button
+    $('button#delete-specific-question').on('click', function () {
+      let idQuestion = $(this).val();
+        swal({
             text: "Yakin untuk menghapus soal ini ?",
             showCloseButton: true,
             showCancelButton: true,
@@ -164,7 +164,39 @@
                 swal('Dibatalkan','Soal batal dihapus.','error')
             }
         });
-      });
-    })
+    });
+
+    function fetch_data(page, query)
+    {
+        $.ajax({
+            url:"/latihan_soal/search/soal/"+"{{$tax->id}}"+"?page="+page+"&query="+query,
+            method:'GET',
+            success:function(data)
+            {
+                $('#container-soal').html('');
+                $('#container-soal').html(data);
+            }
+        })
+    }
+
+    $(document).on('keyup', '#search', function(){
+        let query = $('#search').val();
+        let page = $('#hidden_page').val();
+        fetch_data(page, query);
+    });
+
+    $(document).on('click', 'pagination a', function(event){
+        event.preventDefault();
+        let page = $(this).attr('href').split('page=')[1];
+        $('#hidden_page').val(page);
+
+        let query = $('#search').val();
+        $('li').removeClass('active');
+        $(this).parent().addClass('active');
+        fetch_data(page,query);
+    });
+
+
+})
 </script>
 @endpush

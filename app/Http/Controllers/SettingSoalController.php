@@ -363,10 +363,24 @@ class SettingSoalController extends Controller
     public function showLatihan($id, $nama_pajak)
     {
         $tax = Tax::find($id);
-        $questions = ExerciseQuestion::where('id_tax','=',$id)->paginate(10);
+        $questions = ExerciseQuestion::where('id_tax','=',$id)->paginate(5);
         $number = $questions->firstItem();
 
         return view('setting_soal.latihan_soal_detail', compact('tax','questions','number'));
+    }
+
+    public function search(Request $request, $id)
+    {
+        if($request->ajax())
+        {
+            $tax = Tax::where('id',$id)->first();
+            $query = $request->get('query');
+            $query = str_replace(" ","%",$query);
+            $questions = ExerciseQuestion::where('id_tax',$tax->id)->where('question','like','%'.$query.'%')->paginate(5);
+            $number = $questions->firstItem();
+        }
+
+        return view('setting_soal.latihan_soal_persoal', compact('tax','questions','number'))->render();
     }
 
     /**
@@ -511,7 +525,4 @@ class SettingSoalController extends Controller
 
         return response()->json(['success' => 'Data deleted successfully']);
     }
-
-
-
 }

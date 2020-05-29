@@ -8,7 +8,7 @@
                        <p><b>{{$number++}}</b></p>
                     </div>
 
-                    @if(!empty($value->image))
+                    @if($value->image != 'blank.jpg')
                     <div class="col-sm-2">
                         <img class="img-responsive" src="{{asset('/storage/images/latihan_soal_image/'.$value->image)}}" alt="gambar soal" width="100" height="50" />
                     </div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="delete-specific-question" value="{{$value->id}}" style="margin-top:-8px;" class="btn btn-sm btn-outline-danger m-btn m-btn--outline-2x pull-right"><i class="flaticon-delete position-left"></i> Hapus </button>
+                <button type="button" id="delete-specific-question" value="{{$value->id}}" style="margin-top:-8px;" class="btn btn-sm btn-outline-danger m-btn m-btn--outline-2x pull-right"><i class="flaticon-delete position-left"></i> Hapus </button>
                 <a style="margin-top:-8px;margin-right:10px" href="{{url('/latihan_soal/edit/soal/'.$value->id.'/'.$tax->name)}}" class="btn btn-sm btn-outline-success m-btn m-btn--outline-2x pull-right"><i class="flaticon-edit position-left"></i> &nbsp; Edit </a>
             </div>
         </div>
@@ -104,3 +104,11 @@
 </div>
 <br>
 @endforeach
+
+<div class="row">
+    <div class="col-md-11">
+        <div class="pull-right">
+            {{ $questions->links() }}
+        </div>
+    </div>
+</div>

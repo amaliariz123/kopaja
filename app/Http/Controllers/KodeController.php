@@ -27,7 +27,7 @@ class KodeController extends Controller
     public function generateCode(Request $request)
     {
     	$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    	$total = $request->jumlah_kode;
+    	//$total = $request->jumlah_kode;
     	$length = strlen($chars);
     	// $string = "";
     	$code = "";

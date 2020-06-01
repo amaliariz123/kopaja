@@ -17,7 +17,7 @@ class CreateMonthlyReportsTable extends Migration
             $table->increments('id');
             $table->integer('month');
             $table->integer('year');
-            $table->integer('month_year');
+            $table->string('month_year');
             $table->integer('total_premium_members');
             $table->integer('total_regular_members');
             $table->integer('total_testimonials');

@@ -21,7 +21,7 @@
               <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                   <li class="m-nav__item m-nav__item--home">
                     <a href="#" class="m-nav__link m-nav__link--icon">
-                      <i class="m-nav__link-icon la la-dashboard"></i>
+                      <i class="m-nav__link-icon flaticon-line-graph"></i>
                     </a>
                   </li>
                   <li class="m-nav__separator">-</li>
@@ -34,6 +34,7 @@
           </div>
       </div>
   </div>
+
   <!-- END: Subheader -->
   <div class="m-content">
       <!--Begin::Section-->
@@ -96,10 +97,10 @@
                     Member Premium
                   </h4><br>
                   <span class="m-widget24__desc">
-                    
+                    {{$show}}
                   </span>
                   <span class="m-widget24__stats m--font-info" style="margin-top: 5px">
-
+                    {{$premium}}
                   </span>
                   <div class="m--space-40"></div>
                 </div>
@@ -115,8 +116,10 @@
                     Member Reguler
                   </h4><br>
                   <span class="m-widget24__desc">
+                    {{$show}}
                   </span>
                   <span class="m-widget24__stats m--font-success" style="margin-top: 5px">
+                    {{$regular}}
                   </span>
                   <div class="m--space-40"></div>
                 </div>
@@ -132,8 +135,10 @@
                     Testimoni
                   </h4><br>
                   <span class="m-widget24__desc">
+                    {{$show}}
                   </span>
                   <span class="m-widget24__stats m--font-danger" style="margin-top: 5px">
+                    {{$testimoni}}
                   </span>
                   <div class="m--space-40"></div>
                 </div>
@@ -149,8 +154,10 @@
                     Latihan Soal 
                   </h4><br>
                   <span class="m-widget24__desc">
+                    {{$show}}
                   </span>
                   <span class="m-widget24__stats m--font-brand" style="margin-top: 5px">
+                    {{$exercise}}
                   </span>
                   <div class="m--space-40"></div>
                 </div>
@@ -180,7 +187,9 @@
               </div>
             </div>
             <div class="m-portlet__body">
+
               <div id="chartdiv"></div>
+
             </div>
           </div>
         </div>
@@ -195,17 +204,81 @@
 @endsection
 
 @push('custom-script')
-  <script src="{{url('assets/demo/demo11/custom/crud/metronic-datatable/base/html-table.js')}}" type="text/javascript"></script>
+<script src="{{url('assets/demo/demo11/custom/crud/metronic-datatable/base/html-table.js')}}" type="text/javascript"></script>
 
-  <!-- <script src="{{url('metronic/assets/demo/default/custom/components/charts/morris-charts.js')}}" type="text/javascript"></script> -->
+<!-- <script src="{{url('metronic/assets/demo/default/custom/components/charts/morris-charts.js')}}" type="text/javascript"></script> -->
 
-  <!-- <script src="{{url('metronic/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
+<!-- <script src="{{url('metronic/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
 
-  <script src="{{url('metronic/assets/demo/default/custom/components/charts/flotcharts.js')}}" type="text/javascript"></script> -->
+<script src="{{url('metronic/assets/demo/default/custom/components/charts/flotcharts.js')}}" type="text/javascript"></script> -->
 
-  <!-- chart -->
-    <script src="https://www.amcharts.com/lib/4/core.js"></script>
-    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- chart -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<!-- <script>
+    am4core.ready(function() {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+     // Create chart instance
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+//if(isset($data)){
+    // Add data
+  chart.data = {!! $data !!};
+
+  // Create axes
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+
+  if(chart.data[0]['daily_date']){
+        categoryAxis.dataFields.category = 'daily_date';
+      }else{
+        categoryAxis.dataFields.category = 'month_year';
+      }
+
+    categoryAxis.numberFormatter.numberFormat = "#";
+    // categoryAxis.renderer.inversed = true;
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.renderer.cellStartLocation = 0.1;
+    categoryAxis.renderer.cellEndLocation = 0.9;
+
+
+    var  valueAxis = chart.yAxes.push(new am4charts.ValueAxis()); 
+    //valueAxis.renderer.opposite = true;
+
+    // Create series
+    function createSeries(field, name) {
+      var series = chart.series.push(new am4charts.LineSeries());
+      series.dataFields.valueY = field;
+
+       if(chart.data[0]['daily_date']){
+          series.dataFields.categoryX = 'daily_date';
+       }else{
+          series.dataFields.categoryX = 'month_year';
+       }
+
+      series.name = name;
+      series.columns.template.tooltipText = "{name}: [bold]{valueY}[/]";
+      series.columns.template.height = am4core.percent(100);
+      series.sequencedInterpolation = true;
+    }
+
+    createSeries("premium", "Member Premium");
+    createSeries("regular", "Member Reguler");
+    createSeries("testimoni", "Testimoni member");
+    createSeries("exercise", "Latihan Soal");
+//}
+    }); 
+    // end am4core.ready()
+</script> -->
+
+
+
 @endpush
 

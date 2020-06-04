@@ -45,7 +45,7 @@
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="{{url('/')}}/etrain/img/favicon.png" />
 
-		@stack('custom-css')
+		@yield('custom-css')
 	</head>
 	<!-- end::Head -->
 
@@ -248,7 +248,6 @@
 		<script src="{{url('assets/app/js/dashboard.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
 		@stack('custom-script')
-
 		<!-- Datepicker -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>

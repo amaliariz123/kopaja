@@ -79,7 +79,7 @@
                                                                 <span class="m-nav__section-text">Opsi lain</span>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
+                                                                <a href="#" class="m-nav__link" data-toggle="modal" data-target="#import_latihan_soal">
                                                                     <i class="m-nav__link-icon fa fa-file-import"></i>
                                                                     <span class="m-nav__link-text">Impor soal</span>
                                                                 </a>
@@ -139,6 +139,11 @@
         <!--End::Section-->
     </div>
 </div>
+
+<!-- START modal import -->
+@include('setting_soal.latihan_soal_import')
+<!-- END modal import -->
+
 @endsection
 
 @push('custom-script')

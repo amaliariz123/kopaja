@@ -15,10 +15,14 @@ use File;
 use DB;
 use Illuminate\Validation\Rule;
 use Redirect;
+use Excel;
+use App\Imports\ExerciseQuestionImport;
 
 class SettingSoalController extends Controller
 {
-	/*Contoh Soal*/
+	/**************************
+    ###### Contoh Soal #######
+    **************************/
 
 	/**
      * Display a listing of the resource.
@@ -165,7 +169,6 @@ class SettingSoalController extends Controller
         $data = ExampleExercise::find($id);
 
         return Image::make(Storage::get('public/images/contoh_soal_image/'.$data->answer_image))->response();
-        // return Image::make(Storage::get('public/images/developers_team/'.$picture->picture))->response();
      }
 
      /**
@@ -307,8 +310,9 @@ class SettingSoalController extends Controller
      }
 
 
-
-    /*Latihan Soal */
+    /**************************
+    ###### Latihan Soal #######
+    **************************/
 
     /**
      * Display a listing of the resource.
@@ -338,8 +342,6 @@ class SettingSoalController extends Controller
                                                             ->where('id_tax','=',$data_pajak['id'])
                                                             ->get()
                                                 );
-
-
            $data[] = $data_pajak;
         }
 
@@ -526,4 +528,22 @@ class SettingSoalController extends Controller
 
         return response()->json(['success' => 'Data deleted successfully']);
     }
+
+    public function import($id)
+    {
+
+    }
+
+    public function saveImport($id)
+    {
+        # code...
+    }
+
+    public function downloadTemplate()
+    {
+        $path = 'template/Template Impor Soal.xlsx';
+        return response()->download($path);
+    }
+
+
 }

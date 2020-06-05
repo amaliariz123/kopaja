@@ -81,12 +81,19 @@
 					<span class="m-menu__link-text">Latihan Soal</span>
 				</a>
 			</li>
+			<li class="m-menu__item m-menu__item--submenu @yield('pembahasan')" aria-haspopup="true" m-menu-submenu-toggle="hover">
+				<a href="{{url('/pembahasan_latihan_soal')}}" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon fa fa-file-signature"></i>
+					<span class="m-menu__link-text">Pembahasan Latihan Soal</span>
+				</a>
+			</li>
 			<li class="m-menu__item m-menu__item--submenu @yield('kuis')" aria-haspopup="true" m-menu-submenu-toggle="hover">
 				<a href="{{url('/kuis')}}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon fa fa-book-reader"></i>
 					<span class="m-menu__link-text">Kuis</span>
 				</a>
 			</li>
+			
 
 			<li class="m-menu__section ">
 				<h4 class="m-menu__section-text">Setting Aplikasi</h4>

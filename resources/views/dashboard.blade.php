@@ -206,20 +206,13 @@
 @push('custom-script')
 <script src="{{url('assets/demo/demo11/custom/crud/metronic-datatable/base/html-table.js')}}" type="text/javascript"></script>
 
-<!-- <script src="{{url('metronic/assets/demo/default/custom/components/charts/morris-charts.js')}}" type="text/javascript"></script> -->
-
-<!-- <script src="{{url('metronic/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
-
-<script src="{{url('metronic/assets/demo/default/custom/components/charts/flotcharts.js')}}" type="text/javascript"></script> -->
-
-
 <!-- chart -->
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="//www.amcharts.com/lib/4/core.js"></script>
+<script src="//www.amcharts.com/lib/4/charts.js"></script>
+<script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
 
 <!-- Chart code -->
-<!-- <script>
+<script>
     am4core.ready(function() {
 
     // Themes begin
@@ -248,25 +241,27 @@
     categoryAxis.renderer.cellStartLocation = 0.1;
     categoryAxis.renderer.cellEndLocation = 0.9;
 
-
-    var  valueAxis = chart.yAxes.push(new am4charts.ValueAxis()); 
-    //valueAxis.renderer.opposite = true;
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    // valueAxis.renderer.opposite = true;
+    // console.log(valueAxis);
 
     // Create series
     function createSeries(field, name) {
-      var series = chart.series.push(new am4charts.LineSeries());
+      var series = chart.series.push(new am4charts.ColumnSeries());
+      // series.dataFields.valueY = field;
       series.dataFields.valueY = field;
 
-       if(chart.data[0]['daily_date']){
-          series.dataFields.categoryX = 'daily_date';
-       }else{
-          series.dataFields.categoryX = 'month_year';
-       }
+      if(chart.data[0]['daily_date']){
+        series.dataFields.categoryX = 'daily_date';
+      }else{
+        series.dataFields.categoryX = 'month_year';
+      }
 
       series.name = name;
       series.columns.template.tooltipText = "{name}: [bold]{valueY}[/]";
       series.columns.template.height = am4core.percent(100);
       series.sequencedInterpolation = true;
+      // console.log(series);
     }
 
     createSeries("premium", "Member Premium");
@@ -276,7 +271,7 @@
 //}
     }); 
     // end am4core.ready()
-</script> -->
+</script>
 
 
 

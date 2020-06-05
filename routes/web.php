@@ -377,6 +377,11 @@ Route::post('/latihan_soal/store/soal', 'SettingSoalController@storeSoal');
 Route::get('/latihan_soal/edit/soal/{id_soal}/{nama_pajak}', 'SettingSoalController@editSoal');
 Route::post('/latihan_soal/update/soal/{id}','SettingSoalController@updateSoal');
 Route::get('/latihan_soal/delete/soal/{id}', 'SettingSoalController@deleteSoal');
+Route::get('/latihan_soal/import/soal/{id}','SettingSoalController@import');
+Route::post('/latihan_soal/import/soal/{id}','SettingSoalController@saveImport');
+Route::get('/latihan_soal/import/download','SettingSoalController@downloadTemplate');
+
+
 
 /* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {

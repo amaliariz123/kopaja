@@ -434,7 +434,7 @@ class SettingSoalController extends Controller
                 $filename = 'image_'.$date.'.'.$extensions;
                 Storage::put('public/images/latihan_soal_image/'.$filename, File::get($file));
             } else {
-                $filename = 'blank.jpg';
+                $filename = null;
             }
 
             ExerciseQuestion::create([
@@ -529,14 +529,93 @@ class SettingSoalController extends Controller
         return response()->json(['success' => 'Data deleted successfully']);
     }
 
-    public function import($id)
+    public function saveImport(Request $request, $id)
     {
+        $this->validate(request(),
+            [
+                'excel' => 'required|mimes:xlsx'
+            ]
+        );
 
-    }
+        $data = Tax::find($id);
+        
 
-    public function saveImport($id)
-    {
-        # code...
+        $file = $request->file('excel');
+        $import = Excel::load($file)->get();
+        if(!$import)
+        {
+            session(['error' => 'Something wrong!']);
+            return redirect()->route('detail.soal', [$id, $tax_name]);
+        }
+
+        $import_data_filter = array_filter($import->toArray());
+        foreach ($import_data_filter as $key => $value) {
+            if(($check=array_search('Berapa besarnya tarif PPh Pasal 22 atas pembelian barang oleh bendahara pemerintah dan KPA?', $value)) !== false ) 
+            {
+                unset($import_data_filter[$key]);
+            } else {
+                if(implode($value) == null)
+                {
+                    unset($import_data_filter[$key]);
+                }
+            }
+        }
+
+        $import_data_filter = array_values($import_data_filter);
+        $totalQuestion = count($import_data_filter);
+        $messagesError = [];
+        foreach ($import_data_filter as $key => $value) {
+            $messagesError[$key.'.question.required'] = "Question field number ".($key+1)." is empty";
+            $messagesError[$key.'.question.distinct'] = "Question field number ".($key+1)." has duplicate value";
+            $messagesError[$key.'.question.unique'] = "Question field number ".($key+1)." has already been taken";
+            $messagesError[$key.'.option_a.required'] = "Option a field number ".($key+1)." is empty";
+            $messagesError[$key.'.option_b.required'] = "Option b field number ".($key+1)." is empty";
+            $messagesError[$key.'.option_c.required'] = "Option c field number ".($key+1)." is empty";
+            $messagesError[$key.'.option_d.required'] = "Option d field number ".($key+1)." is empty";
+            $messagesError[$key.'.right_answer.required'] = "Right answer field number ".($key+1)." is empty";
+        }
+
+        $validator = Validator::make($import_data_filter, [
+            '*.question' => 'required|distinct|unique:exercise_questions,question',
+            '*.option_a' => 'required',
+            '*.option_b' => 'required',
+            '*.option_c' => 'required',
+            '*.option_d' => 'required',
+            '*.right_answer' => 'required',
+        ], $messagesError);
+
+        $get_error = [];
+        foreach ($validator->errors()->messages() as $key => $value) {
+            $get_error[] = $key;
+        }
+        $error = array_unique($get_error);
+        $question = [];
+        $count_error = 0;
+
+        foreach ($import_data_filter as $key => $row) {
+            if(in_array($key, $error)) 
+            {
+                continue;
+                $count_error++;
+            } else {
+                $question[$key] = [
+                    'id_tax' => $id,
+                    'question' => $row['question'],
+                    'option_a' => $row['option_a'],
+                    'option_b' => $row['option_b'],
+                    'option_c' => $row['option_c'],
+                    'option_d' => $row['option_d'],
+                    'right_answer' => $row['right_answer'],
+                ];
+            }
+        }
+
+        $totalQuestionSuccess = count($question);
+        foreach ($question as $key => $q) {
+            ExerciseQuestion::create($q);
+        }
+
+        return redirect()->route('detail.soal', [$id, $data->name])->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
     }
 
     public function downloadTemplate()
@@ -545,5 +624,81 @@ class SettingSoalController extends Controller
         return response()->download($path);
     }
 
+    public function exportSoal($id)
+    {
+        $tax = Tax::where('id',$id)->first();
+        $question = ExerciseQuestion::where('id_tax',$id)->get();
+
+        $collection = [];
+        foreach ($question as $key => $value) {
+            $collection[$key] = [
+                'id' => $value['id'],
+                'question' => $value['question'],
+                'a' => $value['option_a'],
+                'b' => $value['option_b'],
+                'c' => $value['option_c'],
+                'd' => $value['option_d'],
+                'right_answer' => $value['right_answer'],
+            ];
+        }
+
+        // return $collection;
+        return Excel::create('Ekspor Latihan Soal '.$tax->name, function($excel) use ($collection)
+        {
+            $excel->sheet('Sheet 1', function($sheet) use ($collection)
+            {
+                $sheet->freezeFirstRow();
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name' => 'Calibri',
+                        'size' => 12,
+                    )
+                ));
+                $sheet->setAutoSize(array(
+                    'A','C','D','E','F','G',
+                ));
+                $sheet->setWidth(array(
+                    'B' => 75,
+                ));
+                $sheet->cell('A1:G1', function($cell) {
+                    $cell->setBackground('#ede185');
+                    $cell->setFontWeight('bold');
+                });
+                $sheet->cell('A1', function($cell) {
+                    $cell->setValue('NO');
+                });
+                $sheet->cell('B1', function($cell) {
+                    $cell->setValue('PERTANYAAN');
+                });
+                $sheet->cell('C1', function($cell) {
+                    $cell->setValue('OPSI A');
+                });
+                $sheet->cell('D1', function($cell) {
+                    $cell->setValue('OPSI B');
+                });
+                $sheet->cell('E1', function($cell) {
+                    $cell->setValue('OPSI C');
+                });
+                $sheet->cell('F1', function($cell) {
+                    $cell->setValue('OPSI D');
+                });
+                $sheet->cell('G1', function($cell) {
+                    $cell->setValue('KUNCI JAWABAN');
+                });
+                if(!empty($collection)) {
+                    foreach ($collection as $key => $value) {
+                        $i=$key+2;
+                        $sheet->cell('A'.$i, $key+1);
+                        $sheet->cell('B'.$i, $value['question']);
+                        $sheet->cell('C'.$i, $value['a']);
+                        $sheet->cell('D'.$i, $value['b']);
+                        $sheet->cell('E'.$i, $value['c']);
+                        $sheet->cell('F'.$i, $value['d']);
+                        $sheet->cell('G'.$i, $value['right_answer']);
+                    }
+                }
+            });
+        })->download('xlsx');
+    }
 
 }

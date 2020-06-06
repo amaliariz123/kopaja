@@ -8,7 +8,7 @@
                        <p><b>{{$number++}}</b></p>
                     </div>
 
-                    @if($value->image != 'blank.jpg')
+                    @if(!empty($value->image))
                     <div class="col-sm-2">
                         <img class="img-responsive" src="{{asset('/storage/images/latihan_soal_image/'.$value->image)}}" alt="gambar soal" width="100" height="50" />
                     </div>

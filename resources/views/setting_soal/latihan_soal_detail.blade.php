@@ -34,6 +34,54 @@
 
     @include('base.notification')
 
+    @if ($errors->messages())
+    <div class="m-content" style="margin-bottom:-30px !important">
+        <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: -20px; margin-bottom:3rem">
+            <button type="button"style="margin-top: 15px" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+            <div class="m-alert__icon">
+                <i class="flaticon-alert-1"></i>
+                <span></span>
+            </div>
+            <div class="m-alert__text">
+                <strong>
+                    Error!
+                <br>
+                </strong>
+                <p>
+                    @foreach ($errors->messages() as $key => $error)
+                        @foreach ($error as $key => $error)
+                          {{ $error }}<br>
+                          {{-- <li>{{ $error }}</li> --}}
+                        @endforeach
+                    @endforeach
+                </p>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if (session('totalQuestion'))
+    <div class="m-content" style="margin-bottom:-30px !important">
+        <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-success alert-dismissible fade show" role="alert" style="margin-top: -20px; margin-bottom:3rem">
+            <button type="button" style="margin-top: 18px" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span>
+            </button>
+            <div class="m-alert__icon">
+                <i class="flaticon-alert-1"></i>
+                <span></span>
+            </div>
+            <div class="m-alert__text">
+                <strong>
+                    Berhasil!
+                </strong>
+                <p>
+                    {{session('totalQuestionSuccess')}} dari {{session('totalQuestion')}} soal berhasil diimpor!
+                </p>
+            </div>
+        </div>
+    </div>
+    <?php Session::forget('totalQuestion'); ?>
+    @endif
+
     <div class="m-content">
     <!--Begin::Section-->
         <div class="row">
@@ -85,7 +133,7 @@
                                                                 </a>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
+                                                                <a href="{{url('/latihan_soal/export/soal/'.$tax->id)}}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon fa fa-file-export"></i>
                                                                     <span class="m-nav__link-text">Ekspor soal</span>
                                                                 </a>

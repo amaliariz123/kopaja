@@ -1,51 +1,211 @@
-<!--begin::Modal-->
-<div class="modal fade" id="contoh-detail-modal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Detail Contoh Soal</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form id="contoh-detail" method="get" enctype="multipart/form-data" files=true>
-					<fieldset class="content-group">
-					<div class="form-group">
-						<label for="name" class="form-control-label">Nama Pajak</label>
-						<input type="hidden" name="detail_id" class="form-control" value="">
-						<input type="text" name="detail_tax_name" class="form-control" value="" disabled>
-					</div>
-					<div class="form-group">
-						<label for="title" class="form-control-label">Judul</label>
-						<input type="text" class="form-control" name="detail_title" value="" disabled>
-					</div>
-					<div class="form-group">
-						<label for="question_text" class="form-control-label">Pertanyaan</label>
-						<textarea class="form-control" name="detail_question_text" value="" disabled></textarea>
-					</div>
-					<div class="form-group">
-						<label for="question_image" class="form-control-label">Gambar untuk pertanyaan</label>
-						<div id="detail_question_image">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="answer_text" class="form-control-label">Penjelasan</label>
-						<textarea class="form-control" name="detail_answer_text" value="" disabled></textarea>
-					</div>
-					<div class="form-group">
-						<label for="answer_image" class="form-control-label">Gambar untuk penjelasan</label>
-						<div id="detail_answer_image">
-						</div>
-					</div>
-					</fieldset>
-					<br>
-					<div class="col-md-12 text-right">
-						<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Tutup</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+@extends('base.header')
+@section('title','Detail Contoh Soal')
+@section('contoh','m-menu__item--active')
+@section('content')
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+	<!-- BEGIN: Subheader -->
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <h3 class="m-subheader__title m-subheader__title--separator">Setting</h3>
+                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                        <li class="m-nav__item m-nav__item--home">
+                            <a href="#" class="m-nav__link m-nav__link--icon">
+                                <i class="m-nav__link-icon fa fa-file-alt"></i>
+                            </a>
+                        </li>
+                        <li class="m-nav__separator">-</li>
+                        <li class="m-nav__item">
+                            <a href="" class="m-nav__link">
+                                <span class="m-nav__link-text">Contoh Soal</span>
+                            </a>
+                        </li>
+                        <li class="m-nav__separator">-</li>
+                        <li class="m-nav__item">
+                            <a href="" class="m-nav__link">
+                                <span class="m-nav__link-text">Detail Soal</span>
+                            </a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+
+    @include('base.notification')
+
+    <div class="m-content">
+    <!--Begin::Section-->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="m-portlet m-portlet--mobile">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Detail Contoh Soal {{$tax->name}}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="m-portlet__head-tools">
+                            <ul class="m-portlet__nav">
+                                <!--begin: Button add new data -->
+                                <li class="m-portlet__nav-item">
+                                    <a  href="{{url('/contoh_soal/create/soal/'.$tax->id.'/'.$tax->name)}}" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
+                                        <span>
+                                            <i class="la la-plus-circle"></i>
+                                            <span>Tambah soal baru</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!--end: Button add new data -->
+
+                                <li class="m-portlet__nav-item"></li>
+
+                                <!--begin: More menu -->
+                                <li class="m-portlet__nav-item">
+                                    <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                                        <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+                                            <i class="la la-ellipsis-h m--font-brand"></i>
+                                        </a>
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="m-nav">
+                                                            <li class="m-nav__section m-nav__section--first">
+                                                                <span class="m-nav__section-text">Opsi lain</span>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="#" class="m-nav__link" data-toggle="modal" data-target="#import_contoh_soal">
+                                                                    <i class="m-nav__link-icon fa fa-file-import"></i>
+                                                                    <span class="m-nav__link-text">Impor soal</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="{{url('/contoh_soal/export/soal/'.$tax->id)}}" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon fa fa-file-export"></i>
+                                                                    <span class="m-nav__link-text">Ekspor soal</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!--end: More menu -->
+                            </ul>
+
+                        </div>
+                    </div>
+                   
+                    <div class="m-portlet__body">
+
+                     @if(count($total_question) > 0 )
+                      
+                        <!--begin: Search Form -->
+                        <div class="d-flex justify-content-end" style="margin-bottom: 1.5em">
+                            <div class="m-form">
+                                <div class="input-group">
+                                    <input type="text" class="form-control m-input" placeholder="Search..." id="search">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2"><i class="flaticon-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end: Search Form -->
+
+                        <div id="container-soal">
+                            @include('setting_soal.contoh_soal_persoal')
+                        </div>
+                        <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+
+                    @else
+
+                        <p> Tidak ada soal yang ditampilkan.</p>
+
+                    @endif
+
+                    </div>
+                </div>
+            </div>
+        </div>       
+
+        <!--End::Section-->
+    </div>
 </div>
-<!--end::Modal-->
+
+<!-- START modal import -->
+@include('setting_soal.contoh_soal_import')
+<!-- END modal import -->
+
+@endsection
+
+@push('custom-script')
+<script type="text/javascript">
+	$(document).ready(function(){
+		//delete button
+	    $('button#delete-specific-question').on('click', function () {
+	      let idQuestion = $(this).val();
+	        swal({
+	            text: "Yakin untuk menghapus soal ini ?",
+	            showCloseButton: true,
+	            showCancelButton: true,
+	            confirmButtonText: 'Ya, hapus sekarang.',
+	            cancelButtonText: 'Tidak, batalkan.',
+	            reverseButtons: true,
+	            type: 'warning',
+	        })
+	        .then((result) => {
+	            if(result.value) 
+	            {
+	                $.ajax({
+	                    url: "{{url('/contoh_soal/delete')}}"+"/"+idQuestion,
+	                    method: 'get',
+	                    success: function(result){
+	                        swal('Dihapus!','Soal telah dihapus.','success')
+	                        location.reload();
+	                    }  
+	                })
+	            } else {
+	                swal('Dibatalkan','Soal batal dihapus.','error')
+	            }
+	        });
+	    });
+
+	    function fetch_data(page, query)
+	    {
+	        $.ajax({
+	            url:"/contoh_soal/search/soal/"+"{{$tax->id}}"+"?page="+page+"&query="+query,
+	            method:'GET',
+	            success:function(data)
+	            {
+	                $('#container-soal').html('');
+	                $('#container-soal').html(data);
+	            }
+	        })
+	    }
+
+	    $(document).on('keyup', '#search', function(){
+	        let query = $('#search').val();
+	        let page = $('#hidden_page').val();
+	        fetch_data(page, query);
+	    });
+
+	    $(document).on('click', 'pagination a', function(event){
+	        event.preventDefault();
+	        let page = $(this).attr('href').split('page=')[1];
+	        $('#hidden_page').val(page);
+
+	        let query = $('#search').val();
+	        $('li').removeClass('active');
+	        $(this).parent().addClass('active');
+	        fetch_data(page,query);
+	    });
+	});
+</script>
+@endpush

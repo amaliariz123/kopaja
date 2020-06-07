@@ -361,11 +361,16 @@ Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
 //contoh soal
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
 Route::get('/contoh_soal/get_data', 'SettingSoalController@getDataContoh');
+Route::get('/contoh_soal/create/soal/{id}/{nama_pajak}','SettingSoalController@createContoh');
 Route::post('/contoh_soal/store', 'SettingSoalController@storeContoh');
-Route::get('/contoh_soal/show/{id}', 'SettingSoalController@showContoh');
+Route::get('/contoh_soal/show/{id}/{nama_pajak}', 'SettingSoalController@showContoh')->name('detail.contoh_soal');
+Route::get('/contoh_soal/search/soal/{id}', 'SettingSoalController@searchSoal');
 Route::get('/contoh_soal/{id}/edit','SettingSoalController@editContoh');
 Route::post('/contoh_soal/update/{id}', 'SettingSoalController@updateContoh');
 Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@deleteContoh');
+Route::post('/contoh_soal/import/soal/{id}','SettingSoalController@saveImportSoal');
+Route::get('/contoh_soal/import/download','SettingSoalController@downloadTemplateContoh');
+Route::get('/contoh_soal/export/soal/{id}','SettingSoalController@exportContohSoal');
 
 //latihan soal
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');

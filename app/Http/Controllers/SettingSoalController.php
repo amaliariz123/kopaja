@@ -41,35 +41,36 @@ class SettingSoalController extends Controller
      */
      public function getDataContoh()
      {
-     	$example = ExampleExercise::with('tax')->orderByDesc('created_at')->get();
+     	$pajak = Tax::all();
+        
+        $data = [];
+        for ($i=0; $i <count($pajak) ; $i++) { 
+            $data_pajak['id'] = $pajak[$i]->id;
+            $data_pajak['id_tax'] = $pajak[$i]->name;
+            $data_pajak['question_total'] = count( $latihan = DB::table('example_exercises')
+                                                            ->where('id_tax','=',$data_pajak['id'])
+                                                            ->get()
+                                                );
+           $data[] = $data_pajak;
+        }
 
-     	$data_example = [];
-     	for($i=0; $i<count($example) ;$i++)
-     	{
-     		$data['id'] = $example[$i]->id;
-            $data['id_pajak'] = $example[$i]->tax->id;
-     		$data['id_tax'] = $example[$i]->tax->name;
-     		$data['title'] = $example[$i]->title;
-     		$data['question_text'] = $example[$i]->question_text;
-     		$data['question_image'] = $example[$i]->question_image;
-     		$data['answer_text'] = $example[$i]->answer_text;
-     		$data['answer_image'] = $example[$i]->answer_image;
+        //return $data;
 
-     		$data_example[] = $data;
-     	}
-
-     	return datatables()->of($data_example)->addColumn('option', function($row) {
-            $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
-            $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
-            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
+        return datatables()->of($data)->addColumn('option', function($row) {
+            $btn = '<a href="'.url('/contoh_soal/show/'.$row['id']).'/'.$row['id_tax'].'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
 
                 return $btn;
         })
         ->rawColumns(['option'])
         ->make(true);
-
-     	//return response()->json($data_example);
      }
+
+    public function createContoh($id,$tax_name)
+    {
+        $tax = Tax::find($id);
+
+        return view('setting_soal.contoh_soal_create', compact('tax'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -92,7 +93,9 @@ class SettingSoalController extends Controller
 
     	if($validator->fails())
     	{
-    		return response()->json(['errors' => $validator->errors()->all()]);
+            session(['error' => $validator->errors()->all()]);
+
+    		return back()->withInput();
     	} else {
 
     		//if both field not null
@@ -130,12 +133,12 @@ class SettingSoalController extends Controller
     			$answer_image = 'answer_image_'.$date.'.'.$extensions2;
     			Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
     		} else{ //if both field is null
-    			$question_image = 'blank.jpg';
-    			$answer_image = 'blank.jpg';
+    			$question_image = null;
+    			$answer_image = null;
     		} 
     	}
 
-    	$result = ExampleExercise::create([
+    	ExampleExercise::create([
     		'id_tax' => request('id_tax'),
     		'title' => request('title'),
     		'question_text' => request('question_text'),
@@ -144,57 +147,26 @@ class SettingSoalController extends Controller
     		'answer_image' => $answer_image,
     	]);
 
-    	return response()->json(['success'=>'Data added successfully']);
+        $pajak = Tax::find($request->id_tax);
+
+    	// return response()->json(['success'=>'Data added successfully']);
+        session(['success' => ['Soal berhasil ditambahkan!']]);
+        return redirect()->route('detail.contoh_soal', [$request->id_tax, $pajak->name]);
     }
-
-    /**
-     * Fetch question_image url from table.
-     * @param int $id
-     * @return Image
-     */
-     public function getQuestionImage($id)
-     {
-     	$data = ExampleExercise::find($id);
-
-     	return Image::make(Storage::get('public/images/contoh_soal_image/'.$data->question_image))->response();
-     }
-
-     /**
-     * Fetch answer_image url from table.
-     * @param int $id
-     * @return Image
-     */
-     public function getAnswerImage($id)
-     {
-        $data = ExampleExercise::find($id);
-
-        return Image::make(Storage::get('public/images/contoh_soal_image/'.$data->answer_image))->response();
-     }
 
      /**
      * Show specified resource.
      * @param int $id
      * @return Response
      */
-     public function showContoh($id)
+     public function showContoh($id,$tax_name)
      {
-     	$example = ExampleExercise::with('tax')->find($id);
+        $tax = Tax::find($id);
+        $questions = ExampleExercise::where('id_tax','=',$id)->paginate(5);
+        $number = $questions->firstItem();
+        $total_question = DB::table('example_exercises')->where('id_tax','=',$id)->get();
 
-     	 	$data = [];
-     	
-     		$arr['id'] = $example->id;
-     		$arr['id_tax'] = $example->tax->name;
-     		$arr['title'] = $example->title;
-     		$arr['question_text'] = $example->question_text;
-     		$arr['question_image'] = $example->question_image;
-     		$arr['answer_text'] = $example->answer_text;
-     		$arr['answer_image'] = $example->answer_image;
-            $arr['created_at'] = $example->created_at;
-            $arr['updated_at'] = $example->updated_at;
-
-     		$data[] = $arr;
-
-     	return response()->json(['status'=>'OK', 'data' => $data], 200);
+        return view('setting_soal.contoh_soal_detail', compact('tax','questions','number','total_question'));
      }
 
      /**
@@ -207,7 +179,7 @@ class SettingSoalController extends Controller
      	$data = ExampleExercise::find($id);
      	//$tax = Tax::all()->pluck('name','id');
 
-     	return response()->json(['status' => 'OK', 'data' => $data], 200);
+     	// return response()->json(['status' => 'OK', 'data' => $data], 200);
         //return view('setting_soal.contoh_soal_edit')->compact('data', $data);
      }
 
@@ -292,6 +264,23 @@ class SettingSoalController extends Controller
         }
      } 
 
+    public function searchSoal(Request $request,$id)
+    {
+        if($request->ajax())
+        {
+            $tax = Tax::where('id',$id)->first();
+            $query = $request->get('query');
+            $query = str_replace(" ","%",$query);
+            $questions = ExampleExercise::where('id_tax',$tax->id)
+                        ->where('question','like','%'.$query.'%')
+                        ->orWhere('title','like','%'.$query.'%')
+                        ->paginate(5);
+            $number = $questions->firstItem();
+        }
+
+        return view('setting_soal.latihan_soal_persoal', compact('tax','questions','number'))->render();
+    }
+
      /**
      * Remove the specified resource from storage.
      * @param int $id
@@ -300,13 +289,12 @@ class SettingSoalController extends Controller
      public function deleteContoh($id)
      {
      	$data = ExampleExercise::find($id);
-     	$tax = Tax::all()->pluck('name','id');
 
      	Storage::delete('public/images/contoh_soal_image/'.$data->question_image);
      	Storage::delete('public/images/contoh_soal_image/'.$data->answer_image);
      	$data->delete();
 
-     	return view('setting_soal.contoh_soal_index', compact('tax'));
+     	return response()->json(['success' => 'Data deleted successfully']);
      }
 
 

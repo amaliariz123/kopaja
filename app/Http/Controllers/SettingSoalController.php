@@ -16,7 +16,7 @@ use DB;
 use Illuminate\Validation\Rule;
 use Redirect;
 use Excel;
-use App\Imports\ExerciseQuestionImport;
+
 
 class SettingSoalController extends Controller
 {
@@ -174,13 +174,12 @@ class SettingSoalController extends Controller
      * @param int $id
      * @return Response
      */
-     public function editContoh($id)
+     public function editContoh($id_soal,$nama_pajak)
      {
-     	$data = ExampleExercise::find($id);
-     	//$tax = Tax::all()->pluck('name','id');
+     	$contoh = ExampleExercise::find($id_soal);
+        $tax = Tax::find($contoh->id_tax);
 
-     	// return response()->json(['status' => 'OK', 'data' => $data], 200);
-        //return view('setting_soal.contoh_soal_edit')->compact('data', $data);
+        return view('setting_soal.contoh_soal_edit', compact('contoh', 'tax'));
      }
 
      /**
@@ -191,7 +190,11 @@ class SettingSoalController extends Controller
      */
      public function updateContoh(Request $request, $id)
      {
+
+        // return $request;
      	$data = ExampleExercise::find($id);
+        $pajak = Tax::where('id',$data->id_tax)->first();
+        // return $pajak->name;
 
      	$rules = [
      		'edit_id_tax' => 'required|integer',
@@ -206,7 +209,9 @@ class SettingSoalController extends Controller
 
         if($validator->fails())
         {
-            return $validator->errors()->all();
+            session(['error' => $validator->errors()->all()]);
+            return back()->withInput();
+            
         } else {
             //if both field not null
             if(!empty($request->edit_question_image && !empty($request->edit_answer_image)))
@@ -260,7 +265,9 @@ class SettingSoalController extends Controller
             $data->answer_image = $answer_image;
             $data->save();
 
-            return response()->json(['success' => 'Data updated!']);
+            //return response()->json(['success' => 'Data updated!']);
+            session(['success' => ['Data berhasil diperbarui!']]);
+            return redirect()->route('detail.contoh_soal', [$id,$pajak->name]);
         }
      } 
 
@@ -272,13 +279,13 @@ class SettingSoalController extends Controller
             $query = $request->get('query');
             $query = str_replace(" ","%",$query);
             $questions = ExampleExercise::where('id_tax',$tax->id)
-                        ->where('question','like','%'.$query.'%')
+                        ->where('question_text','like','%'.$query.'%')
                         ->orWhere('title','like','%'.$query.'%')
                         ->paginate(5);
             $number = $questions->firstItem();
         }
 
-        return view('setting_soal.latihan_soal_persoal', compact('tax','questions','number'))->render();
+        return view('setting_soal.contoh_soal_persoal', compact('tax','questions','number'))->render();
     }
 
      /**
@@ -297,10 +304,158 @@ class SettingSoalController extends Controller
      	return response()->json(['success' => 'Data deleted successfully']);
      }
 
+     public function downloadTemplateContoh()
+    {
+        $path = 'template/Template Impor Contoh Soal.xlsx';
+        return response()->download($path);
+    }
 
-    /**************************
-    ###### Latihan Soal #######
-    **************************/
+    public function saveImportSoal(Request $request, $id)
+    {
+        $this->validate(request(),
+            [
+                'excel' => 'required|mimes:xlsx'
+            ]
+        );
+
+        $data = Tax::find($id);
+        
+
+        $file = $request->file('excel');
+        $import = Excel::load($file)->get();
+        if(!$import)
+        {
+            session(['error' => ['Something wrong!']]);
+            return redirect()->route('detail.contoh_soal', [$id, $tax_name]);
+        }
+
+        $import_data_filter = array_filter($import->toArray());
+        foreach ($import_data_filter as $key => $value) {
+            if(($check=array_search('Untuk kendaraan roda 2 berjenis matic milik orang pribadi dengan NJKB sebesar Rp9.600.000,- Hitunglah biaya untuk bea balik nama yang harus dibayarkan!', $value)) === true ) 
+            {
+                unset($import_data_filter[$key]);
+            } else {
+                if(implode($value) == null)
+                {
+                    unset($import_data_filter[$key]);
+                }
+            }
+        }
+
+        $import_data_filter = array_values($import_data_filter);
+        $totalQuestion = count($import_data_filter);
+        $messagesError = [];
+        foreach ($import_data_filter as $key => $value) {
+            $messagesError[$key.'.title.required'] = "Title field number ".($key+1)." is empty";
+            $messagesError[$key.'.title.distinct'] = "Title field number ".($key+1)." has duplicate value";
+            $messagesError[$key.'.title.unique'] = "Title field number ".($key+1)." has already been taken";
+            $messagesError[$key.'.question.required'] = "Question field number ".($key+1)." is empty";
+            $messagesError[$key.'.question.distinct'] = "Question field number ".($key+1)." has duplicate value";
+            $messagesError[$key.'.question.unique'] = "Question field number ".($key+1)." has already been taken";
+            $messagesError[$key.'.answer.required'] = "Answer a field number ".($key+1)." is empty";
+        }
+
+        $validator = Validator::make($import_data_filter, [
+            '*.title' => 'required|distinct|unique:example_exercises,title',
+            '*.question' => 'required|distinct|unique:example_exercises,question_text',
+            '*.answer' => 'required',
+        ], $messagesError);
+
+        $get_error = [];
+        foreach ($validator->errors()->messages() as $key => $value) {
+            $get_error[] = $key;
+        }
+        $error = array_unique($get_error);
+        $question = [];
+        $count_error = 0;
+
+        foreach ($import_data_filter as $key => $row) {
+            if(in_array($key, $error)) 
+            {
+                continue;
+                $count_error++;
+            } else {
+                $question[$key] = [
+                    'id_tax' => $id,
+                    'title' => $row['title'],
+                    'question_text' => $row['question'],
+                    'answer_text' => $row['answer'],
+                ];
+            }
+        }
+
+        $totalQuestionSuccess = count($question);
+        foreach ($question as $key => $q) {
+            ExampleExercise::create($q);
+        }
+
+        return redirect()->route('detail.contoh_soal', [$id, $data->name])->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
+    }
+
+    public function exportContohSoal($id)
+    {
+        $tax = Tax::where('id',$id)->first();
+        $question = ExampleExercise::where('id_tax',$id)->get();
+
+        $collection = [];
+        foreach ($question as $key => $value) {
+            $collection[$key] = [
+                'id' => $value['id'],
+                'title' => $value['title'],
+                'question_text' => $value['question_text'],
+                'answer_text' => $value['answer_text'],
+            ];
+        }
+
+        // return $collection;
+        return Excel::create('Ekspor Contoh Soal '.$tax->name, function($excel) use ($collection)
+        {
+            $excel->sheet('Sheet 1', function($sheet) use ($collection)
+            {
+                $sheet->freezeFirstRow();
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name' => 'Calibri',
+                        'size' => 12,
+                    )
+                ));
+                $sheet->setAutoSize(array(
+                    'A','B','C','D',
+                ));
+                $sheet->cell('A1:D1', function($cell) {
+                    $cell->setBackground('#ede185');
+                    $cell->setFontWeight('bold');
+                });
+                $sheet->cell('A1', function($cell) {
+                    $cell->setValue('NO');
+                });
+                $sheet->cell('B1', function($cell) {
+                    $cell->setValue('JUDUL');
+                });
+                $sheet->cell('C1', function($cell) {
+                    $cell->setValue('SOAL');
+                });
+                $sheet->cell('D1', function($cell) {
+                    $cell->setValue('PENYELESAIAN');
+                });
+                
+                if(!empty($collection)) {
+                    foreach ($collection as $key => $value) {
+                        $i=$key+2;
+                        $sheet->cell('A'.$i, $key+1);
+                        $sheet->cell('B'.$i, $value['title']);
+                        $sheet->cell('C'.$i, $value['question_text']);
+                        $sheet->cell('D'.$i, $value['answer_text']);
+                    }
+                }
+            });
+        })->download('xlsx');
+    }
+
+
+    /************************************
+    ########## LATIHAN SOAL #############
+    *************************************/
 
     /**
      * Display a listing of the resource.
@@ -532,13 +687,13 @@ class SettingSoalController extends Controller
         $import = Excel::load($file)->get();
         if(!$import)
         {
-            session(['error' => 'Something wrong!']);
+            session(['error' => ['Something wrong!']]);
             return redirect()->route('detail.soal', [$id, $tax_name]);
         }
 
         $import_data_filter = array_filter($import->toArray());
         foreach ($import_data_filter as $key => $value) {
-            if(($check=array_search('Berapa besarnya tarif PPh Pasal 22 atas pembelian barang oleh bendahara pemerintah dan KPA?', $value)) !== false ) 
+            if(($check=array_search('Berapa besarnya tarif PPh Pasal 22 atas pembelian barang oleh bendahara pemerintah dan KPA?', $value)) === true ) 
             {
                 unset($import_data_filter[$key]);
             } else {
@@ -608,7 +763,7 @@ class SettingSoalController extends Controller
 
     public function downloadTemplate()
     {
-        $path = 'template/Template Impor Soal.xlsx';
+        $path = 'template/Template Impor Latihan Soal.xlsx';
         return response()->download($path);
     }
 

@@ -7,6 +7,7 @@ use App\Models\Help;
 use \Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use Excel;
 
 class BantuanController extends Controller
 {
@@ -141,5 +142,81 @@ class BantuanController extends Controller
     	$data->delete();
 
     	return view('setting.bantuan_index');
+    }
+
+    public function templateImport()
+    {
+        $path = 'template/Template Impor Bantuan.xlsx';
+        return response()->download($path);
+    }
+
+    public function saveImportBantu(Request $request)
+    {
+        $this->validate(request(), ['excel' => 'required|mimes:xlsx']);
+
+        $file = $request->file('excel');
+        $import = Excel::load($file)->get();
+        if(!$import)
+        {
+            session(['error' => ['Something wrong!']]);
+            return redirect('/bantuan_aplikasi');
+        }
+
+        $import_data_filter = array_filter($import->toArray());
+        foreach ($import_data_filter as $key => $value) {
+            if(($check=array_search('Apa itu kopaja.id?', $value)) === true ) 
+            {
+                unset($import_data_filter[$key]);
+            } else {
+                if(implode($value) == null)
+                {
+                    unset($import_data_filter[$key]);
+                }
+            }
+        }
+
+        $import_data_filter = array_values($import_data_filter);
+        $totalQuestion = count($import_data_filter);
+        $messagesError = [];
+        
+        foreach ($import_data_filter as $key => $value) {
+            $messagesError[$key.'.question.required'] = "Question field number ".($key+1)." is empty";
+            $messagesError[$key.'.question.distinct'] = "Question field number ".($key+1)." has duplicate value";
+            $messagesError[$key.'.question.unique'] = "Question field number ".($key+1)." has already been taken";
+            $messagesError[$key.'.answer.required'] = "Answer field number ".($key+1)." is empty";
+        }
+
+        $validator = Validator::make($import_data_filter, [
+            '*.question' => 'required|distinct|unique:helps,question',
+            '*.answer' => 'required',
+        ], $messagesError);
+
+        $get_error = [];
+        foreach ($validator->errors()->messages() as $key => $value) {
+            $get_error[] = $key;
+        }
+        $error = array_unique($get_error);
+        $question = [];
+        $count_error = 0;
+
+        foreach ($import_data_filter as $key => $row) {
+            if(in_array($key, $error)) 
+            {
+                continue;
+                $count_error++;
+            } else {
+                $question[$key] = [
+                    'question' => $row['question'],
+                    'answer' => $row['answer'],
+                ];
+            }
+        }
+
+        $totalQuestionSuccess = count($question);
+        foreach ($question as $key => $q) {
+            Help::create($q);
+        }
+
+        return redirect('/bantuan_aplikasi')->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
     }
 }

@@ -10,7 +10,7 @@
 
                     @if(!empty($value->image))
                     <div class="col-sm-2">
-                        <img class="img-responsive" src="{{asset('/storage/images/latihan_soal_image/'.$value->image)}}" alt="gambar soal" width="100" height="50" />
+                        <img class="img-responsive" src="{{asset('/storage/images/latihan_soal_image/'.$value->image)}}" alt="gambar soal" style="width:85%;height:85%" />
                     </div>
                     @endif
 

@@ -21,8 +21,22 @@
         </div>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{$value->question_text}}</li>
-        <li class="list-group-item">{{$value->answer_text}}</li>
+        <li class="list-group-item">
+            {{$value->question_text}}
+
+            @if(!empty($value->question_image))
+            <br>
+            <img class="img-responsive img-thumbnail" src="{{asset('/storage/images/contoh_soal_image/'.$value->question_image)}}" style="width: 20%;height: 20%">
+            @endif
+        </li>
+        <li class="list-group-item">
+            {{$value->answer_text}}
+
+            @if(!empty($value->answer_image))
+            <br>
+            <img class="img-responsive img-thumbnail" src="{{asset('/storage/images/contoh_soal_image/'.$value->answer_image)}}" style="width: 20%;height: 20%">
+            @endif
+        </li>
     </ul>
 </div>
 <br>

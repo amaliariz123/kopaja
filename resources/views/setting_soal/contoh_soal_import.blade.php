@@ -8,7 +8,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="import-contoh-soal" action="" method="post" enctype="multipart/form-data" files=true>
+				<form id="import-contoh-soal" action="{{url('contoh_soal/import/soal/'.$tax->id)}}" method="post" enctype="multipart/form-data" files=true>
 					@csrf
 					<div class="text-center" style="margin-bottom: 15px">
 						<i class="fa fa-4x fa-file-import"></i>
@@ -19,7 +19,7 @@
 								<div class="col-lg-12">
 									<h6 style="text-align: center;">Pilih berkas untuk diimpor. Format berkas: *.xls; atau *.xlsx</h6><br>
 									<input type="file" name="excel" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"><br>
-									<a href="" style="margin-top: 15px" class="btn btn-sm btn-info pull-right"><i class="la la-download"></i> Unduh Template</a><br>
+									<a href="{{url('contoh_soal/import/download')}}" style="margin-top: 15px" class="btn btn-sm btn-info pull-right"><i class="la la-download"></i> Unduh Template</a><br>
 								</div>
 							</div>
 						</div>

@@ -98,7 +98,7 @@
 										<div class="col-lg-5 col-md-9 col-sm-12">
 											<div class="input-group">
 												<input type="password" class="form-control m-input" name="old_password" value="" id="currentPass">
-												<i onclick="show('currentPass')" class="fas fa-eye-slash" id="currentPass"></i>
+												<i onclick="show('currentPass')" class="fas fa-eye-slash" id="currentPass" style="border: 1px solid #ede9df; padding-top: 10px;padding-left: 10px;padding-right: 10px"></i>
 											</div>
 											<a href="">
 											<small id="emailHelp" class="form-text text-muted">Lupa kata sandi? </small>
@@ -110,7 +110,7 @@
 										<div class="col-lg-5 col-md-9 col-sm-12">
 											<div class="input-group">
 												<input type="password" class="form-control m-input" name="new_password" id="newPass" value="">
-												<i onclick="show('newPass')" class="fas fa-eye-slash" id="newPass"></i>
+												<i onclick="show('newPass')" class="fas fa-eye-slash" id="newPass" style="border: 1px solid #ede9df; padding-top: 10px;padding-left: 10px;padding-right: 10px"></i>
 											</div>
 										</div>
 									</div>
@@ -119,7 +119,7 @@
 										<div class="col-lg-5 col-md-9 col-sm-12">
 											<div class="input-group">
 												<input type="password" class="form-control m-input" name="confirm_new_password" value="" id="confirm_password">
-												<i onclick="show('confirm_password')" class="fas fa-eye-slash" id="confirm_password"></i>
+												<i onclick="show('confirm_password')" class="fas fa-eye-slash" id="confirm_password" style="border:1px solid #ede9df;padding-top:10px;padding-left:10px;padding-right:10px"></i>
 											</div>
 										</div>
 									</div>

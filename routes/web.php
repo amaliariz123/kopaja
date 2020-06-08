@@ -339,8 +339,10 @@ Route::get('/bantuan_aplikasi','BantuanController@indexBantuan');
 Route::get('/bantuan_aplikasi/get_data','BantuanController@getData');
 Route::post('/bantuan_aplikasi/store', 'BantuanController@store');
 Route::get('/bantuan_aplikasi/delete/{id}', 'BantuanController@delete');
-Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
-Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
+// Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
+Route::get('/bantuan_aplikasi/import/download','BantuanController@templateImport');
+Route::post('/bantuan_aplikasi/import','BantuanController@saveImportBantu');
+Route::get('/bantuan_aplikasi/export','BantuanController@exportBantuan');
 Route::post('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 
 //generate kode
@@ -365,7 +367,7 @@ Route::get('/contoh_soal/create/soal/{id}/{nama_pajak}','SettingSoalController@c
 Route::post('/contoh_soal/store', 'SettingSoalController@storeContoh');
 Route::get('/contoh_soal/show/{id}/{nama_pajak}', 'SettingSoalController@showContoh')->name('detail.contoh_soal');
 Route::get('/contoh_soal/search/soal/{id}', 'SettingSoalController@searchSoal');
-Route::get('/contoh_soal/{id}/edit','SettingSoalController@editContoh');
+Route::get('/contoh_soal/edit/soal/{id}/{nama_pajak}','SettingSoalController@editContoh');
 Route::post('/contoh_soal/update/{id}', 'SettingSoalController@updateContoh');
 Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@deleteContoh');
 Route::post('/contoh_soal/import/soal/{id}','SettingSoalController@saveImportSoal');

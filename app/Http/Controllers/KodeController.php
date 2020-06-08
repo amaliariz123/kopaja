@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \Yajra\Datatables\Datatables;
 use App\Models\PremiumCode;
 use App\Models\Member;
+use Validator;
 
 
 class KodeController extends Controller
@@ -48,9 +49,10 @@ class KodeController extends Controller
     	// }
 
             PremiumCode::create([
-             'code' => $code,
-             'status' => 'non-aktif'
+                 'code' => $code,
+                 'status' => 'non-aktif'
             ]);
+            
 
         //return $code;
         return response()->json(['success' => 'Code generated successfully!']);

@@ -142,7 +142,7 @@
 													@if(Auth::user()->profile_picture != null)
 													<img src="{{asset('storage/images/user/'.Auth::user()->profile_picture)}}" class="m--img-rounded m--marginless" alt="profile_picture" />
 													@else
-													<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" style="width: 36px!important; height: 36px!important"/>
+													<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" style="width: 6%!important; height: 6%!important"/>
 													@endif
 												</span>
 												&nbsp;&nbsp;

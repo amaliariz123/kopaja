@@ -284,9 +284,9 @@
                         url: "{{url('/bantuan_aplikasi/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            //helpTable.ajax.reload();
-                            location.reload();
+                            //location.reload();
                             swal('Dihapus!','Data berhasil dihapus.','success')
+                            helpTable.ajax.reload();
                         }  
                     })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {

@@ -91,7 +91,7 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Jawaban 1</h6>
+										<h6>Opsi a</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
 												<input type="checkbox" name="jawaban" value="1" class="custom-control-input" @if($latihan->right_answer=='1') checked @endif >
@@ -105,7 +105,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Jawaban 3</h6>
+										<h6>Opsi c</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
 												<input type="checkbox" value="3" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '3') checked @endif>
@@ -121,7 +121,7 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Jawaban 2</h6>
+										<h6>Opsi b</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
 												<input type="checkbox" value="2" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '2') checked @endif>
@@ -135,7 +135,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Jawaban 4</h6>
+										<h6>Opsi d</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
 												<input type="checkbox" value="4" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '4') checked @endif>

@@ -15,10 +15,10 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('provinsi_id');
-            $table->foreign('provinsi_id')->references('id')->on('provinces')->onDelete('cascade');
-            $table->string('kabupaten_kota');
-            $table->string('ibu_kota');
+            $table->unsignedInteger('province_id');
+            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
+            $table->string('city');
+            $table->string('capital_city');
             $table->string('k_bsni');
             $table->timestamps();
         });

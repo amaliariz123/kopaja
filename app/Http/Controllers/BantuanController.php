@@ -178,7 +178,7 @@ class BantuanController extends Controller
         $import_data_filter = array_values($import_data_filter);
         $totalQuestion = count($import_data_filter);
         $messagesError = [];
-        
+
         foreach ($import_data_filter as $key => $value) {
             $messagesError[$key.'.question.required'] = "Question field number ".($key+1)." is empty";
             $messagesError[$key.'.question.distinct'] = "Question field number ".($key+1)." has duplicate value";
@@ -195,6 +195,7 @@ class BantuanController extends Controller
         foreach ($validator->errors()->messages() as $key => $value) {
             $get_error[] = $key;
         }
+
         $error = array_unique($get_error);
         $question = [];
         $count_error = 0;
@@ -202,6 +203,7 @@ class BantuanController extends Controller
         foreach ($import_data_filter as $key => $row) {
             if(in_array($key, $error)) 
             {
+                // return $error;
                 continue;
                 $count_error++;
             } else {
@@ -218,5 +220,63 @@ class BantuanController extends Controller
         }
 
         return redirect('/bantuan_aplikasi')->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
+    }
+
+    public function exportBantuan()
+    {
+        $data = Help::all();
+
+        $collection = [];
+        foreach ($data as $key => $value) {
+            $collection[$key] = [
+                'id' => $value['id'],
+                'question' => $value['question'],
+                'answer' => $value['answer'],
+            ];
+        }
+
+        // return $collection;
+        return Excel::create('Ekspor Data Bantuan', function($excel) use ($collection)
+        {
+            $excel->sheet('Sheet 1', function($sheet) use ($collection)
+            {
+                $sheet->freezeFirstRow();
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name' => 'Calibri',
+                        'size' => 12,
+                    )
+                ));
+                $sheet->setAutoSize(array(
+                    'A',
+                ));
+                $sheet->setWidth(array(
+                    'B' => 50,
+                    'C' => 75,
+                ));
+                $sheet->cell('A1:C1', function($cell) {
+                    $cell->setBackground('#ede185');
+                    $cell->setFontWeight('bold');
+                });
+                $sheet->cell('A1', function($cell) {
+                    $cell->setValue('NO');
+                });
+                $sheet->cell('B1', function($cell) {
+                    $cell->setValue('PERTANYAAN');
+                });
+                $sheet->cell('C1', function($cell) {
+                    $cell->setValue('JAWABAN');
+                });
+                
+                if(!empty($collection)) {
+                    foreach ($collection as $key => $value) {
+                        $i=$key+2;
+                        $sheet->cell('A'.$i, $key+1);
+                        $sheet->cell('B'.$i, $value['question']);
+                        $sheet->cell('C'.$i, $value['answer']);
+                    }
+                }
+            });
+        })->download('xlsx');
     }
 }

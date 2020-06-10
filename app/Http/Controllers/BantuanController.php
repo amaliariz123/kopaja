@@ -18,7 +18,9 @@ class BantuanController extends Controller
      */
     public function indexBantuan()
     {
-    	return view('setting.bantuan_index');
+        $data = Help::all();
+
+    	return view('setting.bantuan_index', compact('data'));
     }
 
     /**
@@ -152,6 +154,8 @@ class BantuanController extends Controller
 
     public function saveImportBantu(Request $request)
     {
+        $data = Help::all();
+
         $this->validate(request(), ['excel' => 'required|mimes:xlsx']);
 
         $file = $request->file('excel');
@@ -219,7 +223,7 @@ class BantuanController extends Controller
             Help::create($q);
         }
 
-        return redirect('/bantuan_aplikasi')->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
+        return redirect('/bantuan_aplikasi')->with('data',$data)->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
     }
 
     public function exportBantuan()

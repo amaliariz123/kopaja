@@ -121,18 +121,23 @@
                                                 <div class="m-dropdown__body">
                                                     <div class="m-dropdown__content">
                                                         <ul class="m-nav">
+                                                            <li class="m-nav__section m-nav__section--first">
+                                                                <span class="m-nav__section-text">Opsi lain</span>
+                                                            </li>
                                                             <li class="m-nav__item">
                                                                 <a href="#" class="m-nav__link" data-toggle="modal" data-target="#import_bantuan">
                                                                     <i class="m-nav__link-icon fa fa-file-import"></i>
                                                                     <span class="m-nav__link-text">Impor data</span>
                                                                 </a>
                                                             </li>
+                                                            @if(count($data) > 0)
                                                             <li class="m-nav__item">
                                                                 <a href="{{url('bantuan_aplikasi/export')}}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon fa fa-file-export"></i>
                                                                     <span class="m-nav__link-text">Ekspor data</span>
                                                                 </a>
                                                             </li>
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                 </div>

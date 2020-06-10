@@ -132,12 +132,14 @@
                                                                     <span class="m-nav__link-text">Impor soal</span>
                                                                 </a>
                                                             </li>
+                                                            @if(count($total_question) > 0)
                                                             <li class="m-nav__item">
                                                                 <a href="{{url('/latihan_soal/export/soal/'.$tax->id)}}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon fa fa-file-export"></i>
                                                                     <span class="m-nav__link-text">Ekspor soal</span>
                                                                 </a>
                                                             </li>
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                 </div>

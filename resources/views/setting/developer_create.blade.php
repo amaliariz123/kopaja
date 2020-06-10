@@ -21,7 +21,7 @@
 						<input type="email" class="form-control" name="email" required placeholder="...">
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Gambar</label><br>
+						<label for="Picture" class="form-control-label">Foto</label><br>
 						<div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                                 <img src="{{asset('images/blank.png')}}" alt="" /> </div>

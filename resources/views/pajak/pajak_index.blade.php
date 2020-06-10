@@ -68,7 +68,7 @@
                   <div class="m-portlet__body">
                      
                         <!--begin: Datatable -->
-                        <table class="table table-striped table-bordered" id="table_pajak">
+                        <table class="table table-striped table-bordered" cellspacing="0" id="table_pajak">
                             <thead>
                                 <tr>
                                     <th>Nama</th>
@@ -101,6 +101,7 @@
 @endsection
 
 @push('custom-script')
+
 <script>
     var tabelPajak;
 

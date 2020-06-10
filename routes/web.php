@@ -388,14 +388,12 @@ Route::post('/latihan_soal/import/soal/{id}','SettingSoalController@saveImport')
 Route::get('/latihan_soal/import/download','SettingSoalController@downloadTemplate');
 Route::get('/latihan_soal/export/soal/{id}','SettingSoalController@exportSoal');
 
+//pembahasan latihan soal
 
 
 /* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
-    Route::get('pajak/{id}', 'DevelopersController@getPdf');
-    Route::get('contoh_soal/question_image/{id}', 'SettingSoalController@getQuestionImage');
-    Route::get('contoh_soal/answer_image/{id}', 'SettingSoalController@getAnswerImage');
 });
 
 });

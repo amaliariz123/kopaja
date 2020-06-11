@@ -31,8 +31,11 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     
     Route::get('/profile/edit/{id}', 'UserController@editProfile');
     Route::get('/account/edit/{id}','UserController@editAccount');
+    Route::get('/testimoni/create/{id}','TestiController@createTesti');
+    Route::post('/update/testimoni/{id}','TestiController@updateTesti');
     Route::post('/update/profile/{id}', 'UserController@updateMemberProfile');
     Route::post('/update/account/{id}', 'UserController@updateAccount');
+
 
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');
@@ -48,6 +51,10 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::get('/soalpphpasal4ayat2',function(){
         return view('soal.soalpphpasal4ayat2');
     })->name('soalpphpasal4ayat2');
+
+    Route::get('/pembahasan_pphpasal4ayat2',function(){
+        return view('pempphpasal4ayat2');
+    })->name('pempphpasal4ayat2');
 
 
     Route::get('/cekSoalpphpasal4ayat2', 'soalController@cekSoalpphpasal4ayat2')->name('cekSoalpphpasal4ayat2');
@@ -293,8 +300,7 @@ Route::get('/bantuan',function(){
 
 
 
-Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
-Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
+Route::get('/getCity/{id}', 'UserController@getCity')->name('getCity');
 
 
 /** 

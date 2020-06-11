@@ -12,6 +12,7 @@ use Validator;
 use File;
 use Carbon\Carbon;
 use DB;
+use Auth;
 
 class TestiController extends Controller
 {
@@ -23,6 +24,66 @@ class TestiController extends Controller
     {
 
     	return view('users.testimoni_index');
+    }
+
+    public function createTesti(Request $request, $id)
+    {
+        $data = [];
+
+        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
+        $testimoni = Testimonial::where('id_member','=', $id)->first();
+
+        return view('users.member_create_testi', compact('data', 'testimoni'));
+    }
+
+    public function updateTesti(Request $request, Member $member, $id)
+    {
+        $member = Member::where('user_id', Auth::id())->first()->id;
+        $testimoni = Testimonial::where('id_member', $member)->first();
+        
+        if($testimoni == null){
+            $testimoni = new Testimonial();
+            $testimoni->content = $request->content;
+            $testimoni->id_member = $member;
+
+            $testimoni->save();
+        }
+        else{
+            if ($request->content != null) {
+                $testimoni->content = $request->content;
+                $testimoni->id_member = $member;
+
+                $testimoni->save();
+            }else {
+                       
+            }
+        } 
+
+        $data = [];
+
+        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
+        // $data['testimoni'] = Testimonial::where('id_member','=',$id)->first();
+
+            // session(['success' => ['Profil berhasil diperbarui.']]);
+
+        
+
+        // $member = Member::where('user_id', Auth::id())->first()->id;
+        // $testimoni = new Testimonial();
+        // $testimoni->content = $request->content;
+        // $testimoni->id_member = $member;
+
+        // $testimoni->save();
+
+        // $data = [];
+
+        // $data['user'] = User::where('id', '=', Auth::user()->id)->first();
+        // $data['testimoni'] = Testimonial::where('id_member','=',$id)->first();
+
+            // session(['success' => ['Profil berhasil diperbarui.']]);
+
+        
+        return view('users.member_create_testi', compact('data', 'testimoni'));
     }
 
     /**

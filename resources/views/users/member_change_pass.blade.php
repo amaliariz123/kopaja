@@ -12,7 +12,7 @@
             <nav class="profile-nav">
                 <a class="profile-nav__link" aria-current="true" href="{{url('/profile/edit/'.Auth::user()->id)}}">Profil</a>
                 <a class="profile-nav__link active" aria-current="false" href="{{url('/account/edit/'.Auth::user()->id)}}">Ubah Kata Sandi dan Email</a>
-                <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/'.Auth::user()->id)}}">Testimoni</a>
+                <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/create/'.Auth::user()->id)}}">Testimoni</a>
             </nav>
         </div>
 

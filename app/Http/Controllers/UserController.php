@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Session;
 use Carbon\Carbon;
 use App\Models\Province;
+use App\Models\City;
 use DB;
 
 class UserController extends Controller
@@ -274,17 +275,25 @@ class UserController extends Controller
 
     public function editProfile($id){
         $data = [];
+        // $data->province = $request->input('province');
 
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
         $province = Province::all()->pluck("provinsi", "id");
         $data['member'] = Member::where('user_id','=',$id)->first();
-        return  view('users.member_edit_profile', compact('data'));
+        // dd($data['member']);
+        return  view('users.member_edit_profile', compact('data', 'province'));
     }
 
     public function editAccount($id){
         $data = User::where('id', '=', $id)->first();
 
         return view('users.member_change_pass', compact('data'));
+    }
+
+    public function getCity($id){
+        $city = City::where('provinsi_id', '=', $id)->pluck("kabupaten_kota", "id");
+        // dd(json_encode($city));
+        return json_encode($city);
     }
 
     public function updateMemberProfile(Request $request, $id){
@@ -295,20 +304,24 @@ class UserController extends Controller
 
         $member = DB::table('members')
                     ->where('user_id', $id)
-                    ->update(['institution' => $request->institution]);
+                    ->update(['institution' => $request->institution,
+                        'province_id' => $request->province_id,
+                        'city_id' => $request->city_id
+                    ]);
 
         $data = [];
+
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
         $province = Province::all()->pluck("provinsi", "id");
         $data['member'] = Member::where('user_id','=',$id)->first();
 
             //session(['success' => ['Profil berhasil diperbarui.']]);
-        return  view('users.member_edit_profile', compact('data'));
+        return  view('users.member_edit_profile', compact('data','province'));;
     }
 
     public function updateAccount(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::find($id);    
 
         $rules = [
             'email' => 'required|email',

@@ -16,7 +16,7 @@ class CreateTestimonialsTable extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->increments('id');
             $table->text('content');
-            $table->unsignedInteger('id_member')->unsigned();
+            $table->unsignedInteger('id_member')->nullable()->unsigned();
             $table->foreign('id_member')->references('id')->on('members')->onDelete('cascade');
             $table->timestamps();
         });

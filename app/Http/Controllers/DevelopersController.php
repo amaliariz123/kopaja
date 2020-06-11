@@ -32,8 +32,8 @@ class DevelopersController extends Controller
     	$data = Developer::orderByDesc("created_at")->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
-            $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
+            // $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
+            $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
 
                 return $btn;
@@ -79,15 +79,17 @@ class DevelopersController extends Controller
     		} else {
     			$filename = 'blank.jpg';
     		}
-    	}
-    	//store data to table developers_team
-    		Developer::create([
-    			'name' => request('name'),
-    			'email' => request('email'),
-    			'picture' => $filename
-    		]);
 
-    	 return response()->json(['success'=>'Data added successfully']);
+            //store data to table developers_team
+            Developer::create([
+                'name' => request('name'),
+                'email' => request('email'),
+                'picture' => $filename
+            ]);
+
+            return response()->json(['success'=>'Data added successfully']);
+
+    	}
     }
 
     /**
@@ -140,6 +142,7 @@ class DevelopersController extends Controller
     			$file = $request->file('edit_picture');
     			$extensions = strtolower($file->getClientOriginalExtension());
     			$filename = $request->edit_name.'.'.$extensions;
+                Storage::delete('public/images/developers_team/' . $data->picture);
     			Storage::put('public/images/developers_team/'.$filename, File::get($file));
     		} else {
     			$filename = 'blank.jpg';

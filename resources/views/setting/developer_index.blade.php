@@ -62,48 +62,6 @@
                                 <!--end: Button add new data -->
 
                                 <li class="m-portlet__nav-item"></li>
-
-                                <!--begin: More menu -->
-                                <li class="m-portlet__nav-item">
-                                    <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-                                        <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
-                                            <i class="la la-ellipsis-h m--font-brand"></i>
-                                        </a>
-                                        <div class="m-dropdown__wrapper">
-                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                                            <div class="m-dropdown__inner">
-                                                <div class="m-dropdown__body">
-                                                    <div class="m-dropdown__content">
-                                                        <ul class="m-nav">
-                                                            <li class="m-nav__section m-nav__section--first">
-                                                                <span class="m-nav__section-text">Quick Actions</span>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-share"></i>
-                                                                    <span class="m-nav__link-text">Create Post</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                    <span class="m-nav__link-text">Send Messages</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-multimedia-2"></i>
-                                                                    <span class="m-nav__link-text">Upload File</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!--end: More menu -->
                             </ul>
 
                         </div>
@@ -115,7 +73,6 @@
                         <table class="table table-striped table-bordered" id="table_dev">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" name="select_all" id="select_all"></th>
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>Opsi</th>
@@ -136,7 +93,6 @@
 
 @include('setting.developer_create')
 @include('setting.developer_edit')
-@include('setting.developer_detail')
 
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
@@ -219,38 +175,22 @@
             let id = data['id'];
             let token = $('input[name=_token]').val();
             let urlData = " {{ url('/tim_pengembang') }}"+"/"+id+"/edit";
-
-            $('input[name=_method]').val('PUT');
-            $('input[name=_token]').val(token);
-            $('input[name=edit_name]').val(data['name']);
-            $('input[name=edit_id]').val(data['id']);
-            $('input[name=edit_email]').val(data['email']);
-            //$('input[name=edit_picture]').val(data['picture']);
-        });
-
-        /*trigger detail-modal*/
-        $('#table_dev tbody').on('click', '#detail-btn', function(){
-            $("#developer-detail:input").val('');
-            $("#dev-detail-modal").modal('show');
-
-            let data = thisTable.row($(this).parents('tr')).data();
-            let id = data['id'];
-            let token = $('input[name=_token]').val();
-            let urlData = "{{url('/tim_pengembang/show')}}"+"/"+id;
             let d = new Date();
             $.getJSON(urlData, function(data){
                 $('#show_picture').empty();
-                var img = $('<img id="image-developer" class="img-responsive" src="{{asset('images/blank.png')}}" alt="picture_developer" width="100" height="50"><br>');
                 if(data['data']['picture'] != 'blank.jpg') {
-                    var img = $('<img id="image-developer" class="img-responsive" src="{{ url('storage/tim_pengembang/') }}/'+id+'?'+d.getTime()+'" alt="picture_developer" width="300" height="185"><br>');
+                    var img = $('<img id="image-developer" src="{{ url('storage/tim_pengembang/')}}/'+id+'?'+d.getTime()+'" alt="picture_developer">');
+                } else {
+                    var img = $('<img id="image-developer" src="{{asset('images/blank.png')}}" alt="picture_developer">');
                 }
+
                 $('#show_picture').append(img);
 
-            $('input[name=_method]').val('PUT');
-            $('input[name=_token]').val(token);
-            $('input[name=show_name]').val(data['data']['name']);
-            $('input[name=show_id]').val(data['data']['id']);
-            $('input[name=show_email]').val(data['data']['email']);
+                $('input[name=_method]').val('PUT');
+                $('input[name=_token]').val(token);
+                $('input[name=edit_name]').val(data['data']['name']);
+                $('input[name=edit_id]').val(data['data']['id']);
+                $('input[name=edit_email]').val(data['data']['email']);
             });
         });
     });

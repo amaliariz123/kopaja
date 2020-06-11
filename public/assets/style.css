@@ -180,3 +180,28 @@ div.m-dropdown__header.m--align-center{
     background: url(app/media/img/misc/user_profile_bg.jpg);
     background-size: cover;
 }
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+.container{
+  padding-top:50px;
+  margin: auto;
+}
+
+.close{
+    display:inline-block;
+    margin-top:0;
+    margin-right:0;
+    width:9px;
+    height:9px;
+    background-repeat:no-repeat!important;
+    text-indent:-10000px;
+    outline:0;
+    background-image:url(../images/icons/remove-icon-small.png)!important;
+}

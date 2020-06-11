@@ -21,7 +21,7 @@
 						<input type="email" class="form-control" name="show_email" value="" disabled>
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Gambar</label>
+						<label for="Picture" class="form-control-label">Foto</label>
 						<div id="show_picture"></div>
 					</div>
 					</fieldset>

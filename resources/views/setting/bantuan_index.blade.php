@@ -32,6 +32,54 @@
     </div>
     <!-- END: Subheader -->
 
+    @if ($errors->messages())
+    <div class="m-content" style="margin-bottom:-30px !important">
+        <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: -20px; margin-bottom:3rem">
+            <button type="button"style="margin-top: 15px" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+            <div class="m-alert__icon">
+                <i class="flaticon-alert-1"></i>
+                <span></span>
+            </div>
+            <div class="m-alert__text">
+                <strong>
+                    Error!
+                <br>
+                </strong>
+                <p>
+                    @foreach ($errors->messages() as $key => $error)
+                        @foreach ($error as $key => $error)
+                          {{ $error }}<br>
+                          {{-- <li>{{ $error }}</li> --}}
+                        @endforeach
+                    @endforeach
+                </p>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if (session('totalQuestion'))
+    <div class="m-content" style="margin-bottom:-30px !important">
+        <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-success alert-dismissible fade show" role="alert" style="margin-top: -20px; margin-bottom:3rem">
+            <button type="button" style="margin-top: 18px" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span>
+            </button>
+            <div class="m-alert__icon">
+                <i class="flaticon-alert-1"></i>
+                <span></span>
+            </div>
+            <div class="m-alert__text">
+                <strong>
+                    Berhasil!
+                </strong>
+                <p>
+                    {{session('totalQuestionSuccess')}} dari {{session('totalQuestion')}} soal berhasil diimpor!
+                </p>
+            </div>
+        </div>
+    </div>
+    <?php Session::forget('totalQuestion'); ?>
+    @endif
+
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">
@@ -74,26 +122,22 @@
                                                     <div class="m-dropdown__content">
                                                         <ul class="m-nav">
                                                             <li class="m-nav__section m-nav__section--first">
-                                                                <span class="m-nav__section-text">Quick Actions</span>
+                                                                <span class="m-nav__section-text">Opsi lain</span>
                                                             </li>
                                                             <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-share"></i>
-                                                                    <span class="m-nav__link-text">Create Post</span>
+                                                                <a href="#" class="m-nav__link" data-toggle="modal" data-target="#import_bantuan">
+                                                                    <i class="m-nav__link-icon fa fa-file-import"></i>
+                                                                    <span class="m-nav__link-text">Impor data</span>
                                                                 </a>
                                                             </li>
+                                                            @if(count($data) > 0)
                                                             <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                    <span class="m-nav__link-text">Send Messages</span>
+                                                                <a href="{{url('bantuan_aplikasi/export')}}" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon fa fa-file-export"></i>
+                                                                    <span class="m-nav__link-text">Ekspor data</span>
                                                                 </a>
                                                             </li>
-                                                            <li class="m-nav__item">
-                                                                <a href="" class="m-nav__link">
-                                                                    <i class="m-nav__link-icon flaticon-multimedia-2"></i>
-                                                                    <span class="m-nav__link-text">Upload File</span>
-                                                                </a>
-                                                            </li>
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -130,6 +174,45 @@
     </div>
     <!--End::Section-->
 </div>
+
+<!--begin::Modal-->
+<div class="modal fade" id="import_bantuan"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="import-contoh-soal" action="{{url('bantuan_aplikasi/import')}}" method="post" enctype="multipart/form-data" files=true>
+                    @csrf
+                    <div class="text-center" style="margin-bottom: 15px">
+                        <i class="fa fa-4x fa-file-import"></i>
+                    </div>
+                    <fieldset class="content-group">
+                        <div class="form group">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6 style="text-align: center;">Pilih berkas untuk diimpor. Format berkas: *.xls; atau *.xlsx</h6><br>
+                                    <input type="file" name="excel" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"><br>
+                                    <a href="{{url('/bantuan_aplikasi/import/download')}}" style="margin-top: 15px" class="btn btn-sm btn-info pull-right"><i class="la la-download"></i> Unduh Template</a><br>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <br>
+                    <br>
+                    <div class="col-md-12 text-right">                  
+                        <button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Impor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::Modal-->
 
 @include('setting.bantuan_create')
 @include('setting.bantuan_edit')
@@ -206,9 +289,9 @@
                         url: "{{url('/bantuan_aplikasi/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
-                            //helpTable.ajax.reload();
-                            location.reload();
+                            //location.reload();
                             swal('Dihapus!','Data berhasil dihapus.','success')
+                            helpTable.ajax.reload();
                         }  
                     })
                 } else if (result.dismiss === Swal.DismissReason.cancel) {

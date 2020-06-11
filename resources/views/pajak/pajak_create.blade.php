@@ -34,22 +34,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="Picture" class="form-control-label">Materi<span class="text-danger">*</span></label>
-						<div class="fileinput fileinput-new input-group" data-provides="fileinput">
-						  <div class="form-control" data-trigger="fileinput">
-						    <span class="fileinput-filename"></span>
-						  </div>
-						  <span class="input-group-append">
-						    <span class="input-group-text fileinput-exists" data-dismiss="fileinput">
-						      Hapus
-						    </span>
-						    <span class="input-group-text btn-file">
-						      <span class="fileinput-new">Pilih berkas</span>
-						      <span class="fileinput-exists">Ubah</span>
-						      <input type="file" name="module" accept="application/pdf" required>
-						    </span>
-						  </span>
-						</div>
+						<label for="Materi" class="form-control-label">Materi<span class="text-danger">*</span></label><br>
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+                            <span class="btn btn-sm btn-info btn-file">
+                                <span class="fileinput-new"> Pilih berkas </span>
+                                <span class="fileinput-exists"> Ubah </span>
+                                <input type="file" name="module" accept="application/pdf" required> </span>
+                            <span class="fileinput-filename"> </span> &nbsp;
+                            <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"> </a>
+                        </div>
 						<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (format *pdf)</small>
 					</div>
 					</fieldset>

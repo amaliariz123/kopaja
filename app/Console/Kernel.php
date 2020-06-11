@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\insertDailyReportTable::class,
+        Commands\insertMonthlyReportTable::class,
     ];
 
     /**
@@ -24,8 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('update:daily')
+                 ->everyMinute();
+
+        $schedule->command('update:monthly')
+                 ->everyMinute();
     }
 
     /**

@@ -345,18 +345,17 @@ Route::get('/bantuan_aplikasi','BantuanController@indexBantuan');
 Route::get('/bantuan_aplikasi/get_data','BantuanController@getData');
 Route::post('/bantuan_aplikasi/store', 'BantuanController@store');
 Route::get('/bantuan_aplikasi/delete/{id}', 'BantuanController@delete');
-Route::get('/bantuan_aplikasi/show/{id}', 'BantuanController@show');
-Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
+// Route::get('/bantuan_aplikasi/{id}/edit', 'BantuanController@edit');
+Route::get('/bantuan_aplikasi/import/download','BantuanController@templateImport');
+Route::post('/bantuan_aplikasi/import','BantuanController@saveImportBantu');
+Route::get('/bantuan_aplikasi/export','BantuanController@exportBantuan');
 Route::post('/bantuan_aplikasi/update/{id}', 'BantuanController@update');
 
-//tentang aplikasi
-Route::get('/tentang_aplikasi','TentangController@indexTentang');
-Route::get('/tentang_aplikasi/get_data', 'TentangController@getDataTentang');
-Route::post('/tentang_aplikasi/store', 'TentangController@store');
-Route::get('/tentang_aplikasi/show/{id}', 'TentangController@show');
-Route::get('/tentang_aplikasi/{id}/edit', 'TentangController@edit');
-Route::post('tentang_aplikasi/update/{id}', 'TentangController@update');
-Route::get('/tentang_aplikasi/delete/{id}', 'TentangController@delete');
+//generate kode
+Route::get('/generate_kode','KodeController@indexKode');
+Route::get('/kode_premium/get_data', 'KodeController@getData');
+Route::post('/generate_kode_premium', 'KodeController@generateCode');
+
 
 //tim pengembang
 Route::get('/tim_pengembang','DevelopersController@indexDev');
@@ -370,22 +369,37 @@ Route::put('/tim_pengembang/update/{id}','DevelopersController@update');
 //contoh soal
 Route::get('/contoh_soal', 'SettingSoalController@indexContohSoal');
 Route::get('/contoh_soal/get_data', 'SettingSoalController@getDataContoh');
-Route::get('/contoh_soal/create', 'SettingSoalController@create');
-Route::post('/contoh_soal/store', 'SettingSoalController@store');
-Route::get('/contoh_soal/show/{id}', 'SettingSoalController@show');
-Route::get('/contoh_soal/{id}/edit','SettingSoalController@edit');
-Route::post('/contoh_soal/update/{id}', 'SettingSoalController@update');
-Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@delete');
+Route::get('/contoh_soal/create/soal/{id}/{nama_pajak}','SettingSoalController@createContoh');
+Route::post('/contoh_soal/store', 'SettingSoalController@storeContoh');
+Route::get('/contoh_soal/show/{id}/{nama_pajak}', 'SettingSoalController@showContoh')->name('detail.contoh_soal');
+Route::get('/contoh_soal/search/soal/{id}', 'SettingSoalController@searchSoal');
+Route::get('/contoh_soal/edit/soal/{id}/{nama_pajak}','SettingSoalController@editContoh');
+Route::post('/contoh_soal/update/{id}', 'SettingSoalController@updateContoh');
+Route::get('/contoh_soal/delete/{id}', 'SettingSoalController@deleteContoh');
+Route::post('/contoh_soal/import/soal/{id}','SettingSoalController@saveImportSoal');
+Route::get('/contoh_soal/import/download','SettingSoalController@downloadTemplateContoh');
+Route::get('/contoh_soal/export/soal/{id}','SettingSoalController@exportContohSoal');
 
 //latihan soal
 Route::get('/latihan_soal', 'SettingSoalController@indexLatihanSoal');
+Route::get('/latihan_soal/get_data','SettingSoalController@getDataLatihan');
+Route::get('/latihan_soal/show/{id}/{nama_pajak}', 'SettingSoalController@showLatihan')->name('detail.soal');
+Route::get('/latihan_soal/search/soal/{id}', 'SettingSoalController@search');
+Route::get('/latihan_soal/create/soal/{id}/{nama_pajak}', 'SettingSoalController@createSoal');
+Route::post('/latihan_soal/store/soal', 'SettingSoalController@storeSoal');
+Route::get('/latihan_soal/edit/soal/{id_soal}/{nama_pajak}', 'SettingSoalController@editSoal');
+Route::post('/latihan_soal/update/soal/{id}','SettingSoalController@updateSoal');
+Route::get('/latihan_soal/delete/soal/{id}', 'SettingSoalController@deleteSoal');
+Route::post('/latihan_soal/import/soal/{id}','SettingSoalController@saveImport');
+Route::get('/latihan_soal/import/download','SettingSoalController@downloadTemplate');
+Route::get('/latihan_soal/export/soal/{id}','SettingSoalController@exportSoal');
+
+//pembahasan latihan soal
+
 
 /* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
-    Route::get('pajak/{id}', 'DevelopersController@getPdf');
-    Route::get('contoh_soal/question_image/{id}', 'SettingSoalController@getQuestionImage');
-    Route::get('contoh_soal/answer_image/{id}', 'SettingSoalController@getAnswerImage');
 });
 
 });

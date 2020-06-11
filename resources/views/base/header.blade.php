@@ -40,10 +40,12 @@
 		<!--Jasny-bootstrap-->
 		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}" />
 
+		<link rel="stylesheet" type="text/css" href="{{url('/css/bootstrap-fileinput.css')}}">
+
 		<!--end::Page Vendors Styles -->
 		<link rel="shortcut icon" href="{{url('/')}}/etrain/img/favicon.png" />
 
-		@stack('custom-css')
+		@yield('custom-css')
 	</head>
 	<!-- end::Head -->
 
@@ -138,9 +140,9 @@
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
 													@if(Auth::user()->profile_picture != null)
-													<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+													<img src="{{asset('storage/images/user/'.Auth::user()->profile_picture)}}" class="m--img-rounded m--marginless" alt="profile_picture" />
 													@else
-													<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+													<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" style="width: 6%!important; height: 6%!important"/>
 													@endif
 												</span>
 												&nbsp;&nbsp;
@@ -153,7 +155,7 @@
 														<div class="m-card-user m-card-user--skin-dark">
 															<div class="m-card-user__pic">
 																@if(Auth::user()->profile_picture != null)
-																<img src="{{url('assets/app/media/img/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+																<img src="{{asset('storage/images/user/'.Auth::user()->profile_picture)}}" class="m--img-rounded m--marginless" alt="profile_picture" style="width: 55px!important; height: 55px!important" />
 																@else
 																<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
 																@endif
@@ -246,7 +248,6 @@
 		<script src="{{url('assets/app/js/dashboard.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
 		@stack('custom-script')
-
 		<!-- Datepicker -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>

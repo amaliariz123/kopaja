@@ -388,12 +388,27 @@ Route::post('/latihan_soal/import/soal/{id}','SettingSoalController@saveImport')
 Route::get('/latihan_soal/import/download','SettingSoalController@downloadTemplate');
 Route::get('/latihan_soal/export/soal/{id}','SettingSoalController@exportSoal');
 
-//pembahasan latihan soal
+//kuis
+Route::get('/kuis','KuisController@index');
+Route::get('/kuis/get_data','KuisController@getData');
+Route::post('/kuis/create/store','KuisController@store');
+Route::get('/kuis/{id}/edit','KuisController@edit');
+Route::post('/kuis/edit/update/{id}','KuisController@update');
+Route::get('/kuis/delete/{id}','KuisController@delete');
+Route::get('/kuis/show/{id}','KuisController@show');
+Route::get('/kuis/create/{id}/soal','KuisController@createSoal');
+Route::post('/kuis/create/{id}/soal/store','KuisController@storeSoal');
+Route::get('/kuis/edit/{id}/soal/{id}','KuisController@editSoal');
+Route::post('/kuis/edit/{id}/soal/{id}/update','KuisController@updateSoal');
+Route::get('/kuis/delete/{id}/soal/{id}','KuisController@deleteSoal');
+
 
 
 /* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
+    Route::get('pajak/{id}', 'PajakController@openPdf');
+    Route::get('kuis/{id}','KuisController@getImageUrl');
 });
 
 });

@@ -44,12 +44,6 @@
 								<span class="m-menu__link-text">Testimoni</span>
 							</a>
 						</li>
-						<li class="m-menu__item @yield('members3')" aria-haspopup="true">
-							<a href="" class="m-menu__link ">
-								<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
-								<span class="m-menu__link-text">Riwayat Pengerjaan Soal</span>
-							</a>
-						</li>
 					</ul>
 				</div>
 			</li>

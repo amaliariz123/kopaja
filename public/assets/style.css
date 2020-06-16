@@ -205,3 +205,12 @@ div.m-dropdown__header.m--align-center{
     outline:0;
     background-image:url(../images/icons/remove-icon-small.png)!important;
 }
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.text-bold {
+    font-weight: 700;
+}

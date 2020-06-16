@@ -142,11 +142,18 @@
             let id = data['id'];
             let url = "{{url('/pajak/show')}}"+"/"+id;
 
+            if(data['module'] != null) {
+                $('#show_link').empty();
+                var link = $('<a href="{{ url('storage/pajak/')}}/'+id+'" class="btn btn-sm btn-info" target="_blank">Klik untuk membuka materi</a>');   
+            } else {
+                var link = $('<p>Tidak ada materi yang dapat dibuka.</p>');
+            }
+
+            $('#show_link').append(link);
             $('input[name=_method]').val('PUT');
             $('input[name=detail_name]').val(data['name']);
             $('textarea[name=detail_description]').val(data['description']);
             $('input[name=detail_tax_type]').val(data['tax_type']);
-            $('input[name=detail_module]').val(data['module']);
         });
 
         //trigger to delete-modal

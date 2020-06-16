@@ -9,6 +9,7 @@ use \Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use File;
+use Response;
 
 
 class PajakController extends Controller
@@ -35,7 +36,7 @@ class PajakController extends Controller
     	return datatables()->of($data)->addColumn('option', function($row) {
             $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"   data-toggle="m-tooltip" data-placement="top" title="Detail"><i class="la la-exclamation-circle"></i></button>';
             $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
-            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
+            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="la la-trash"></i></button>';
 
                 return $btn;
         })
@@ -97,11 +98,15 @@ class PajakController extends Controller
      * @param int $id
      * @return File
      */
-    public function getPdf($id)
+    public function openPdf($id)
     {
-    	$pdf = Tax::find($id);
+    	$data = Tax::find($id);
+        // $path = storage_path($data->module);
 
-    	return File::make(Storage::get('public/materi_pdf/'.$pdf->module))->response();
+        return Response::make(Storage::get('public/materi_pdf/'.$data->module), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' .$data->module.'"'
+        ]);
     }
 
     /**

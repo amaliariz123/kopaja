@@ -22,7 +22,7 @@ class insertMonthlyReportTable extends Command
      *
      * @var string
      */
-    protected $description = 'This will insert data to DailyReport table.';
+    protected $description = 'This will insert data to MonthlyReport table.';
 
     /**
      * Create a new command instance.

@@ -395,13 +395,15 @@ Route::post('/kuis/create/store','KuisController@store');
 Route::get('/kuis/{id}/edit','KuisController@edit');
 Route::post('/kuis/edit/update/{id}','KuisController@update');
 Route::get('/kuis/delete/{id}','KuisController@delete');
-Route::get('/kuis/show/{id}','KuisController@show');
+Route::get('/kuis/show/{id}','KuisController@show')->name('detail.kuis.soal');
 Route::get('/kuis/create/{id}/soal','KuisController@createSoal');
 Route::post('/kuis/create/{id}/soal/store','KuisController@storeSoal');
-Route::get('/kuis/edit/{id}/soal/{id}','KuisController@editSoal');
-Route::post('/kuis/edit/{id}/soal/{id}/update','KuisController@updateSoal');
-Route::get('/kuis/delete/{id}/soal/{id}','KuisController@deleteSoal');
-
+Route::get('/kuis/edit/{quiz_id}/soal/{id}','KuisController@editSoal');
+Route::post('/kuis/edit/{quiz_id}/soal/{id}/update','KuisController@updateSoal');
+Route::get('/kuis/delete/{quiz_id}/soal/{id}','KuisController@deleteSoal');
+Route::get('/kuis/{quiz_id}/search/soal','KuisController@search');
+Route::post('/kuis/import/save/{quiz_id}','KuisController@saveImport');
+Route::get('/kuis/export/soal/{quiz_id}','KuisController@exportSoal');
 
 
 /* ROUTE FILE IN STORAGE */

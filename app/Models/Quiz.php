@@ -14,18 +14,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  */
-class Course extends Model
+class Quiz extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'courses';
+    protected $table = 'quizzes';
 
     /**
      * @var array
      */
     protected $fillable = ['title', 'description', 'image', 'level', 'duration', 'created_at', 'updated_at'];
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function quizQuestion()
+    {
+        return $this->hasMany('App\Models\QuizQuestion', 'quiz_id');
+    }
 
 }

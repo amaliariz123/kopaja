@@ -57,7 +57,7 @@
 										<h6>Soal</h6>
 										<textarea class="form-control m-input" id="exampleTextarea" rows="10" name="question" required>
 										</textarea>
-										<input type="hidden" name="course_id" value="{{$data->id}}" />
+										<input type="hidden" name="quiz_id" value="{{$data->id}}" />
 									</div>
 								</div>
 								<div class="col-6">
@@ -118,7 +118,7 @@
 												<input type="checkbox" class="custom-control-input" value="2" name="right_answer">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="option_d" required />
+													<input type="text" class="form-control" name="option_b" required />
 												</div>
 											</label>
 										</div>
@@ -132,7 +132,7 @@
 												<input type="checkbox" class="custom-control-input" value="4" name="right_answer">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="option_b" required />
+													<input type="text" class="form-control" name="option_d" required />
 												</div>
 											</label>
 										</div>

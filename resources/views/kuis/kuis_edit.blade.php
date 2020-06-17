@@ -1,5 +1,5 @@
 <!--begin::Modal-->
-<div class="modal fade" id="edit_course" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit_quiz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -96,7 +96,7 @@
 				'success' : function(data){
 					if(data.success)
 					{
-						$('#edit_course').modal('hide');
+						$('#edit_quiz').modal('hide');
 						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
 						tabelKuis.ajax.reload();
 						//location.reload();

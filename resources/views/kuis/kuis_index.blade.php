@@ -49,7 +49,7 @@
                             <ul class="m-portlet__nav">
                                 <!--begin: Button add new data -->
                                 <li class="m-portlet__nav-item">
-                                    <a  href="#" data-toggle="modal" data-target="#create_course" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
+                                    <a  href="#" data-toggle="modal" data-target="#create_quiz" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--icon m-btn--air" id="btn-create">
                                         <span>
                                             <i class="la la-plus-circle"></i>
                                             <span>Tambah</span>
@@ -88,7 +88,7 @@
 
 
 <!--begin::Modal-->
-<div class="modal fade" id="create_course" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="create_quiz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -212,7 +212,7 @@
 				'success' : function(data){
 					if(data.success)
 					{
-						$('#create_course').modal('hide');
+						$('#create_quiz').modal('hide');
 						toastr.success('Data berhasil ditambahkan!', 'Success', {timeOut:6000});
 						tabelKuis.ajax.reload();
 						//location.reload();
@@ -231,7 +231,7 @@
         $('#tabel_kuis tbody').on('click', '#edit-btn', function(){
             $('.fileinput-remove-button').click();
             $("#kuis-update:input").val('');
-            $("#edit_course").modal('show');
+            $("#edit_quiz").modal('show');
 
             let data = tabelKuis.row($(this).parents('tr')).data();
             let id = data['id'];

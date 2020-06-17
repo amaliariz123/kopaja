@@ -1,4 +1,4 @@
-@foreach($soal as $key => $value)
+@foreach($soal as $key =>$value)
 <div class="card">
     <div class="card-header">
         <div class="row" style="margin-top: 1.2em">
@@ -10,7 +10,7 @@
 
                     @if(!empty($value->image))
                     <div class="col-sm-2">
-                        <img class="img-responsive" src="{{asset('/storage/images/latihan_soal_image/'.$value->image)}}" alt="gambar soal" style="width:85%;height:85%" />
+                        <img class="img-responsive" src="{{asset('/storage/images/soal/'.$value->image)}}" alt="gambar soal" style="width:85%;height:85%"/>
                     </div>
                     @endif
 
@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-3">
                 <button type="button" id="delete-specific-question" value="{{$value->id}}" style="margin-top:-8px;" class="btn btn-sm btn-outline-danger m-btn m-btn--outline-2x pull-right"><i class="flaticon-delete position-left"></i> Hapus </button>
-                <a style="margin-top:-8px;margin-right:10px" href="{{url('/latihan_soal/edit/soal/'.$value->id.'/'.$tax->name)}}" class="btn btn-sm btn-outline-success m-btn m-btn--outline-2x pull-right"><i class="flaticon-edit position-left"></i> &nbsp; Edit </a>
+                <a style="margin-top:-8px;margin-right:10px" href="{{url('/kuis/edit/'.$data->id.'/soal/'.$value->id)}}" class="btn btn-sm btn-outline-success m-btn m-btn--outline-2x pull-right"><i class="flaticon-edit position-left"></i> &nbsp; Edit </a>
             </div>
         </div>
     </div>
@@ -108,7 +108,8 @@
 <div class="row">
     <div class="col-md-11">
         <div class="pull-right">
-            {{ $questions->links() }}
+            {{ $soal->links() }}
         </div>
     </div>
 </div>
+

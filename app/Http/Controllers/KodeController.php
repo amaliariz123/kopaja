@@ -27,36 +27,29 @@ class KodeController extends Controller
 
     public function generateCode(Request $request)
     {
-    	$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    	//$total = $request->jumlah_kode;
-    	$length = strlen($chars);
-    	// $string = "";
-    	$code = "";
+    	$total = $request->jumlah_kode;
+        $code_array = [];
+        $check = PremiumCode::select('code')->get();
 
-    	// for ($j=0; $j < $total; $j++) { 
-    		
-	    	for($i=0;$i<20;$i++)
-	    	{
-	    		$random_character = $chars[mt_rand(0, $length-1)];
-	    		$code .= $random_character;
-	    	}
+        for ($i=0; $i < $total ; $i++) { 
 
-            // if(strlen($string) > 20) {
-            //     $string = substr($string, 0 - strlen($string), 20 );
-            // }
-
-	    	//$code[$j] = $string;
-    	// }
-
+            $code_array[$i] = str_random(20);
             PremiumCode::create([
-                 'code' => $code,
+                 'code' => $code_array[$i],
                  'status' => 'non-aktif'
             ]);
-            
 
-        //return $code;
+            foreach ($check as $key => $value) {
+                if($code_array[$i] == $value) {
+                    $code_array[$i] = str_replace(str_random(20));
+                    PremiumCode::create([
+                         'code' => $code_array[$i],
+                         'status' => 'non-aktif'
+                    ]);
+                }
+            }
+        }
         return response()->json(['success' => 'Code generated successfully!']);
-
     }
 
 }

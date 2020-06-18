@@ -151,7 +151,7 @@
                     	<div class="row">
                     		<div class="col-md-2">
                     			@if($data->image == null)
-                    			<img src="{{asset('images/no-image.png')}}" class="img-responsive" alt="Gambar Kuis">
+                    			<img src="{{asset('images/no-image.jpg')}}" class="img-responsive" alt="Gambar Kuis">
                     			@else
                     			<img src="{{asset('/storage/images/kuis/'.$data->image)}}" class="img-responsive" alt="Gambar Kuis" width="100%">
                     			@endif

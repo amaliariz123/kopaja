@@ -387,6 +387,9 @@ Route::get('/latihan_soal/delete/soal/{id}', 'SettingSoalController@deleteSoal')
 Route::post('/latihan_soal/import/soal/{id}','SettingSoalController@saveImport');
 Route::get('/latihan_soal/import/download','SettingSoalController@downloadTemplate');
 Route::get('/latihan_soal/export/soal/{id}','SettingSoalController@exportSoal');
+Route::get('/latihan_soal/hasil/{id}','SettingSoalController@showResult');
+Route::get('/latihan_soal/result/{id}','SettingSoalController@resultLatihan');
+Route::get('/latihan_soal/{id}/member/{member_id}','SettingSoalController@showAnswer');
 
 //kuis
 Route::get('/kuis','KuisController@index');

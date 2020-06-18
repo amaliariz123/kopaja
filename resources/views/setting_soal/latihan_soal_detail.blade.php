@@ -140,6 +140,12 @@
                                                                 </a>
                                                             </li>
                                                             @endif
+                                                            <li class="m-nav__item">
+                                                                <a href="{{url('/latihan_soal/hasil/'.$tax->id)}}" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon fa   fa-user-check"></i>
+                                                                    <span class="m-nav__link-text">Hasil Latihan</span>
+                                                                </a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

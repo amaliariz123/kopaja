@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ExampleExercise;
 use App\Models\ExerciseQuestion;
 use App\Models\Tax;
+use App\Models\MemberExercise;
 use \Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -842,6 +843,41 @@ class SettingSoalController extends Controller
                 }
             });
         })->download('xlsx');
+    }
+
+    public function showResult($id)
+    {
+        $data = Tax::find($id);
+       
+        return view('setting_soal.latihan_soal_result', compact('data'));
+        //return "hello";
+    }
+
+    public function resultLatihan($id)
+    {
+        $result = DB::table('member_exercises')
+                    ->join('members','members.id','=','member_exercises.member_id')
+                    ->join('users','users.id','=','members.user_id')
+                    ->join('member_exercise_answers','member_exercise_answers.member_id','=','members.id')
+                    ->join('exercise_questions','exercise_questions.id','=','member_exercise_answers.question_id')
+                    ->select('members.id as member_id','users.fullname as member_name','members.institution as member_institution','member_exercises.score as total_score','member_exercises.created_at as exercise_time','member_exercises.tax_id as tax_id')
+                    ->where([['member_exercises.tax_id',$id], ['exercise_questions.id_tax',$id]])
+                    ->orderBy('member_exercises.created_at','desc')
+                    ->get();
+
+        return datatables()->of($result)->addColumn('option', function($row) {
+            $btn = '<a href="'.url('latihan_soal/'.$row->tax_id).'/member/'.$row->member_id.'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+
+                return $btn;
+        })
+        ->rawColumns(['option'])
+        ->make(true);
+    }
+
+
+    public function showAnswer($id,$members_id)
+    {
+        return view('setting_soal.latihan_soal_answer');
     }
 
 }

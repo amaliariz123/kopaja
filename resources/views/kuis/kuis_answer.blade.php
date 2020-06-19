@@ -1,6 +1,6 @@
 @extends('base.header')
-@section('title','Hasil Latihan Soal')
-@section('latihan','m-menu__item--active')
+@section('title','Hasil Kuis')
+@section('kuis','m-menu__item--active')
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
 	<!-- BEGIN: Subheader -->
@@ -23,7 +23,7 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Latihan Soal</span>
+                                <span class="m-nav__link-text">Kuis</span>
                             </a>
                         </li>
                     </ul>
@@ -41,7 +41,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Hasil Pengerjaan Latihan Soal
+                                    Hasil Pengerjaan Kuis
                                 </h3>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                      
                         <!--begin: exercise content -->
                         <div id="container">
-                            @include('setting_soal.latihan_soal_peranswer')
+                            @include('kuis.kuis_peranswer')
                         </div>
                         <!--end:: exercise content -->
                         <br>

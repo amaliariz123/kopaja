@@ -196,9 +196,15 @@ class UserController extends Controller
      * @param int $id
      * @return Response
      */
-    public function delete($id)
+    public function deletePicture($id)
     {
+        $data = User::find($id);
 
+        Storage::delete('public/images/user/'.$data->profile_picture);
+        $data->profile_picture = null;
+        $data->save();
+
+        return response()->json(['success' => 'Data deleted successfully']);
     }
 
 

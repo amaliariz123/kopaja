@@ -1,6 +1,6 @@
 @extends('base.header')
-@section('title','Hasil Latihan Soal')
-@section('latihan','m-menu__item--active')
+@section('title','Hasil Kuis')
+@section('kuis','m-menu__item--active')
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
 	<!-- BEGIN: Subheader -->
@@ -23,7 +23,7 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Latihan Soal</span>
+                                <span class="m-nav__link-text">Kuis</span>
                             </a>
                         </li>
                     </ul>
@@ -41,7 +41,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Tabel Peserta Latihan Soal 
+                                    Tabel Peserta Kuis 
                                 </h3>
                             </div>
                         </div>
@@ -84,11 +84,11 @@
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
 @endsection
 
+
 @push('custom-script')
 <script type="text/javascript">
     var result_table;
-    var tax_id = {!! $data->id !!};
-    
+    var quiz_id = {!! $data->id !!};
 
     $(document).ready(function(){
 
@@ -97,7 +97,7 @@
             serverSide : true,
             stateSave : true,
             ajax : {
-                url : "{{url('/latihan_soal/result')}}"+"/"+tax_id,
+                url : "{{url('/kuis/result')}}"+"/"+quiz_id,
                 type : "GET",
             },
             deferRender : true,
@@ -105,7 +105,7 @@
                 {data:'member_name', name:'member_name', visible:true},
                 {data: 'member_institution', name: 'member_institution', visible:true},
                 {data: 'total_score', name:'total_score', visible:true},
-                {data: 'exercise_time', name:'exercise_time', visible:true},
+                {data: 'quiz_time', name:'quiz_time', visible:true},
                 {data: 'option', name:'option', visible:true},
             ],
         });

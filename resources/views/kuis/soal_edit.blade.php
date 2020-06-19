@@ -31,7 +31,7 @@
         </div>
     </div>
     <!-- END: Subheader -->
-
+@include('base.notification')
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">

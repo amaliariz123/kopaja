@@ -236,14 +236,18 @@
                                                                     <span class="m-nav__link-text">Impor soal</span>
                                                                 </a>
                                                             </li>
-                                                            
                                                             <li class="m-nav__item">
                                                                 <a href="{{url('kuis/export/soal/'.$data->id)}}" class="m-nav__link">
                                                                     <i class="m-nav__link-icon fa fa-file-export"></i>
                                                                     <span class="m-nav__link-text">Ekspor soal</span>
                                                                 </a>
                                                             </li>
-                                                            
+                                                            <li class="m-nav__item">
+                                                                <a href="{{url('/kuis/hasil/'.$data->id)}}" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon fa   fa-user-check"></i>
+                                                                    <span class="m-nav__link-text">Hasil Kuis</span>
+                                                                </a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

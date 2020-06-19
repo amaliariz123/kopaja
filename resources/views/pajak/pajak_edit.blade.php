@@ -14,18 +14,18 @@
 					<fieldset class="content-group">
 					<div class="form-group">
 						<label for="name" class="form-control-label">Nama<span class="text-danger">*</span></label>
-						<input type="hidden" name="edit_id" class="form-control">
-						<input type="text" class="form-control" name="edit_name" value="">
+						<input type="hidden" name="edit_id" class="form-control" required>
+						<input type="text" class="form-control" name="edit_name" value="" required>
 					</div>
 					<div class="form-group">
 						<label for="description" class="form-control-label">Deskripsi<span class="text-danger">*</span></label>
-						<textarea type="text" class="form-control" name="edit_description" rows="6" value=""></textarea>
+						<textarea type="text" class="form-control" name="edit_description" rows="6" value="" required></textarea>
 					</div>
 					<div class="form-group">
 						<label for="tax_type" class="form-control-label">Tipe Pajak<span class="text-danger">*</span></label>
 						<div class="m-radio-list">
 							<label class="m-radio m-radio--brand">
-								<input type="radio" name="edit_tax_type" value="Pajak Pusat"> Pajak Pusat
+								<input type="radio" name="edit_tax_type" value="Pajak Pusat" required> Pajak Pusat
 								<span></span>
 							</label>
 							<label class="m-radio m-radio--brand">

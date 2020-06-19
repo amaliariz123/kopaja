@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\QuizQuestion;
+use App\Models\MemberQuizHistory;
 use \Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -519,5 +520,79 @@ class KuisController extends Controller
                 }
             });
         })->download('xlsx');
+    }
+
+    public function showResult($id)
+    {
+        $data = Quiz::find($id);
+       
+        return view('kuis.kuis_result', compact('data'));
+        //return "hello";
+    }
+
+    public function resultKuis($quiz_id)
+    {
+        $result = DB::table('member_quiz_histories')
+                    ->join('members','members.id','=','member_quiz_histories.member_id')
+                    ->join('users','users.id','=','members.user_id')
+                    ->join('member_quiz_answers','member_quiz_answers.member_id','=','members.id')
+                    ->join('quiz_questions','quiz_questions.id','=','member_quiz_answers.question_id')
+                    ->select('members.id as member_id','users.fullname as member_name','members.institution as member_institution','member_quiz_histories.score as total_score','member_quiz_histories.created_at as quiz_time','member_quiz_histories.quiz_id as quiz_id')
+                    ->where([['member_quiz_histories.quiz_id',$quiz_id],['quiz_questions.quiz_id',$quiz_id]])
+                    ->orderBy('members.id','asc')
+                    ->distinct()
+                    ->get();
+
+        return datatables()->of($result)->addColumn('option', function($row) {
+            $btn = '<a href="'.url('kuis/'.$row->quiz_id).'/member/'.$row->member_id.'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+
+                return $btn;
+        })
+        ->rawColumns(['option'])
+        ->make(true);
+    }
+
+
+    public function showAnswer($quiz_id,$member_id)
+    {
+        $this->data['total_score'] = DB::table('member_quiz_histories')
+                                    ->join('members','members.id','=','member_quiz_histories.member_id')
+                                    ->join('users','users.id','=','members.user_id')
+                                    ->select('members.id as member_id','users.fullname as member_name','members.institution as member_institution','member_quiz_histories.score as member_score')
+                                    ->where([['quiz_id', $quiz_id],['member_id', $member_id]])
+                                    ->get();
+        $this->data['quiz'] = DB::table('quizzes')
+                                ->select('quizzes.title as quiz_title')
+                                ->where('quizzes.id','=',$quiz_id)
+                                ->get();
+        $this->data['right_answer'] = DB::table('member_quiz_answers')
+                                    ->join('quiz_questions','quiz_questions.id','=','member_quiz_answers.question_id')
+                                    ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.isRight',1],['member_quiz_answers.member_id',$member_id]])
+                                    ->count('isRight');
+        $this->data['wrong_answer'] = DB::table('member_quiz_answers')
+                                    ->join('quiz_questions','quiz_questions.id','=','member_quiz_answers.question_id')
+                                    ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.isRight',0],['member_quiz_answers.member_id',$member_id]])
+                                    ->whereNotNull('answer')
+                                    ->count('isRight');
+        $this->data['not_answered'] = DB::table('member_quiz_answers')
+                                    ->join('quiz_questions','quiz_questions.id','=','member_quiz_answers.question_id')
+                                    ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.member_id',$member_id]])
+                                    ->whereNull('answer')
+                                    ->count();
+        $this->data['question'] = DB::table('quiz_questions')
+                                    ->join('member_quiz_answers','member_quiz_answers.question_id','=','quiz_questions.id')
+                                    ->select('quiz_questions.id as question_id','quiz_questions.question as question','quiz_questions.option_a as option_a','quiz_questions.option_b as option_b','quiz_questions.option_c as option_c', 'quiz_questions.option_d as option_d','quiz_questions.image as image','quiz_questions.right_answer as right_answer','member_quiz_answers.answer as member_answer')
+                                    ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.member_id',$member_id]])
+                                    ->groupBy('quiz_questions.id')
+                                    ->paginate(5);
+        $this->data['percentage'] = DB::table('member_quiz_answers')
+                                ->join('quiz_questions','quiz_questions.id','=','member_quiz_answers.question_id')
+                                ->select('question_id',DB::raw('sum(isRight)/count(member_id)*100 as percentage'))
+                                ->where('quiz_questions.quiz_id',$quiz_id)
+                                ->groupBy('quiz_questions.id')
+                                ->get();
+
+        return view('kuis.kuis_answer',$this->data, compact('quiz_id','member_id'));
+           // return $this->data;
     }
 }

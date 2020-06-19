@@ -98,51 +98,16 @@
 							<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
 								<div class="m-stack__item m-topbar__nav-wrapper">
 									<ul class="m-topbar__nav m-nav m-nav--inline">
-										<li class="m-nav__item m-topbar__notifications m-topbar__notifications--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click"
-										 m-dropdown-persistent="1">
-											<a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
-												<span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>
-												<span class="m-nav__link-icon"><i class="flaticon-alarm"></i></span>
-											</a>
-											<div class="m-dropdown__wrapper">
-												<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-												<div class="m-dropdown__inner">
-													<div class="m-dropdown__header m--align-center">
-														<span class="m-dropdown__header-title">9 New</span>
-														<span class="m-dropdown__header-subtitle">Notifications</span>
-													</div>
-													<div class="m-dropdown__body">
-														<div class="m-dropdown__content">
-															<div class="tab-content">
-																<div class="tab-pane active" id="topbar_notifications_notifications" role="tabpanel">
-																	<div class="m-scrollable" data-scrollable="true" data-height="auto" data-mobile-height="auto">
-																		<div class="m-list-timeline m-list-timeline--skin-light">
-																			<div class="m-list-timeline__items">
-																				<div class="m-list-timeline__item">
-																					<span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
-																					<span class="m-list-timeline__text">12 new users registered</span>
-																					<span class="m-list-timeline__time">Just now</span>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</li>
 
 										<!-- BEGIN: User profile -->
 										<li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
 										 m-dropdown-toggle="click">
 											<a href="#" class="m-nav__link m-dropdown__toggle">
 												<span class="m-topbar__userpic">
-													@if(Auth::user()->profile_picture != null)
-													<img src="{{asset('storage/images/user/'.Auth::user()->profile_picture)}}" class="m--img-rounded m--marginless" alt="profile_picture" />
+													@if(Auth::user()->profile_picture == null)
+													<img src="{{asset('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" />
 													@else
-													<img src="{{url('images/picts/user.png')}}" class="m--img-rounded m--marginless" alt="profile_picture" style="width: 6%!important; height: 6%!important"/>
+													<img src="{{asset('storage/images/user/'.Auth::user()->profile_picture)}}" class="m--img-rounded m--marginless" alt="profile_picture" />
 													@endif
 												</span>
 												&nbsp;&nbsp;

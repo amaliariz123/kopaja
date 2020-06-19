@@ -320,6 +320,7 @@ Route::get('/user/role/{id}/edit','UserController@editRole');
 Route::post('/user/role/update/{id}','UserController@changeUserRole');
 Route::get('/members','UserController@indexMember');
 Route::get('/members/get_data','UserController@getDataMember');
+Route::get('/user/delete/picture/{id}','UserController@deletePicture');
 
 //testi
 Route::get('/testimoni', 'TestiController@indexTesti');
@@ -407,6 +408,9 @@ Route::get('/kuis/delete/{quiz_id}/soal/{id}','KuisController@deleteSoal');
 Route::get('/kuis/{quiz_id}/search/soal','KuisController@search');
 Route::post('/kuis/import/save/{quiz_id}','KuisController@saveImport');
 Route::get('/kuis/export/soal/{quiz_id}','KuisController@exportSoal');
+Route::get('/kuis/hasil/{id}','KuisController@showResult');
+Route::get('/kuis/result/{id}','KuisController@resultKuis');
+Route::get('/kuis/{quiz_id}/member/{member_id}','KuisController@showAnswer');
 
 
 /* ROUTE FILE IN STORAGE */

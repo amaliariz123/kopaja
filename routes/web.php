@@ -412,12 +412,22 @@ Route::get('/kuis/hasil/{id}','KuisController@showResult');
 Route::get('/kuis/result/{id}','KuisController@resultKuis');
 Route::get('/kuis/{quiz_id}/member/{member_id}','KuisController@showAnswer');
 
+//pembahasan soal
+Route::get('pembahasan_soal','PembahasanController@index')->name('pembahasan.soal');
+Route::get('pembahasan_soal/get_data','PembahasanController@getData');
+Route::get('pembahasan_soal/create/','PembahasanController@create');
+Route::post('pembahasan_soal/create/store/{id_soal}','PembahasanController@store');
+Route::get('pembahasan_soal/edit/{id_soal}','PembahasanController@edit');
+Route::post('pembahasan_soal/edit/update/{id_soal}','PembahasanController@update');
+Route::get('pembahasan_soal/delete/{id_soal}','PembahasanController@delete');
 
 /* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
     Route::get('pajak/{id}', 'PajakController@openPdf');
     Route::get('kuis/{id}','KuisController@getImageUrl');
+    Route::get('pembahasan/{id}','PembahasanController@getImageUrl');
+
 });
 
 });

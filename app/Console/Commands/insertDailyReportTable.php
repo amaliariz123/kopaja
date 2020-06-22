@@ -64,11 +64,11 @@ class insertDailyReportTable extends Command
 
             $result['exercise'] = DB::select('
                 SELECT 
-                (select date(exercise_questions.created_at)) as daily_date,
-                (select count(distinct(exercise_questions.id))) as total_tax_exercises
-                FROM exercise_questions
-                where exercise_questions.created_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
-                group by date(exercise_questions.created_at)
+                (select date(member_exercises.created_at)) as daily_date,
+                (select count(distinct(member_exercises.id))) as total_tax_exercises
+                FROM member_exercises
+                where member_exercises.created_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
+                group by date(member_exercises.created_at)
             ');
         } else {
             $result['member'] = DB::select('
@@ -89,10 +89,10 @@ class insertDailyReportTable extends Command
 
             $result['exercise'] = DB::select('
                 SELECT 
-                (select date(exercise_questions.created_at)) as daily_date,
-                (select count(distinct(exercise_questions.id))) as total_tax_exercises
-                FROM exercise_questions
-                group by date(exercise_questions.created_at)
+                (select date(member_exercises.created_at)) as daily_date,
+                (select count(distinct(member_exercises.id))) as total_tax_exercises
+                FROM member_exercises
+                group by date(member_exercises.created_at)
             ');
         }
 

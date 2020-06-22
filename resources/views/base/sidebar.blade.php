@@ -76,7 +76,7 @@
 				</a>
 			</li>
 			<li class="m-menu__item m-menu__item--submenu @yield('pembahasan')" aria-haspopup="true" m-menu-submenu-toggle="hover">
-				<a href="{{url('/pembahasan_latihan_soal')}}" class="m-menu__link m-menu__toggle">
+				<a href="{{url('/pembahasan_soal')}}" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon fa fa-file-signature"></i>
 					<span class="m-menu__link-text">Pembahasan Latihan Soal</span>
 				</a>

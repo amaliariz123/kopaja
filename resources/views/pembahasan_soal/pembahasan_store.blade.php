@@ -41,12 +41,12 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Edit Pembahasan Latihan Soal
+                                    Tambah Pembahasan Latihan Soal
                                 </h3>
                             </div>
                         </div>
                     </div>
-                    <form id="latihan-store" class="m-form m-form--fit m-form--label-align-left" action="{{url('pembahasan_soal/edit/update/'.$data->id)}}" method="POST" enctype="multipart/form-data" files=true>
+                    <form id="latihan-store" class="m-form m-form--fit m-form--label-align-left" action="{{url('pembahasan_soal/create/store/'.$question->id)}}" method="POST" enctype="multipart/form-data" files=true>
                         @csrf
                         <div class="m-portlet__body">
                             <fieldset class="content-group">
@@ -54,7 +54,7 @@
                                     <label for="question_text" class="form-control-label col-lg-3 col-sm-12">Soal<span class="text-danger">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-12">
                                         <div class="input-group">
-                                            <textarea class="form-control" rows="5" name="question" disabled>{{$question->question}}</textarea>
+                                            <textarea class="form-control" rows="5" name="question" required>{{$question->question}}</textarea>
                                             <input type="hidden" name="question_id" value="{{$question->id}}">
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                     <label for="answer_text" class="form-control-label col-lg-3 col-sm-12">Penjelasan<span class="text-danger">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-12">
                                         <div class="input-group">
-                                            <textarea class="form-control" rows="10" name="solution" placeholder="..." required>{{$data->solution}}</textarea>
+                                            <textarea class="form-control" rows="10" name="solution" placeholder="..." required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -87,11 +87,7 @@
                                         <div class="input-group">
                                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                                 <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                    @if($data->image != null)
-                                                    <img src="{{asset('storage/images/pembahasan_soal/'.$data->image)}}" alt="gambar soal" />
-                                                    @else
-                                                    <img src="{{asset('images/blank.png')}}" alt="gambar soal" />
-                                                    @endif
+                                                    <img src="{{asset('images/blank.png')}}" alt="" />
                                                 </div>
                                                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                                 <div>
@@ -112,7 +108,7 @@
                             <div class="m-form__actions m-form__actions">
                                 <div class="row">
                                     <div class="col-lg-9 ml-lg-auto">
-                                        <button type="submit" class="btn btn-brand">Perbarui</button>
+                                        <button type="submit" class="btn btn-brand">Tambah</button>
                                         <button type="reset" class="btn btn-secondary" onclick="window.location='{{ URL::previous() }}'">Batal</button>
                                     </div>
                                 </div>

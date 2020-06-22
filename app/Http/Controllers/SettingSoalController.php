@@ -647,7 +647,7 @@ class SettingSoalController extends Controller
                 $filename = $latihan->image;
             }
         }
-        $latihan->id_tax = $request->id_tax;
+            $latihan->id_tax = $request->id_tax;
             $latihan->question = $request->question;
             $latihan->image = $filename;
             $latihan->option_a = $request->opsi_a;

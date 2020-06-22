@@ -146,6 +146,7 @@
                 $('#show_link').empty();
                 var link = $('<a href="{{ url('storage/pajak/')}}/'+id+'" class="btn btn-sm btn-info" target="_blank">Klik untuk membuka materi</a>');   
             } else {
+                $('#show_link').empty();
                 var link = $('<p>Tidak ada materi yang dapat dibuka.</p>');
             }
 

@@ -7,23 +7,23 @@
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h3 class="m-subheader__title m-subheader__title--separator">Pajak</h3>
+                <h3 class="m-subheader__title m-subheader__title--separator">Setting Soal</h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                         <li class="m-nav__item m-nav__item--home">
                             <a href="#" class="m-nav__link m-nav__link--icon">
-                                <i class="m-nav__link-icon fa fa-calculator"></i>
+                                <i class="m-nav__link-icon fa fa-file-signature"></i>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">List</span>
+                                <span class="m-nav__link-text">Pembahasan Latihan Soal</span>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Pajak Pusat</span>
+                                <span class="m-nav__link-text">Soal</span>
                             </a>
                         </li>
                     </ul>
@@ -31,7 +31,7 @@
         </div>
     </div>
     <!-- END: Subheader -->
-
+    @include('base.notification')
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">
@@ -41,7 +41,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    Tabel Pajak
+                                    Tabel Pembahasan Latihan Soal
                                 </h3>
                             </div>
                         </div>
@@ -71,9 +71,8 @@
                         <table class="table table-striped table-bordered" id="tabel_pembahasan">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Tipe Pajak</th>
-                                    <th>Materi</th>
+                                    <th>Soal</th>
+                                    <th>Dibuat pada</th>
                                     <th>Opsi</th>
                                 </tr>
                             </thead>
@@ -90,4 +89,109 @@
         <!--End::Section-->
     </div>
 </div>
+
+@include('pembahasan_soal.pembahasan_create')
+@include('pembahasan_soal.pembahasan_detail')
+<!-- Jquery -->
+<script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
+<script src="{{url('js/jquery-ui.min.js')}}"></script>
+
 @endsection
+
+@push('custom-script')
+<script type="text/javascript">
+
+    var pembahasanTable;
+
+    $(document).ready(function(){
+
+        /*parsing data to datatable */
+        pembahasanTable = $('#tabel_pembahasan').DataTable({
+            processing: true,
+            serverSide: true,
+            stateSave: true,
+            ajax: {
+                url: "{{url('pembahasan_soal/get_data')}}",
+                type: "GET",
+            },
+            deferRender: true,
+            columns: [
+                {data:'question', name:'question', visible: true},
+                {data: 'created_at', name: 'created_at', visible: true},
+                {data: 'option', name: 'option', visible: true},
+            ],
+        });
+
+        //trigger to create-modal
+        $('#btn-create').on('click', function(){
+            $('select[name=question]').val('');
+            $('#m_select2_modal').modal('show');
+        });
+
+        $('#m_select2_1_modal').change(function(){
+            var id_soal = $(this).val();
+            var soal = $("select[name='question'] option:selected").text();
+            $('#hiddenQuestion').val(id_soal);
+        });
+
+        $('.zoom').hover(function() {
+            $(this).addClass('transition');
+        }, function() {
+            $(this).removeClass('transition');
+        });
+
+        //trigger to detail-modal
+        $('#tabel_pembahasan tbody').on('click', '#detail-btn', function(){
+            $("#pembahasan-detail:input").val('');
+            $("#pembahasan-detail-modal").modal('show');
+
+            let data = pembahasanTable.row($(this).parents('tr')).data();
+            let id = data['id'];
+            //console.log(data);
+
+            if(data['image'] != null) {
+                $('#show_img').empty();
+                var img = $('<img src="{{ url('storage/pembahasan/')}}/'+id+'" class="img-responsive zoom" style="width:50%;height:50%">'); 
+            } else {
+                $('#show_img').empty();
+                var img = $('<img src="{{asset('images/blank.png')}}" >');
+            }
+
+            $('#show_img').append(img);
+            $('input[name=_method]').val('PUT');
+            $('textarea[name=question]').val(data['question']);
+            $('textarea[name=solution]').val(data['solution']);
+        });
+
+        //trigger to delete-modal
+        $('#tabel_pembahasan tbody').on('click', '#delete-btn', function(){
+            let data = pembahasanTable.row($(this).parents('tr')).data();
+            swal({
+                text: "Yakin untuk menghapus data ini?",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus sekarang.',
+                cancelButtonText: 'Tidak, batalkan.',
+                reverseButtons: true,
+                type: 'warning',
+            })
+            .then((result) => {
+                if(result.value) 
+                {
+                    $.ajax({
+                        url: "{{url('/pembahasan_soal/delete')}}"+"/"+data['id'],
+                        method: 'get',
+                        success: function(result){
+                            pembahasanTable.ajax.reload();
+                            //location.reload();
+                            swal('Dihapus!','Data '+name+' telah dihapus.','success')
+                        }  
+                    })
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swal('Dibatalkan', 'Data '+name+' batal dihapus.','error')
+                }
+            });
+        });
+    });
+</script>
+@endpush

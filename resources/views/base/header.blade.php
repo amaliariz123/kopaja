@@ -33,10 +33,6 @@
 
 		<link href="{{ url ('assets/style.css')}}" rel="stylesheet" type="text/css" />
 
-		<!--Gallery-->
-		{{-- <link rel="stylesheet" href="{{url('gallery/css/gallery-clean.css')}}"> --}}
-		<link rel="stylesheet" href="{{url('gallery/css/ekko-lightbox.css')}}" />
-
 		<!--Jasny-bootstrap-->
 		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}" />
 
@@ -214,19 +210,11 @@
 		<script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
 		@stack('custom-script')
 		<!-- Datepicker -->
-		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
-		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
-
-
-		<!-- Summernote -->
-		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/summernote.js')}}" type="text/javascript"></script>
 
 		<!-- Select2 -->
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/select2.js')}}" type="text/javascript"></script>
 
-		<!-- Switch -->
-		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-switch.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/crud/forms/widgets/bootstrap-select.js')}}" type="text/javascript"></script>
 		<!--end::Page Scripts -->
 

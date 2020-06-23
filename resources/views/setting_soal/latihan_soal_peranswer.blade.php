@@ -82,9 +82,6 @@
                 </h6>
             </div>
             @endif
-            @foreach($percentage->where('question_id', $value->question_id) as $q)
-                <h5>Presentase jawaban benar : {{ number_format($q->percentage,0) }}%</h5>
-            @endforeach
         </div>
     </div>
 </div>

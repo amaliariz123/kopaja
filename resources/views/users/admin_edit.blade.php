@@ -103,9 +103,6 @@
 												<input type="password" class="form-control m-input" name="old_password" value="" id="currentPass">
 												<i onclick="show('currentPass')" class="fas fa-eye-slash" id="currentPass" style="border: 1px solid #ede9df; padding-top: 10px;padding-left: 10px;padding-right: 10px"></i>
 											</div>
-											<a href="">
-											<small id="emailHelp" class="form-text text-muted">Lupa kata sandi? </small>
-											</a>
 										</div>
 									</div>
 									<div class="form-group m-form__group row">

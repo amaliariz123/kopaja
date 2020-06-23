@@ -191,7 +191,6 @@ class SettingSoalController extends Controller
      */
      public function updateContoh(Request $request, $id)
      {
-
         // return $request;
      	$data = ExampleExercise::find($id);
         $pajak = Tax::where('id',$data->id_tax)->first();
@@ -268,7 +267,7 @@ class SettingSoalController extends Controller
 
             //return response()->json(['success' => 'Data updated!']);
             session(['success' => ['Data berhasil diperbarui!']]);
-            return redirect()->route('detail.contoh_soal', [$id,$pajak->name]);
+            return redirect()->route('detail.contoh_soal', [$pajak->id, $pajak->name]);
         }
      } 
 

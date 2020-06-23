@@ -290,9 +290,6 @@ Route::get('/bantuan',function(){
 })->name('bantuan');
 
 
-
-
-
 Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
 Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
 

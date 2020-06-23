@@ -7,6 +7,7 @@ use \Yajra\Datatables\Datatables;
 use App\Models\PremiumCode;
 use App\Models\Member;
 use Validator;
+use DB;
 
 
 class KodeController extends Controller
@@ -19,8 +20,20 @@ class KodeController extends Controller
 
     public function getData()
     {
-    	$data = PremiumCode::orderByDesc("created_at")->get();
-    	
+        $code = PremiumCode::select('code')->pluck('code')->toArray();
+        $member = Member::select('premium_code')->pluck('premium_code')->toArray();
+
+        for ($i=0; $i < count($member) ; $i++) { 
+            if(in_array($member[$i],$code)) {
+                $update = DB::table('premium_codes')
+                    ->where('code', $member[$i])
+                    ->update(['status' => 'aktif']);
+            }
+        }
+
+        $data = PremiumCode::orderByDesc("created_at")->get();
+
+        // return $data;
     	return datatables()->of($data)
         ->make(true);
     }

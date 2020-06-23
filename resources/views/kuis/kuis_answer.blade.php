@@ -55,9 +55,9 @@
                                     <label class="text-bold col-sm-10"> : {{$value->member_name}}</label>
                                 </div>
                                 <div class="row">
-                                    <label class="text-bold col-sm-2">Institusi</label>
+                                    <label class="text-bold col-sm-2">Instansi</label>
                                     @if($value->member_institution == null)
-                                    <label class="col-sm-10"> : <i>Institusi tidak ditemukan</i></label>
+                                    <label class="col-sm-10"> : <i>Instansi tidak ditemukan</i></label>
                                     @else
                                     <label class="text-bold col-sm-10"> : {{$value->member_institution}}</label>
                                     @endif

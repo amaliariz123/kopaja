@@ -68,7 +68,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-1">
-                                <button type="reset" class="btn btn-sm btn-outline-info m-btn m-btn--outline-2x" onclick="window.location='{{ URL::previous() }}'"> <i class="fa fa-arrow-left"></i>&nbsp;Kembali</button>
+                                <a href="{{url('kuis/show/'.$data->id)}}" class="btn btn-sm btn-outline-info m-btn m-btn--outline-2x" > <i class="fa fa-arrow-left"></i>&nbsp;Kembali</a>
                             </div>
                         </div>
                     </div>

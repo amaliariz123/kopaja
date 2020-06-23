@@ -35,6 +35,7 @@
 
 		<!--Jasny-bootstrap-->
 		<link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}" />
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" />
 
 		<link rel="stylesheet" type="text/css" href="{{url('/css/bootstrap-fileinput.css')}}">
 

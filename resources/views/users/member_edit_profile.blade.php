@@ -6,7 +6,18 @@
             <div class="row ">
                 <div class="card card-profile">
                     <div class="info-profile">
-                        <div class="profile__ava" style="background-image: url('{{ asset('/etrain/img/user.png') }}');"></div>
+                        <div class="profile__ava">
+                            @if($data['user']['profile_picture']==null)
+                                    <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
+                                        width="300px" alt="upload foto"
+                                       >
+                                    @else
+                                    <a src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" target="_blank">
+                                        <img id="gambar" width="100px" src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}"
+                                            >
+                                    </a>
+                                    @endif
+                        </div>
                         <h5>{{$data['user']['fullname']}}</h5>
                     </div>
                     <nav class="profile-nav">
@@ -17,7 +28,7 @@
                 </div>
 
                 <div class="card main-profile">
-                    <form method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}">
+                    <form method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}" enctype="multipart/form-data" files=true>
                         @csrf
                         <div class="form-header">
                             <h3>Ubah Profil</h3>
@@ -25,12 +36,24 @@
                         </div>
 
                         <div class="form-edit__avatar">
-                            <div class="profile__ava" style="width:70px; height:70px; background-image: url('{{ asset('/etrain/img/user.png') }}');"></div>
                             
                             <div class="form-edit__dropzone">
-                                <button class="form-edit__change-photo">Ganti foto</button>
-                                <input type="file" style="display: none;" accept="image/*">
+                                <div class="profile__ava">
+                                    @if($data['user']['profile_picture']==null)
+                                    <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
+                                        width="300px" alt="upload foto"
+                                       >
+                                    @else
+                                    <a src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" target="_blank">
+                                        <img id="gambar" width="100px" src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}"
+                                            >
+                                    </a>
+                                    @endif
+                                </div>
+                                <!-- <button class="form-edit__change-photo">Ganti foto</button> -->
+                                
                             </div>
+                            <input id="profile_picture" name="profile_picture" type="file" style="border-radius: 5px;" accept="image/*">
                             
                         </div>
 
@@ -42,7 +65,14 @@
                         </div>
                         <div>
                             <div class="fields">
+                                <label class="fields__label">Tanggal Lahir</label>
+                                <input class="fields__input" name="date_of_birth" type="date" value="{{$data['member']['date_of_birth']}}" placeholder="" required=""></input>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="fields">
                                 <label class="fields__label">Instansi/Nama Sekolah</label>
+                                <hint style="font-size:12px; color: #EE390F;">contoh : UGM / SMAN 1 Yogyakarta</hint>
                                 <input class="fields__input" name="institution" value="{{$data['member']['institution']}}" placeholder="" required=""></input>
                             </div>
                         </div>
@@ -91,14 +121,14 @@
 <script>
         $(document).ready(function(){
             $('#province-select').change(function(){
-                var provinsi_id = $(this).val();
+                var province_id = $(this).val();
                 var city_id = "{{$data['member']['city_id']}}";
                 console.log(city_id);
                 var provinsi_name = $("select[name='province-select'] option:selected").text();  //add this
                 $('#hiddenProvince').val(provinsi_name);
-                if(provinsi_id){
+                if(province_id){
                     $.ajax({
-                        url: '/getCity/' + provinsi_id,
+                        url: '/getCity/' + province_id,
                         type : 'GET',
                         dataType : 'json',
                         success: function(data){

@@ -56,6 +56,9 @@ Route::group( [ 'middleware' => 'auth' ], function () {
         return view('pempphpasal4ayat2');
     })->name('pempphpasal4ayat2');
 
+    Route::get('/riwayat_kuispajak',function(){
+        return view('quiz_history');
+    })->name('quiz_history');
 
     Route::get('/cekSoalpphpasal4ayat2', 'soalController@cekSoalpphpasal4ayat2')->name('cekSoalpphpasal4ayat2');
 
@@ -295,10 +298,6 @@ Route::get('/tentang',function(){
 Route::get('/bantuan',function(){
     return view('bantuan');
 })->name('bantuan');
-
-
-
-
 
 Route::get('/getCity/{id}', 'UserController@getCity')->name('getCity');
 

@@ -3,8 +3,6 @@
     display: inline-block;
     margin-top: 120px;
     margin-left: 15px;
-    height: 270px;
-    width : 35%;
     position: relative;
     background-color: #fff;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
@@ -12,118 +10,143 @@
     border-radius: 5px;
     padding: 20px;
   }
-  
-  .main-profile {
-    margin-top: 120px;
-    margin-left: 20px;
-    margin-bottom: 30px;
-    width: 60%;
-    position: relative;
-    background-color: #fff;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
-    border : 0px ;
-    border-radius: 5px;
-    padding : 20px;
-  }
-  
-  .info-profile {
-    display : flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .profile__ava {
-    display : inline-block;
-    width : 50px;
-    height : 50px;
-    border-radius : 50%;
-    background-position : 50%;
-    background-size : cover;
-    margin-right : 10px;
-  }
-  
-  .profile-nav__link {
-    display : block;
-    padding : 10px;
-    color : inherit;
-    border-radius : 4px;
-    margin-bottom : 10px;
-    background-color :#dbdbdb;
-  }
-  
-  .profile-nav__link.active,
-  .profile-nav__link:hover {
-    background-color :#EE390F;
-    color :#fff;
-  }
-  
-  .form-header {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: justify;
-        justify-content: space-between;
-    -ms-flex-align: center;
-        align-items: center;
-    margin-bottom: 20px; }
-    .form-header--stack {
-      display: block; }
-  
-  .form-edit__avatar {
-    margin-bottom: 20px;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-        align-items: center; }
-  
-  .form-edit__dropzone {
-    display : inline-block;
-    position : absolute;
-    width : 70px;
-    height : 70px;
-    border-radius : 50%;
-    background-position : 50%;
-    background-size : cover;
-    margin-right : 10px; }
-  
-  .form-edit__change-photo {
-    background: none;
-    border: none;
-    box-shadow: none;
-    color: #EE390F;
-    font-weight: 500;
-    margin-left: 10px;
-    cursor: pointer;
-    min-width: inherit;
-  }
-  
-  .form-edit__btn {
-    position: relative;
-    font-size: 16px;
-    font-family: "Source Sans Pro", sans-serif;
-    font-weight: 600;
-    border: 1px solid #F9B700;
-    color: #ffffff;
-    background: #F9B700;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 11px 15px;
-    border-radius: 100px;
-    text-align: center;
-  }
 
-  .form-create__btn {
-    position: relative;
-    font-size: 16px;
-    font-family: "Source Sans Pro", sans-serif;
-    font-weight: 600;
-    color: #ffffff;
-    background: #F9B700;
-    cursor: pointer;
-    padding: 11px 15px;
-    border-radius: 100px;
-    text-align: center;
-  }
+.card-pembahasan {
+  font-family: Roboto;
+  width: 30%;
+  height: 400px;
+  margin-right: 0px;
+  position: relative;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  padding: 20px;
+}
+  
+.main-profile {
+  margin-top: 120px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  border : 0px ;
+  border-radius: 5px;
+  padding : 20px;
+}
+  
+.info-profile {
+  display : flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+  
+.profile__ava {
+  display : inline-block;
+  width : 50px;
+  height : 50px;
+  border-radius : 50%;
+  background-position : 50%;
+  background-size : cover;
+  margin-right : 10px;
+}
+
+.profile-nav {
+  width: 350px;
+}
+
+.profile-nav__link {
+  display : block;
+  padding : 10px;
+  color : inherit;
+  border-radius : 4px;
+  margin-bottom : 10px;
+  background-color :#dbdbdb;
+}
+
+.pembahasan_link {
+  background-color :#EE390F;
+  color :#ffff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  padding : 10px;
+  width: 50%;
+  border-radius : 5px;
+  margin-bottom : 30px;
+}
+
+.profile-nav__link.active,
+.profile-nav__link:hover {
+  background-color :#EE390F;
+  color :#fff;
+}
+
+.form-header {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  -ms-flex-align: center;
+      align-items: center;
+  margin-bottom: 20px; }
+  .form-header--stack {
+    display: block; }
+
+.form-edit__avatar {
+  margin-bottom: 20px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center; }
+
+.form-edit__dropzone {
+  display : inline-block;
+  width : 70px;
+  height : 70px;
+  border-radius : 50%;
+  background-position : 50%;
+  background-size : cover;
+  margin-right : 10px; }
+
+.form-edit__change-photo {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #EE390F;
+  font-weight: 500;
+  margin-left: 10px;
+  cursor: pointer;
+  min-width: inherit;
+}
+
+.form-edit__btn {
+  position: relative;
+  font-size: 16px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  border: 1px solid #F9B700;
+  color: #ffffff;
+  background: #F9B700;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 11px 15px;
+  border-radius: 100px;
+  text-align: center;
+}
+
+.form-create__btn {
+  position: relative;
+  font-size: 16px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+  background: #F9B700;
+  cursor: pointer;
+  padding: 11px 15px;
+  border-radius: 100px;
+  text-align: center;
+}
 
 /* fields */
 
@@ -172,3 +195,12 @@
   .textarea__error {
     display: block;
     padding: .25em 0; }
+
+.btn-active {
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  float: right;
+  background-color :#EE390F;
+  color :#fff;
+}

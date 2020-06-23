@@ -153,6 +153,7 @@
 </section>
 
 @endsection
+<link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 @section('content')
 <?php
     $soal = json_decode(file_get_contents('https://my-json-server.typicode.com/sabdobramastyo98/pphpasal15/pphpasal15'), true);
@@ -203,6 +204,17 @@
                      </form>
                    </div>
                </div>
+            </div>
+
+            <div class="col-lg-4 card card-pembahasan" style="margin-right:0;">
+                <div style="text-align: center;">
+                <button class="pembahasan_link" href="{{url('/pembahasan_pphpasal4ayat2')}}">Pembahasan</button>
+                    <h4>Upgrade akunmu menjadi Premium!</h4>
+                    <p>Hanya dengan memasukkan kode premium yang tersedia pada alat peraga KOPAJA, kamu bisa :<p>
+                        <li></li>
+                        <li></li>
+                </div>
+                
             </div>
           </div>
         </div>

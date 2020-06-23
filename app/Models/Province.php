@@ -23,14 +23,14 @@ class Province extends Model
     /**
      * @var array
      */
-    protected $fillable = ['provinsi', 'p_bsni'];
+    protected $fillable = ['province', 'p_bsni'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function cities()
     {
-        return $this->hasMany('App\Models\City', 'provinsi_id');
+        return $this->hasMany('App\Models\City', 'province_id');
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends ('layouts.land')
+@extends ('layouts.quiz')
 <link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 
 @section('css')
@@ -171,34 +171,6 @@
 @section('content')
 <div class="container">
             <div class="row ">
-                <div style="width: 35%; float: left; margin-right: 3%;">
-                <div class="card card-profile">
-                    <div style="margin-bottom: 20px;">
-                    	<h4>Level Kuis Pajak</h4>
-                    	<p>Sebelum memulai kuis, pilih level kuismu terlebih dahulu</p>
-                    </div>
-                    <div>
-                    	<label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Mudah</h5>
-                            <input type="radio" name="easy" value="easy">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sedang</h5>
-                            <input type="radio" name="medium" value="medium">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sulit</h5>
-                            <input type="radio" name="diff" value="diff">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div>
-                        <a class="btn_1" style="border-radius: 5px; padding: 10px 25px; float: right;" href="{{ url('/kuis') }}">Mulai Kuis<i class="ti-arrow-right" style="padding-right: 0px;"></i></a>
-                    </div>
-
-                    <div></div>
-                </div>
-            </div>
-
                 <div style="width: 60%; float: :right;">
                     <div class="card main-profile">
                     <div class="form-header">
@@ -226,41 +198,35 @@
                     
                     </div>
                 </div>
+
+                <div style="width: 35%; float: left; margin-right: 3%;">
+                <div class="card card-profile">
+                    <div style="margin-bottom: 20px;">
+                    	<h4>Level Kuis Pajak</h4>
+                    	<p>Sebelum memulai kuis, pilih level kuismu terlebih dahulu</p>
+                    </div>
+                    <div>
+                    	<label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Mudah</h5>
+                            <input type="radio" name="easy" value="easy">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sedang</h5>
+                            <input type="radio" name="medium" value="medium">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sulit</h5>
+                            <input type="radio" name="diff" value="diff">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <a class="btn_1" style="border-radius: 5px; padding: 10px 25px; float: right;" href="{{ url('/kuis') }}">Mulai Kuis<i class="ti-arrow-right" style="padding-right: 0px;"></i></a>
+                    </div>
+
+                </div>
+            </div>
             </div>
             </div>
         </div>
-
-@include('history_detail')
 <!-- Modal -->
 @endsection
-
-<!-- @push('custom-script')
-<script type="text/javascript">
-    var history_table;
-
-        $('#tabel_history tbody').on('click', "#detail-btn", function(){
-            
-            let data = member_table.row($(this).parents('tr')).data();
-            let id = data['id'];
-            let user_id = data['user_id'];
-            let token = $('input[name=_token]').val();
-            let urlData = "{{url('/member/show')}}"+"/"+id+"/"+user_id;
-
-            $('input[name=_method]').val('PUT');
-            $('input[name=_token]').val(token);
-            $('input[name=detail_name]').val(data['fullname']);
-            $('input[name=detail_institution]').val(data['institution']);
-            $('input[name=detail_age').val(data['age']);
-            $('input[name=detail_status_member]').val(data['member_status']);
-            $('input[name=detail_province]').val(data['province']);
-            $('input[name=detail_city]').val(data['city']);
-            $('input[name=detail_premium_code]').val(data['premium_code']);
-
-            // console.log(data['name']);
-
-            $("#member-detail:input").val('');
-            $("#member-detail-modal").modal('show');
-        })
-    }); 
-</script>
-@endpush -->

@@ -60,6 +60,10 @@ Route::group( [ 'middleware' => 'auth' ], function () {
         return view('quiz_history');
     })->name('quiz_history');
 
+    Route::get('/kuis',function(){
+        return view('quiz_page');
+    })->name('quiz_page');
+
     Route::get('/cekSoalpphpasal4ayat2', 'soalController@cekSoalpphpasal4ayat2')->name('cekSoalpphpasal4ayat2');
 
     Route::get('/latihansoalpasal15',function(){

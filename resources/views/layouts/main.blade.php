@@ -101,6 +101,9 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ url('/riwayat_kuispajak') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
                                                 <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
                                                     {{ __('Profil') }}
                                                 </a>

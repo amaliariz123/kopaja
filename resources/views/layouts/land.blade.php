@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    
+    @yield('css')
 </head>
 
 <body>
@@ -31,7 +35,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg navbar-light">
+                    <nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom:0px;">
                         <a class="navbar-brand" href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" width="80px" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -80,19 +84,27 @@
                                 </li>
                                 <li class="d-none d-lg-block">
                                     @guest
-                                        <a class="btn_1" href="{{ route('login') }}">Sign In</a>
+                                        <a class="btn_1" href="{{ route('login') }}">Masuk</a>
                                                                                
                                     @else
                                         <li class="nav-item dropdown">
                                             <a id="navbarDropdown" class="btn_1 nav-link dropdown-toggle py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color:white;">
-                                                Halo, {{Auth::user()->first_name}}! <span class="caret"></span>
+                                                Halo, {{Auth::user()->fullname}}! 
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        
+                                            <a class="dropdown-item" href="{{ url('/riwayat_kuispajak') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
+                                                    {{ __('Profil') }}
+                                                </a>
+
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
+                                                    {{ __('Keluar') }}
                                                 </a>
 
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -119,7 +131,7 @@
             <div class="row justify-content-between">
                 <div class="col-sm-6 col-md-4 col-xl-3">
                     <div class="single-footer-widget footer_1">
-                        <a href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" alt="gambar"> </a>
+                        <a href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" alt="gambar" style="max-width: 60%;"> </a>
                         <p>Kopaja adalah organisasi yang bergerak pada bidang pendidikan di Indonesia yang berfokus pada layanan
                             berbasis pendidikan khususnya Pajak. </p>
                         <p></p>
@@ -183,13 +195,14 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/masonry.pkgd.js"></script>
     <!-- particles js -->
     <script src="{{url('/')}}/etrain/js/owl.carousel.min.js"></script>
-    <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script>
+    <!-- <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script> -->
     <!-- swiper js -->
     <script src="{{url('/')}}/etrain/js/slick.min.js"></script>
     <script src="{{url('/')}}/etrain/js/jquery.counterup.min.js"></script>
     <script src="{{url('/')}}/etrain/js/waypoints.min.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js"></script>
+    @stack('custom-js')
 </body>
 
 </html>

@@ -153,6 +153,7 @@
 </section>
 
 @endsection
+<link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 @section('content')
 <?php
     $soal = json_decode(file_get_contents('https://my-json-server.typicode.com/sabdobramastyo98/pphpasal4ayat2/pasal4ayat2'), true);
@@ -198,8 +199,8 @@
                         @endforeach
                          <h5>
                             <button type="submit" class="btn_1">Periksa</button>
+                            <a class="btn_2" href="{{Route('pempphpasal4ayat2')}}">Pembahasan</a>
                         </h5>
-                        
                      </form>
                    </div>
                </div>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Member;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,46 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(\Illuminate\Http\Request $request, $user)
+    {
+        if($user->hasRole('admin'))
+        {
+            return redirect('/dashboard');
+        } 
+        else if($user->hasRole('user'))
+        {
+            $detail = Member::where('user_id', '=', $user->id)->first();
+
+            session([
+                'user_id' => $user->id,
+                'name' => $user->fullname,
+                'member_status' => $detail->member_status,
+                'premium_code' => $detail->premium_code,
+            ]);
+
+            $detail = Member::where('user_id','=', $user->id)->first();
+
+            session([
+                'user_id' => $user->id,
+                'fullname' => $user->fullname,
+                'institution' => $detail->institution,
+                'member_status' => $detail->member_status,
+                'premium_code' => $detail->premium_code
+            ]);
+
+            return redirect('/');
+        }
+        
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/login');
     }
 }

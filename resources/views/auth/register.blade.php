@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SIGNUP</title>
+    <title>KOPAJA | Registrasi</title>
     <link rel="icon" href="{{url('/')}}/etrain/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/bootstrap.min.css">
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 </head>
 <body>
 	
@@ -32,87 +34,48 @@
                 <div class="col-md-7 col-lg-5">
                     <div class="learning_member_text">
                     	<center>
-                        <h1 style="font-weight: bold;">REGISTER</h1><br>
+                        <h1 style="font-weight: bold;">REGISTRASI</h1><br>
 							<form method="POST" action="{{ route('register') }}">
-                        @csrf
-                                <div class="form-group">
-                                    <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('First Name') }}" id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
-                                    @error('first_name')
+                            @csrf
+                            <div class="form-group">
+                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Nama') }}"  id="fullname" type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" required autocomplete="fullname"></h5>
+                                    @error('fullname')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    </h5>
-                                </div>
+                            </div>
 
-                                <div class="form-group">
-                                        <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Last Name') }}" id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus></h5>
+                            <div class="form-group">
+                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Email') }}"  id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></h5>
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
 
-                                        @error('last_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
+                            <div class="form-group">
+                            <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Kata sandi') }}" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                                <div class="form-group">
-                                        <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Tempat Lahir') }}" id="tempat_lahir" type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required autocomplete="tempat_lahir" autofocus></h5>
-                                        @error('tempat_lahir')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
 
-                                <div class="form-group">
-                                        <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Tanggal Lahir') }}" id="tanggal_lahir" type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required autocomplete="tanggal_lahir" autofocus></h5>
-                                        @error('tanggal_lahir')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Nama Sekolah/Instansi') }}" id="instansi" type="text" class="form-control @error('instansi') is-invalid @enderror" name="instansi" value="{{ old('instansi') }}" required autocomplete="instansi" autofocus></h5>
-                                        @error('instansi')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Email') }}"  id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></h5>
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-
-                                <div class="form-group">
-                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Password') }}" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Confirm Password') }}"  id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"></h5>
-                                </div>
-
-                              <br>
-                                         
-	                        <div>
-	                            <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('REGISTER') }}</button></h5>
-	                            <br><br><br><br>
-								<h6><a class="btn_2" href="{{Route('login')}}" style="height: 20%">Already Have Account</a></h6><br>
-	                        </div>
-							</form>    
+                            <div class="form-group">
+                                <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Konfirmasi kata sandi') }}"  id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"></h5>
+                            </div>
+                          <br>
+                                     
+                            <div>
+                                <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('BUAT') }}</button></h5>
+                                <br><br><br><br>
+    							<h6><a class="btn_2" href="{{Route('login')}}" style="height: 20%; text-decoration: none;">Sudah memiliki akun</a></h6><br>
+                            </div>
+						</form>    
 						</center>     
                     </div>
                 </div>
@@ -124,6 +87,7 @@
             </div>
         </div>
     </section>
+    
     <!-- learning part end-->
 
      <!-- jquery plugins here-->
@@ -141,7 +105,7 @@
      <script src="{{url('/')}}/etrain/js/masonry.pkgd.js"></script>
      <!-- particles js -->
      <script src="{{url('/')}}/etrain/js/owl.carousel.min.js"></script>
-     <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script>
+     <!-- <script src="{{url('/')}}/etrain/js/jquery.nice-select.min.js"></script> -->
      <!-- swiper js -->
      <script src="{{url('/')}}/etrain/js/slick.min.js"></script>
      <script src="{{url('/')}}/etrain/js/jquery.counterup.min.js"></script>
@@ -149,5 +113,10 @@
      <!-- custom js -->
      <script src="{{url('/')}}/etrain/js/custom.js"></script>
 
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -14,8 +14,12 @@
                                 dilengkapi dengan akses latihan soal, pembahasan dan rangkuman.
                                 Dilengkapi dengan materi perpajakan.
                             </p>
-                            <a href="#" class="btn_1">View Course </a>
-                            <a href="{{ route('register') }}" class="btn_2">Sign Up </a>
+                            <a href="{{ route('latsoalpasal4') }}" class="btn_1">Mulai Latihan Soal</a>
+                            @guest
+                                <a href="{{ route('register') }}" class="btn_2">Sign Up </a>                          
+                            @else
+                            
+                            @endguest
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 
-
 class soalController extends Controller {
 
     public function __construct()

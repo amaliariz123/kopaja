@@ -3,7 +3,6 @@
 
 <head>
     <!-- Required meta tags -->
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>KOPAJA</title>
@@ -25,6 +24,7 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
+    
 
 
 
@@ -92,19 +92,26 @@
                                 <li class="d-none d-lg-block">
                                 
                                     @guest
-                                        <a class="btn_1" href="{{ route('login') }}">Sign In</a>
+                                        <a class="btn_1" href="{{ route('login') }}">Masuk</a>
                                                                                
                                     @else
                                         <li class="nav-item dropdown">
                                             <a id="navbarDropdown" class="btn_1 nav-link dropdown-toggle py-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color:white;">
-                                                Hai, {{Auth::user()->first_name}}! <span class="caret"></span>
+                                                Hai, {{Auth::user()->fullname}}! <span class="caret"></span>
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ url('/riwayat_kuispajak') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
+                                                    {{ __('Profil') }}
+                                                </a>
+                                                
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
+                                                    {{ __('Keluar') }}
                                                 </a>
 
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

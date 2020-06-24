@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Member;
+use Ramsey\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
@@ -27,8 +33,8 @@ class RegisterController extends Controller
      * Where to redirect users after registration.
      *
      * @var string
-     */
-    protected $redirectTo = '/login';
+     */     
+    protected $redirectTo = '/email/verify';
 
     /**
      * Create a new controller instance.
@@ -37,25 +43,26 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $user = Auth::user();
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    // //after registration, user will be redirect to login page first
+    //  public function register(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+
+    //     event(new Registered($user = $this->create($request->all())));
+
+    //     return redirect('/email/verify');
+    //     //return "valid";
+    // }
+        
+    public function validator(array $data)
     {
         return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'tempat_lahir' => ['required', 'string', 'max:255'],
-            'tanggal_lahir' => ['required', 'date'],
-            'instansi' => ['required', 'string', 'max:255'],
+            'fullname' => ['required', 'string', 'max:35'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:5', 'confirmed'],
         ]);
     }
 
@@ -63,18 +70,30 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'tempat_lahir' => $data['tempat_lahir'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
-            'instansi' => $data['instansi'],
+        // return User::create([
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
+
+        $user = config('roles.models.defaultUser')::create([
+            'id' => Uuid::uuid4()->getHex(),
+            'fullname' => $data['fullname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $role = config('roles.models.role')::where('name', '=', 'User')->first(); //default role for new user
+        $user->attachRole($role); //assign role to new user
+
+        //insert user_id to members table
+        $member = Member::create([
+            'user_id' => $user['id'],
+        ]);
+
+        return $user;
     }
 }

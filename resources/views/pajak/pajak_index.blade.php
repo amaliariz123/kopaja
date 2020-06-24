@@ -7,7 +7,7 @@
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h3 class="m-subheader__title m-subheader__title--separator">Pajak</h3>
+                <h3 class="m-subheader__title m-subheader__title--separator">Setting Pajak</h3>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                         <li class="m-nav__item m-nav__item--home">
                             <a href="#" class="m-nav__link m-nav__link--icon">
@@ -17,13 +17,13 @@
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">List</span>
+                                <span class="m-nav__link-text">Pajak</span>
                             </a>
                         </li>
                         <li class="m-nav__separator">-</li>
                         <li class="m-nav__item">
                             <a href="" class="m-nav__link">
-                                <span class="m-nav__link-text">Pajak Pusat</span>
+                                <span class="m-nav__link-text">Data Pajak</span>
                             </a>
                         </li>
                     </ul>
@@ -142,11 +142,19 @@
             let id = data['id'];
             let url = "{{url('/pajak/show')}}"+"/"+id;
 
+            if(data['module'] != null) {
+                $('#show_link').empty();
+                var link = $('<a href="{{ url('storage/pajak/')}}/'+id+'" class="btn btn-sm btn-info" target="_blank">Klik untuk membuka materi</a>');   
+            } else {
+                $('#show_link').empty();
+                var link = $('<p>Tidak ada materi yang dapat dibuka.</p>');
+            }
+
+            $('#show_link').append(link);
             $('input[name=_method]').val('PUT');
             $('input[name=detail_name]').val(data['name']);
             $('textarea[name=detail_description]').val(data['description']);
             $('input[name=detail_tax_type]').val(data['tax_type']);
-            $('input[name=detail_module]').val(data['module']);
         });
 
         //trigger to delete-modal

@@ -205,3 +205,48 @@ div.m-dropdown__header.m--align-center{
     outline:0;
     background-image:url(../images/icons/remove-icon-small.png)!important;
 }
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.text-bold {
+    font-weight: 700;
+}
+
+.member_answer {
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+}
+
+.exercise_answer {
+    width: 100%;
+    background-color: #d0dff6;
+    padding: 10px;
+    margin-bottom: 10px
+}
+
+.answer {
+    width: 100%;
+    background-color: #d0dff6;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+img.zoom {
+    width: 350px;
+    height: 200px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+}
+ 
+.transition {
+    -webkit-transform: scale(1.8); 
+    -moz-transform: scale(1.8);
+    -o-transform: scale(1.8);
+    transform: scale(1.8);
+}

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ExampleExercise;
 use App\Models\ExerciseQuestion;
 use App\Models\Tax;
+use App\Models\MemberExercise;
 use \Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -190,7 +191,6 @@ class SettingSoalController extends Controller
      */
      public function updateContoh(Request $request, $id)
      {
-
         // return $request;
      	$data = ExampleExercise::find($id);
         $pajak = Tax::where('id',$data->id_tax)->first();
@@ -267,7 +267,7 @@ class SettingSoalController extends Controller
 
             //return response()->json(['success' => 'Data updated!']);
             session(['success' => ['Data berhasil diperbarui!']]);
-            return redirect()->route('detail.contoh_soal', [$id,$pajak->name]);
+            return redirect()->route('detail.contoh_soal', [$pajak->id, $pajak->name]);
         }
      } 
 
@@ -566,7 +566,7 @@ class SettingSoalController extends Controller
             //return response()->json(['errors' => $validator->errors()->all()]);
             session(['error' => $validator->errors()->all()]);
 
-            return back()->withInput();
+            return back()->withInput($request);
 
         } else {
             if(!empty($request->image))
@@ -646,7 +646,7 @@ class SettingSoalController extends Controller
                 $filename = $latihan->image;
             }
         }
-        $latihan->id_tax = $request->id_tax;
+            $latihan->id_tax = $request->id_tax;
             $latihan->question = $request->question;
             $latihan->image = $filename;
             $latihan->option_a = $request->opsi_a;
@@ -842,6 +842,80 @@ class SettingSoalController extends Controller
                 }
             });
         })->download('xlsx');
+    }
+
+    public function showResult($id)
+    {
+        $data = Tax::find($id);
+       
+        return view('setting_soal.latihan_soal_result', compact('data'));
+        //return "hello";
+    }
+
+    public function resultLatihan($tax_id)
+    {
+        $result = DB::table('member_exercises')
+                    ->join('members','members.id','=','member_exercises.member_id')
+                    ->join('users','users.id','=','members.user_id')
+                    ->join('member_exercise_answers','member_exercise_answers.member_id','=','members.id')
+                    ->join('exercise_questions','exercise_questions.id','=','member_exercise_answers.question_id')
+                    ->select('members.id as member_id','users.fullname as member_name','members.institution as member_institution','member_exercises.score as total_score','member_exercises.created_at as exercise_time','member_exercises.tax_id as tax_id')
+                    ->where([['member_exercises.tax_id',$tax_id],['exercise_questions.id_tax',$tax_id]])
+                    ->orderBy('members.id','asc')
+                    ->distinct()
+                    ->get();
+
+        return datatables()->of($result)->addColumn('option', function($row) {
+            $btn = '<a href="'.url('latihan_soal/'.$row->tax_id).'/member/'.$row->member_id.'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+
+                return $btn;
+        })
+        ->rawColumns(['option'])
+        ->make(true);
+    }
+
+
+    public function showAnswer($id,$member_id)
+    {
+        $this->data['total_score'] = DB::table('member_exercises')
+                                    ->join('members','members.id','=','member_exercises.member_id')
+                                    ->join('users','users.id','=','members.user_id')
+                                    ->select('members.id as member_id','users.fullname as member_name','members.institution as member_institution','member_exercises.score as member_score')
+                                    ->where([['tax_id', $id],['member_id', $member_id]])
+                                    ->get();
+        $this->data['exercise'] = DB::table('taxes')
+                                ->select('taxes.name as tax_name')
+                                ->where('taxes.id','=',$id)
+                                ->get();
+        $this->data['right_answer'] = DB::table('member_exercise_answers')
+                                    ->join('exercise_questions','exercise_questions.id','=','member_exercise_answers.question_id')
+                                    ->where([['exercise_questions.id_tax',$id],['member_exercise_answers.isRight',1],['member_exercise_answers.member_id',$member_id]])
+                                    ->count('isRight');
+        $this->data['wrong_answer'] = DB::table('member_exercise_answers')
+                                    ->join('exercise_questions','exercise_questions.id','=','member_exercise_answers.question_id')
+                                    ->where([['exercise_questions.id_tax',$id],['member_exercise_answers.isRight',0],['member_exercise_answers.member_id',$member_id]])
+                                    ->whereNotNull('answer')
+                                    ->count('isRight');
+        $this->data['not_answered'] = DB::table('member_exercise_answers')
+                                    ->join('exercise_questions','exercise_questions.id','=','member_exercise_answers.question_id')
+                                    ->where([['exercise_questions.id_tax',$id],['member_exercise_answers.member_id',$member_id]])
+                                    ->whereNull('answer')
+                                    ->count();
+        $this->data['question'] = DB::table('exercise_questions')
+                                    ->join('member_exercise_answers','member_exercise_answers.question_id','=','exercise_questions.id')
+                                    ->select('exercise_questions.id as question_id','exercise_questions.question as question','exercise_questions.option_a as option_a','exercise_questions.option_b as option_b','exercise_questions.option_c as option_c', 'exercise_questions.option_d as option_d','exercise_questions.image as image','exercise_questions.right_answer as right_answer','member_exercise_answers.answer as member_answer')
+                                    ->where([['exercise_questions.id_tax',$id],['member_exercise_answers.member_id',$member_id]])
+                                    ->groupBy('exercise_questions.id')
+                                    ->paginate(5);
+        $this->data['percentage'] = DB::table('member_exercise_answers')
+                                ->join('exercise_questions','exercise_questions.id','=','member_exercise_answers.question_id')
+                                ->select('question_id',DB::raw('sum(isRight)/count(member_id)*100 as percentage'))
+                                ->where('exercise_questions.id_tax',$id)
+                                ->groupBy('exercise_questions.id')
+                                ->get();
+
+        return view('setting_soal.latihan_soal_answer',$this->data, compact('id','member_id'));
+           //return $this->data;
     }
 
 }

@@ -149,7 +149,7 @@
 								</div>
 							</div>
 							<div style="margin-top: 1.5em">
-								<p class="text-danger"><i>*) Centang 1 jawaban benar</i></p>
+								<p class="text-bold text-danger"><i>*) Centang 1 jawaban benar</i></p>
 							</div>
 						</div>
 						<div class="m-portlet__foot m-portlet__foot--fit">

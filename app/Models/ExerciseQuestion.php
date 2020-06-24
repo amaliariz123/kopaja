@@ -39,4 +39,12 @@ class ExerciseQuestion extends Model
     {
         return $this->belongsTo('App\Models\Tax', 'id_tax');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function exerciseQuestionSolution()
+    {
+        return $this->hasMany('App\Models\ExerciseQuestionSolution');
+    }
 }

@@ -85,9 +85,9 @@
 				                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
 				                            </div>
 				                        </div>
-				                        <small id="emailHelp" class="form-text text-muted">Opsional. Untuk melengkapi <b>pertanyaan</b></small>
-										<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 									</div>
+									<small id="emailHelp" class="form-text text-muted">Opsional. Untuk melengkapi <b>pertanyaan</b></small>
+									<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 								</div>
 							</div>
 							<div class="form-group m-form__group row">
@@ -114,9 +114,9 @@
 				                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
 				                            </div>
 				                        </div>
-				                        <small id="emailHelp" class="form-text text-muted">Opsional. Untuk melengkapi <b>penjelasan</b></small>
-										<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 									</div>
+									<small id="emailHelp" class="form-text text-muted">Opsional. Untuk melengkapi <b>penjelasan</b></small>
+									<small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
 								</div>
 							</div>
 						</fieldset>

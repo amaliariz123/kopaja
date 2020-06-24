@@ -19,7 +19,7 @@
 								<div class="col-lg-12">
 									<h6 style="text-align: center;">Pilih berkas untuk diimpor. Format berkas: *.xls; atau *.xlsx</h6><br>
 									<input type="file" name="excel" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"><br>
-									<a href="{{url('contoh_soal/import/download')}}" style="margin-top: 15px" class="btn btn-sm btn-info pull-right"><i class="la la-download"></i> Unduh Template</a><br>
+									<a href="{{url('contoh_soal/import/download')}}" style="margin-top: 15px" class="btn btn-sm btn-info"><i class="la la-download"></i> Unduh Template</a><br>
 								</div>
 							</div>
 						</div>

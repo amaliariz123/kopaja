@@ -65,13 +65,16 @@
 									            </div>
 									            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
 									            <div>
-									                <span class="btn default btn-file">
+									                <span class="btn btn-info btn-sm btn-file">
 									                    <span class="fileinput-new"> Ganti foto </span>
 									                    <span class="fileinput-exists"> Ubah </span>
 									                    <input type="file" name="profile_picture" accept="image/jpg,image/jpeg,image/png"> </span>
-									                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Hapus </a>
+									                <a href="javascript:;" class="btn btn-danger btn-sm fileinput-exists" data-dismiss="fileinput"> Hapus </a>
 									            </div>
-									        </div>
+									        </div><br>
+									        @if($user['profile_picture'] != null)
+									        <button id="delete-btn" class="btn btn-sm btn-secondary">Hapus foto</button>
+									        @endif
 										</div>
 									</div>
 								</div>
@@ -100,9 +103,6 @@
 												<input type="password" class="form-control m-input" name="old_password" value="" id="currentPass">
 												<i onclick="show('currentPass')" class="fas fa-eye-slash" id="currentPass" style="border: 1px solid #ede9df; padding-top: 10px;padding-left: 10px;padding-right: 10px"></i>
 											</div>
-											<a href="">
-											<small id="emailHelp" class="form-text text-muted">Lupa kata sandi? </small>
-											</a>
 										</div>
 									</div>
 									<div class="form-group m-form__group row">
@@ -170,6 +170,38 @@
 			//console.log(i);
 		}
 	}
+
+	$(document).ready(function() {
+		$('#delete-btn').on('click', function(event){
+			event.preventDefault();
+            var id = `{!! $user->id !!}`;
+            
+            swal({
+                text: "Yakin untuk menghapus foto?",
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus sekarang.',
+                cancelButtonText: 'Tidak, batalkan.',
+                reverseButtons: true,
+                type: 'warning',
+            })
+            .then((result) => {
+                if(result.value) 
+                {
+                    $.ajax({
+                        url: "{{url('/user/delete/picture')}}"+"/"+id,
+                        method: 'get',
+                        success: function(result){
+                            swal('Dihapus!','Foto telah dihapus.','success')
+                            location.reload();
+                        }  
+                    })
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swal('Dibatalkan', 'Foto batal dihapus.','error')
+                }
+            });
+        });
+	});
 
 
 </script>

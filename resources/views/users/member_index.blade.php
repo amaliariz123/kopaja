@@ -56,6 +56,7 @@
                                 <tr>
                                     <th>Nama</th>
                                     <th>Instansi</th>
+                                    <th>Kabupaten</th>
                                     <th>Usia (tahun)</th>
                                     <th>Status</th>
                                     <th>Opsi</th>
@@ -97,6 +98,7 @@
             columns : [
                 {data: 'fullname', name: 'fullname', visible:true},
                 {data: 'institution', name: 'institution', visible:true},
+                {data: 'city', name: 'city', visible:true},
                 {data: 'age', name: 'age', visible:true},
                 {data: 'member_status', name:'member_status', visible:true},
                 {data: 'option', name: 'option', visible:true},

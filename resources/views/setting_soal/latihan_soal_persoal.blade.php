@@ -104,8 +104,12 @@
 </div>
 <br>
 @endforeach
-
+<br>
 <div class="row">
+    <div class="col-md-1">
+        <a href="{{url('latihan_soal')}}" type="reset" class="btn btn-sm btn-outline-info m-btn m-btn--outline-2x" id=""> <i class="fa fa-arrow-left"></i> &nbsp;Kembali</a>
+    </div>
+
     <div class="col-md-11">
         <div class="pull-right">
             {{ $questions->links() }}

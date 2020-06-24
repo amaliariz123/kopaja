@@ -303,7 +303,9 @@ Route::get('/bantuan',function(){
     return view('bantuan');
 })->name('bantuan');
 
-Route::get('/getCity/{id}', 'UserController@getCity')->name('getCity');
+
+Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
+Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
 
 
 /** 
@@ -329,6 +331,7 @@ Route::get('/user/role/{id}/edit','UserController@editRole');
 Route::post('/user/role/update/{id}','UserController@changeUserRole');
 Route::get('/members','UserController@indexMember');
 Route::get('/members/get_data','UserController@getDataMember');
+Route::get('/user/delete/picture/{id}','UserController@deletePicture');
 
 //testi
 Route::get('/testimoni', 'TestiController@indexTesti');
@@ -396,13 +399,46 @@ Route::get('/latihan_soal/delete/soal/{id}', 'SettingSoalController@deleteSoal')
 Route::post('/latihan_soal/import/soal/{id}','SettingSoalController@saveImport');
 Route::get('/latihan_soal/import/download','SettingSoalController@downloadTemplate');
 Route::get('/latihan_soal/export/soal/{id}','SettingSoalController@exportSoal');
+Route::get('/latihan_soal/hasil/{id}','SettingSoalController@showResult');
+Route::get('/latihan_soal/result/{id}','SettingSoalController@resultLatihan');
+Route::get('/latihan_soal/{id}/member/{member_id}','SettingSoalController@showAnswer');
 
-//pembahasan latihan soal
+//kuis
+Route::get('/kuis','KuisController@index');
+Route::get('/kuis/get_data','KuisController@getData');
+Route::post('/kuis/create/store','KuisController@store');
+Route::get('/kuis/{id}/edit','KuisController@edit');
+Route::post('/kuis/edit/update/{id}','KuisController@update');
+Route::get('/kuis/delete/{id}','KuisController@delete');
+Route::get('/kuis/show/{id}','KuisController@show')->name('detail.kuis.soal');
+Route::get('/kuis/create/{id}/soal','KuisController@createSoal');
+Route::post('/kuis/create/{id}/soal/store','KuisController@storeSoal');
+Route::get('/kuis/edit/{quiz_id}/soal/{id}','KuisController@editSoal');
+Route::post('/kuis/edit/{quiz_id}/soal/{id}/update','KuisController@updateSoal');
+Route::get('/kuis/delete/{quiz_id}/soal/{id}','KuisController@deleteSoal');
+Route::get('/kuis/{quiz_id}/search/soal','KuisController@search');
+Route::post('/kuis/import/save/{quiz_id}','KuisController@saveImport');
+Route::get('/kuis/export/soal/{quiz_id}','KuisController@exportSoal');
+Route::get('/kuis/hasil/{id}','KuisController@showResult');
+Route::get('/kuis/result/{id}','KuisController@resultKuis');
+Route::get('/kuis/{quiz_id}/member/{member_id}','KuisController@showAnswer');
 
+//pembahasan soal
+Route::get('pembahasan_soal','PembahasanController@index')->name('pembahasan.soal');
+Route::get('pembahasan_soal/get_data','PembahasanController@getData');
+Route::get('pembahasan_soal/create/','PembahasanController@create');
+Route::post('pembahasan_soal/create/store/{id_soal}','PembahasanController@store');
+Route::get('pembahasan_soal/edit/{id_soal}','PembahasanController@edit');
+Route::post('pembahasan_soal/edit/update/{id_soal}','PembahasanController@update');
+Route::get('pembahasan_soal/delete/{id_soal}','PembahasanController@delete');
 
 /* ROUTE FILE IN STORAGE */
 Route::group(['prefix' => '/storage'], function () {
     Route::get('tim_pengembang/{id}', 'DevelopersController@getPicture');
+    Route::get('pajak/{id}', 'PajakController@openPdf');
+    Route::get('kuis/{id}','KuisController@getImageUrl');
+    Route::get('pembahasan/{id}','PembahasanController@getImageUrl');
+
 });
 
 });

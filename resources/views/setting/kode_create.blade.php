@@ -3,7 +3,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Generate Kode Premium</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Kode Premium</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -15,6 +15,7 @@
 					<div class="form-group">
 						<label for="Jumlah kode" class="form-control-label">Jumlah kode<span class="text-danger">*</span></label><br>
 						<select  class="form-control m-input" id="exampleSelect1" name="jumlah_kode" required>
+							<option value="5">5</option>							
 							<option value="10">10</option>
 							<option value="25">25</option>
 							<option value="50">50</option>

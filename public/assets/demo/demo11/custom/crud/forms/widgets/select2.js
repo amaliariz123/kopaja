@@ -4,7 +4,7 @@ var Select2 = {
             placeholder: "Select a state"
         }),
         $("#m_select2_1, #m_select2_1_validate").select2({
-            placeholder: "Select an option"
+            placeholder: "Select ..."
         }), $("#m_select2_2, #m_select2_2_validate").select2({
             placeholder: "Select a state"
         }), $("#m_select2_3, #m_select2_3_validate").select2({

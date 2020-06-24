@@ -1,3 +1,7 @@
+<?php 
+	use Illuminate\Support\Facades\Input;
+ ?>
+
 @extends('base.header')
 @section('title','Tambah Soal')
 @section('latihan','m-menu__item--active')
@@ -31,7 +35,7 @@
         </div>
     </div>
     <!-- END: Subheader -->
-
+	@include('base.notification')
     <div class="m-content">
         <!--Begin::Section-->
         <div class="row">
@@ -55,7 +59,7 @@
 								<div class="col-6">
 									<div class="form-group m-form__group">
 										<h6>Soal</h6>
-										<textarea class="form-control m-input" id="exampleTextarea" rows="10" name="question" required>
+										<textarea class="form-control m-input" id="exampleTextarea" rows="10" name="question" required> {{{ Input::old('question') }}}
 										</textarea>
 										<input type="hidden" name="id_tax" value="{{$tax->id}}" />
 									</div>
@@ -85,10 +89,10 @@
 										<h6>Opsi a</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="1" name="jawaban">
+												<input type="checkbox" class="custom-control-input" value="1" name="jawaban" >
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_a" required />
+													<input type="text" class="form-control" value="{{old('opsi_a')}}" name="opsi_a" required />
 												</div>
 											</label>
 										</div>
@@ -102,7 +106,7 @@
 												<input type="checkbox" class="custom-control-input" value="3" name="jawaban">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_c" required />
+													<input type="text" class="form-control" name="opsi_c" value="{{old('opsi_c')}}"required />
 												</div>
 											</label>
 										</div>
@@ -118,7 +122,7 @@
 												<input type="checkbox" class="custom-control-input" value="2" name="jawaban">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_b" required />
+													<input type="text" class="form-control" name="opsi_b" value="{{old('opsi_b')}}"required />
 												</div>
 											</label>
 										</div>
@@ -132,7 +136,7 @@
 												<input type="checkbox" class="custom-control-input" value="4" name="jawaban">
 												<span></span>
 												<div class="col-12">
-													<input type="text" class="form-control" name="opsi_d" required />
+													<input type="text" class="form-control" name="opsi_d" value="{{old('opsi_d')}}" required />
 												</div>
 											</label>
 										</div>
@@ -140,7 +144,7 @@
 								</div>
 							</div>
 							<div style="margin-top: 1.5em">
-								<p class="text-danger"><i>*) Centang 1 jawaban benar</i></p>
+								<p class=" text-bold text-danger"><i>*) Centang 1 jawaban benar</i></p>
 							</div>
 						</div>
 						<div class="m-portlet__foot m-portlet__foot--fit">

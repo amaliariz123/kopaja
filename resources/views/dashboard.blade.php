@@ -1,15 +1,6 @@
 @extends('base.header')
 @section('title','Dashboard')
 @section('dashboard','m-menu__item--active')
-@section('custom-css')
-<style>
-#chartdiv {
-  width: 100%;
-  height: 500px;
-}
-
-</style>
-@endsection
 
 @section('content')
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
@@ -132,13 +123,13 @@
               <div class="m-widget24">
                 <div class="m-widget24__item">
                   <h4 class="m-widget24__title">
-                    Testimoni
+                    Kuis
                   </h4><br>
                   <span class="m-widget24__desc">
                     {{$show}}
                   </span>
                   <span class="m-widget24__stats m--font-danger" style="margin-top: 5px">
-                    {{$testimoni}}
+                    {{$kuis}}
                   </span>
                   <div class="m--space-40"></div>
                 </div>
@@ -181,14 +172,14 @@
                     <i class="la la-gear"></i>
                   </span>
                   <h3 class="m-portlet__head-text">
-                    Chart dari data member, testimoni, pajak dan latihan soal.
+                    Grafik data member, kuis, dan latihan soal.
                   </h3>
                 </div>
               </div>
             </div>
             <div class="m-portlet__body">
 
-              <div id="chartdiv"></div>
+              <div id="m_morris_3" style="height:500px;"></div>
 
             </div>
           </div>
@@ -207,73 +198,60 @@
 <script src="{{url('assets/demo/demo11/custom/crud/metronic-datatable/base/html-table.js')}}" type="text/javascript"></script>
 
 <!-- chart -->
-<script src="//www.amcharts.com/lib/4/core.js"></script>
-<script src="//www.amcharts.com/lib/4/charts.js"></script>
-<script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
 <!-- Chart code -->
 <script>
-    am4core.ready(function() {
+var data = {!! $data !!};
 
-    // Themes begin
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-
-     // Create chart instance
-    var chart = am4core.create("chartdiv", am4charts.XYChart);
-
-//if(isset($data)){
-    // Add data
-  chart.data = {!! $data !!};
-
-  // Create axes
-    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-
-  if(chart.data[0]['daily_date']){
-        categoryAxis.dataFields.category = 'daily_date';
-      }else{
-        categoryAxis.dataFields.category = 'month_year';
+    console.log(data);
+    if(data[0]['daily_date']){
+      var MorrisChartsDemo = {
+      init: function() {
+        new Morris.Bar({
+          element: "m_morris_3",
+          data: data,
+          xkey: 'daily_date',
+          ykeys: ['total_premium_members','total_regular_members','total_quizzes','total_tax_exercises'],
+          labels: ['Premium','Reguler','Kuis','Latihan Soal'],
+          barColors:['#36a3f7', '#34bfa3','#f4516c','#716aca']
+      })
+      // new Morris.Line({
+      //     element: "m_morris_2",
+      //     data: data,
+      //     xkey: 'daily_date',
+      //     ykeys: ['daily_registration','daily_transaction_success'],
+      //     labels: ['user','order']
+      // })
       }
-
-    categoryAxis.numberFormatter.numberFormat = "#";
-    // categoryAxis.renderer.inversed = true;
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.renderer.cellStartLocation = 0.1;
-    categoryAxis.renderer.cellEndLocation = 0.9;
-
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    // valueAxis.renderer.opposite = true;
-    // console.log(valueAxis);
-
-    // Create series
-    function createSeries(field, name) {
-      var series = chart.series.push(new am4charts.ColumnSeries());
-      // series.dataFields.valueY = field;
-      series.dataFields.valueY = field;
-
-      if(chart.data[0]['daily_date']){
-        series.dataFields.categoryX = 'daily_date';
-      }else{
-        series.dataFields.categoryX = 'month_year';
-      }
-
-      series.name = name;
-      series.columns.template.tooltipText = "{name}: [bold]{valueY}[/]";
-      series.columns.template.height = am4core.percent(100);
-      series.sequencedInterpolation = true;
-      // console.log(series);
     }
-
-    createSeries("premium", "Member Premium");
-    createSeries("regular", "Member Reguler");
-    createSeries("testimoni", "Testimoni member");
-    createSeries("exercise", "Latihan Soal");
-//}
-    }); 
-    // end am4core.ready()
+    }else{
+      var MorrisChartsDemo = {
+      init: function() {
+        new Morris.Bar({
+          element: "m_morris_3",
+          data: data,
+          xkey: 'month_year',
+          ykeys: ['total_premium_members','total_regular_members','total_quizzes','total_tax_exercises'],
+          labels: ['Premium','Reguler','Kuis','Latihan Soal'],
+          barColors:['#36a3f7', '#34bfa3','#f4516c','#716aca']
+      })
+      // new Morris.Line({
+      //     element: "m_morris_2",
+      //     data: data,
+      //     xkey: 'yearMonth',
+      //     ykeys: ['monthly_registration','monthly_transaction_success'],
+      //     labels: ['Registration','Sucessfull Purchase']
+      // })
+       }
+    }
+    }
+    
+    jQuery(document).ready(function() {
+      MorrisChartsDemo.init()
+  });
 </script>
-
-
 
 @endpush
 

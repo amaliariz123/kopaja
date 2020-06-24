@@ -25,7 +25,8 @@
 					</div>
 					<div class="form-group">
 						<label for="module" class="form-control-label">Materi</label><br>
-						<input type="text" name="detail_module" class="form-control" value="" disabled>
+						<div id="show_link">
+						</div>
 					</div>
 					</fieldset>
 					<br>

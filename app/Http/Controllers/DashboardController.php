@@ -11,7 +11,7 @@ use DateTimeInterface;
 use DatePeriod;
 use DateInterval;
 use Session;
-use App\Models\Testimonial;
+use App\Models\Quiz;
 use App\Models\Member;
 use App\Models\DailyReport;
 use App\Models\MonthlyReport;
@@ -35,7 +35,7 @@ class DashboardController extends Controller
 
         $result['premium'] = 0;
         $result['regular'] = 0;
-        $result['testimoni'] = 0;
+        $result['kuis'] = 0;
         $result['exercise'] = 0;
         $result['show'] = 'Today';
 
@@ -47,7 +47,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium'] = 0;
                         $result['regular'] = 0;
-                        $result['testimoni'] = 0;
+                        $result['kuis'] = 0;
                         $result['exercise'] = 0;
                         $result['show'] = 'Today';
                         $result['data'][] = $item;
@@ -62,14 +62,14 @@ class DashboardController extends Controller
                         if($item['month']) {
                             $result['premium']=$result['premium']+$item['total_premium_members'];
                             $result['regular']=$result['regular']+$item['total_regular_members'];
-                            $result['testimoni']=$result['testimoni']+$item['total_testimonials'];
+                            $result['kuis']=$result['kuis']+$item['total_quizzes'];
                             $result['exercise']=$result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = 'All time';
                             $result['data'][] = $item;
                         } else {
                             $result['premium']=0;
                             $result['regular']=0;
-                            $result['testimoni']=0;
+                            $result['kuis']=0;
                             $result['exercise']=0;
                             $result['show']='All time';
                             $result['data'][]=$item;
@@ -87,7 +87,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -102,14 +102,14 @@ class DashboardController extends Controller
                         if($item['daily_date'] == $now) {
                             $result['premium'] = $result['premium']+$item['total_premium_members'];
                             $result['regular'] = $result['regular']+$item['total_regular_members'];
-                            $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                            $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                             $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = 'Today';
                             $result['data'][] = $item;
                         } else {
                             $result['premium']=0;
                             $result['regular']=0;
-                            $result['testimoni']=0;
+                            $result['kuis']=0;
                             $result['exercise']=0;
                             $result['show']='Today';
                             $result['data'][] = $item;
@@ -127,7 +127,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -142,14 +142,14 @@ class DashboardController extends Controller
                         if($item['daily_date'] == $yesterday) {
                             $result['premium'] = $result['premium']+$item['total_premium_members'];
                             $result['regular'] = $result['regular']+$item['total_regular_members'];
-                            $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                            $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                             $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = 'Yesterday';
                             $result['data'][] = $item;
                         } else {
                             $result['premium']=0;
                             $result['regular']=0;
-                            $result['testimoni']=0;
+                            $result['kuis']=0;
                             $result['exercise']=0;
                             $result['show']='Yesterday';
                             $result['data'][] = $item;
@@ -167,7 +167,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -181,14 +181,14 @@ class DashboardController extends Controller
                         if($item['daily_date'] >= $seven) {
                             $result['premium'] = $result['premium']+$item['total_premium_members'];
                             $result['regular'] = $result['regular']+$item['total_regular_members'];
-                            $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                            $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                             $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = 'Last 7 days';
                             $result['data'][] = $item;
                         } else {
                             $result['premium']=0;
                             $result['regular']=0;
-                            $result['testimoni']=0;
+                            $result['kuis']=0;
                             $result['exercise']=0;
                             $result['show']='Last 7 days';
                             $result['data'][] = $item;
@@ -205,7 +205,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -218,14 +218,14 @@ class DashboardController extends Controller
                         if($item['daily_date'] >= $thirty) {
                             $result['premium'] = $result['premium']+$item['total_premium_members'];
                             $result['regular'] = $result['regular']+$item['total_regular_members'];
-                            $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                            $result['kuis'] = $result['kuis']+$item['total_kuis'];
                             $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = 'Last 30 days';
                             $result['data'][] = $item;
                         } else {
                             $result['premium']=0;
                             $result['regular']=0;
-                            $result['testimoni']=0;
+                            $result['kuis']=0;
                             $result['exercise']=0;
                             $result['show']='Last 30 days';
                             $result['data'][] = $item;
@@ -243,7 +243,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -257,7 +257,7 @@ class DashboardController extends Controller
                         if(($item['daily_date'] == $range[1]) || ($item['daily_date'] == $range[2]) ) {
                             $result['premium'] = $result['premium']+$item['total_premium_members'];
                             $result['regular'] = $result['regular']+$item['total_regular_members'];
-                            $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                            $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                             $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = $range[1];
                             $result['data'][] = $item;
@@ -282,7 +282,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -300,14 +300,14 @@ class DashboardController extends Controller
                                 if($item['daily_date'] >= $range[1]) {
                                     $result['premium'] = $result['premium']+$item['total_premium_members'];
                                     $result['regular'] = $result['regular']+$item['total_regular_members'];
-                                    $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                                    $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                                     $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                                     $result['show'] = 'From '.$range[1].' to '.$range[2];
                                     $result['data'][] = $item;
                                 } else {
                                     $result['premium']=0;
                                     $result['regular']=0;
-                                    $result['testimoni']=0;
+                                    $result['kuis']=0;
                                     $result['exercise']=0;
                                     $result['show']='From '.$range[1].' to '.$range[2];
                                     $result['data'][] = $item;
@@ -315,7 +315,7 @@ class DashboardController extends Controller
                             } else {
                                 $result['premium']=0;
                                 $result['regular']=0;
-                                $result['testimoni']=0;
+                                $result['kuis']=0;
                                 $result['exercise']=0;
                                 $result['show']='From '.$range[1].' to '.$range[2];
                                 $result['data'][] = $item;
@@ -332,7 +332,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -346,7 +346,7 @@ class DashboardController extends Controller
                         if ($item['month'] == $month) {
                             $result['premium'] = $result['premium']+$item['total_premium_members'];
                             $result['regular'] = $result['regular']+$item['total_regular_members'];
-                            $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                            $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                             $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = Carbon::now()->format('F');
                             $result['data'][] = $item;
@@ -354,7 +354,7 @@ class DashboardController extends Controller
                         } else {
                             $result['premium']=0;
                             $result['regular']=0;
-                            $result['testimoni']=0;
+                            $result['kuis']=0;
                             $result['exercise']=0;
                             $result['show']= Carbon::now()->format('F');
                             $result['data'][] = $item;
@@ -372,7 +372,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -386,7 +386,7 @@ class DashboardController extends Controller
                         if(($item['month'] == date('m', strtotime($range[1]))) && ($item['year'] == date('Y', strtotime($range[1])))) {
                             $result['premium'] = $result['premium']+$item['total_premium_members'];
                             $result['regular'] = $result['regular']+$item['total_regular_members'];
-                            $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                            $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                             $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                             $result['show'] = Carbon::now()->subMonth()->format('F');
                             $result['data'][] = $item;
@@ -408,7 +408,7 @@ class DashboardController extends Controller
                     foreach ($result as $item) {
                         $result['premium']=0;
                         $result['regular']=0;
-                        $result['testimoni']=0;
+                        $result['kuis']=0;
                         $result['exercise']=0;
                         $result['show']='Today';
                         $result['data'][] = $item;
@@ -425,14 +425,14 @@ class DashboardController extends Controller
                                 if($item['daily_date'] >= $range[1]) {
                                     $result['premium'] = $result['premium']+$item['total_premium_members'];
                                     $result['regular'] = $result['regular']+$item['total_regular_members'];
-                                    $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                                    $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                                     $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                                     $result['show'] = 'From '.$range[1].' to '.$range[2];
                                     $result['data'][] = $item;
                                 } else {
                                     $result['premium']=0;
                                     $result['regular']=0;
-                                    $result['testimoni']=0;
+                                    $result['kuis']=0;
                                     $result['exercise']=0;
                                     $result['show']='From '.$range[1].' to '.$range[2];
                                     $result['data'][] = $item;
@@ -440,7 +440,7 @@ class DashboardController extends Controller
                             } else {
                                 $result['premium']=0;
                                 $result['regular']=0;
-                                $result['testimoni']=0;
+                                $result['kuis']=0;
                                 $result['exercise']=0;
                                 $result['show']='From '.$range[1].' to '.$range[2];
                                 $result['data'][] = $item;
@@ -457,14 +457,14 @@ class DashboardController extends Controller
                 if($item['daily_date'] == $now) {
                     $result['premium'] = $result['premium']+$item['total_premium_members'];
                     $result['regular'] = $result['regular']+$item['total_regular_members'];
-                    $result['testimoni'] = $result['testimoni']+$item['total_testimonials'];
+                    $result['kuis'] = $result['kuis']+$item['total_quizzes'];
                     $result['exercise'] = $result['exercise']+$item['total_tax_exercises'];
                     $result['show'] = 'Today';
                     $result['data'][] = $item;
                 } else {
                     $result['premium']=0;
                     $result['regular']=0;
-                    $result['testimoni']=0;
+                    $result['kuis']=0;
                     $result['exercise']=0;
                     $result['show']='Today';
                     $result['data'][] = $item;
@@ -477,7 +477,7 @@ class DashboardController extends Controller
         foreach ($result as $item) {
             $result['premium']=0;
             $result['regular']=0;
-            $result['testimoni']=0;
+            $result['kuis']=0;
             $result['exercise']=0;
             $result['show']='Today';
             $result['data'][] = $item;

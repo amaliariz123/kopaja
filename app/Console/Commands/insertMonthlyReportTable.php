@@ -48,7 +48,7 @@ class insertMonthlyReportTable extends Command
             (select Date_Format(daily_date, \'%Y-%m\')) as month_year,
             (select Sum(daily_reports.total_premium_members)) as total_premium_members,
             (select Sum(daily_reports.total_regular_members)) as total_regular_members,
-            (select Sum(daily_reports.total_testimonials)) as total_testimonials,
+            (select Sum(daily_reports.total_quizzes)) as total_quizzes,
             (select Sum(daily_reports.total_tax_exercises)) as total_tax_exercises
             FROM daily_reports
             group by Month(daily_date)

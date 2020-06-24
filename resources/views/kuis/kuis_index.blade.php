@@ -117,7 +117,7 @@
 								<span></span>
 							</label>
 							<label class="m-radio m-radio--brand">
-								<input type="radio" name="level" value="medium">Medium
+								<input type="radio" name="level" value="medium">Sedang
 								<span></span>
 							</label>
 							<label class="m-radio m-radio--brand">
@@ -128,7 +128,7 @@
 					</div>
 					<div class="form-group">
 						<label for="duration" class="form-control-label">Durasi<span class="text-danger">*</span></label>
-						<input type="number" min="1" class="form-control" name="duration" placeholder="..." required>
+						<input type="number" id="duration" min="1" class="form-control" name="duration" placeholder="..." required>
 						<small id="emailHelp" class="form-text text-muted">Durasi dalam menit</small>
 					</div>
 					<div class="form-group">
@@ -286,7 +286,7 @@
                 if(result.value) 
                 {
                     $.ajax({
-                        url: "{{url('/tim_pengembang/delete')}}"+"/"+data['id'],
+                        url: "{{url('/kuis/delete')}}"+"/"+data['id'],
                         method: 'get',
                         success: function(result){
                             //location.reload();

@@ -45,54 +45,54 @@ class insertDailyReportTable extends Command
         if($date) {
             $result['member'] = DB::select('
                 SELECT
-                (select date(members.created_at)) as daily_date,
+                (select date(members.updated)) as daily_date,
                 (select count(case when members.id is not null and members.member_status="premium" then 1 else null end)) as total_premium_members,
                 (select count(case when members.id is not null and members.member_status="reguler" then 1 else null end)) as total_regular_members
                 FROM members
-                where members.created_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
-                group by date(members.created_at)
+                where members.updated_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
+                group by date(members.updated_at)
             ');
 
-            $result['testimoni'] = DB::select('
+            $result['kuis'] = DB::select('
                 SELECT
-                (select date(testimonials.created_at)) as daily_date,
-                (select count(distinct(testimonials.id))) as total_testimonials
-                FROM testimonials 
-                where testimonials.created_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
-                group by date(testimonials.created_at)
+                (select date(member_quiz_histories.updated)) as daily_date,
+                (select count(distinct(member_quiz_histories.id))) as total_quizzes
+                FROM quizzes 
+                where member_quiz_histories.updated_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
+                group by date(member_quiz_histories.updated_at)
             ');
 
             $result['exercise'] = DB::select('
                 SELECT 
-                (select date(member_exercises.created_at)) as daily_date,
+                (select date(member_exercises.updated_at)) as daily_date,
                 (select count(distinct(member_exercises.id))) as total_tax_exercises
                 FROM member_exercises
-                where member_exercises.created_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
-                group by date(member_exercises.created_at)
+                where member_exercises.updated_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
+                group by date(member_exercises.updated_at)
             ');
         } else {
             $result['member'] = DB::select('
                 SELECT
-                (select date(members.created_at)) as daily_date,
+                (select date(members.updated_at)) as daily_date,
                 (select count(case when members.id is not null and members.member_status="premium" then 1 else null end)) as total_premium_members,
                 (select count(case when members.id is not null and members.member_status="reguler" then 1 else null end)) as total_regular_members
                 FROM members
-                group by date(members.created_at)
+                group by date(members.updated_at)
             ');
-            $result['testimoni'] = DB::select('
+            $result['kuis'] = DB::select('
                 SELECT
-                (select date(testimonials.created_at)) as daily_date,
-                (select count(distinct(testimonials.id))) as total_testimonials
-                FROM testimonials 
-                group by date(testimonials.created_at)
+                (select date(quizzes.updated_at)) as daily_date,
+                (select count(distinct(quizzes.id))) as total_quizzes
+                FROM quizzes 
+                group by date(quizzes.updated_at)
             ');
 
             $result['exercise'] = DB::select('
                 SELECT 
-                (select date(member_exercises.created_at)) as daily_date,
+                (select date(member_exercises.updated_at)) as daily_date,
                 (select count(distinct(member_exercises.id))) as total_tax_exercises
                 FROM member_exercises
-                group by date(member_exercises.created_at)
+                group by date(member_exercises.updated_at)
             ');
         }
 
@@ -104,10 +104,10 @@ class insertDailyReportTable extends Command
             }
         }
 
-        if($result['testimoni']){
-            $result['testimoni'] = json_decode(json_encode($result['testimoni']),true);
-            foreach ($result['testimoni'] as $key => $value) {
-                $save['testimoni'] = DailyReport::updateOrCreate(['daily_date' => $value['daily_date']], $value);
+        if($result['kuis']){
+            $result['kuis'] = json_decode(json_encode($result['kuis']),true);
+            foreach ($result['kuis'] as $key => $value) {
+                $save['kuis'] = DailyReport::updateOrCreate(['daily_date' => $value['daily_date']], $value);
             }
         }
 

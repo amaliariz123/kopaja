@@ -123,13 +123,13 @@
               <div class="m-widget24">
                 <div class="m-widget24__item">
                   <h4 class="m-widget24__title">
-                    Testimoni
+                    Kuis
                   </h4><br>
                   <span class="m-widget24__desc">
                     {{$show}}
                   </span>
                   <span class="m-widget24__stats m--font-danger" style="margin-top: 5px">
-                    {{$testimoni}}
+                    {{$kuis}}
                   </span>
                   <div class="m--space-40"></div>
                 </div>
@@ -172,7 +172,7 @@
                     <i class="la la-gear"></i>
                   </span>
                   <h3 class="m-portlet__head-text">
-                    Chart dari data member, testimoni, pajak dan latihan soal.
+                    Grafik data member, kuis, dan latihan soal.
                   </h3>
                 </div>
               </div>
@@ -213,8 +213,8 @@ var data = {!! $data !!};
           element: "m_morris_3",
           data: data,
           xkey: 'daily_date',
-          ykeys: ['total_premium_members','total_regular_members','total_testimonials','total_tax_exercises'],
-          labels: ['Premium','Reguler','Testimoni','Latihan Soal'],
+          ykeys: ['total_premium_members','total_regular_members','total_quizzes','total_tax_exercises'],
+          labels: ['Premium','Reguler','Kuis','Latihan Soal'],
           barColors:['#36a3f7', '#34bfa3','#f4516c','#716aca']
       })
       // new Morris.Line({
@@ -233,8 +233,8 @@ var data = {!! $data !!};
           element: "m_morris_3",
           data: data,
           xkey: 'month_year',
-          ykeys: ['total_premium_members','total_regular_members','total_testimonials','total_tax_exercises'],
-          labels: ['Premium','Reguler','Testimoni','Latihan Soal'],
+          ykeys: ['total_premium_members','total_regular_members','total_quizzes','total_tax_exercises'],
+          labels: ['Premium','Reguler','Kuis','Latihan Soal'],
           barColors:['#36a3f7', '#34bfa3','#f4516c','#716aca']
       })
       // new Morris.Line({

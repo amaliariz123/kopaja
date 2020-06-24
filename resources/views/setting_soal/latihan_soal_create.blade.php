@@ -1,3 +1,7 @@
+<?php 
+	use Illuminate\Support\Facades\Input;
+ ?>
+
 @extends('base.header')
 @section('title','Tambah Soal')
 @section('latihan','m-menu__item--active')

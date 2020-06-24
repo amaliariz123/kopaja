@@ -18,7 +18,7 @@ class CreateDailyReportsTable extends Migration
             $table->date('daily_date');
             $table->integer('total_premium_members');
             $table->integer('total_regular_members');
-            $table->integer('total_testimonials');
+            $table->integer('total_quizzes');
             $table->integer('total_tax_exercises');
             $table->timestamps();
         });

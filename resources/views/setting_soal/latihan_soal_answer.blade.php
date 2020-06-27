@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="row">
                                     <label class="text-bold col-sm-6"><i style="color:#f5bf42;" class="fa fa-minus-circle position-left"></i> &nbsp; Tidak dijawab</label>
-                                    <label class="text-bold col-sm-6"> : {{$not_answered}}</label>
+                                    <label class="text-bold col-sm-6"> : {{$not_answered - ($wrong_answer + $right_answer)}}</label>
                                 </div>
                             </div>
                         </div>

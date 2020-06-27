@@ -48,15 +48,6 @@ class LoginController extends Controller
         } 
         else if($user->hasRole('user'))
         {
-            $detail = Member::where('user_id', '=', $user->id)->first();
-
-            session([
-                'user_id' => $user->id,
-                'name' => $user->fullname,
-                'member_status' => $detail->member_status,
-                'premium_code' => $detail->premium_code,
-            ]);
-
             $detail = Member::where('user_id','=', $user->id)->first();
 
             session([

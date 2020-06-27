@@ -23,6 +23,7 @@ class DashboardController extends Controller
     public function index($range=null)
     {
 
+
         $data['daily'] = DailyReport::orderBy('daily_date','asc')->get();
         $data['monthly'] = MonthlyReport::orderBy('month_year')->get();
 
@@ -55,8 +56,6 @@ class DashboardController extends Controller
                     $result['data'] = json_encode($result['data']);
                     session(['warning' => ['Empty data!']]);
                     return view('dashboard', $result);
-                    //return $result;
-
                 } elseif(!$data['monthly']->isEmpty()) {
                     foreach ($data['monthly'] as $item) {
                         if($item['month']) {
@@ -77,8 +76,6 @@ class DashboardController extends Controller
                     }
                     $result['data']=json_encode($result['data']);
                     return view('dashboard', $result);
-                    //return $result;
-
                 }
             } 
             //today atau default
@@ -95,8 +92,6 @@ class DashboardController extends Controller
                     $result['data'] = json_encode($result['data']);
                     session(['warning' => ['Empty data!']]);
                     return view('dashboard', $result);
-                    // return $result;
-
                 } elseif (!$data['daily']->isEmpty() ) {
                     foreach ($data['daily'] as $item) {
                         if($item['daily_date'] == $now) {

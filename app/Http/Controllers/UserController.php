@@ -56,18 +56,16 @@ class UserController extends Controller
                 $user['role_id'] = $users[$i]['roles'][$j]['id'];
                 $user['role'] = $users[$i]['roles'][$j]['name'];
             }
-
             $data[] = $user;
         }
-
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button type="button" id="edit-btn" class="btn m-btn--pill m-btn--air         btn-success m-btn--wide btn-sm">Edit status</button>';
-
+            $btn = '<button type="button" id="edit-btn" 
+                    class="btn m-btn--pill m-btn--air btn-success m-btn--wide btn-sm">
+                    Edit status</button>';
                 return $btn;
         })
         ->rawColumns(['option'])
         ->make(true);
-
     }
 
     /**

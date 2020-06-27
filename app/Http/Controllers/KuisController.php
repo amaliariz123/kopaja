@@ -574,11 +574,11 @@ class KuisController extends Controller
                                     ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.isRight',0],['member_quiz_answers.member_id',$member_id]])
                                     ->whereNotNull('answer')
                                     ->count('isRight');
-        $this->data['not_answered'] = DB::table('member_quiz_answers')
-                                    ->join('quiz_questions','quiz_questions.id','=','member_quiz_answers.question_id')
-                                    ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.member_id',$member_id]])
-                                    ->whereNull('answer')
+        $this->data['not_answered'] = DB::table('quiz_questions')
+                                    ->where('quiz_questions.quiz_id',$quiz_id)
+                                    // ->whereNull('answer')
                                     ->count();
+        
         $this->data['question'] = DB::table('quiz_questions')
                                     ->join('member_quiz_answers','member_quiz_answers.question_id','=','quiz_questions.id')
                                     ->select('quiz_questions.id as question_id','quiz_questions.question as question','quiz_questions.option_a as option_a','quiz_questions.option_b as option_b','quiz_questions.option_c as option_c', 'quiz_questions.option_d as option_d','quiz_questions.image as image','quiz_questions.right_answer as right_answer','member_quiz_answers.answer as member_answer')
@@ -592,7 +592,7 @@ class KuisController extends Controller
                                 ->groupBy('quiz_questions.id')
                                 ->get();
 
-        return view('kuis.kuis_answer',$this->data, compact('quiz_id','member_id'));
-           // return $this->data;
+         return view('kuis.kuis_answer',$this->data, compact('quiz_id','member_id'));
+           // return $this->data['not_answered'];
     }
 }

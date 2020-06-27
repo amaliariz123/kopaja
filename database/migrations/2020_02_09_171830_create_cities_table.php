@@ -19,7 +19,6 @@ class CreateCitiesTable extends Migration
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
             $table->string('city');
             $table->string('capital_city');
-            $table->string('k_bsni');
             $table->timestamps();
         });
     }

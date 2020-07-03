@@ -57,18 +57,16 @@ class UserController extends Controller
                 $user['role_id'] = $users[$i]['roles'][$j]['id'];
                 $user['role'] = $users[$i]['roles'][$j]['name'];
             }
-
             $data[] = $user;
         }
-
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button type="button" id="edit-btn" class="btn m-btn--pill m-btn--air         btn-success m-btn--wide btn-sm">Edit status</button>';
-
+            $btn = '<button type="button" id="edit-btn" 
+                    class="btn m-btn--pill m-btn--air btn-success m-btn--wide btn-sm">
+                    Edit status</button>';
                 return $btn;
         })
         ->rawColumns(['option'])
         ->make(true);
-
     }
 
     /**
@@ -232,30 +230,26 @@ class UserController extends Controller
     public function getDataMember()
     {
         $members = Member::with('user','province','city')->orderByDesc('created_at')->get();
-
         $data = [];
         for ($i=0; $i <count($members) ; $i++) {
             $member['user_id'] = $members[$i]->user->id;
             $member['id'] = $members[$i]->id; 
             $member['fullname'] = $members[$i]->user->fullname;
 
-            if($members[$i]->date_of_birth != null)
-            {
+            if($members[$i]->date_of_birth != null) {
                 $member['age'] = Carbon::parse($members[$i]->date_of_birth)->age;
             } else {
                 $member['age'] = null;
             }
             $member['institution'] = $members[$i]->institution;
 
-            if($members[$i]->province_id != null)
-            {
+            if($members[$i]->province_id != null) {
                 $member['province'] = $members[$i]->province->provinsi;   
             } else {
                 $member['province'] = null;
             }
 
-            if($members[$i]->city_id != null)
-            {
+            if($members[$i]->city_id != null) {
                 $member['city'] = $members[$i]->city->kabupaten_kota;    
             } else {
                 $member['city'] = null;
@@ -269,9 +263,8 @@ class UserController extends Controller
             $data[] = $member;
         }
 
-        //return $data;
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button type="button" id="detail-btn" class="btn m-btn--pill btn-primary btn-sm">Detail</button>';
+            $btn = '<button type="button" id="detail-btn" class="btn m-btn--pill btn-primary  btn-sm">Detail</button>';
 
                 return $btn;
         })

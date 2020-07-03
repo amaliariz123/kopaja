@@ -57,7 +57,7 @@
 					if(data.success)
 					{
 						$('#generate-kode-modal').modal('hide');
-						toastr.success('Data berhasil ditambahkan!', 'Success', {timeOut:6000});
+						toastr.success('Kode berhasil dibuat!', 'Success', {timeOut:6000});
 						code_table.ajax.reload();
 						//location.reload();
 					} else {

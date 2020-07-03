@@ -29,7 +29,7 @@
 								<span></span>
 							</label>
 							<label class="m-radio m-radio--brand">
-								<input type="radio" name="level" value="medium">Medium
+								<input type="radio" name="level" value="medium">Sedang
 								<span></span>
 							</label>
 							<label class="m-radio m-radio--brand">

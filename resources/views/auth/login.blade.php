@@ -40,7 +40,6 @@
                         <h1 style="font-weight: bold;">MASUK</h1><br>
 							<form method="POST" action="{{ route('login') }}">
                             @csrf
-							  <!-- Default input -->
 							  <div class="form-group">
                               <h5><input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Email') }}" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 @error('email')
@@ -50,20 +49,16 @@
                                 @enderror
                             </h5>
 							  </div>
-							  <!-- Default input -->
 							  <div class="form-group has-feedback">							    
 							    <h5>
                                 <input style="border: 0px; border-radius: 200px; padding: 25px 20px; background-color: rgba(0,0,0,0.05); width: 70%" placeholder="{{ __('Kata sandi') }}" id="password" type="password" class="form-control @error('password') is-invalid @enderror" data-toggle="password" name="password" required autocomplete="current-password">
-                               
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
 							    </h5>
-							  </div> 
-                            
-
+							  </div>                             
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-1">
                                     <div class="form-check">
@@ -73,7 +68,6 @@
                                 </div>
                             </div>
                             <br>
-
 	                        <div>
                                 <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('Masuk') }}</button></h5><br>
 

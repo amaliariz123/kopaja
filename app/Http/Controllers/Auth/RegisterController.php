@@ -74,11 +74,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // return User::create([
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
-
         $user = config('roles.models.defaultUser')::create([
             'id' => Uuid::uuid4()->getHex(),
             'fullname' => $data['fullname'],

@@ -27,7 +27,7 @@ class City extends Model
     /**
      * @var array
      */
-    protected $fillable = ['province_id', 'city', 'capital_city', 'k_bsni', 'created_at', 'updated_at'];
+    protected $fillable = ['province_id', 'city', 'capital_city'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

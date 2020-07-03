@@ -896,10 +896,8 @@ class SettingSoalController extends Controller
                                     ->where([['exercise_questions.id_tax',$id],['member_exercise_answers.isRight',0],['member_exercise_answers.member_id',$member_id]])
                                     ->whereNotNull('answer')
                                     ->count('isRight');
-        $this->data['not_answered'] = DB::table('member_exercise_answers')
-                                    ->join('exercise_questions','exercise_questions.id','=','member_exercise_answers.question_id')
-                                    ->where([['exercise_questions.id_tax',$id],['member_exercise_answers.member_id',$member_id]])
-                                    ->whereNull('answer')
+        $this->data['not_answered'] = DB::table('exercise_questions')
+                                    ->where('exercise_questions.id_tax',$id)
                                     ->count();
         $this->data['question'] = DB::table('exercise_questions')
                                     ->join('member_exercise_answers','member_exercise_answers.question_id','=','exercise_questions.id')

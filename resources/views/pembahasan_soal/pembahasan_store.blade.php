@@ -54,7 +54,7 @@
                                     <label for="question_text" class="form-control-label col-lg-3 col-sm-12">Soal<span class="text-danger">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-12">
                                         <div class="input-group">
-                                            <textarea class="form-control" rows="5" name="question" required>{{$question->question}}</textarea>
+                                            <textarea class="form-control" rows="5" name="question" required disabled>{{$question->question}}</textarea>
                                             <input type="hidden" name="question_id" value="{{$question->id}}">
                                         </div>
                                     </div>

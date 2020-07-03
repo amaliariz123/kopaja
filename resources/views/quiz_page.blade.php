@@ -134,6 +134,14 @@
         left: 0;
         }
 
+        .btn_nav {
+            background-color: #888888;
+            border-radius: 90%;
+            padding: 10px 18px;
+            margin: 10px;
+            text-align: center;
+        }
+
         table {
             width: 100%;
             border: 1px solid transparent;
@@ -169,58 +177,50 @@
 @endsection
 
 @section('content')
+<section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
+  padding: 180px 0px 0px;">
 <div class="container">
             <div class="row ">
                 <div style="width: 60%; float: :right;">
                     <div class="card main-profile">
-                    <div class="form-header">
-                    	<h3>Riwayat Kuis Pajak</h3>
-                    </div>
-                    	<table id="tabel_history">
-                            <tr>
-                                <th style="border-radius: 5px 0px 0px 0px;">Tanggal</th>
-                                <th>Judul Kuis</th>
-                                <th>Nilai</th>
-                                <th style="border-radius: 0px 5px 0px 0px;">Opsi</th>
-                            </tr>
-                            <tr>
-                                <td>18-09-2020</td>
-                                <td>Kuis Mudah</td>
-                                <td><b>10/100</td>
-                                <td>
-                                    <i class="ti-info-alt" href="#"></i>
-                                    <i class="ti-trash"></i>
-                                    
-                                </td>
-                            </tr>
-                    	</table>
-                    	
-                    
+                    <label for="default-radio" style="display:flex; margin-bottom:20px;">
+                        <h5 style="font-weight: 600; color: rgb(243, 105, 10); margin-right: 25px">
+                            <small><b>2.</b></small>
+                        </h5>
+                        <h5>Ini soal yaa</h5>
+                    </label>
+                    <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">jawaban A</h5>
+                        <input type="radio" name="jawabana" value="jawabana">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">jawaban B</h5>
+                        <input type="radio" name="jawabanb" value="jawabanb">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">jawaban C</h5>
+                        <input type="radio" name="jawabanc" value="jawabanc">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">jawaban D</h5>
+                        <input type="radio" name="jawaband" value="jawaband">
+                        <span class="checkmark"></span>
+                    </label>
                     </div>
                 </div>
 
                 <div style="width: 35%; float: left; margin-right: 3%;">
                 <div class="card card-profile">
+                    <div style="margin-bottom: 20px; text-align: center;">
+                    	<h4>Navigasi Soal Kuis</h4>
+                    </div>
                     <div style="margin-bottom: 20px;">
-                    	<h4>Level Kuis Pajak</h4>
-                    	<p>Sebelum memulai kuis, pilih level kuismu terlebih dahulu</p>
+
+                        @for($i=1; $i<=20; $i++)
+                    	<button class="btn btn_nav">{{$i}}</button>
+                       @endfor
                     </div>
-                    <div>
-                    	<label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Mudah</h5>
-                            <input type="radio" name="easy" value="easy">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sedang</h5>
-                            <input type="radio" name="medium" value="medium">
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sulit</h5>
-                            <input type="radio" name="diff" value="diff">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div>
-                        <a class="btn_1" style="border-radius: 5px; padding: 10px 25px; float: right;" href="{{ url('/kuis') }}">Mulai Kuis<i class="ti-arrow-right" style="padding-right: 0px;"></i></a>
+                    <div style="text-align: center;">
+                        <a class="profile-nav__link active" style="border-radius: 5px; padding: 10px 25px;" href="{{ url('/riwayat_kuispajak') }}">Selesai</a>
                     </div>
 
                 </div>

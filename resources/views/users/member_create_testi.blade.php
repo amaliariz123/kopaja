@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 
 @section('content')
+<section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
+  padding: 180px 0px 0px;">
 <div class="container">
     <div class="row ">
         <div class="card card-profile">
@@ -25,24 +27,17 @@
 
                 <div>
                     <div class="fields">
-                        <label class="fields__label">Tambah testimoni</label>
-                        <textarea id="content" name="content" class="textarea__input" placeholder="Apa yang Anda rasakan bersama Kopaja?"></textarea>
-                        <button class="form-create__btn" type="submit" style="float: right;">Simpan testimoni</button>
+                        <label class="fields__label">Ubah testimoni</label>
+                        <textarea id="content" name="content" class="textarea__input" placeholder="">{{$data['testimoni']['content']}}</textarea>
+                        <button class="form-create__btn" type="submit" style="float: right;">Simpan perubahan</button>
                     </div>
                 </div>
                 
             </form>
-            <hr>
-
-            <div class="form-header">
-                <h4>Detail testimoni</h4>
-            </div>
-            <div class="testi-detail">
-                <div>{{ $testimoni['content'] }}</div>
-            </div>
-            <hr>
         </div>
 
     </div>
 </div>
+</section>
+
 @endsection

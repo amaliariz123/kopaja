@@ -205,17 +205,6 @@
                    </div>
                </div>
             </div>
-
-            <div class="col-lg-4 card card-pembahasan" style="margin-right:0;">
-                <div style="text-align: center;">
-                <button class="pembahasan_link" href="{{url('/pembahasan_pphpasal4ayat2')}}">Pembahasan</button>
-                    <h4>Upgrade akunmu menjadi Premium!</h4>
-                    <p>Hanya dengan memasukkan kode premium yang tersedia pada alat peraga KOPAJA, kamu bisa :<p>
-                        <li></li>
-                        <li></li>
-                </div>
-                
-            </div>
           </div>
         </div>
     </section>        

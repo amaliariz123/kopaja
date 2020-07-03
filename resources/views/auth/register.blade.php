@@ -71,7 +71,7 @@
                           <br>
                                      
                             <div>
-                                <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('BUAT') }}</button></h5>
+                                <h5><button type="submit" class="btn_1" style="width: 70%">{{ __('DAFTAR') }}</button></h5>
                                 <br><br><br><br>
     							<h6><a class="btn_2" href="{{Route('login')}}" style="height: 20%; text-decoration: none;">Sudah memiliki akun</a></h6><br>
                             </div>

@@ -31,16 +31,16 @@ class TestiController extends Controller
         $data = [];
 
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $testimoni = Testimonial::where('id_member','=', $id)->first();
-
-        return view('users.member_create_testi', compact('data', 'testimoni'));
+        $member = Member::where('user_id', $data['user']->id)->first()->id;
+        $data['testimoni'] = Testimonial::where('id_member', $member)->first();
+        return view('users.member_create_testi', compact('data'));
     }
 
     public function updateTesti(Request $request, Member $member, $id)
     {
         $member = Member::where('user_id', Auth::id())->first()->id;
         $testimoni = Testimonial::where('id_member', $member)->first();
-        
+
         if($testimoni == null){
             $testimoni = new Testimonial();
             $testimoni->content = $request->content;
@@ -52,38 +52,18 @@ class TestiController extends Controller
             if ($request->content != null) {
                 $testimoni->content = $request->content;
                 $testimoni->id_member = $member;
-
                 $testimoni->save();
-            }else {
-                       
             }
-        } 
+        }
 
         $data = [];
 
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        // $data['testimoni'] = Testimonial::where('id_member','=',$id)->first();
+        $data['testimoni'] = Testimonial::where('id_member', $member)->first();
 
             // session(['success' => ['Profil berhasil diperbarui.']]);
 
-        
-
-        // $member = Member::where('user_id', Auth::id())->first()->id;
-        // $testimoni = new Testimonial();
-        // $testimoni->content = $request->content;
-        // $testimoni->id_member = $member;
-
-        // $testimoni->save();
-
-        // $data = [];
-
-        // $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        // $data['testimoni'] = Testimonial::where('id_member','=',$id)->first();
-
-            // session(['success' => ['Profil berhasil diperbarui.']]);
-
-        
-        return view('users.member_create_testi', compact('data', 'testimoni'));
+        return view('users.member_create_testi', compact('data'));
     }
 
     /**

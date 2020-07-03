@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\QuizQuestion;
-use App\Models\MemberQuizHistory;
 use \Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -48,6 +47,7 @@ class KuisController extends Controller
         ->rawColumns(['option'])
         ->make(true);
      }
+
 
      /**
      * Store a newly created resource in storage.

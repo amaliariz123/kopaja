@@ -41,8 +41,7 @@
                     <nav class="navbar navbar-expand-lg navbar-light">
                     
                     <div class="d-flex">
-                        <a class="navbar-brand logo_1" href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" height="100%" width="20%" alt="logo"> </a>
-                        <a class="navbar-brand logo_2 " href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" height="100%" width="20%" alt="logo"> </a>
+                        <a class="navbar-brand" href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" width="80px" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -58,9 +57,10 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Pajak Pusat
+                                        Materi Pajak
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <b style="margin-left: 10px;">Pajak Pusat</b>
                                         <a class="dropdown-item" href="{{Route('pasal4')}}">PPH Pasal 4 ayat 2</a>
                                         <a class="dropdown-item" href="{{Route('pasal15')}}">PPh Pasal 15</a>
                                         <a class="dropdown-item" href="{{Route('pasal21')}}">PPh Pasal 21</a>
@@ -71,18 +71,13 @@
                                         <a class="dropdown-item" href="{{Route('ppn')}}">PPN</a>
                                         <a class="dropdown-item" href="{{Route('pnbm')}}">PPnBM</a>
                                         <a class="dropdown-item" href="{{Route('beamaterai')}}">Bea Materai</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Pajak Daerah
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <b style="margin-left: 10px;">Pajak Daerah</b>
                                         <a class="dropdown-item" href="{{Route('pbb')}}">PBB</a>
                                         <a class="dropdown-item" href="{{Route('pajakprovinsi')}}">Pajak Provinsi</a>
                                         <a class="dropdown-item" href="{{Route('pajakkabupaten')}}">Pajak Kabupaten</a>
                                     </div>
                                 </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{Route('bantuan')}}">Bantuan</a>
                                 </li>
@@ -101,9 +96,10 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ url('/riwayat_kuispajak') }}">
+                                                <a class="dropdown-item" href="{{ url('/riwayat_kuispajak/') }}">
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
+                    
                                                 <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
                                                     {{ __('Profil') }}
                                                 </a>

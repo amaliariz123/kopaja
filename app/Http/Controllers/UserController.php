@@ -280,13 +280,12 @@ class UserController extends Controller
     }
 
     public function editProfile($id){
+        
         $data = [];
-        // $data->province = $request->input('province');
-
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
         $province = Province::all()->pluck("province", "id");
         $data['member'] = Member::where('user_id','=',$id)->first();
-        // dd($province);
+    
         return  view('users.member_edit_profile', compact('data', 'province'));
     }
 
@@ -303,7 +302,7 @@ class UserController extends Controller
     }
 
     public function updateMemberProfile(Request $request, $id){
-        
+        // dd($request->city_id);
 
         if(!empty($request->profile_picture))
         {
@@ -312,13 +311,15 @@ class UserController extends Controller
             $filename = $id.'.'.$extension;
             \Storage::delete('public/images/user/'.$request->profile_picture);
             \Storage::put('public/images/user/'.$filename, \File::get($file));
-        }
 
-        $user = DB::table('users')
+            $user = DB::table('users')
             ->where('id',$id)
             ->update(['fullname' => $request->fullname,
                     'profile_picture' => $filename
             ]);
+        }
+
+        
 
         $member = DB::table('members')
                     ->where('user_id', $id)

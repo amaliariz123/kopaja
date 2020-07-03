@@ -2,8 +2,11 @@
 <link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 
 @section('content')
+<section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
+  padding: 180px 0px 0px;">
         <div class="container">
             <div class="row ">
+            <div class="col-lg-8 col-xl-5 col-sm-8">
                 <div class="card card-profile">
                     <div class="info-profile">
                         <div class="profile__ava">
@@ -26,7 +29,9 @@
                         <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/create/'.Auth::user()->id)}}">Testimoni</a>
                     </nav>
                 </div>
+            </div>
 
+                <div class="col-md-6 col-lg-6">
                 <div class="card main-profile">
                     <form method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}" enctype="multipart/form-data" files=true>
                         @csrf
@@ -115,15 +120,17 @@
 
             </div>
         </div>
+    </section>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
         $(document).ready(function(){
             $('#province-select').change(function(){
+                // console.log("test");
                 var province_id = $(this).val();
                 var city_id = "{{$data['member']['city_id']}}";
-                console.log(city_id);
+                // console.log(city_id);
                 var provinsi_name = $("select[name='province-select'] option:selected").text();  //add this
                 $('#hiddenProvince').val(provinsi_name);
                 if(province_id){
@@ -132,10 +139,11 @@
                         type : 'GET',
                         dataType : 'json',
                         success: function(data){
+                            console.log("testtes");
                             $('#province').empty();  //add this
                             $('#province')
                                 .append("<input type='text' class='form-control' name='province' id='province' value='"+provinsi_name+"'>");
-                            console.log(data);
+                            // console.log(data);
                             $('#city-select').empty();
                             $.each(data, function(key, value){
                                 if(key == city_id){

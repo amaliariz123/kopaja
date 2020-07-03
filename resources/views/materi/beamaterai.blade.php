@@ -8,11 +8,9 @@
             <div class="row align-items-sm-center align-items-xl-stretch">
                 <div class="col-md-6 col-lg-6">
                     <div class="learning_member_text">
-                        <h3>Bea Materai</h3>
+                        <h3>{{$pajak->name}}</h3>
                         <h2>Definisi</h2>
-                        <p>Bea meterai adalah pajak yang dikenakan atas dokumen yang menurut Undang-Undang Bea Meterai menjadi objek Bea Meterai. Dokumen yang dikenai bea meterai antara lain adalah dokumen yang berbentuk surat yang memuat jumlah uang, dokumen yang bersifat perdata, dan dokumen yang dapat digunakan di muka pengadilan misalnya dokumen kontrak pengadaan meja kursi kantor, dokumen perjanjian pembangunan gedung kantor dengan pengusaha jasa konstruksi, dan dokumen kontrak pengadaan jasa tenaga kebersihan.
-                        <br>                        
-                         Nilai bea meterai yang berlaku saat ini Rp. 3.000,00 dan Rp. 6.000,00 yang disesuaikan dengan nilai dokumen dan penggunaan dokumen. Bea meterai tidak diperlukan nomor identitas baik untuk wajib pajak maupun objek pajak. Pembayaran bea meterai terjadi terlebih dahulu daripada saat terutang. Waktu pembayaran dapat dilakukan secara isidentil dan tidak terikat waktu.
+                        <p>{{$pajak->description}}
                         </p>
                         <section class="feature_part">
                             <div class="container">
@@ -26,7 +24,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="{{Route('latsoalbeamaterai')}}" class="col-sm-4 col-md-12 col-lg-4" style="padding: 7px;">
+                                    <a href="{{route('contoh_soal.show', $pajak->id)}}" class="col-sm-4 col-md-12 col-lg-4" style="padding: 7px;">
                                         <div class="single_feature">
                                             <div class="single_feature_part" style="padding-left: 5px 20px">
                                                 <span class="single_feature_icon"><i class="ti-new-window"></i></span>

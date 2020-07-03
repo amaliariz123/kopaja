@@ -16,19 +16,32 @@ use Illuminate\Support\Facades\Mail;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', 'MemberController@index')->name('index');
+
+
+Route::get('/tentang',function(){
+        return view('tentang');
+        })->name('tentang');
+
+Route::get('/bantuan',function(){
+    return view('bantuan');
+    })->name('bantuan');
 
 Route::get('/home', function () {
     return view('home');
 })->middleware('verified')->name('home');
 
 Route::group( [ 'middleware' => 'auth' ], function () {
-    Route::get('/index', function () {
-        return view('index');
-        })->name('index');
+Route::get('/index', 'MemberController@index');
     
+// FOR MEMBERS //
+
+    // halaman profil
+    Route::get('/getCity/{id}', 'UserController@getCity')->name('getCity');
+    Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
+
     Route::get('/profile/edit/{id}', 'UserController@editProfile');
     Route::get('/account/edit/{id}','UserController@editAccount');
     Route::get('/testimoni/create/{id}','TestiController@createTesti');
@@ -36,6 +49,14 @@ Route::group( [ 'middleware' => 'auth' ], function () {
     Route::post('/update/profile/{id}', 'UserController@updateMemberProfile');
     Route::post('/update/account/{id}', 'UserController@updateAccount');
 
+    // halaman materi, contoh soal
+    Route::get('/materi/show/{id}','MemberController@show')->name('materi.show');
+    Route::get('/contoh_soal/show/{id}','MemberController@showContohSoal')->name('contoh_soal.show');
+
+    // halaman latihan pajak, pembahasan
+
+    // halaman kuis pajak
+    Route::get('/riwayat_kuispajak','MemberController@getQuizHistory')->name('riwayat_kuispajak');
 
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');
@@ -56,11 +77,7 @@ Route::group( [ 'middleware' => 'auth' ], function () {
         return view('pempphpasal4ayat2');
     })->name('pempphpasal4ayat2');
 
-    Route::get('/riwayat_kuispajak',function(){
-        return view('quiz_history');
-    })->name('quiz_history');
-
-    Route::get('/kuis',function(){
+    Route::get('/halaman_kuis',function(){
         return view('quiz_page');
     })->name('quiz_page');
 
@@ -294,20 +311,6 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 
     Route::get('/downloadAllMateri', 'DownloadController@allMateri')->name('downloadAllMateri');
 
-Route::get('/tentang',function(){
-    return view('tentang');
-})->name('tentang');
-
-
-Route::get('/bantuan',function(){
-    return view('bantuan');
-})->name('bantuan');
-
-
-Route::get('/getCity/{id}', 'Auth\RegisterController@getCity')->name('getCity');
-Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
-
-
 /** 
 ===========================
  ** Route for panel admin **
@@ -442,6 +445,4 @@ Route::group(['prefix' => '/storage'], function () {
 });
 
 });
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

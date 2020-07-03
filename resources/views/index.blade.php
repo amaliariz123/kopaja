@@ -14,9 +14,9 @@
                                 dilengkapi dengan akses latihan soal, pembahasan dan rangkuman.
                                 Dilengkapi dengan materi perpajakan.
                             </p>
-                            <a href="{{ route('latsoalpasal4') }}" class="btn_1">Mulai Latihan Soal</a>
+                            <a href="{{ route('latsoalpasal4') }}" class="btn_1">Mulai Kuis!</a>
                             @guest
-                                <a href="{{ route('register') }}" class="btn_2">Sign Up </a>                          
+                                <a href="{{ route('register') }}" class="btn_2">Daftar</a>                          
                             @else
                             
                             @endguest
@@ -37,7 +37,7 @@
                         <h2>Temukan <br> Materi Pajak</h2>
                         <p>Materi pajak yang menunjang untuk kegiatan pembelajaran,
                             dirancang sesuai kebutuhan anda </p>
-                        <a href="#" class="btn_1">Read More</a>
+                        <button data-toggle="modal" data-target="#exampleModalCenter" class="btn_1">Pilih Materi</button>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3" >
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-md-5 col-lg-5">
                     <div class="learning_member_text">
-                        <h5>About us</h5>
+                        <h5>Tentang Kami</h5>
                         <h2>Berlajar Pajak Menyenangkan dan Mudah</h2>
                         <p>Materi pajak yang terasa sulit akan mudah untuk dipelajari, materi yang disampaikan
                             dibuat secara menarik dan menyenangkan.
@@ -92,7 +92,7 @@
                             <li><span class="ti-pencil-alt"></span>Materi disampaikan dengan lengkap</li>
                             <li><span class="ti-ruler-pencil"></span>Mudah dipahami dan juga dilengkapi latihan soal.</li>
                         </ul>
-                        <a href="#" class="btn_1">Read More</a>
+                        <a href="{{route ('tentang')}}" class="btn_1">Baca lebih banyak</a>
                     </div>
                 </div>
             </div>
@@ -106,25 +106,25 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_member_counter">
-                        <span class="counter">12</span>
+                        <span class="counter">{{$sum_materi}}</span>
                         <h4>Materi Pajak</h4>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_member_counter">
-                        <span class="counter">55</span>
+                        <span class="counter">{{$sum_soal}}</span>
                         <h4> Latihan Soal</h4>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_member_counter">
-                        <span class="counter">4</span>
+                        <span class="counter">{{$sum_dev}}</span>
                         <h4>Pengembang</h4>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_member_counter">
-                        <span class="counter">100</span>
+                        <span class="counter">{{$sum_member}}</span>
                         <h4>Pengguna</h4>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
     <!-- member_counter counter end -->
 
     <!--::review_part start::-->
-    <section class="blog_part section_padding" style="padding-bottom:0px;">
+    <!-- <section class="blog_part section_padding" style="padding-bottom:0px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8">
@@ -189,11 +189,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!--::blog_part end::-->
 
     <!-- learning part start-->
-    <section class="advance_feature learning_part" >
+    <!-- <section class="advance_feature learning_part" >
         <div class="container">
             <div class="row align-items-sm-center align-items-xl-stretch">
                 <div class="col-md-6 col-lg-6">
@@ -229,7 +229,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- learning part end-->
 
     <!--::review_part start::-->
@@ -238,7 +238,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-5">
                     <div class="section_tittle text-center">
-                        <p>tesimonials</p>
+                        <p>testimonials</p>
                         <h2>Mereka yang Mencoba</h2>
                     </div>
                 </div>
@@ -417,6 +417,23 @@
             </div>
         </div>
     </section> -->
-    <!--::blog_part end::-->
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Halo, Azza Ulil! Pilih materi pajak yang ingin kamu pelajari yuk!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @foreach($pajak as $tax)
+            <a href="{{route('materi.show', $tax->id)}}">{{$tax->name}}</a>
+        @endforeach
+      </div>
+      
+    </div>
+  </div>
+</div>
   @endsection

@@ -6,7 +6,7 @@
                     <div class="col-lg-12">
                         <div class="breadcrumb_iner text-center">
                             <div class="breadcrumb_iner_item">
-                                <h2>PPh Pasal 4 Ayat (2)</h2>
+                                <h2>{{$name->tax->name}}</h2>
                                 <p>Praktik Perhitungan</p>
                             </div>
                         </div>
@@ -24,23 +24,23 @@
                   <div class="blog_details">
                      <h1>Praktik Perhitungan</h1>
                      <br>
-                     <h4>Apa obyek Bea Materai?</h4>
+                     @foreach($example as $item)
+                     <h4>{{$item->title}}</h4>
+                     <p class="excert" style="text-align: justify;">
+                        Contoh Kasus :
+                        <br>
+                        {{$item->question_text}}
+                      </p>
                      <div class="quote-wrapper">
                         <div class="quotes">
                             <b>Penyelesaian :</b><br>
-                            Obyek Bea Meterai adalah dokumen. Dokumen adalah kertas yang berisikan tulisan yang mengandung arti dan maksud tentang perbuatan keadaan/ kenyataan bagi seseorang dan/ atau pihak-pihak yang berkepentingan.
-                            Dokumen yang dikenakan Bea Meterai adalah:<br>
-                            a.	Surat perjanjian dan surat-surat lainnya (Surat Kuasa, Surat Hibah, Surat Pernyataan yang dibuat dengan tujuan untuk digunakan sebagai alat pembuktian mengenai perbuatan, kenyataan/ keadaan yang bersifat perdata).<br>
-                            b.	Akta-akta Notaris termasuk salinannya<br>
-                            c.	Akta-akta yang dibuat Pejabat Pembuat Akta Tanah termasuk rangkap-rangkapnya<br>
-                            d.	Surat yang memuat jumlah uang yaitu: Yang menyebutkan penerimaan uang; Yang menyatakan pembukuan uang atau penyimpanan uang dalan rekening bank; Yang berisi pemberitahuan saldo rekening di bank; Yang berisi pengakuan bahwa utang uang seluruhnya/sebagian telah dilunasi/ diperhitungkan.<br>
-                            e.	Surat berharga seperti wesel, promes, aksep dan cek.<br>
-                            f.	Dokumen yang akan digunakan sebagai alat pembuktian di muka pengadilan (Surat-surat biasa dan surat-surat kerumahtanggaan, Surat-surat yang semula tidak dikenakan Bea Meterai berdasarkan tujuannya, jika digunakan untuk tujuan lain/ digunakan oleh orang lain, lain dari maksud semula)<br>
+                            {{$item->answer_text}}
                         </div>
                      </div>
 
                      <br>
-                     <h4>2) Berapakah tarif Bea Materai?</h4>
+                     @endforeach
+                     <h4>Berapakah tarif Bea Materai?</h4>
                      <div class="quote-wrapper">
                         <div class="quotes">
                             <b>Penyelesaian :</b><br>

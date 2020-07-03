@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 
 @section('content')
+<section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
+  padding: 180px 0px 0px;">
 <div class="container">
     <div class="row ">
         <div class="card card-profile">
@@ -55,4 +57,5 @@
 
     </div>
 </div>
+</section>
 @endsection

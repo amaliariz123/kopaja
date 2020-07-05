@@ -32,9 +32,12 @@ class DevelopersController extends Controller
     	$data = Developer::orderByDesc("created_at")->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
-            // $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
-            $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
-            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="la la-trash"></i></button>';
+            $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"
+                         data-toggle="tooltip" data-placement="top" title="Edit">
+                         <i class="la la-pencil-square"></i></button>';
+            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only"
+                                data-toggle="tooltip" data-placement="top" title="Hapus">
+                                <i class="la la-trash"></i></button>';
 
                 return $btn;
         })
@@ -65,13 +68,10 @@ class DevelopersController extends Controller
     	];
 
     	$validator = Validator::make($request->all(), $rules);
-
-    	if($validator->fails())
-    	{
+    	if($validator->fails()) {
     		return response()->json(['errors' => $validator->errors()->all()]);
     	} else {
-    		if(!empty($request->picture))
-    		{
+    		if(!empty($request->picture)) {
     			$file = $request->file('picture');
     			$extensions = strtolower($file->getClientOriginalExtension());
     			$filename = $request->name.'.'.$extensions;
@@ -80,7 +80,6 @@ class DevelopersController extends Controller
     			$filename = 'blank.jpg';
     		}
 
-            //store data to table developers_team
             Developer::create([
                 'name' => request('name'),
                 'email' => request('email'),
@@ -88,7 +87,6 @@ class DevelopersController extends Controller
             ]);
 
             return response()->json(['success'=>'Data added successfully']);
-
     	}
     }
 

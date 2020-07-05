@@ -33,7 +33,6 @@ class KodeController extends Controller
 
         $data = PremiumCode::orderByDesc("created_at")->get();
 
-        // return $data;
     	return datatables()->of($data)
         ->make(true);
     }
@@ -47,24 +46,20 @@ class KodeController extends Controller
         for ($i=0; $i < $total ; $i++) { 
 
             $code_array[$i] = str_random(20);
-            PremiumCode::create([
-                 'code' => $code_array[$i],
-                 'status' => 'non-aktif'
-            ]);
 
             foreach ($check as $key => $value) {
                 if($code_array[$i] == $value) {
                     $code_array[$i] = str_replace(str_random(20));
-                    PremiumCode::create([
-                         'code' => $code_array[$i],
-                         'status' => 'non-aktif'
-                    ]);
                 }
             }
+
+            PremiumCode::create([
+                 'code' => $code_array[$i],
+                 'status' => 'non-aktif'
+            ]);
         }
         return response()->json(['success' => 'Code generated successfully!']);
     }
-
 }
 
 

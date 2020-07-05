@@ -139,7 +139,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-
         $rules = [
             'fullname' => 'required|string|max:35',
             'email' => 'required|email',
@@ -150,41 +149,29 @@ class UserController extends Controller
         ];
 
         $validate = Validator::make($request->all(), $rules);
-
-        $notification = '';
-
-        if($validate->fails())
-        {
-            //return response()->json(['errors' => $validate->errors()->all()]);
+        if($validate->fails()) {
             session(['error' => $validate->errors()->all()]);
-
             return back()->withInput();
-
         } else {
-            if(!empty($request->profile_picture))
-            {
+            if(!empty($request->profile_picture)) {
                 $file = $request->file('profile_picture');
                 $extension = strtolower($file->getClientOriginalExtension());
                 $filename = $id.'.'.$extension;
-                \Storage::delete('public/images/user/'.$user->profile_picture);
-                \Storage::put('public/images/user/'.$filename, \File::get($file));
+                Storage::delete('public/images/user/'.$user->profile_picture);
+                Storage::put('public/images/user/'.$filename, \File::get($file));
             } else {
                 $filename = $user->profile_picture;
             }
 
             $user->fullname = $request->fullname;
             $user->email = $request->email;
-            if(Hash::check($request->old_password, $user->password))
-            {
-                $user->fill([
-                    'password' => Hash::make($request->new_password)
-                ]);
+            if(Hash::check($request->old_password, $user->password)) {
+                $user->fill(['password' => Hash::make($request->new_password)]);
             } 
             $user->profile_picture = $filename;
             $user->save();
 
             session(['success' => ['Profil berhasil diperbarui.']]);
-
             return redirect()->back();
         }
     }

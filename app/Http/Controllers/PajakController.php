@@ -29,19 +29,28 @@ class PajakController extends Controller
      * Fetch data from model with datatables.
      * @return Response
      */
-    public function getData()
-    {
-    	$data = Tax::orderBy('created_at','desc')->get();
-    	
-    	return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"   data-toggle="m-tooltip" data-placement="top" title="Detail"><i class="la la-exclamation-circle"></i></button>';
-            $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
-            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="la la-trash"></i></button>';
+public function getData()
+{
+	$data = Tax::orderBy('created_at','desc')->get();
+	
+	return datatables()->of($data)->addColumn('option', function($row) {
+        $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"
+                data-toggle="m-tooltip" data-placement="top" title="Detail">
+                <i class="la la-exclamation-circle"></i>
+                </button>';
+        $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"
+                data-toggle="tooltip" data-placement="top" title="Edit">
+                <i class="la la-pencil-square"></i>
+                </button>';
+        $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only"
+                data-toggle="tooltip" data-placement="top" title="Hapus">
+                <i class="la la-trash"></i>
+                </button>';
 
-                return $btn;
-        })
-        ->rawColumns(['option'])
-        ->make(true);
+            return $btn;
+    })
+    ->rawColumns(['option'])
+    ->make(true);
     }
 
     /**
@@ -60,7 +69,6 @@ class PajakController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
     	$rules = [
     		'name' => 'required',
     		'description' => 'required',
@@ -70,25 +78,21 @@ class PajakController extends Controller
 
     	$validator = Validator::make($request->all(), $rules);
 
-    	if($validator->fails())
-    	{
+    	if($validator->fails()) {
     		return response()->json(['errors' => $validator->errors()->all()]);
     	}
     		
-		$file = $request->file('module'); //menyimpan data file yang diupload ke variabel $file
-		$pdf = strtolower($request->file('module')->getClientOriginalExtension()); //get file extension
+		$file = $request->file('module'); 
+		$pdf = strtolower($request->file('module')->getClientOriginalExtension()); 
 		$filename = 'Materi '.$request->name.'.'.$pdf;
 		Storage::put('public/materi_pdf/'.$filename, File::get($file));
 
-    	//store data to table taxes
     	$result = Tax::create([
     		'name' => request('name'),
     		'description' => request('description'),
     		'tax_type' => request('tax_type'),
     		'module' => $filename,
     	]);
-
-        //return $result;
 
     	return response()->json(['success' => 'Data added successfully!']);
     }
@@ -152,8 +156,7 @@ class PajakController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails())
-        {
+        if($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
@@ -168,7 +171,6 @@ class PajakController extends Controller
         $data->module = $filename;
         $data->save();
 
-        //return $data;
         return response()->json(['success'=>'Data updated successfully']);
     }
 

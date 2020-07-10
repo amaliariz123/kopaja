@@ -151,27 +151,32 @@ public function getData()
      		'edit_name' => 'required',
     		'edit_description' => 'required',
     		'edit_tax_type' => 'required',
-    		'edit_module' => 'required|max:2048|mimetypes:application/pdf',
+    		'edit_module' => 'nullable|max:2048|mimetypes:application/pdf',
      	];
 
         $validator = Validator::make($request->all(), $rules);
 
         if($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
+        } else {
+            if(!empty($request->edit_module)) {
+                $file = $request->file('edit_module');
+                $pdf = strtolower($request->file('edit_module')->getClientOriginalExtension());
+                $filename = "Materi ".$request->edit_name.'.'.$pdf;
+                Storage::delete('public/materi_pdf/'.$data->module);
+                Storage::put('public/materi_pdf/'.$filename, File::get($file));
+            } else {
+                $filename = $data->module;
+            }
+
+            $data->name = $request->edit_name;
+            $data->description = $request->edit_description;
+            $data->tax_type = $request->edit_tax_type;
+            $data->module = $filename;
+            $data->save();
+
+            return response()->json(['success'=>'Data updated successfully']);
         }
-
-        $file = $request->file('edit_module');
-        $pdf = strtolower($request->file('edit_module')->getClientOriginalExtension());
-        $filename = "Materi ".$request->edit_name.'.'.$pdf;
-        Storage::put('public/materi_pdf/'.$filename, File::get($file));
-    
-        $data->name = $request->edit_name;
-        $data->description = $request->edit_description;
-        $data->tax_type = $request->edit_tax_type;
-        $data->module = $filename;
-        $data->save();
-
-        return response()->json(['success'=>'Data updated successfully']);
     }
 
      /**

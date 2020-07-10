@@ -16,15 +16,15 @@ use Illuminate\Support\Facades\Mail;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+// Route::get('/', function () {
+//     return view('index');
+// })->name('index');
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware('verified')->name('home');
+// Route::get('/home', function () {
+//     return view('home');
+// })->middleware('verified')->name('home');
 
-Route::group( [ 'middleware' => 'auth' ], function () {
+Route::group( [ 'middleware' => ['auth','verified']], function () {
     Route::get('/index', function () {
         return view('index');
         })->name('index');
@@ -428,6 +428,6 @@ Route::group(['prefix' => '/storage'], function () {
 });
 
 });
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

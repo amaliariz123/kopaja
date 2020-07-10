@@ -530,7 +530,7 @@ class SettingSoalController extends Controller
             'opsi_b' => 'required|string',
             'opsi_c' => 'required|string',
             'opsi_d' => 'required|string',
-            'jawaban' => 'required|integer',
+            'kunci_jawaban' => 'required|integer',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -557,7 +557,7 @@ class SettingSoalController extends Controller
             'option_b' => request('opsi_b'),
             'option_c' => request('opsi_c'),
             'option_d' => request('opsi_d'),
-            'right_answer' => request('jawaban'),
+            'right_answer' => request('kunci_jawaban'),
             'image' => $filename,
             ]);
 
@@ -588,7 +588,7 @@ class SettingSoalController extends Controller
             'opsi_b' => 'required|string',
             'opsi_c' => 'required|string',
             'opsi_d' => 'required|string',
-            'jawaban' => 'required|integer',
+            'kunci_jawaban' => 'required|integer',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -616,7 +616,7 @@ class SettingSoalController extends Controller
             $latihan->option_b = $request->opsi_b;
             $latihan->option_c = $request->opsi_c;
             $latihan->option_d = $request->opsi_d;
-            $latihan->right_answer = $request->jawaban;
+            $latihan->right_answer = $request->kunci_jawaban;
             $latihan->save();
 
             $pajak = Tax::find($request->id_tax);

@@ -94,7 +94,7 @@
 										<h6>Opsi a</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" name="jawaban" value="1" class="custom-control-input" @if($latihan->right_answer=='1') checked @endif >
+												<input type="checkbox" name="kunci_jawaban" value="1" class="custom-control-input" @if($latihan->right_answer=='1') checked @endif >
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_a" value="{{$latihan->option_a}}" required />
@@ -108,7 +108,7 @@
 										<h6>Opsi c</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" value="3" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '3') checked @endif>
+												<input type="checkbox" value="3" name="kunci_jawaban" class="custom-control-input" @if($latihan->right_answer == '3') checked @endif>
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_c" value="{{$latihan->option_c}}" required />
@@ -124,7 +124,7 @@
 										<h6>Opsi b</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" value="2" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '2') checked @endif>
+												<input type="checkbox" value="2" name="kunci_jawaban" class="custom-control-input" @if($latihan->right_answer == '2') checked @endif>
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_b" value="{{$latihan->option_b}}" required />
@@ -138,7 +138,7 @@
 										<h6>Opsi d</h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" value="4" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '4') checked @endif>
+												<input type="checkbox" value="4" name="kunci_jawaban" class="custom-control-input" @if($latihan->right_answer == '4') checked @endif>
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_d" value="{{$latihan->option_d}}" required />

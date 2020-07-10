@@ -213,34 +213,29 @@ class UserController extends Controller
     * Fetch data from model with datatables.
     * @return Response
     */
-    public function getDataMember()
-    {
-        $members = Member::with('user','province','city')->orderByDesc('created_at')->get();
+    public function getDataMember() {
+        $members = Member::with('user','province','city')->get();
         $data = [];
         for ($i=0; $i <count($members) ; $i++) {
             $member['user_id'] = $members[$i]->user->id;
             $member['id'] = $members[$i]->id; 
             $member['fullname'] = $members[$i]->user->fullname;
-
             if($members[$i]->date_of_birth != null) {
                 $member['age'] = Carbon::parse($members[$i]->date_of_birth)->age;
             } else {
                 $member['age'] = null;
             }
             $member['institution'] = $members[$i]->institution;
-
             if($members[$i]->province_id != null) {
                 $member['province'] = $members[$i]->province->provinsi;   
             } else {
                 $member['province'] = null;
             }
-
             if($members[$i]->city_id != null) {
                 $member['city'] = $members[$i]->city->kabupaten_kota;    
             } else {
                 $member['city'] = null;
             }
-
             $member['member_status'] = $members[$i]->member_status;
             $member['premium_code'] = $members[$i]->premium_code;
             $member['status'] = $members[$i]->member_status;
@@ -248,10 +243,9 @@ class UserController extends Controller
             $member['updated_at'] = $members[$i]->updated_at;
             $data[] = $member;
         }
-
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button type="button" id="detail-btn" class="btn m-btn--pill btn-primary  btn-sm">Detail</button>';
-
+            $btn = '<button type="button" id="detail-btn" 
+            class="btn m-btn--pill btn-primary  btn-sm">Detail</button>';
                 return $btn;
         })
         ->rawColumns(['option'])

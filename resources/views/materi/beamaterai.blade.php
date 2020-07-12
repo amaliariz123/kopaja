@@ -33,7 +33,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="{{Route('soalbeamaterai')}}" class="col-sm-4 col-md-12 col-lg-4" style="padding: 7px;">
+                                    <a href="{{Route('latihan_soal.show', $pajak->id)}}" class="col-sm-4 col-md-12 col-lg-4" style="padding: 7px;">
                                         <div class="single_feature">
                                             <div class="single_feature_part" style="padding-left: 5px 20px">
                                                 <span class="single_service_icon style_icon"><i class="ti-light-bulb"></i></span>

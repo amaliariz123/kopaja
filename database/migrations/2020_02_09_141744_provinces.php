@@ -15,7 +15,7 @@ class Provinces extends Migration
     {
         Schema::create('provinces', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('province');
+            $table->string('provinsi');
         });
     }
 

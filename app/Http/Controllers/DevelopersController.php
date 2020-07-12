@@ -23,6 +23,12 @@ class DevelopersController extends Controller
 		return view('setting.developer_index');
 	}
 
+    public function showDev()
+    {
+        $dev = Developer::all();
+        return view('tentang', compact('dev'));
+    }
+
 	 /**
      * Fetch data from model with datatables.
      * @return Response

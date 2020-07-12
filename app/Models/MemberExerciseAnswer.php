@@ -27,14 +27,14 @@ class MemberExerciseAnswer extends Model
     /**
      * @var array
      */
-    protected $fillable = ['member_id', 'question_id', 'answer', 'isRight', 'created_at', 'updated_at'];
+    protected $fillable = ['member_id', 'question_id', 'id_tax', 'answer', 'isRight', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function member()
     {
-        return $this->belongsTo('App\Member');
+        return $this->belongsTo('App\Models\Member');
     }
 
     /**
@@ -42,6 +42,9 @@ class MemberExerciseAnswer extends Model
      */
     public function exerciseQuestion()
     {
-        return $this->belongsTo('App\ExerciseQuestion', 'question_id');
+        return $this->belongsTo('App\Models\ExerciseQuestion', 'question_id');
     }
 }
+
+
+// Jawaban; question_id

@@ -48,21 +48,17 @@ class TestiController extends Controller
 
             $testimoni->save();
         }
-        else{
+        else {
             if ($request->content != null) {
                 $testimoni->content = $request->content;
                 $testimoni->id_member = $member;
                 $testimoni->save();
             }
         }
-
         $data = [];
-
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
         $data['testimoni'] = Testimonial::where('id_member', $member)->first();
-
-            // session(['success' => ['Profil berhasil diperbarui.']]);
-
+        session(['success' => ['Testimoni berhasil diperbarui.']]);
         return view('users.member_create_testi', compact('data'));
     }
 

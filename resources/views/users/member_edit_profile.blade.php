@@ -3,10 +3,10 @@
 
 @section('content')
 <section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
-  padding: 180px 0px 0px;">
+  padding: 150px 0px 0px;">
         <div class="container">
             <div class="row ">
-            <div class="col-lg-8 col-xl-5 col-sm-8">
+            <div>
                 <div class="card card-profile">
                     <div class="info-profile">
                         <div class="profile__ava">
@@ -21,7 +21,10 @@
                                     </a>
                                     @endif
                         </div>
-                        <h5>{{$data['user']['fullname']}}</h5>
+                        <div>
+                            <h5 style="margin-bottom:0px;">{{$data['user']['fullname']}}</h5>
+                            <p>Member {{$data['member']['member_status']}}</p>
+                        </div>
                     </div>
                     <nav class="profile-nav">
                         <a class="profile-nav__link active" aria-current="true" href="{{url('/profile/edit/'.Auth::user()->id)}}">Profil</a>
@@ -29,9 +32,25 @@
                         <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/create/'.Auth::user()->id)}}">Testimoni</a>
                     </nav>
                 </div>
+                <br>
+                <div class="card card-profile">
+                    <div class="info-profile">
+                        <h5>Upgrade to Premium</h5>
+                    </div>
+                    <form action="{{ route('upgrade') }}">
+                        {{ csrf_field() }}
+                        <div>
+                            <div class="fields">
+                                <label class="fields__label">Masukkan kode premium Anda</label>
+                                <input class="fields__input" name="code" value="" placeholder="" required=""></input>
+                            </div>
+                        </div>
+                        <button type="submit" class="form-edit__btn" style="float:right;">Upgrade</button>
+                    </form>
+                </div>
             </div>
 
-                <div class="col-md-6 col-lg-6">
+                <div class="col-sm-7" style="float:right;">
                 <div class="card main-profile">
                     <form method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}" enctype="multipart/form-data" files=true>
                         @csrf

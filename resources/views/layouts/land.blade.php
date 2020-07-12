@@ -46,28 +46,42 @@
                         <div class="collapse navbar-collapse main-menu-item justify-content-end"
                             id="navbarSupportedContent">
                             <ul class="navbar-nav align-items-center">
+                            <?php
+                              $pajak_pusat = DB::table('taxes')->where('tax_type', 'Pajak Pusat')->get();
+                              $pajak_daerah = DB::table('taxes')->where('tax_type', 'Pajak Daerah')->get();
+                            ?>
+                            @guest
+                            
+                            @else
+                            <?php
+                              $data = DB::table('users')->where('id', Auth::user()->id)->first()->id;
+                              $member = DB::table('members')->where('user_id', $data)->first();
+                            ?>
+                            @endguest
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{Route('index')}}">Beranda</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Materi Pajak
+                                        Pajak Pusat
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        @php
-                                            $pajak_pusat = DB::table('taxes')->where('tax_type', 'Pajak Pusat')->get();
-                                            $pajak_daerah = DB::table('taxes')->where('tax_type', 'Pajak Daerah')->get();
-                                        @endphp
-                                        <b style="margin-left: 10px;">Pajak Pusat</b>
                                         @foreach($pajak_pusat as $pusat)
                                             <a class="dropdown-item" href="{{route('materi.show', $pusat->id)}}">{{$pusat->name}}</a>
                                         @endforeach
-                                        <b style="margin-left: 10px;">Pajak Daerah</b>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Pajak Daerah
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         @foreach($pajak_daerah as $daerah)
                                             <a class="dropdown-item" href="{{route('materi.show', $daerah->id)}}">{{$daerah->name}}</a>
                                         @endforeach
                                     </div>
                                 </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{Route('bantuan')}}">Bantuan</a>
                                 </li>
@@ -85,10 +99,16 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ url('/riwayat_kuispajak/') }}">
+                                                @guest
+                                                <a class="dropdown-item" href="{{ route('register') }}">
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
-
+                                                @else
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak', $member->id) }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                @endguest
+                                                
                                                 <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
                                                     {{ __('Profil') }}
                                                 </a>

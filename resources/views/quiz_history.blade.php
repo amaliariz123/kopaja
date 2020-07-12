@@ -173,32 +173,18 @@
   padding: 130px 0px 0px;">
 <div class="container">
     <div class="row ">
-        <!-- pilih level kuis -->
-        <div style="width: 35%; float: left; margin-right: 3%;">
+        
         <div class="card card-profile">
             <div style="margin-bottom: 20px;">
-            	<h4>Level Kuis Pajak</h4>
-            	<p>Sebelum memulai kuis, pilih level kuismu terlebih dahulu</p>
+            	<h4>Mulai Kuis Pajak Anda!</h4>
+            	<p>Sebelum memulai kuis, pilih judul kuismu terlebih dahulu</p>
             </div>
             <div>
-            	<label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Mudah</h5>
-                    <input type="radio" name="easy" value="easy">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sedang</h5>
-                    <input type="radio" name="medium" value="medium">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">Sulit</h5>
-                    <input type="radio" name="diff" value="diff">
-                    <span class="checkmark"></span>
-                </label>
+                <button type="submit" class="btn_1" style="border-radius: 5px; padding: 10px 25px; float: right;" data-toggle="modal" data-target="#pilihKuis">
+                Mulai Kuis<i class="ti-arrow-right" style="padding-right: 0px;"></i></button>
             </div>
-            <div>
-                <a class="btn_1" style="border-radius: 5px; padding: 10px 25px; float: right;" href="{{ url('/halaman_kuis') }}">Mulai Kuis<i class="ti-arrow-right" style="padding-right: 0px;"></i></a>
-            </div>
+            
         </div>
-    </div>
 
     <!-- history_page -->
     <div style="width: 60%; float: :right;">
@@ -216,63 +202,102 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($history as $data)
+                    <tr>
+                        <td>{{$data->created_at}}</td>
+                        <td>{{$data->quiz->title}}</td>
+                        <td>{{$data->score}}</td>
+                        <td><i class="ti-info-alt detail" value="{{$data->id}}" data-toggle="modal" data-target="#detailHistory"></i>
+                         | <i class="ti-trash"></i></td>
+                        
+                    </tr>
+                    @endforeach
                 </tbody>
         	</table>
         	
         
         </div>
     </div>
-            </div>
-            </div>
-        </div>
-
-@include('history_detail')
-
+    </div>
+</div>
+</section>
 <!-- Jquery -->
 <script src="{{url('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{url('js/jquery-ui.min.js')}}"></script>
+
+<div class="modal fade" id="detailHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Detail Riwayat Kuis</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-6">
+            <h6>Level Kuis : </h6><h6 id="level"></h6><br>
+            <h6>Durasi Pengerjaan : </h6><h6 id="duration"></h6>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="pilihKuis" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Pilih Kuis Pajak untuk Memulai</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div style="padding:20px;">
+            @foreach($kuis as $data)
+            <a id="start_time" class="card-profile" style="width:90%; margin:10px;" href="{{route('kuis_pajak.show', $data->id)}}">
+                {{$data->title}}<br>
+                {{$data->description}}<br>
+                {{$data->image}}<br>
+                {{$data->level}}<br>
+                {{$data->duration}} menit
+            </a>
+            @endforeach
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
 @endsection
 
-@push('custom-script')
+@push('custom-js')
 <script type="text/javascript">
-    var history_table;
-
-    $(document).ready(function(){
-        history_table = $('#table_history').DataTable({
-            processing : true,
-            serverSide : true,
-            stateSave : true,
-            ajax : {
-                url : "{{url('/riwayat_kuispajak')}}",
-                type : "GET",
-            },
-            deferRender : true,
-            columns : [
-                {data: 'created_at', name: 'created_at', visible:true},
-                {data: 'title', name: 'title', visible:true},
-                {data: 'score', name: 'score', visible:true},
-                {data: 'option', name: 'option', visible:true},
-            ],
-
+    $(document).on('click', '.detail', function () {
+            var id = $(this).attr('value');
+            $.ajax({
+                type        : 'get',
+                url         : "{{url('riwayat_kuispajak/detail')}}"+"/"+id,
+                dataType    : 'html',
+                success     : function(data){
+                    var servers = $.parseJSON(data);
+                    $.each(servers, function(index, value){
+                        var level = value.quiz.level;
+                        var duration = value.quiz.duration;
+                        
+                        $('#level').text(level);
+                        $('#duration').text(duration);
+                    });
+                }
+            });
+            
         });
-
-        $('#table_history tbody').on('click', "#detail-btn", function(){
-            
-            let data = history_table.row($(this).parents('tr')).data();
-            let id = data['id'];
-            let quiz_id = data['quiz_id'];
-            let urlData = "{{url('/history/show')}}"+"/"+id+"/"+quiz_id;
-
-            $('input[name=_method]').val('PUT');
-            $('input[name=detail_level]').val(data['level']);
-            $('input[name=detail_duration]').val(data['duration']);
-            
-
-            // console.log(data['name']);
-
-            $("#history-detail:input").val('');
-            $("#history-detail-modal").modal('show');
-        })
-    }); 
+</script>
+<script>
+  $(document).on('click', '#start_time', function(){
+    console.log('hayuk')
+    localStorage.setItem('start_time', new Date().getTime())
+  });
 </script>
 @endpush

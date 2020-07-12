@@ -15,8 +15,6 @@ use File;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use Carbon\Carbon;
-use App\Models\Province;
-use App\Models\City;
 use DB;
 
 class UserController extends Controller
@@ -36,6 +34,7 @@ class UserController extends Controller
     {
         return view('users.user_index');
     }
+
 
     /**
      * Fetch data from model with datatables.
@@ -270,107 +269,5 @@ class UserController extends Controller
         })
         ->rawColumns(['option'])
         ->make(true);
-    }
-
-    public function editProfile($id){
-        
-        $data = [];
-        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $province = Province::all()->pluck("province", "id");
-        $data['member'] = Member::where('user_id','=',$id)->first();
-    
-        return  view('users.member_edit_profile', compact('data', 'province'));
-    }
-
-    public function editAccount($id){
-        $data = User::where('id', '=', $id)->first();
-
-        return view('users.member_change_pass', compact('data'));
-    }
-
-    public function getCity($id){
-        $city = City::where('province_id', '=', $id)->pluck("city", "id");
-        // dd(json_encode($city));
-        return json_encode($city);
-    }
-
-    public function updateMemberProfile(Request $request, $id){
-        // dd($request->city_id);
-
-        if(!empty($request->profile_picture))
-        {
-            $file = $request->file('profile_picture');
-            $extension = strtolower($file->getClientOriginalExtension());
-            $filename = $id.'.'.$extension;
-            \Storage::delete('public/images/user/'.$request->profile_picture);
-            \Storage::put('public/images/user/'.$filename, \File::get($file));
-
-            $user = DB::table('users')
-            ->where('id',$id)
-            ->update(['fullname' => $request->fullname,
-                    'profile_picture' => $filename
-            ]);
-        }
-
-        
-
-        $member = DB::table('members')
-                    ->where('user_id', $id)
-                    ->update(['institution' => $request->institution,
-                        'province_id' => $request->province_id,
-                        'city_id' => $request->city_id,
-                        'date_of_birth' => $request->date_of_birth
-                    ]);
-
-        $data = [];
-
-        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $province = Province::all()->pluck("province", "id");
-        $data['member'] = Member::where('user_id','=',$id)->first();
-
-            //session(['success' => ['Profil berhasil diperbarui.']]);
-        return  view('users.member_edit_profile', compact('data','province'));;
-    }
-
-    public function updateAccount(Request $request, $id)
-    {
-        $user = User::find($id);    
-
-        $rules = [
-            'email' => 'required|email',
-            'old_password' => 'nullable|min:8|max:20',
-            'new_password' => 'nullable|min:8|max:20|different:old_password',
-            'confirm_new_pass' => 'same:new_password',
-        ];
-
-        $validate = Validator::make($request->all(), $rules);
-
-        if($validate->fails())
-        {
-            // $notification = array(
-            //     'message' => [$validate->errors()->all()], 
-            //     'alert-type' => 'error'
-            // );
-            return redirect()->withInput();
-        } else {
-
-            // $notification = array(
-            //     'message' => 'Berhasil diperbarui.', 
-            //     'alert-type' => 'success'
-            // );
-
-            $user->email = $request->email;
-            if(Hash::check($request->old_password, $user->password))
-            {
-                $user->fill([
-                    'password' => Hash::make($request->new_password)
-                ]);
-            }
-            $user->save();
-
-            // session(['success' => ['Profil berhasil diperbarui.']]);
-
-            return redirect()->back(); 
-        }
     }
 }

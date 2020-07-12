@@ -43,4 +43,9 @@ class Tax extends Model
     {
         return $this->hasMany('App\Models\ExerciseQuestion', 'id_tax');
     }
+
+    public function memberExerciseAnswers()
+    {
+        return $this->hasMany('App\Models\MemberExerciseAnswer', 'id_tax');
+    }
 }

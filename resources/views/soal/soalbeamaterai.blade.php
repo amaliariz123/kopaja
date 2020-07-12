@@ -132,6 +132,12 @@
         top: 0;
         left: 0;
         }
+        .border-warning {
+            border-color:#ffc107!important
+        }
+        .border-danger {
+            border-color:#dc3545!important
+        }
 
     </style>
 @endsection
@@ -143,7 +149,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb_iner text-center" style="height : 300px">
                         <div class="breadcrumb_iner_item">
-                            <h2 style="font-size : 35px">PPnBM</h2>
+                            <h2 style="font-size : 35px">{{$name->tax->name}}</h2>
                             <p>Latihan Soal</p>
                         </div>
                     </div>
@@ -155,8 +161,6 @@
 @endsection
 @section('content')
 <?php
-    $ppnbm = json_decode(file_get_contents('https://my-json-server.typicode.com/sabdobramastyo98/beamaterai/beamaterai'), true);
-    
     $i=1;
 ?>
     <section class="blog_area single-post-area section mt-5 mb-5">
@@ -165,32 +169,32 @@
             <div class="col-lg-8 posts-list">
                <div class="single-post">
                   <div class="blog_details">
-                     <form action="{{Route('cekSoalbeamaterai')}}">
+                     <form action="{{route('cekLatihan', $name->id_tax)}}">
 
-                        @foreach($ppnbm as $data)
+                        @foreach($exercise as $data)
                             <label for="default-radio">
                                 <h5 style="line-height: 30px; font-weight: bold; color: rgb(243, 105, 10); margin-right: 25px">
                                     <small><b>SOAL&nbsp;{{$i}}</b></small>
                                 </h5>
                                 <h5 style="line-height: 30px">
-                                      {{$data['soal']}}
+                                      {{$data->question}}
                                 </h5>
                             </label>
-
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data['jawabana']}}</h5>
-                                <input type="radio" name="{{$data['id']}}" value="{{$data['jawabana']}}">
+                            
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_a}}</h5>
+                                <input type="radio" name="{{$data->id}}" value="1">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data['jawabanb']}}</h5>
-                                <input type="radio" name="{{$data['id']}}" value="{{$data['jawabanb']}}">
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_b}}</h5>
+                                <input type="radio" name="{{$data->id}}" value="2">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data['jawabanc']}}</h5>
-                                <input type="radio" name="{{$data['id']}}" value="{{$data['jawabanc']}}">
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_c}}</h5>
+                                <input type="radio" name="{{$data->id}}" value="3">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data['jawaband']}}</h5>
-                                <input type="radio" name="{{$data['id']}}" value="{{$data['jawaband']}}">
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_d}}</h5>
+                                <input type="radio" name="{{$data->id}}" value="4">
                                 <span class="checkmark"></span>
                             </label>
                             <br><hr width="100%"><br>
@@ -198,6 +202,7 @@
                         @endforeach
                          <h5>
                             <button type="submit" class="btn_1">Periksa</button>
+                            <a class="btn_2" href="{{Route('pembeamaterai', $name->id_tax)}}">Pembahasan</a>
                         </h5>
                         
                      </form>
@@ -207,10 +212,8 @@
           </div>
         </div>
     </section>        
-    
-    
-    <!-- Modal -->
-    <div class="modal fade" id="nilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="nilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -220,12 +223,11 @@
             </button>
         </div>
         <div class="modal-body">
-            @if(Session::get('popup') < (count($ppnbm)*0.25) )
+            @if(Session::get('popup') < (count($exercise)*0.25) )
                 <h2 style="text-align: center;">Troll!</h2><br>
-                <!-- <h1 style="color:red; text-align: center; font-size: 70px"> {{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}<small style="font-size: 40px">%</small></h1> -->
                 
                 
-                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}">
+                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}">
                     <span class="progress-left">
                                     <span class="progress-bar border-danger"></span>
                     </span>
@@ -233,17 +235,17 @@
                                     <span class="progress-bar border-danger"></span>
                     </span>
                     <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}<small style="font-size: 20px">%</small></h1></div>
+                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}<small style="font-size: 20px">%</small></h1></div>
                     </div>
                 </div>
 
 
                 <br><h6 style="text-align: center;">Terus belajar, jangan menyerah, tetap semangat, kamu pasti bisa!</h6>
-            @elseif(Session::get('popup') < (count($ppnbm)*0.5) )
+            @elseif(Session::get('popup') < (count($exercise)*0.5) )
                 <h2 style="text-align: center;">Dreadful!</h2><br>
 
 
-                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}">
+                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}">
                     <span class="progress-left">
                                     <span class="progress-bar border-warning"></span>
                     </span>
@@ -251,17 +253,17 @@
                                     <span class="progress-bar border-warning"></span>
                     </span>
                     <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}<small style="font-size: 20px">%</small></h1></div>
+                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}<small style="font-size: 20px">%</small></h1></div>
                     </div>
                 </div>
 
 
                 <br><h6 style="text-align: center;">Kurang sedikit lagi. Tingkatkan belajar lagi ya!</h6>
-            @elseif(Session::get('popup') < (count($ppnbm)*0.75) )
+            @elseif(Session::get('popup') < (count($exercise)*0.75) )
                 <h2 style="text-align: center;">Acceptable!</h2><br>
 
 
-                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}">
+                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}">
                     <span class="progress-left">
                                     <span class="progress-bar border-primary"></span>
                     </span>
@@ -269,7 +271,7 @@
                                     <span class="progress-bar border-primary"></span>
                     </span>
                     <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}<small style="font-size: 20px">%</small></h1></div>
+                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}<small style="font-size: 20px">%</small></h1></div>
                     </div>
                 </div>
 
@@ -280,7 +282,7 @@
                 <h2 style="text-align: center;">Outstanding!</h2><br>
 
 
-                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}">
+                <div class="progress mx-auto" data-value="{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}">
                     <span class="progress-left">
                                     <span class="progress-bar border-succes"></span>
                     </span>
@@ -288,7 +290,7 @@
                                     <span class="progress-bar border-succes"></span>
                     </span>
                     <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup')-1)*100)/(count($ppnbm)), 2) }}<small style="font-size: 20px">%</small></h1></div>
+                        <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ round(((Session::get('popup'))*100)/(count($exercise)), 2) }}<small style="font-size: 20px">%</small></h1></div>
                     </div>
                 </div>
 
@@ -297,10 +299,18 @@
             @endif
             
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">OK</button>
+        </div>
         </div>
     </div>
     </div>
     <script>
         
     </script>
+    <script>
+        
+    </script>
+    
 @endsection

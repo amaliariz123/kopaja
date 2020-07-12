@@ -19,15 +19,12 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'MemberController@index')->name('index');
+Route::get('/bantuan', 'BantuanController@showHelp')->name('bantuan');
 
 
 Route::get('/tentang',function(){
         return view('tentang');
         })->name('tentang');
-
-Route::get('/bantuan',function(){
-    return view('bantuan');
-    })->name('bantuan');
 
 Route::get('/home', function () {
     return view('home');
@@ -39,24 +36,32 @@ Route::get('/index', 'MemberController@index');
 // FOR MEMBERS //
 
     // halaman profil
-    Route::get('/getCity/{id}', 'UserController@getCity')->name('getCity');
-    Route::get('/getKecamatan/{id}', 'Auth\RegisterController@getKecamatan')->name('getKecamatan');
+    Route::get('/getCity/{id}', 'MemberController@getCity')->name('getCity');
+    Route::get('/upgrade', 'MemberController@upgrade')->name('upgrade');
 
-    Route::get('/profile/edit/{id}', 'UserController@editProfile');
-    Route::get('/account/edit/{id}','UserController@editAccount');
+    Route::get('/profile/edit/{id}', 'MemberController@editProfile')->name('profile.show');
+    Route::get('/account/edit/{id}','MemberController@editAccount');
     Route::get('/testimoni/create/{id}','TestiController@createTesti');
     Route::post('/update/testimoni/{id}','TestiController@updateTesti');
-    Route::post('/update/profile/{id}', 'UserController@updateMemberProfile');
-    Route::post('/update/account/{id}', 'UserController@updateAccount');
+    Route::post('/update/profile/{id}', 'MemberController@updateMemberProfile');
+    Route::post('/update/account/{id}', 'MemberController@updateAccount');
 
     // halaman materi, contoh soal
     Route::get('/materi/show/{id}','MemberController@show')->name('materi.show');
     Route::get('/contoh_soal/show/{id}','MemberController@showContohSoal')->name('contoh_soal.show');
+    Route::get('/latihan_soal/show/{id}','MemberController@showLatihanSoal')->name('latihan_soal.show');
+    Route::get('/latihan_soal/show/{id}/cek', 'MemberController@cekLatihan')->name('cekLatihan');
 
     // halaman latihan pajak, pembahasan
+    Route::get('/pembahasan_beamaterai/{id}','MemberController@pembahasan')->name('pembeamaterai');
 
     // halaman kuis pajak
-    Route::get('/riwayat_kuispajak','MemberController@getQuizHistory')->name('riwayat_kuispajak');
+    Route::get('/riwayat_kuispajak/{id}','MemberController@getQuizHistory')->name('riwayat_kuispajak');
+    Route::get('/riwayat_kuispajak/detail/{id_history}','MemberController@detailQuizHistory')->name('detail_riwayat.show');
+    Route::get('/kuis_pajak/{id}','MemberController@showKuis')->name('kuis_pajak.show');
+    Route::get('/optionChecked/{page}/{jawaban}','MemberController@optionChecked')->name('optionChecked');
+    Route::get('/quizResult/{id_quiz}','MemberController@quizResult')->name('quizResult');
+    
 
     Route::get('/pajakpusatpasal4',function(){
         return view('materi.pasal4');
@@ -72,14 +77,6 @@ Route::get('/index', 'MemberController@index');
     Route::get('/soalpphpasal4ayat2',function(){
         return view('soal.soalpphpasal4ayat2');
     })->name('soalpphpasal4ayat2');
-
-    Route::get('/pembahasan_pphpasal4ayat2',function(){
-        return view('pempphpasal4ayat2');
-    })->name('pempphpasal4ayat2');
-
-    Route::get('/halaman_kuis',function(){
-        return view('quiz_page');
-    })->name('quiz_page');
 
     Route::get('/cekSoalpphpasal4ayat2', 'soalController@cekSoalpphpasal4ayat2')->name('cekSoalpphpasal4ayat2');
 

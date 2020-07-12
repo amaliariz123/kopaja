@@ -19,7 +19,7 @@ class CreateMemberExerciseAnswersTable extends Migration
             $table->foreign('member_id')->references('id')->on('members')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('exercise_questions')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->integer('answer');
+            $table->integer('answer')->nullable();
             $table->boolean('isRight');
             $table->timestamps();            
         });

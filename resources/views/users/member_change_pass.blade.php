@@ -3,9 +3,10 @@
 
 @section('content')
 <section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
-  padding: 180px 0px 0px;">
+  padding: 150px 0px 0px;">
 <div class="container">
     <div class="row ">
+      <div>
         <div class="card card-profile">
             <div class="info-profile">
                 <div class="profile__ava" style="background-image: url('{{ asset('/etrain/img/user.png') }}');"></div>
@@ -17,7 +18,9 @@
                 <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/create/'.Auth::user()->id)}}">Testimoni</a>
             </nav>
         </div>
+      </div>
 
+      <div class="col-sm-7">
         <div class="card main-profile">
             <form method="POST" action="{{url('/update/account/'.Auth::user()->id)}}">
                 @csrf

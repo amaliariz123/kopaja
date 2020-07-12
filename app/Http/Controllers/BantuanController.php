@@ -22,6 +22,11 @@ class BantuanController extends Controller
 
     	return view('setting.bantuan_index', compact('data'));
     }
+    
+    public function showHelp(){
+        $help = Help::get();
+        return view('bantuan', compact('help'));
+    }
 
     /**
      * Fetch data from model with datatables.

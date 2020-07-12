@@ -22,34 +22,13 @@
                     <div class="main_image">
                         <img class="img-fluid" src="img/single_cource.png" alt="">
                     </div>
+                    @foreach($help as $data)
                     <div class="content_wrapper">
-                        <h4 class="title_top">Apa itu Kopaja?</h4>
-                        <div class="content">
-                        KOPAJA singkatan dari Kompas Pajak Ajaib, yang dibuat oleh tim yang terdiri dari kolaborasi mahasiswa Teknologi Instrumentasi dan Akuntansi terinspirasi untuk membuat alat peraga yang dapat memudahkan dalam belajar berbagai tarif dan jenis pajak. 
-                            <br>
-                            <br>
-                            Bisnis model dari KOPAJA adalah dengan memberikan akses pengajaran untuk mata pelajaran yang berkaitan dengan perpajakan dari tingkat SMA/SMK hingga Perguruan Tinggi yang disajikan secara online melalui website KOPAJA.ac.id maupun offline berupa alat peraga yang dapat di order melalui kontak person yang sudah tersedia.                            
-                        </div>
-
-                        <h4 class="title">Apa itu KOPAJA.ac.id?</h4>
-                        <div class="content">
-                        KOPAJA.ac.id adalah sebuah website belajar perpajakan online yang kami sediakan bagi siswa-siswi SMA/SMK dan Perguruan Tinggi di seluruh Indonesia untuk belajar memahami materi perpajakan, latihan soal, serta mengevaluasi pembahasan soal untuk masing-masing pasal sesuai dengan klasifikasi dan jenis pajak. Website KOPAJA.ac..id juga dilengkapi dengan ujian mandiri tentang perpajakan.
-                        </div>
-
-                        <h4 class="title">Siapa saja yang dapat mengakses KOPAJA?</h4>
-                        <div class="content">
-                        Siapapun dapat mengakses website KOPAJA terlepat dari usia dan tingkat pendidikannya, baik untuk tingkat SMA/SMK, Perguruan Tinggi hingga Umum.Siapapun dapat mengakses website KOPAJA terlepat dari usia dan tingkat pendidikannya, baik untuk tingkat SMA/SMK, Perguruan Tinggi hingga Umum.
-                        </div>
-
-                        <h4 class="title">Bagaimana cara mengakses website KOPAJA?</h4>
-                        <div class="content">
-                        Cara untuk mengakses website KOPAJA yaitu :
-                            <ol class="ordered-list">
-                                <li><span>Kamu bisa melakukan pendaftaran dengan klik “Daftar” pada bagian kanan atas halaman utama KOPAJA</span></li>
-                                <li><span>Lalu mengisi formulir pendaftaran</span></li>
-                            </ol>
-                        </div>
-
+                        <h4 class="title_top">{{$data->question}}</h4>
+                        <div class="content">{{$data->answer}}</div>
+                        <hr>
+                    </div>
+                    @endforeach
                         <h4 class="title">Konten apa saja yang tersedia pada website KOPAJA?</h4>
                         <div class="content">
                             <ol class="ordered-list">

@@ -158,7 +158,7 @@
                         type : 'GET',
                         dataType : 'json',
                         success: function(data){
-                            console.log("testtes");
+                            // console.log("testtes");
                             $('#province').empty();  //add this
                             $('#province')
                                 .append("<input type='text' class='form-control' name='province' id='province' value='"+provinsi_name+"'>");

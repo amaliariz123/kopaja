@@ -208,7 +208,13 @@
                         <td>{{$data->quiz->title}}</td>
                         <td>{{$data->score}}</td>
                         <td><i class="ti-info-alt detail" value="{{$data->id}}" data-toggle="modal" data-target="#detailHistory"></i>
-                         | <i class="ti-trash"></i></td>
+                         |
+                         <form action="{{ route('history.delete', $data->id) }}" method="post">
+                          {{ csrf_field() }}
+                          {{ method_field('DELETE') }}
+                          <button class="btn-icon" type="submit" onclick="return confirm('Yakin ingin menghapus data?')" style="border: 0px;background: transparent;"><i class="ti-trash"></i></button>
+                        </form>
+                        </td>
                         
                     </tr>
                     @endforeach
@@ -270,10 +276,143 @@
     </div>
   </div>
 </div>
+<!-- Modal -->
+
+<div class="modal fade" id="test" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nilai Anda adalah : </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if(Session::get('popup') < 25 ) <h2 style="text-align: center;">Troll!</h2><br>
+
+
+                    <div class="progress mx-auto"
+                        data-value="{{ Session::get('popup') }}">
+                        <span class="progress-left">
+                            <span class="progress-bar border-danger"></span>
+                        </span>
+                        <span class="progress-right">
+                            <span class="progress-bar border-danger"></span>
+                        </span>
+                        <div
+                            class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                            <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                <h1>{{ Session::get('popup') }}<small
+                                        style="font-size: 20px">%</small></h1>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <h6 style="text-align: center;">Terus belajar, jangan menyerah, tetap semangat, kamu pasti bisa!
+                    </h6>
+                    @elseif(Session::get('popup') < 50 ) <h2 style="text-align: center;">Dreadful!
+                        </h2><br>
+
+
+                        <div class="progress mx-auto"
+                            data-value="{{ Session::get('popup') }}">
+                            <span class="progress-left">
+                                <span class="progress-bar border-warning"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar border-warning"></span>
+                            </span>
+                            <div
+                                class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                    <h1>{{ Session::get('popup') }}<small
+                                            style="font-size: 20px">%</small></h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <h6 style="text-align: center;">Kurang sedikit lagi. Tingkatkan belajar lagi ya!</h6>
+                        @elseif(Session::get('popup') < 75 ) <h2 style="text-align: center;">
+                            Acceptable!</h2><br>
+
+
+                            <div class="progress mx-auto"
+                                data-value="{{ Session::get('popup') }}">
+                                <span class="progress-left">
+                                    <span class="progress-bar border-primary"></span>
+                                </span>
+                                <span class="progress-right">
+                                    <span class="progress-bar border-primary"></span>
+                                </span>
+                                <div
+                                    class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                    <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                        <h1>{{ Session::get('popup') }}<small
+                                                style="font-size: 20px">%</small></h1>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <br>
+                            <h6 style="text-align: center;">Wow! Bagus. Test selanjutnya pasti lebih baik!</h6>
+                            @else
+                            <h2 style="text-align: center;">Outstanding!</h2><br>
+
+
+                            <div class="progress mx-auto"
+                                data-value="{{ Session::get('popup') }}">
+                                <span class="progress-left">
+                                    <span class="progress-bar border-succes"></span>
+                                </span>
+                                <span class="progress-right">
+                                    <span class="progress-bar border-succes"></span>
+                                </span>
+                                <div
+                                    class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                    <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                        <h1>{{ Session::get('popup') }}<small
+                                                style="font-size: 20px">%</small></h1>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br>
+                            <h6 style="text-align: center;">Hebat! Pertahankan terus. Jangan sampai lengah. Selamat!
+                            </h6>
+                            @endif
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('custom-js')
 <script type="text/javascript">
+  $('#table_history').DataTable({
+    "pagingType"        : "full_numbers",
+    "lengthMenu"        : [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                        ],
+    responsive          : true, 
+    language            : {
+    search              : "_INPUT_",
+    searchPlaceholder   : "Cari",
+    }
+  });
+
     $(document).on('click', '.detail', function () {
             var id = $(this).attr('value');
             $.ajax({
@@ -299,5 +438,10 @@
     console.log('hayuk')
     localStorage.setItem('start_time', new Date().getTime())
   });
+</script>
+<script>
+  @if (Session::get('popup'))
+      $('#test').modal('show');
+  @endif
 </script>
 @endpush

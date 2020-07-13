@@ -23,7 +23,7 @@
                         </p>
                         
                         @guest
-                            <a href="{{ route('register') }}" class="btn_1">Mulai Kuis!</a>
+                            <a href="{{ route('login') }}" class="btn_1">Mulai Kuis!</a>
                             <a href="{{ route('register') }}" class="btn_2">Daftar</a>                          
                         @else
                         <a href="{{ route('riwayat_kuispajak', $member->id) }}" class="btn_1">Mulai Kuis!</a>
@@ -166,8 +166,13 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-xl-2 col-sm-4">
-                                    <div class="testimonial_slider_img">
-                                        <img src="{{url('/')}}/etrain/img/sma.png" alt="#">
+                                    <div class="
+                                    ">
+                                    @if($data->member->user->profile_picture == null)
+                                        <img src="{{ asset('/etrain/img/user.png') }}" alt="foto">
+                                    @else
+                                        <img src="{{asset('storage/images/user/'.$data->member->user->profile_picture)}}" alt="foto">
+                                    @endif
                                     </div>
                                 </div>
                                 @endforeach

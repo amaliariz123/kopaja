@@ -104,7 +104,7 @@
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
                                                 @else
-                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak', $member->id) }}">
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}">
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
                                                 @endguest
@@ -214,6 +214,11 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/waypoints.min.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js"></script>
+
+    <!--Datatables-->
+    <script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
     @stack('custom-js')
 </body>
 

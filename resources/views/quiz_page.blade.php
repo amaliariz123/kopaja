@@ -192,6 +192,7 @@
         <b id="demo" style="font-size: 24px; text-align:center; margin-left:110px;" />
     </div>
     <div class="container">
+        <form action="{{ route('quizResult', $id_kuis) }}">
         <div class="row">
             <div style="width: 60%; float: :left;">
                 <div class="card main-profile">
@@ -201,7 +202,7 @@
                             <h5 style="font-weight: 600; color: rgb(243, 105, 10); margin-right: 25px">
                                 <small><b>{{$page}}</b></small>
                             </h5>
-                            <h5>{{$data->question}} {{session($data->id)}}</h5>
+                            <h5>{{$data->question}}</h5>
                         </label>
                         <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_a}}</h5>
                             <input type="radio" name="{{$data->id}}" value="1" class="pilih" {{ session($data->id) == 1 ? 'checked' : null }}>
@@ -234,21 +235,54 @@
                     </div>
                     <div style="margin-bottom: 20px;">
                         @for($i=1; $i<=$totalsoal; $i++)
-                            <button class="btn btn_nav">{{$i}}</button>
+                            <button class="btn btn_nav" src="#">{{$i}}</button>
                         @endfor
                     </div>
                     <div style="text-align: center;">
-                        <a class="profile-nav__link active" style="border-radius: 5px; padding: 10px 25px;" href="{{ route('quizResult', $id_kuis) }}">Selesai</a>
+                        <button type="submit" class="profile-nav__link active" style="border-radius: 5px; padding: 10px 25px;" ">Selesai</button>
                     </div>
                 </div>
             </div>
         </div>
+            </form>
     </div>
 </section>
+    <div class="modal fade" id="nilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nilai Anda adalah : </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <h2 style="text-align: center;">Waktu Anda Telah Habis!</h2><br>
+                    <div class="progress mx-auto" data-value="{{ Session::get('popup') }}">
+                        <span class="progress-left">
+                            <span class="progress-bar border-danger"></span>
+                        </span>
+                        <span class="progress-right">
+                            <span class="progress-bar border-danger"></span>
+                        </span>
+                        <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                            <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ Session::get('popup') }}<small style="font-size: 20px">%</small></h1></div>
+                        </div>
+                    </div>
+                    <br><h6 style="text-align: center;">Silahkan kerjakan kembali!</h6>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" href="{{route('riwayat_kuispajak')}}">OK</button>
+            </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('custom-js')
-<script>
-$(document).on('change', '.pilih', function () {
+    <script>
+    $(document).on('change', '.pilih', function () {
         var id_soal = $("#id_soal").val();
         var jawaban = $(this).val();
         var url = '{!!url('optionChecked')!!}/'+id_soal+"/"+jawaban;
@@ -266,41 +300,44 @@ $(document).on('change', '.pilih', function () {
         })
     });
     </script>
-<script>
+    <script>
 
-    // Set the date we're counting down to
-    var countDownDate = {{$countdown}};
-    var upDate = new Date(localStorage.getItem('start_time'));
-    console.log(new Date())
-    console.log(upDate)
-    upDate.setMinutes( upDate.getMinutes() + countDownDate );
+        // Set the date we're counting down to
+        var countDownDate = {{$countdown}};
+        var upDate = new Date(parseInt(localStorage.getItem('start_time')));
+        upDate.setMinutes( upDate.getMinutes() + countDownDate );
 
-    // Update the count down every 1 second
-    var x = setInterval(function() {
+        // Update the count down every 1 second
+        var x = setInterval(function() {
 
-        // Get today's date and time
-        var now = new Date().getTime();
+            // Get today's date and time
+            var now = new Date().getTime();
+                
+            // Find the distance between now and the count down date
+            var distance = upDate - now;
+                
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             
-        // Find the distance between now and the count down date
-        var distance = upDate - now;
-            
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Output the result in an element with id="demo"
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+                
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+                $("#nilai").modal("show");
+                var id_kuis ="{{$id_kuis}}";
+                document.getElementById("demo").innerHTML = "EXPIRED";
+                var url = '{!!url('quizResult')!!}/'+id_kuis;
+                window.location.href = url;
+            }
+        }, 1000);
         
-        // Output the result in an element with id="demo"
-        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
-            
-        // If the count down is over, write some text 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
-        }
-    }, 1000);
-    
-</script>
+    </script>
 
 @endpush

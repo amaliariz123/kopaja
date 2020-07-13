@@ -38,6 +38,7 @@ Route::get('/index', 'MemberController@index');
     // halaman profil
     Route::get('/getCity/{id}', 'MemberController@getCity')->name('getCity');
     Route::get('/upgrade', 'MemberController@upgrade')->name('upgrade');
+    // Route::get('/after', 'MemberController@upgrade')->name('upgrade');
 
     Route::get('/profile/edit/{id}', 'MemberController@editProfile')->name('profile.show');
     Route::get('/account/edit/{id}','MemberController@editAccount');
@@ -53,14 +54,16 @@ Route::get('/index', 'MemberController@index');
     Route::get('/latihan_soal/show/{id}/cek', 'MemberController@cekLatihan')->name('cekLatihan');
 
     // halaman latihan pajak, pembahasan
-    Route::get('/pembahasan_beamaterai/{id}','MemberController@pembahasan')->name('pembeamaterai');
+    Route::get('/pembahasan_soal/show/{id}','MemberController@pembahasan')->name('pembeamaterai');
 
     // halaman kuis pajak
-    Route::get('/riwayat_kuispajak/{id}','MemberController@getQuizHistory')->name('riwayat_kuispajak');
+    Route::get('/riwayat_kuispajak','MemberController@getQuizHistory')->name('riwayat_kuispajak');
     Route::get('/riwayat_kuispajak/detail/{id_history}','MemberController@detailQuizHistory')->name('detail_riwayat.show');
     Route::get('/kuis_pajak/{id}','MemberController@showKuis')->name('kuis_pajak.show');
     Route::get('/optionChecked/{page}/{jawaban}','MemberController@optionChecked')->name('optionChecked');
     Route::get('/quizResult/{id_quiz}','MemberController@quizResult')->name('quizResult');
+    Route::delete('/riwayat_kuispajak/delete/{id_history}','MemberController@destroyHistory')->name('history.delete');
+    
     
 
     Route::get('/pajakpusatpasal4',function(){

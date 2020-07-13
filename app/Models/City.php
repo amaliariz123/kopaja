@@ -27,14 +27,14 @@ class City extends Model
     /**
      * @var array
      */
-    protected $fillable = ['province_id', 'city', 'capital_city'];
+    protected $fillable = ['provinsi_id', 'kabupaten/kota', 'ibu_kota'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function province()
     {
-        return $this->belongsTo('App\Models\Province', 'province_id');
+        return $this->belongsTo('App\Models\Province', 'provinsi_id');
     }
 
     /**

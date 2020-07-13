@@ -48,7 +48,7 @@ class MemberController extends Controller
         
         $data = [];
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $province = Province::all()->pluck("province", "id");
+        $province = Province::all()->pluck("provinsi", "id");
         $data['member'] = Member::where('user_id','=',$id)->first();
     
         return  view('users.member_edit_profile', compact('data', 'province'));
@@ -60,7 +60,7 @@ class MemberController extends Controller
     }
 
     public function getCity($id){
-        $city = City::where('province_id', '=', $id)->pluck("city", "id");
+        $city = City::where('provinsi_id', '=', $id)->pluck("kabupaten_kota", "id");
         // dd(json_encode($city));
         return json_encode($city);
     }
@@ -96,7 +96,7 @@ class MemberController extends Controller
 
         $data = [];
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $province = Province::all()->pluck("province", "id");
+        $province = Province::all()->pluck("provinsi", "id");
         $data['member'] = Member::where('user_id','=',$id)->first();
 
         session(['success' => ['Profil berhasil diperbarui.']]);
@@ -181,6 +181,7 @@ class MemberController extends Controller
     public function showLatihanSoal($id)
     {
         $name = ExerciseQuestion::with('tax')->where('id_tax', $id)->first();
+        // dd($name);
         $exercise = ExerciseQuestion::with('tax')->where('id_tax', $id)->get();
 
         return view ('soal.soalbeamaterai', compact('exercise', 'name'));
@@ -306,22 +307,25 @@ class MemberController extends Controller
 
     public function showKuis($id_kuis)
     {
+        $data = User::where('id', '=', Auth::user()->id)->first()->id;
+        $member = Member::where('user_id', $data)->first()->id;
+
         $durasi = Quiz::select('duration')->where('id',$id_kuis)->get();
         $kuis = QuizQuestion::with('quiz')->where('quiz_id', $id_kuis)->simplePaginate(1);
         $totalsoal =QuizQuestion::with('quiz')->where('quiz_id', $id_kuis)->count();
         $countdown = $durasi[0]->duration;
         $page = $kuis->currentPage();
-        return view ('quiz_page', compact('kuis','countdown','totalsoal','page', 'id_kuis'));
+        return view ('quiz_page', compact('kuis','countdown','totalsoal','page', 'id_kuis','member'));
     }
     public function getQuizHistory() {
         $kuis = Quiz::get();
-        $id = Auth::user()->id;
-        $history = MemberQuizHistory::with('quiz')->where('member_id', $id)->get();
-        $id_quiz = MemberQuizHistory::with('quiz')->where('member_id', $id)->first();
+        $member = Member::where('user_id', Auth::user()->id)->first()->id;
+        $history = MemberQuizHistory::with('quiz')->where('member_id', $member)->get();
+        $id_quiz = MemberQuizHistory::with('quiz')->where('member_id', $member)->first();
         // dd($kuis);
         $history_quiz = User::with('members.historyQuiz')
-        ->whereHas('members', function($q) use($id) {
-            $q->where('id',$id);
+        ->whereHas('members', function($q) use($member) {
+            $q->where('id',$member);
         })->get();
         return view ('quiz_history', compact('history','history_quiz','id_quiz', 'kuis'));
     }
@@ -344,7 +348,7 @@ class MemberController extends Controller
         ]);
     }
 
-    public function quizResult($id_kuis){
+    public function quizResult(Request $request, $id_kuis){
         $member = Member::where('user_id', Auth::user()->id)->first()->id;
         $soal = QuizQuestion::where('quiz_id', $id_kuis)->get();
         $hasil = 0;
@@ -353,7 +357,7 @@ class MemberController extends Controller
             $jawab->member_id = $member;
             $jawab->question_id = $item->id;
             $jawab->answer = session($item->id);
-            if($item->isRight == session($item->id)){
+            if($item->right_answer == session($item->id)){
                 $jawab->isRight = 1;
                 $jawab->save();
                 $hasil+=1;
@@ -361,6 +365,7 @@ class MemberController extends Controller
                 $jawab->isRight = 0;
                 $jawab->save();
             }
+            $request->session()->forget($item->id);
         }
         $jlh = QuizQuestion::where('quiz_id', $id_kuis)->count();
         $histroy = new MemberQuizHistory();
@@ -368,7 +373,15 @@ class MemberController extends Controller
         $histroy->quiz_id = $id_kuis;
         $histroy->score = ($hasil/$jlh)*100;
         $histroy->save();
+        $nilai = ($hasil/$jlh)*100;
 
+        // return view ('quiz_history', compact('history','history_quiz','id_quiz', 'kuis'));
+        return redirect()->route('riwayat_kuispajak')->with('popup', $nilai);
+    }
+
+    public function destroyHistory($id){
+        MemberQuizHistory::findOrFail($id)->delete($id);
+        return redirect()->route('riwayat_kuispajak');
     }
 
 

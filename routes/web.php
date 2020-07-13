@@ -26,11 +26,11 @@ Route::get('/tentang',function(){
         return view('tentang');
         })->name('tentang');
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware('verified')->name('home');
+// Route::get('/home', function () {
+//     return view('home');
+// })->middleware('verified')->name('home');
 
-Route::group( [ 'middleware' => 'auth' ], function () {
+Route::group( [ 'middleware' => ['auth','verified']], function () {
 Route::get('/index', 'MemberController@index');
     
 // FOR MEMBERS //
@@ -445,4 +445,3 @@ Route::group(['prefix' => '/storage'], function () {
 });
 
 });
-

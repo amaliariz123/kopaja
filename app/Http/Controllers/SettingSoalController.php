@@ -48,17 +48,16 @@ class SettingSoalController extends Controller
         for ($i=0; $i <count($pajak) ; $i++) { 
             $data_pajak['id'] = $pajak[$i]->id;
             $data_pajak['id_tax'] = $pajak[$i]->name;
-            $data_pajak['question_total'] = count( $latihan = DB::table('example_exercises')
-                                                            ->where('id_tax','=',$data_pajak['id'])
-                                                            ->get()
-                                                );
+            $data_pajak['question_total'] = count(DB::table('example_exercises')
+                                                  ->where('id_tax','=',$data_pajak['id'])
+                                                  ->get());
            $data[] = $data_pajak;
         }
-
-        //return $data;
-
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<a href="'.url('/contoh_soal/show/'.$row['id']).'/'.$row['id_tax'].'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+            $btn = '<a href="'.url('/contoh_soal/show/'.$row['id']).'/'.$row['id_tax'].'" 
+                    class="btn m-btn--pill btn-info m-btn--wide btn-sm"> 
+                    <i class="la la-exclamation-circle"></i> &nbsp; Detail
+                    </a>';
 
                 return $btn;
         })
@@ -80,7 +79,6 @@ class SettingSoalController extends Controller
     */
     public function storeContoh(Request $request)
     {
-        // return $request;
     	$rules = [
     		'id_tax' => 'required|integer',
     		'title' => 'required|string',
@@ -98,10 +96,7 @@ class SettingSoalController extends Controller
 
     		return back()->withInput();
     	} else {
-
-    		//if both field not null
-    		if(!empty($request->question_image && !empty($request->answer_image)))
-    		{
+    		if(!empty($request->question_image && !empty($request->answer_image))) {
     			$file1 = $request->file('question_image');
     			$file2 = $request->file('answer_image');
 
@@ -109,31 +104,28 @@ class SettingSoalController extends Controller
     			$extension2 = strtolower(request('answer_image')->getClientOriginalExtension());
 
     			$date = date('YmdHi');
-
     			$question_image = 'question_image_'.$date.'.'.$extension1;
     			$answer_image = 'answer_image_'.$date.'.'.$extension2;
 
     			Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
     			Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
     		} elseif(!empty($request->question_image) && empty($request->answer_image)) 
-    		//if field question_image is not null BUT field answer_image is null
     		{
     			$file1 = $request->file('question_image');
     			$extensions1 = strtolower(request('question_image')->getClientOriginalExtension());
     			$date = date('YmdHi');
     			$question_image = 'question_image_'.$date.'.'.$extensions1;
-    			$answer_image = 'blank.jpg';
+    			$answer_image = null;
     			Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
     		} elseif(empty($request->question_image) && !empty($request->answer_image)) 
-    		//if field question_image is null BUT field answer_image is not null
     		{
     			$file2 = $request->file('answer_image');
     			$extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
     			$date = date('YmdHi');
-    			$question_image = 'blank.jpg';
+    			$question_image = null;
     			$answer_image = 'answer_image_'.$date.'.'.$extensions2;
     			Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
-    		} else{ //if both field is null
+    		} else{
     			$question_image = null;
     			$answer_image = null;
     		} 
@@ -150,7 +142,6 @@ class SettingSoalController extends Controller
 
         $pajak = Tax::find($request->id_tax);
 
-    	// return response()->json(['success'=>'Data added successfully']);
         session(['success' => ['Soal berhasil ditambahkan!']]);
         return redirect()->route('detail.contoh_soal', [$request->id_tax, $pajak->name]);
     }
@@ -167,7 +158,8 @@ class SettingSoalController extends Controller
         $number = $questions->firstItem();
         $total_question = DB::table('example_exercises')->where('id_tax','=',$id)->get();
 
-        return view('setting_soal.contoh_soal_detail', compact('tax','questions','number','total_question'));
+        return view('setting_soal.contoh_soal_detail', 
+                compact('tax','questions','number','total_question'));
      }
 
      /**
@@ -191,10 +183,8 @@ class SettingSoalController extends Controller
      */
      public function updateContoh(Request $request, $id)
      {
-        // return $request;
      	$data = ExampleExercise::find($id);
         $pajak = Tax::where('id',$data->id_tax)->first();
-        // return $pajak->name;
 
      	$rules = [
      		'edit_id_tax' => 'required|integer',
@@ -207,48 +197,36 @@ class SettingSoalController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails())
-        {
+        if($validator->fails()) {
             session(['error' => $validator->errors()->all()]);
             return back()->withInput();
-            
         } else {
-            //if both field not null
-            if(!empty($request->edit_question_image && !empty($request->edit_answer_image)))
-            {
+            if(!empty($request->edit_question_image && !empty($request->edit_answer_image))) {
                 $file1 = $request->file('edit_question_image');
                 $file2 = $request->file('edit_answer_image');
-
                 $extensions1 = strtolower(request('edit_question_image')->getClientOriginalExtension());
                 $extensions2 = strtolower(request('edit_answer_image')->getClientOriginalExtension());
-
                 $date = date('YmdHi');
-
                 $question_image = 'question_image_'.$date.'.'.$extensions1;
                 $answer_image = 'answer_image_'.$date.'.'.$extensions2;
-
                 Storage::delete('public/images/contoh_soal_image/' . $data->question_image);
                 Storage::delete('public/images/contoh_soal_image/' . $data->answer_image);
 
                 Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
                 Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
-            } elseif(!empty($request->edit_question_image) && empty($request->edit_answer_image)) 
-            //if field question_image is not null BUT field answer_image is null
-            {
+            } elseif(!empty($request->edit_question_image) && empty($request->edit_answer_image))  {
                 $file1 = $request->file('edit_question_image');
                 $extensions1 = strtolower(request('edit_question_image')->getClientOriginalExtension());
                 $date = date('YmdHi');
                 $question_image = 'question_image_'.$date.'.'.$extensions1;
-                $answer_image = 'blank.jpg';
+                $answer_image = $data->answer_image;
                 Storage::delete('public/images/contoh_soal_image/' . $data->question_image);
                 Storage::put('public/images/contoh_soal_image/'.$question_image, File::get($file1));
-            } elseif(empty($request->edit_question_image) && !empty($request->edit_answer_image)) 
-            //if field question_image is null BUT field answer_image is not null
-            {
+            } elseif(empty($request->edit_question_image) && !empty($request->edit_answer_image))  {
                 $file2 = $request->file('edit_answer_image');
                 $extensions2 = strtolower(request('answer_image')->getClientOriginalExtension());
                 $date = date('YmdHi');
-                $question_image = 'blank.jpg';
+                $question_image = $data->question_image;
                 $answer_image = 'answer_image_'.$date.'.'.$extensions2;
                 Storage::delete('public/images/contoh_soal_image/' . $data->answer_image);
                 Storage::put('public/images/contoh_soal_image/'.$answer_image, File::get($file2));
@@ -265,7 +243,6 @@ class SettingSoalController extends Controller
             $data->answer_image = $answer_image;
             $data->save();
 
-            //return response()->json(['success' => 'Data updated!']);
             session(['success' => ['Data berhasil diperbarui!']]);
             return redirect()->route('detail.contoh_soal', [$pajak->id, $pajak->name]);
         }
@@ -331,7 +308,7 @@ class SettingSoalController extends Controller
 
         $import_data_filter = array_filter($import->toArray());
         foreach ($import_data_filter as $key => $value) {
-            if(($check=array_search('Untuk kendaraan roda 2 berjenis matic milik orang pribadi dengan NJKB sebesar Rp9.600.000,- Hitunglah biaya untuk bea balik nama yang harus dibayarkan!', $value)) === true ) 
+            if(($check=array_search('Ini contoh soal?', $value)) !== false ) 
             {
                 unset($import_data_filter[$key]);
             } else {
@@ -475,23 +452,20 @@ class SettingSoalController extends Controller
     public function getDataLatihan()
     {
         $pajak = Tax::all();
-        //$latihan = ExerciseQuestion::with('tax')->where('id_tax','=','id')->get();
         
         $data = [];
         for ($i=0; $i <count($pajak) ; $i++) { 
             $data_pajak['id'] = $pajak[$i]->id;
             $data_pajak['id_tax'] = $pajak[$i]->name;
-            $data_pajak['question_total'] = count( $latihan = DB::table('exercise_questions')
-                                                            ->where('id_tax','=',$data_pajak['id'])
-                                                            ->get()
-                                                );
+            $data_pajak['question_total'] = count(DB::table('exercise_questions')
+                                                    ->where('id_tax','=',$data_pajak['id'])
+                                                    ->get() );
            $data[] = $data_pajak;
         }
-
-        //return $data;
-
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<a href="'.url('latihan_soal/show/'.$row['id']).'/'.$row['id_tax'].'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+            $btn = '<a href="'.url('latihan_soal/show/'.$row['id']).'/'.$row['id_tax'].'" 
+                    class="btn m-btn--pill btn-info m-btn--wide btn-sm"> 
+                    <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
 
                 return $btn;
         })
@@ -512,7 +486,8 @@ class SettingSoalController extends Controller
         $number = $questions->firstItem();
         $total_question = DB::table('exercise_questions')->where('id_tax','=',$id)->get();
 
-        return view('setting_soal.latihan_soal_detail', compact('tax','questions','number','total_question'));
+        return view('setting_soal.latihan_soal_detail', 
+                    compact('tax','questions','number','total_question'));
     }
 
     public function search(Request $request, $id)
@@ -547,7 +522,6 @@ class SettingSoalController extends Controller
     */
     public function storeSoal(Request $request)
     {
-        // return $request;
         $rules = [
             'id_tax' => 'required|integer',
             'question' => 'required',
@@ -556,18 +530,14 @@ class SettingSoalController extends Controller
             'opsi_b' => 'required|string',
             'opsi_c' => 'required|string',
             'opsi_d' => 'required|string',
-            'jawaban' => 'required|integer',
+            'kunci_jawaban' => 'required|integer',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails())
-        {
-            //return response()->json(['errors' => $validator->errors()->all()]);
+        if($validator->fails()) {
             session(['error' => $validator->errors()->all()]);
-
-            return back()->withInput($request);
-
+            return back()->withInput();
         } else {
             if(!empty($request->image))
             {
@@ -587,16 +557,13 @@ class SettingSoalController extends Controller
             'option_b' => request('opsi_b'),
             'option_c' => request('opsi_c'),
             'option_d' => request('opsi_d'),
-            'right_answer' => request('jawaban'),
+            'right_answer' => request('kunci_jawaban'),
             'image' => $filename,
             ]);
 
             $pajak = Tax::find($request->id_tax);
 
-            //return response()->json(['success'=>'Data added successfully']);
-            session(['success' => ['Soal berhasil ditambahkan.']]);
-
-            //return redirect()->route('');
+            session(['success' => ['Soal berhasil ditambahkan.']]);            
             return redirect()->route('detail.soal', [$request->id_tax, $pajak->name]);
         }
     }
@@ -621,18 +588,14 @@ class SettingSoalController extends Controller
             'opsi_b' => 'required|string',
             'opsi_c' => 'required|string',
             'opsi_d' => 'required|string',
-            'jawaban' => 'required|integer',
+            'kunci_jawaban' => 'required|integer',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails())
-        {
-            //return response()->json(['errors' => $validator->errors()->all()]);
+        if($validator->fails()) {
             session(['error' => $validator->errors()->all()]);
-
             return back()->withInput();
-
         } else {
             if(!empty($request->image))
             {
@@ -653,13 +616,12 @@ class SettingSoalController extends Controller
             $latihan->option_b = $request->opsi_b;
             $latihan->option_c = $request->opsi_c;
             $latihan->option_d = $request->opsi_d;
-            $latihan->right_answer = $request->jawaban;
+            $latihan->right_answer = $request->kunci_jawaban;
             $latihan->save();
-
-            session(['success' => ['Soal berhasil diperbarui!']]);
 
             $pajak = Tax::find($request->id_tax);
 
+            session(['success' => ['Soal berhasil diperbarui!']]);
             return redirect()->route('detail.soal', [$request->id_tax, $pajak->name]);
     }
 
@@ -674,14 +636,10 @@ class SettingSoalController extends Controller
 
     public function saveImport(Request $request, $id)
     {
-        $this->validate(request(),
-            [
-                'excel' => 'required|mimes:xlsx'
-            ]
-        );
+        $this->validate(request(), [
+                'excel' => 'required|mimes:xlsx' ]);
 
         $data = Tax::find($id);
-        
 
         $file = $request->file('excel');
         $import = Excel::load($file)->get();
@@ -693,7 +651,7 @@ class SettingSoalController extends Controller
 
         $import_data_filter = array_filter($import->toArray());
         foreach ($import_data_filter as $key => $value) {
-            if(($check=array_search('Berapa besarnya tarif PPh Pasal 22 atas pembelian barang oleh bendahara pemerintah dan KPA?', $value)) === true ) 
+            if(($check=array_search('Ini contoh soal?', $value)) !== false ) 
             {
                 unset($import_data_filter[$key]);
             } else {
@@ -732,6 +690,8 @@ class SettingSoalController extends Controller
             $get_error[] = $key;
         }
         $error = array_unique($get_error);
+
+
         $question = [];
         $count_error = 0;
 
@@ -758,7 +718,10 @@ class SettingSoalController extends Controller
             ExerciseQuestion::create($q);
         }
 
-        return redirect()->route('detail.soal', [$id, $data->name])->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
+        return redirect()->route('detail.soal', [$id, $data->name])
+                            ->withErrors($validator)
+                            ->with('totalQuestion',$totalQuestion)
+                            ->with('totalQuestionSuccess',$totalQuestionSuccess);
     }
 
     public function downloadTemplate()
@@ -785,9 +748,7 @@ class SettingSoalController extends Controller
             ];
         }
 
-        // return $collection;
-        return Excel::create('Ekspor Latihan Soal '.$tax->name, function($excel) use ($collection)
-        {
+        return Excel::create('Ekspor Latihan Soal '.$tax->name, function($excel) use ($collection) {
             $excel->sheet('Sheet 1', function($sheet) use ($collection)
             {
                 $sheet->freezeFirstRow();
@@ -866,7 +827,9 @@ class SettingSoalController extends Controller
                     ->get();
 
         return datatables()->of($result)->addColumn('option', function($row) {
-            $btn = '<a href="'.url('latihan_soal/'.$row->tax_id).'/member/'.$row->member_id.'" class="btn m-btn--pill btn-info m-btn--wide btn-sm"> <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+            $btn = '<a href="'.url('latihan_soal/'.$row->tax_id).'/member/'.$row->member_id.'" 
+                    class="btn m-btn--pill btn-info m-btn--wide btn-sm"> 
+                    <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
 
                 return $btn;
         })

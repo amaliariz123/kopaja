@@ -66,6 +66,10 @@
             <div class="alert alert-success" role="alert" style="margin-top: 10px;">
                 <h6>Jawaban benar</h6>
             </div>
+            @elseif($value->member_answer == null )
+            <div class="alert alert-warning" role="alert" style="margin-top: 10px;">
+                <h6>Tidak dijawab</h6>
+            </div>
             @else
             <div class="alert alert-danger" role="alert" style="margin-top: 10px;">
                 <h6>Jawaban salah.</h6>

@@ -21,7 +21,7 @@ class CreateMemberQuizAnswersTable extends Migration
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('quiz_questions')
                     ->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->integer('answer');
+            $table->integer('answer')->nullable();
             $table->boolean('isRight');
             $table->timestamps();
         });

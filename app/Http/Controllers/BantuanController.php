@@ -36,8 +36,7 @@ class BantuanController extends Controller
     {
     	$data = Help::orderBy('created_at','desc')->get();
     	
-    	return datatables()->of($data)->addColumn('option', function($row) {
-            //$btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></button>';
+    	return datatables()->of($data)->addColumn('option', function($row) {            
             $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Delete"><i class="la la-trash"></i></button>';
 
@@ -74,7 +73,6 @@ class BantuanController extends Controller
     	{
     		return response()->json(['errors' => $validator->errors()->all()]);
     	} else {
-    		//store to table help
 	    	Help::create([
 	    		'question' => request('question'),
 	    		'answer' => request('answer')
@@ -160,25 +158,21 @@ class BantuanController extends Controller
     public function saveImportBantu(Request $request)
     {
         $data = Help::all();
-
         $this->validate(request(), ['excel' => 'required|mimes:xlsx']);
 
         $file = $request->file('excel');
         $import = Excel::load($file)->get();
-        if(!$import)
-        {
+        if(!$import) {
             session(['error' => ['Something wrong!']]);
             return redirect('/bantuan_aplikasi');
         }
 
         $import_data_filter = array_filter($import->toArray());
         foreach ($import_data_filter as $key => $value) {
-            if(($check=array_search('Apa itu kopaja.id?', $value)) === true ) 
-            {
+            if(($check=array_search('Ini contoh pertanyaan?', $value)) !== false ) {
                 unset($import_data_filter[$key]);
             } else {
-                if(implode($value) == null)
-                {
+                if(implode($value) == null) {
                     unset($import_data_filter[$key]);
                 }
             }
@@ -210,9 +204,7 @@ class BantuanController extends Controller
         $count_error = 0;
 
         foreach ($import_data_filter as $key => $row) {
-            if(in_array($key, $error)) 
-            {
-                // return $error;
+            if(in_array($key, $error))  {
                 continue;
                 $count_error++;
             } else {
@@ -228,7 +220,9 @@ class BantuanController extends Controller
             Help::create($q);
         }
 
-        return redirect('/bantuan_aplikasi')->with('data',$data)->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
+        return redirect('/bantuan_aplikasi')->with('data',$data)
+                ->withErrors($validator)->with('totalQuestion',$totalQuestion)
+                ->with('totalQuestionSuccess',$totalQuestionSuccess);
     }
 
     public function exportBantuan()
@@ -242,13 +236,9 @@ class BantuanController extends Controller
                 'question' => $value['question'],
                 'answer' => $value['answer'],
             ];
-        }
-
-        // return $collection;
-        return Excel::create('Ekspor Data Bantuan', function($excel) use ($collection)
-        {
-            $excel->sheet('Sheet 1', function($sheet) use ($collection)
-            {
+        }       
+        return Excel::create('Ekspor Data Bantuan', function($excel) use ($collection) {
+            $excel->sheet('Sheet 1', function($sheet) use ($collection) {
                 $sheet->freezeFirstRow();
                 $sheet->setStyle(array(
                     'font' => array(

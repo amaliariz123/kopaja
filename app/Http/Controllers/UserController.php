@@ -139,7 +139,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-
         $rules = [
             'fullname' => 'required|string|max:35',
             'email' => 'required|email',
@@ -150,41 +149,29 @@ class UserController extends Controller
         ];
 
         $validate = Validator::make($request->all(), $rules);
-
-        $notification = '';
-
-        if($validate->fails())
-        {
-            //return response()->json(['errors' => $validate->errors()->all()]);
+        if($validate->fails()) {
             session(['error' => $validate->errors()->all()]);
-
             return back()->withInput();
-
         } else {
-            if(!empty($request->profile_picture))
-            {
+            if(!empty($request->profile_picture)) {
                 $file = $request->file('profile_picture');
                 $extension = strtolower($file->getClientOriginalExtension());
                 $filename = $id.'.'.$extension;
-                \Storage::delete('public/images/user/'.$user->profile_picture);
-                \Storage::put('public/images/user/'.$filename, \File::get($file));
+                Storage::delete('public/images/user/'.$user->profile_picture);
+                Storage::put('public/images/user/'.$filename, \File::get($file));
             } else {
                 $filename = $user->profile_picture;
             }
 
             $user->fullname = $request->fullname;
             $user->email = $request->email;
-            if(Hash::check($request->old_password, $user->password))
-            {
-                $user->fill([
-                    'password' => Hash::make($request->new_password)
-                ]);
+            if(Hash::check($request->old_password, $user->password)) {
+                $user->fill(['password' => Hash::make($request->new_password)]);
             } 
             $user->profile_picture = $filename;
             $user->save();
 
             session(['success' => ['Profil berhasil diperbarui.']]);
-
             return redirect()->back();
         }
     }
@@ -226,34 +213,29 @@ class UserController extends Controller
     * Fetch data from model with datatables.
     * @return Response
     */
-    public function getDataMember()
-    {
-        $members = Member::with('user','province','city')->orderByDesc('created_at')->get();
+    public function getDataMember() {
+        $members = Member::with('user','province','city')->get();
         $data = [];
         for ($i=0; $i <count($members) ; $i++) {
             $member['user_id'] = $members[$i]->user->id;
             $member['id'] = $members[$i]->id; 
             $member['fullname'] = $members[$i]->user->fullname;
-
             if($members[$i]->date_of_birth != null) {
                 $member['age'] = Carbon::parse($members[$i]->date_of_birth)->age;
             } else {
                 $member['age'] = null;
             }
             $member['institution'] = $members[$i]->institution;
-
             if($members[$i]->province_id != null) {
                 $member['province'] = $members[$i]->province->provinsi;   
             } else {
                 $member['province'] = null;
             }
-
             if($members[$i]->city_id != null) {
                 $member['city'] = $members[$i]->city->kabupaten_kota;    
             } else {
                 $member['city'] = null;
             }
-
             $member['member_status'] = $members[$i]->member_status;
             $member['premium_code'] = $members[$i]->premium_code;
             $member['status'] = $members[$i]->member_status;
@@ -261,10 +243,9 @@ class UserController extends Controller
             $member['updated_at'] = $members[$i]->updated_at;
             $data[] = $member;
         }
-
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<button type="button" id="detail-btn" class="btn m-btn--pill btn-primary  btn-sm">Detail</button>';
-
+            $btn = '<button type="button" id="detail-btn" 
+            class="btn m-btn--pill btn-primary  btn-sm">Detail</button>';
                 return $btn;
         })
         ->rawColumns(['option'])

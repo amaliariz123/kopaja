@@ -66,7 +66,6 @@ class PembahasanController extends Controller
     */
     public function store(Request $request)
     {
-    	// return $request;
         $rules = [
         	'question_id' => 'required|integer',
         	'solution' => 'required',
@@ -74,11 +73,8 @@ class PembahasanController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
-
-        if($validator->fails()) 
-        {
+        if($validator->fails()) {
         	session(['error' => $validator->errors()->all()]);
-
         	return back()->withInput();
         } else {
         	if(!empty($request->image))
@@ -99,7 +95,6 @@ class PembahasanController extends Controller
             ]);
 
             session(['success' => ['Pembahasan berhasil ditambahkan.']]);
-
             return redirect()->route('pembahasan.soal');
         }
     }
@@ -130,15 +125,11 @@ class PembahasanController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
-
-        if($validator->fails()) 
-        {
+        if($validator->fails())  {
         	session(['error' => $validator->errors()->all()]);
-
         	return back()->withInput();
         } else {
-        	if(!empty($request->image))
-            {
+        	if(!empty($request->image)) {
                 $file = $request->file('image');
                 $extensions = strtolower($file->getClientOriginalExtension());
                 $date = date('YmdHi');
@@ -156,7 +147,6 @@ class PembahasanController extends Controller
     	$data->save();
 
     	session(['success' => ['Pembahasan berhasil diperbarui.']]);
-
         return redirect()->route('pembahasan.soal');
 	}
 

@@ -40,7 +40,7 @@
                             <span class="btn btn-sm btn-info btn-file">
                                 <span class="fileinput-new"> Pilih berkas </span>
                                 <span class="fileinput-exists"> Ubah </span>
-                                <input type="file" name="edit_module" accept="application/pdf" required> </span>
+                                <input type="file" value="" name="edit_module" accept="application/pdf"> </span>
                             <span class="fileinput-filename"> </span> &nbsp;
                             <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"> </a>
                         </div>

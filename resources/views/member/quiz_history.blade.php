@@ -153,12 +153,12 @@
         }
 
         td {
-            padding: 10px;
+            padding: 15px;
         }
 
         i {
             font-size: 20px;
-            padding: 10px;
+            padding-right: 10px;
         }
 
         i:hover {
@@ -173,7 +173,7 @@
   padding: 130px 0px 0px;">
 <div class="container">
     <div class="row ">
-        
+        <div>
         <div class="card card-profile">
             <div style="margin-bottom: 20px;">
             	<h4>Mulai Kuis Pajak Anda!</h4>
@@ -183,11 +183,11 @@
                 <button type="submit" class="btn_1" style="border-radius: 5px; padding: 10px 25px; float: right;" data-toggle="modal" data-target="#pilihKuis">
                 Mulai Kuis<i class="ti-arrow-right" style="padding-right: 0px;"></i></button>
             </div>
-            
+            </div>
         </div>
 
     <!-- history_page -->
-    <div style="width: 60%; float: :right;">
+    <div style="width:60%;">
         <div class="card main-profile">
         <div class="form-header">
         	<h3>Riwayat Kuis Pajak</h3>
@@ -207,13 +207,16 @@
                         <td>{{$data->created_at}}</td>
                         <td>{{$data->quiz->title}}</td>
                         <td>{{$data->score}}</td>
-                        <td><i class="ti-info-alt detail" value="{{$data->id}}" data-toggle="modal" data-target="#detailHistory"></i>
-                         |
-                         <form action="{{ route('history.delete', $data->id) }}" method="post">
-                          {{ csrf_field() }}
-                          {{ method_field('DELETE') }}
-                          <button class="btn-icon" type="submit" onclick="return confirm('Yakin ingin menghapus data?')" style="border: 0px;background: transparent;"><i class="ti-trash"></i></button>
-                        </form>
+                        <td >
+                        <div class="row align-items-center">
+                            <i class="ti-info-alt detail" value="{{$data->id}}" data-toggle="modal" data-target="#detailHistory"></i>
+                            |
+                            <form action="{{ route('history.delete', $data->id) }}" method="post" style="width:20%; margin-bottom:0px;">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button class="btn-icon" type="submit" onclick="return confirm('Yakin ingin menghapus data?')" ><i class="ti-trash"></i></button>
+                            </form>
+                            </div>
                         </td>
                         
                     </tr>
@@ -262,12 +265,12 @@
       <div class="modal-body">
       <div style="padding:20px;">
             @foreach($kuis as $data)
-            <a id="start_time" class="card-profile" style="width:90%; margin:10px;" href="{{route('kuis_pajak.show', $data->id)}}">
-                {{$data->title}}<br>
-                {{$data->description}}<br>
+            <a id="start_time" class="card card-profile" style="width:90%; margin:10px;" href="{{route('kuis_pajak.show', $data->id)}}">
+                <h4>{{$data->title}}</h4><br>
+                <p>{{$data->description}}</p><br>
                 {{$data->image}}<br>
-                {{$data->level}}<br>
-                {{$data->duration}} menit
+                <b>Level {{$data->level}}</b><br>
+                <h6>{{$data->duration}} menit</h6>
             </a>
             @endforeach
         </div>
@@ -401,7 +404,7 @@
 @push('custom-js')
 <script type="text/javascript">
   $('#table_history').DataTable({
-    "pagingType"        : "full_numbers",
+    "pagingType"        : "numbers",
     "lengthMenu"        : [
                         [10, 25, 50, -1],
                         [10, 25, 50, "All"]

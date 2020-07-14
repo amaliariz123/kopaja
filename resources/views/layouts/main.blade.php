@@ -111,9 +111,15 @@
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
                                                 @else
-                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak', $member->id) }}">
+                                                    @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('profile.show') }}">
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
+                                                    @else
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                    @endif
                                                 @endguest
                     
                                                 <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">

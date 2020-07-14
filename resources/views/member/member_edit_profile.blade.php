@@ -33,6 +33,7 @@
                     </nav>
                 </div>
                 <br>
+                @if($data['member']['member_status'] == 'reguler')
                 <div class="card card-profile">
                     <div class="info-profile">
                         <h5>Upgrade to Premium</h5>
@@ -48,6 +49,8 @@
                         <button type="submit" class="form-edit__btn" style="float:right;">Upgrade</button>
                     </form>
                 </div>
+                @else
+                @endif
             </div>
 
                 <div class="col-sm-7" style="float:right;">

@@ -31,6 +31,10 @@
 <header class="main_menu home_menu">
 
         <div class="container">
+        @php
+            $level = DB::table('quizzes')->where('id',$id_kuis)->get();
+        @endphp
+        @foreach($level as $data)
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom:0px; justify-content: space-between;">
@@ -42,13 +46,14 @@
                         </button>
                         <ul class="navbar-nav align-items-center" style="position:relative; float:right;">
                             <li class="d-none d-lg-block">
-                                <a class="btn_1" style="font-weight: 600; color:#fff;">Level </a>
+                                <a class="btn_1" style="font-weight: 600; color:#fff;">Level {{$data->level}}</a>
                             </li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </div>
+        @endforeach
     </header>
     
     @yield('content')

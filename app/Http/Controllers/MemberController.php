@@ -51,12 +51,12 @@ class MemberController extends Controller
         $province = Province::all()->pluck("provinsi", "id");
         $data['member'] = Member::where('user_id','=',$id)->first();
     
-        return  view('users.member_edit_profile', compact('data', 'province'));
+        return  view('member.member_edit_profile', compact('data', 'province'));
     }
 
     public function editAccount($id){
         $data = User::where('id', '=', $id)->first();
-        return view('users.member_change_pass', compact('data'));
+        return view('member.member_change_pass', compact('data'));
     }
 
     public function getCity($id){
@@ -100,7 +100,7 @@ class MemberController extends Controller
         $data['member'] = Member::where('user_id','=',$id)->first();
 
         session(['success' => ['Profil berhasil diperbarui.']]);
-        return  view('users.member_edit_profile', compact('data','province'));
+        return  view('member.member_edit_profile', compact('data','province'));
     }
 
     public function updateAccount(Request $request, $id)
@@ -139,44 +139,17 @@ class MemberController extends Controller
         }
     }
     
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $pajak = Tax::with('exampleExercises','exerciseQuestions')->where('id', $id)->first();
-        return view ('materi.beamaterai', compact('pajak'));
+        return view ('member.materi_pajak', compact('pajak'));
     }
     public function showContohSoal($id)
     {
         $name = ExampleExercise::with('tax')->where('id_tax', $id)->first();
         $example = ExampleExercise::with('tax')->where('id_tax', $id)->get();
 
-        return view ('latihansoal.latsoalbeamaterai', compact('example', 'name'));
+        return view ('member.contoh_soal', compact('example', 'name'));
     }
     public function showLatihanSoal($id)
     {
@@ -184,7 +157,7 @@ class MemberController extends Controller
         // dd($name);
         $exercise = ExerciseQuestion::with('tax')->where('id_tax', $id)->get();
 
-        return view ('soal.soalbeamaterai', compact('exercise', 'name'));
+        return view ('member.latihan_soal', compact('exercise', 'name'));
     }
     public function pembahasan($id)
     {
@@ -195,7 +168,7 @@ class MemberController extends Controller
         ->whereHas('exerciseQuestion', function($q) use($id) {
             $q->where('id_tax',$id);
         })->where('member_id', $member)->get();
-        return view ('pembeamaterai', compact('name', 'answer'));
+        return view ('member.pembahasan_soal', compact('name', 'answer'));
     }
 
     public function upgrade(Request $request){
@@ -271,40 +244,6 @@ class MemberController extends Controller
         return redirect()->route('latihan_soal.show', ['id' => $id])->with('popup', $hasil);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function showKuis($id_kuis)
     {
         $data = User::where('id', '=', Auth::user()->id)->first()->id;
@@ -315,7 +254,7 @@ class MemberController extends Controller
         $totalsoal =QuizQuestion::with('quiz')->where('quiz_id', $id_kuis)->count();
         $countdown = $durasi[0]->duration;
         $page = $kuis->currentPage();
-        return view ('quiz_page', compact('kuis','countdown','totalsoal','page', 'id_kuis','member'));
+        return view ('member.quiz_page', compact('kuis','countdown','totalsoal','page', 'id_kuis','member'));
     }
     public function getQuizHistory() {
         $kuis = Quiz::get();
@@ -327,7 +266,7 @@ class MemberController extends Controller
         ->whereHas('members', function($q) use($member) {
             $q->where('id',$member);
         })->get();
-        return view ('quiz_history', compact('history','history_quiz','id_quiz', 'kuis'));
+        return view ('member.quiz_history', compact('history','history_quiz','id_quiz', 'kuis'));
     }
     
     public function detailQuizHistory($id_history){
@@ -336,8 +275,7 @@ class MemberController extends Controller
 
         $history_quiz = MemberQuizHistory::with('quiz')->where('member_id', $member)->where('id',$id_history)->get();
 
-        return response()->json($history_quiz);
-        
+        return response()->json($history_quiz); 
     }
 
     public function optionChecked($nomor, $value){
@@ -381,9 +319,8 @@ class MemberController extends Controller
 
     public function destroyHistory($id){
         MemberQuizHistory::findOrFail($id)->delete($id);
-        return redirect()->route('riwayat_kuispajak');
+        return redirect()->route('riwayat_kuispajak')
+                        ->with('success','User deleted successfully');
     }
-
-
-
+    
 }

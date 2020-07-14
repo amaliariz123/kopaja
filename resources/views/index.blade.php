@@ -15,9 +15,10 @@
             <div class="col-lg-6 col-xl-6">
                 <div class="banner_text">
                     <div class="banner_text_iner">
-                        <h5>Belajar Pajak Lebih Menyenangkan!</h5>
-                        <h1>Belajar Pajak Menjadi Seru</h1>
-                        <p>Solusi belajar perpajakan untuk siswa SMA/SMK dan Perguruan Tinggi
+                        <h5>Belajar Pajak dimanapun kapanpun!</h5>
+                        <h1>Mulai Kuis Pajak Belajar Lebih Seru</h1>
+                        <p> Kompas Pajak Ajaib atau biasa disebut KOPAJA menjadi 
+                            solusi belajar perpajakan untuk siswa SMA/SMK dan Perguruan Tinggi
                             dilengkapi dengan akses latihan soal, pembahasan dan rangkuman.
                             Dilengkapi dengan materi perpajakan.
                         </p>
@@ -26,7 +27,7 @@
                             <a href="{{ route('login') }}" class="btn_1">Mulai Kuis!</a>
                             <a href="{{ route('register') }}" class="btn_2">Daftar</a>                          
                         @else
-                        <a href="{{ route('riwayat_kuispajak', $member->id) }}" class="btn_1">Mulai Kuis!</a>
+                        <a href="{{ route('riwayat_kuispajak') }}" class="btn_1">Mulai Kuis!</a>
                         @endguest
                     </div>
                 </div>
@@ -92,7 +93,7 @@
                 <div class="col-md-5 col-lg-5">
                     <div class="learning_member_text">
                         <h5>Tentang Kami</h5>
-                        <h2>Berlajar Pajak Menyenangkan dan Mudah</h2>
+                        <h2>Kompas Pajak Ajaib</h2>
                         <p>Materi pajak yang terasa sulit akan mudah untuk dipelajari, materi yang disampaikan
                             dibuat secara menarik dan menyenangkan.
                         </p>

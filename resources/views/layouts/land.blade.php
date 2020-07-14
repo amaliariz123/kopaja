@@ -23,7 +23,8 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+    <link href="{{ asset('/dist/css/sweetalert.css') }}" rel="stylesheet">
+    
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     
     @yield('css')
@@ -104,9 +105,15 @@
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
                                                 @else
+                                                    @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('profile.show', Auth::user()->id) }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                    @else
                                                 <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}">
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
+                                                    @endif
                                                 @endguest
                                                 
                                                 <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
@@ -214,11 +221,12 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/waypoints.min.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
 
     <!--Datatables-->
     <script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('/dist/js/sweetalert.min.js') }}"></script>
     @stack('custom-js')
 </body>
 

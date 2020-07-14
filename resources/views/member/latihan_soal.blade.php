@@ -165,6 +165,9 @@
 ?>
     <section class="blog_area single-post-area section mt-5 mb-5">
       <div class="container">
+      <?php
+        $member = DB::table('members')->where('user_id', Auth::user()->id)->first();
+      ?>
          <div class="row">
             <div class="col-lg-8 posts-list">
                <div class="single-post">
@@ -202,7 +205,11 @@
                         @endforeach
                          <h5>
                             <button type="submit" class="btn_1">Periksa</button>
-                            <a class="btn_2" href="{{Route('pembeamaterai', $name->id_tax)}}">Pembahasan</a>
+                            @if($member->member_status == 'reguler')
+                                <a class="btn_2" href="{{Route('profile.show', Auth::user()->id)}}">Pembahasan</a>
+                            @else
+                                <a class="btn_2" href="{{Route('pembeamaterai', $name->id_tax)}}">Pembahasan</a>
+                            @endif
                         </h5>
                         
                      </form>

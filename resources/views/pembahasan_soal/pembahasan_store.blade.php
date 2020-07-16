@@ -51,6 +51,14 @@
                         <div class="m-portlet__body">
                             <fieldset class="content-group">
                                 <div class="form-group m-form__group row">
+                                    <label for="question_text" class="form-control-label col-lg-3 col-sm-12">Nama Pajak<span class="text-danger">*</span></label>
+                                    <div class="col-lg-6 col-md-9 col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="tax" value="{{$tax->name}}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
                                     <label for="question_text" class="form-control-label col-lg-3 col-sm-12">Soal<span class="text-danger">*</span></label>
                                     <div class="col-lg-6 col-md-9 col-sm-12">
                                         <div class="input-group">

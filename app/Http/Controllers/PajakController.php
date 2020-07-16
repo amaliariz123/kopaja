@@ -36,7 +36,7 @@ public function getData()
 	return datatables()->of($data)->addColumn('option', function($row) {
         $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"
                 data-toggle="m-tooltip" data-placement="top" title="Detail">
-                <i class="la la-exclamation-circle"></i>
+                <i class="fa fa-clipboard-list"></i>
                 </button>';
         $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"
                 data-toggle="tooltip" data-placement="top" title="Edit">

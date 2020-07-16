@@ -191,6 +191,8 @@
         //trigger to edit-modal
         $('#table_pajak tbody').on('click', '#edit-btn', function(){
 
+            $("#tax-update:input").val('');
+
             let data = tabelPajak.row($(this).parents('tr')).data();
             let id = data['id'];
             let token = $('input[name=_token]').val();
@@ -214,7 +216,7 @@
                 }
             }
 
-            $("#tax-update:input").val('');
+            
             $("#tax-edit-modal").modal('show');
         });
     });

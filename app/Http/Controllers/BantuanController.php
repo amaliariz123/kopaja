@@ -141,7 +141,7 @@ class BantuanController extends Controller
     	$data = Help::find($id);
     	$data->delete();
 
-    	return view('setting.bantuan_index');
+    	return response()->json(['success'=>'Data deleted!']);
     }
 
     public function templateImport()

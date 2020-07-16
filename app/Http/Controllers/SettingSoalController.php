@@ -56,7 +56,7 @@ class SettingSoalController extends Controller
         return datatables()->of($data)->addColumn('option', function($row) {
             $btn = '<a href="'.url('/contoh_soal/show/'.$row['id']).'/'.$row['id_tax'].'" 
                     class="btn m-btn--pill btn-info m-btn--wide btn-sm"> 
-                    <i class="la la-exclamation-circle"></i> &nbsp; Detail
+                    <i class="fa fa-clipboard-list"></i> &nbsp; Detail
                     </a>';
 
                 return $btn;
@@ -465,7 +465,7 @@ class SettingSoalController extends Controller
         return datatables()->of($data)->addColumn('option', function($row) {
             $btn = '<a href="'.url('latihan_soal/show/'.$row['id']).'/'.$row['id_tax'].'" 
                     class="btn m-btn--pill btn-info m-btn--wide btn-sm"> 
-                    <i class="la la-exclamation-circle"></i> &nbsp; Detail</a>';
+                    <i class="fa fa-clipboard-list"></i> &nbsp; Detail</a>';
 
                 return $btn;
         })
@@ -482,7 +482,7 @@ class SettingSoalController extends Controller
     public function showLatihan($id, $nama_pajak)
     {
         $tax = Tax::find($id);
-        $questions = ExerciseQuestion::where('id_tax','=',$id)->paginate(5);
+        $questions = ExerciseQuestion::where('id_tax','=',$id)->paginate(3);
         $number = $questions->firstItem();
         $total_question = DB::table('exercise_questions')->where('id_tax','=',$id)->get();
 
@@ -502,6 +502,7 @@ class SettingSoalController extends Controller
         }
 
         return view('setting_soal.latihan_soal_persoal', compact('tax','questions','number'))->render();
+        // dd($request);
     }
 
     /**

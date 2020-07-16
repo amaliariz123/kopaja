@@ -16,15 +16,16 @@ use Illuminate\Support\Facades\Mail;
 
 Auth::routes(['verify' => true]);
 
-// Route::get('/', function () {
-//     return view('index');
-// })->name('index');
+Route::get('/', function () {
+    return view('index');
+})->name('index');
 
 // Route::get('/home', function () {
 //     return view('home');
 // })->middleware('verified')->name('home');
 
-Route::group( [ 'middleware' => ['auth','verified']], function () {
+Route::group( [ 'middleware' => ['auth']], function () {
+
     Route::get('/index', function () {
         return view('index');
         })->name('index');
@@ -412,7 +413,8 @@ Route::get('/kuis/{quiz_id}/member/{member_id}','KuisController@showAnswer');
 //pembahasan soal
 Route::get('pembahasan_soal','PembahasanController@index')->name('pembahasan.soal');
 Route::get('pembahasan_soal/get_data','PembahasanController@getData');
-Route::get('pembahasan_soal/create/','PembahasanController@create');
+Route::post('pembahasan_soal/get_soal','PembahasanController@getSoal');
+Route::get('pembahasan_soal/create/{id_soal}','PembahasanController@create');
 Route::post('pembahasan_soal/create/store/{id_soal}','PembahasanController@store');
 Route::get('pembahasan_soal/edit/{id_soal}','PembahasanController@edit');
 Route::post('pembahasan_soal/edit/update/{id_soal}','PembahasanController@update');

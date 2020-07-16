@@ -248,7 +248,7 @@
             deferRender: true,
             columns: [
                 {data: 'question', name:'question', visible:true},
-                {data: 'answer', name:'answer', visible:true},
+                {data: 'answer', name:'answer', visible:true,width:'50%'},
                 {data: 'option', name:'option', visible:true},
             ],
         });

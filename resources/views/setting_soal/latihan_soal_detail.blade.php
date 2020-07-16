@@ -239,7 +239,7 @@ $(document).ready(function(){
     function fetch_data(page, query)
     {
         $.ajax({
-            url:"/latihan_soal/search/soal/"+"{{$tax->id}}"+"?page="+page+"&query="+query,
+            url:"/latihan_soal/search/soal"+"{{$tax->id}}"+"?page="+page+"&query="+query,
             method:'GET',
             success:function(data)
             {

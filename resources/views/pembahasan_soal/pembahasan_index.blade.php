@@ -71,6 +71,7 @@
                         <table class="table table-striped table-bordered" id="tabel_pembahasan">
                             <thead>
                                 <tr>
+                                    <th>Nama Pajak</th>
                                     <th>Soal</th>
                                     <th>Dibuat pada</th>
                                     <th>Opsi</th>
@@ -108,7 +109,6 @@
         /*parsing data to datatable */
         pembahasanTable = $('#tabel_pembahasan').DataTable({
             processing: true,
-            serverSide: true,
             stateSave: true,
             ajax: {
                 url: "{{url('pembahasan_soal/get_data')}}",
@@ -116,7 +116,8 @@
             },
             deferRender: true,
             columns: [
-                {data:'question', name:'question', visible: true},
+                {data:'tax_name', name:'tax_name', visible: true},
+                {data:'question', name:'question', visible: true, width:'50%'},
                 {data: 'created_at', name: 'created_at', visible: true},
                 {data: 'option', name: 'option', visible: true},
             ],
@@ -159,6 +160,7 @@
 
             $('#show_img').append(img);
             $('input[name=_method]').val('PUT');
+            $('input[name=tax]').val(data['tax_name']);
             $('textarea[name=question]').val(data['question']);
             $('textarea[name=solution]').val(data['solution']);
         });
@@ -191,6 +193,33 @@
                     swal('Dibatalkan', 'Data '+name+' batal dihapus.','error')
                 }
             });
+        });
+        
+        $(function() {
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+            
+            $('#m_select2_1_modal').on('change', function () {
+                $.ajax({
+                    method: 'POST',
+                    url: "{{url('/pembahasan_soal/get_soal')}}",
+                    data: {id: $(this).val()},
+                    success: function (response) {
+                        $('#m_select2_2_modal').empty();
+        
+                        $.each(response, function (id, name) {
+                            $('#m_select2_2_modal').append(new Option(name, id));
+                            $('#hiddenQuestion').val(id);
+                            $('form').attr('action', '/pembahasan_soal/create/'+id);
+                        })
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                    console.log(JSON.stringify(jqXHR));
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+                })
+            })
         });
     });
 </script>

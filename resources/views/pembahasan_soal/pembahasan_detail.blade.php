@@ -11,19 +11,23 @@
 			<div class="modal-body">
 				<form id="pembahasan-detail" method="GET" enctype="multipart/form-data" file=true>
 					<fieldset class="content-group">
-					<div class="form-group">
-						<label for="question" class="form-control-label">Soal</label>
-						<textarea type="text" class="form-control" name="question" rows="5" value="" disabled></textarea>
-					</div>
-					<div class="form-group">
-						<label for="answer" class="form-control-label">Penjelasan</label>
-						<textarea type="text" class="form-control" name="solution" rows="10" value="" disabled></textarea>
-					</div>
-					<div class="form-group">
-						<label for="image" class="form-control-label">Gambar</label><br>
-						<div id="show_img">
-						</div>
-					</div>
+					    <div class="form-group">
+    						<label for="tax" class="form-control-label">Nama Pajak</label>
+    						<input type="text" class="form-control" name="tax" value="" disabled>
+    					</div>
+    					<div class="form-group">
+    						<label for="question" class="form-control-label">Soal</label>
+    						<textarea type="text" class="form-control" name="question" rows="5" value="" disabled></textarea>
+    					</div>
+    					<div class="form-group">
+    						<label for="answer" class="form-control-label">Penjelasan</label>
+    						<textarea type="text" class="form-control" name="solution" rows="10" value="" disabled></textarea>
+    					</div>
+    					<div class="form-group">
+    						<label for="image" class="form-control-label">Gambar</label><br>
+    						<div id="show_img">
+    						</div>
+    					</div>
 					</fieldset>
 					<br>
 					<div class="col-md-12 text-right">

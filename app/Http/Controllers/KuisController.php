@@ -39,7 +39,7 @@ class KuisController extends Controller
      	$data = Quiz::all();
         
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<a href="'.url('kuis/show/'.$row['id']).'" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></a>';
+            $btn = '<a href="'.url('kuis/show/'.$row['id']).'" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="fa fa-clipboard-list"></i></a>';
             $btn =$btn . ' <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="la la-trash"></i></button>';
 
@@ -55,8 +55,7 @@ class KuisController extends Controller
      * @return Response
      */
     public function store(Request $request)
-    {
-        // return $request;
+    {        
     	$rules = [
     		'title' => 'required',
     		'description' => 'required',
@@ -66,13 +65,10 @@ class KuisController extends Controller
     	];
 
     	$validator = Validator::make($request->all(), $rules);
-
-    	if($validator->fails())
-    	{
+    	if($validator->fails()) {
     		return response()->json(['errors' => $validator->errors()->all()]);
     	} else {
-    		if(!empty($request->image)) 
-    		{
+    		if(!empty($request->image)) {
     			$file = $request->file('image'); 
 				$extension=strtolower($request->file('image')->getClientOriginalExtension());
 				$date = date('YmdHi');
@@ -82,7 +78,6 @@ class KuisController extends Controller
     			$filename = null;
     		}
 
-    		//store data to table taxes
 	    	Quiz::create([
 	    		'title' => request('title'),
 	    		'description' => request('description'),
@@ -114,7 +109,6 @@ class KuisController extends Controller
      	return response()->json(['status' => 'OK', 'data' => $data], 200);
      }
 
-
      /**
      * Update the specified resource in storage.
      * @param Request $request
@@ -134,12 +128,10 @@ class KuisController extends Controller
      	];
 
      	$validator = Validator::make($request->all(), $rules);
-     	if($validator->fails())
-     	{
+     	if($validator->fails()) {
      		return response()->json(['errors' => $validator->errors()->all()]); 
      	} else {
-     		if(!empty($request->image))
-    		{
+     		if(!empty($request->image)) {
     			$file = $request->file('image');
     			$extension = strtolower($file->getClientOriginalExtension());
     			$date = date('YmdHi');
@@ -184,7 +176,7 @@ class KuisController extends Controller
      public function show($id)
      {
      	$data = Quiz::find($id);
-     	$soal = QuizQuestion::where('quiz_id','=',$id)->paginate(5);
+     	$soal = QuizQuestion::where('quiz_id','=',$id)->paginate(10);
      	$number = $soal->firstItem();
         $totalSoal = DB::table('quiz_questions')->where('quiz_id','=',$id)->get();
         
@@ -226,17 +218,11 @@ class KuisController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
-
-        if($validator->fails())
-        {
-            //return response()->json(['errors' => $validator->errors()->all()]);
+        if($validator->fails()) {
             session(['error' => $validator->errors()->all()]);
-
             return back()->withInput();
-
         } else {
-            if(!empty($request->image))
-            {
+            if(!empty($request->image)) {
                 $file = $request->file('image');
                 $extensions = strtolower($file->getClientOriginalExtension());
                 $date = date('YmdHi');
@@ -259,10 +245,7 @@ class KuisController extends Controller
 
             $quiz = Quiz::find($id);
 
-            //return response()->json(['success'=>'Data added successfully']);
             session(['success' => ['Soal berhasil ditambahkan.']]);
-
-            //return redirect()->route('');
             return redirect()->route('detail.kuis.soal', $request->quiz_id);
         }
 	}
@@ -291,17 +274,11 @@ class KuisController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
-
-        if($validator->fails())
-        {
-            //return response()->json(['errors' => $validator->errors()->all()]);
+        if($validator->fails()) {
             session(['error' => $validator->errors()->all()]);
-
             return back()->withInput();
-
         } else {
-            if(!empty($request->image))
-            {
+            if(!empty($request->image)) {
                 $file = $request->file('image');
                 $extensions = strtolower($file->getClientOriginalExtension());
                 $date = date('YmdHi');
@@ -323,7 +300,6 @@ class KuisController extends Controller
             $soal->save();
 
             session(['success' => ['Soal berhasil diperbarui!']]);
-
             return redirect()->route('detail.kuis.soal', [$soal->quiz_id, $soal->id]);
         }
     }
@@ -345,7 +321,7 @@ class KuisController extends Controller
             $data = Quiz::where('id',$quiz_id)->first();
             $query = $request->get('query');
             $query = str_replace(" ","%",$query);
-            $soal = QuizQuestion::where('quiz_id',$data->id)->where('question','like','%'.$query.'%')->paginate(5);
+            $soal = QuizQuestion::where('quiz_id',$data->id)->where('question','like','%'.$query.'%')->paginate(10);
             $number = $soal->firstItem();
         }
 
@@ -354,33 +330,25 @@ class KuisController extends Controller
 
     public function saveImport(Request $request, $quiz_id)
     {
-         // return $request;
-
-        $this->validate(request(),
-            [
+        $this->validate(request(), [
                 'excel' => 'required|mimes:xlsx'
-            ]
-        );
+            ]);
 
         $data = Quiz::find($quiz_id);
-        
 
         $file = $request->file('excel');
         $import = Excel::load($file)->get();
-        if(!$import)
-        {
+        if(!$import) {
             session(['error' => ['Something wrong!']]);
             return redirect()->route('detail.kuis.soal', $quiz_id);
         }
 
         $import_data_filter = array_filter($import->toArray());
         foreach ($import_data_filter as $key => $value) {
-            if(($check=array_search('Berapa besarnya tarif PPh Pasal 22 atas pembelian barang oleh bendahara pemerintah dan KPA?', $value)) === true ) 
-            {
+            if(($check=array_search('Ini contoh soal?', $value)) !== false ) {
                 unset($import_data_filter[$key]);
             } else {
-                if(implode($value) == null)
-                {
+                if(implode($value) == null) {
                     unset($import_data_filter[$key]);
                 }
             }
@@ -414,12 +382,12 @@ class KuisController extends Controller
             $get_error[] = $key;
         }
         $error = array_unique($get_error);
+        
         $question = [];
         $count_error = 0;
 
         foreach ($import_data_filter as $key => $row) {
-            if(in_array($key, $error)) 
-            {
+            if(in_array($key, $error))  {
                 continue;
                 $count_error++;
             } else {
@@ -430,8 +398,7 @@ class KuisController extends Controller
                     'option_b' => $row['option_b'],
                     'option_c' => $row['option_c'],
                     'option_d' => $row['option_d'],
-                    'right_answer' => $row['right_answer'],
-                ];
+                    'right_answer' => $row['right_answer'], ];
             }
         }
 
@@ -440,16 +407,16 @@ class KuisController extends Controller
             QuizQuestion::create($q);
         }
 
-        return redirect()->route('detail.kuis.soal', $quiz_id)->withErrors($validator)->with('totalQuestion',$totalQuestion)->with('totalQuestionSuccess',$totalQuestionSuccess);
+        return redirect()->route('detail.kuis.soal', $quiz_id)
+                        ->withErrors($validator)
+                        ->with('totalQuestion',$totalQuestion)
+                        ->with('totalQuestionSuccess',$totalQuestionSuccess);
     }
 
     public function exportSoal($quiz_id)
     {
-
-        // return "ekspor";
         $data = Quiz::where('id',$quiz_id)->first();
         $soal = QuizQuestion::where('quiz_id',$quiz_id)->get();
-
         $collection = [];
         foreach ($soal as $key => $value) {
             $collection[$key] = [
@@ -462,12 +429,8 @@ class KuisController extends Controller
                 'right_answer' => $value['right_answer'],
             ];
         }
-
-        // return $collection;
-        return Excel::create('Ekspor Soal Kuis '.$data->title, function($excel) use ($collection)
-        {
-            $excel->sheet('Sheet 1', function($sheet) use ($collection)
-            {
+        return Excel::create('Ekspor Soal Kuis '.$data->title, function($excel) use ($collection) {
+            $excel->sheet('Sheet 1', function($sheet) use ($collection) {
                 $sheet->freezeFirstRow();
                 $sheet->setStyle(array(
                     'font' => array(
@@ -574,11 +537,11 @@ class KuisController extends Controller
                                     ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.isRight',0],['member_quiz_answers.member_id',$member_id]])
                                     ->whereNotNull('answer')
                                     ->count('isRight');
-        $this->data['not_answered'] = DB::table('member_quiz_answers')
-                                    ->join('quiz_questions','quiz_questions.id','=','member_quiz_answers.question_id')
-                                    ->where([['quiz_questions.quiz_id',$quiz_id],['member_quiz_answers.member_id',$member_id]])
-                                    ->whereNull('answer')
+        $this->data['not_answered'] = DB::table('quiz_questions')
+                                    ->where('quiz_questions.quiz_id',$quiz_id)
+                                    // ->whereNull('answer')
                                     ->count();
+        
         $this->data['question'] = DB::table('quiz_questions')
                                     ->join('member_quiz_answers','member_quiz_answers.question_id','=','quiz_questions.id')
                                     ->select('quiz_questions.id as question_id','quiz_questions.question as question','quiz_questions.option_a as option_a','quiz_questions.option_b as option_b','quiz_questions.option_c as option_c', 'quiz_questions.option_d as option_d','quiz_questions.image as image','quiz_questions.right_answer as right_answer','member_quiz_answers.answer as member_answer')
@@ -592,7 +555,7 @@ class KuisController extends Controller
                                 ->groupBy('quiz_questions.id')
                                 ->get();
 
-        return view('kuis.kuis_answer',$this->data, compact('quiz_id','member_id'));
-           // return $this->data;
+         return view('kuis.kuis_answer',$this->data, compact('quiz_id','member_id'));
+           // return $this->data['not_answered'];
     }
 }

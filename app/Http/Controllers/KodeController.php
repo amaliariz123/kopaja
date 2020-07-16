@@ -31,7 +31,7 @@ class KodeController extends Controller
             }
         }
 
-        $data = PremiumCode::orderByDesc("created_at")->get();
+        $data = PremiumCode::orderBy("updated_at","desc")->get();
 
         // return $data;
     	return datatables()->of($data)

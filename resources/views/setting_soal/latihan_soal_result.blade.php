@@ -94,7 +94,6 @@
 
         result_table = $('#tabel_hasil').DataTable({
             processing : true,
-            serverSide : true,
             stateSave : true,
             ajax : {
                 url : "{{url('/latihan_soal/result')}}"+"/"+tax_id,

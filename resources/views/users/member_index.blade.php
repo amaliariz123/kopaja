@@ -83,12 +83,12 @@
 
 @push('custom-script')
 <script type="text/javascript">
-    var member_table;
+    
 
     $(document).ready(function(){
+        var member_table;
         member_table = $('#table_member').DataTable({
             processing : true,
-            serverSide : true,
             stateSave : true,
             ajax : {
                 url : "{{url('/members/get_data')}}",
@@ -103,6 +103,7 @@
                 {data: 'member_status', name:'member_status', visible:true},
                 {data: 'option', name: 'option', visible:true},
             ],
+            
         });
 
         $('#table_member tbody').on('click', "#detail-btn", function(){

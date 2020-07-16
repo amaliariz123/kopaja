@@ -56,7 +56,7 @@
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group m-form__group">
-										<h6>Soal</h6>
+										<h6>Soal<span class="text-danger">*</span></h6>
 										<textarea class="form-control m-input" rows="10" name="question" required> {{$latihan->question}}
 										</textarea>
 										<input type="hidden" name="id_tax" value="{{$tax->id}}" />
@@ -91,10 +91,10 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi a</h6>
+										<h6>Opsi a<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" name="jawaban" value="1" class="custom-control-input" @if($latihan->right_answer=='1') checked @endif >
+												<input type="checkbox" name="kunci_jawaban" value="1" class="custom-control-input" @if($latihan->right_answer=='1') checked @endif >
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_a" value="{{$latihan->option_a}}" required />
@@ -105,10 +105,10 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi c</h6>
+										<h6>Opsi c<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" value="3" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '3') checked @endif>
+												<input type="checkbox" value="3" name="kunci_jawaban" class="custom-control-input" @if($latihan->right_answer == '3') checked @endif>
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_c" value="{{$latihan->option_c}}" required />
@@ -121,10 +121,10 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi b</h6>
+										<h6>Opsi b<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" value="2" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '2') checked @endif>
+												<input type="checkbox" value="2" name="kunci_jawaban" class="custom-control-input" @if($latihan->right_answer == '2') checked @endif>
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_b" value="{{$latihan->option_b}}" required />
@@ -135,10 +135,10 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi d</h6>
+										<h6>Opsi d<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" value="4" name="jawaban" class="custom-control-input" @if($latihan->right_answer == '4') checked @endif>
+												<input type="checkbox" value="4" name="kunci_jawaban" class="custom-control-input" @if($latihan->right_answer == '4') checked @endif>
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_d" value="{{$latihan->option_d}}" required />
@@ -149,7 +149,7 @@
 								</div>
 							</div>
 							<div style="margin-top: 1.5em">
-								<p class="text-bold text-danger"><i>*) Centang 1 jawaban benar</i></p>
+								<p class="text-bold text-danger"><i>#) Centang 1 jawaban benar</i></p>
 							</div>
 						</div>
 						<div class="m-portlet__foot m-portlet__foot--fit">

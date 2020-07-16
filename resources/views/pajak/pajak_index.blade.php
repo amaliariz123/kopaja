@@ -201,6 +201,7 @@
             $('input[name=edit_id]').val(data['id']);
             $('input[name=edit_name]').val(data['name']);
             $('textarea[name=edit_description]').val(data['description']);
+            $('.fileinput-filename').text(data['module']);
             
             let rbButton = $('input[name=edit_tax_type]');
             for(let i=0;i<rbButton.length;i++)

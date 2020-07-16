@@ -206,7 +206,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-
     //delete button
     $('button#delete-specific-question').on('click', function () {
       let idQuestion = $(this).val();
@@ -238,8 +237,9 @@ $(document).ready(function(){
 
     function fetch_data(page, query)
     {
+        console.log(page);
         $.ajax({
-            url:"/latihan_soal/search/soal/"+"{{$tax->id}}"+"?page="+page+"&query="+query,
+            url: "/latihan_soal/search/soal"+"/"+"{{$tax->id}}"+"?page="+page+"&query="+query,
             method:'GET',
             success:function(data)
             {
@@ -250,17 +250,17 @@ $(document).ready(function(){
     }
 
     $(document).on('keyup', '#search', function(){
-        let query = $('#search').val();
-        let page = $('#hidden_page').val();
+        var query = $('#search').val();
+        var page = $('#hidden_page').val();
         fetch_data(page, query);
     });
 
-    $(document).on('click', 'pagination a', function(event){
+    $(document).on('click', '.pagination a', function(event){
         event.preventDefault();
-        let page = $(this).attr('href').split('page=')[1];
+        var page = $(this).attr('href').split('page=')[1];
         $('#hidden_page').val(page);
 
-        let query = $('#search').val();
+        var query = $('#search').val();
         $('li').removeClass('active');
         $(this).parent().addClass('active');
         fetch_data(page,query);

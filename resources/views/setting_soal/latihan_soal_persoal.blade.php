@@ -1,4 +1,4 @@
-@foreach($questions as $key =>$value)
+@foreach($questions as $key => $value)
 <div class="card">
     <div class="card-header">
         <div class="row" style="margin-top: 1.2em">

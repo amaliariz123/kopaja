@@ -45,7 +45,7 @@ class insertDailyReportTable extends Command
         if($date) {
             $result['member'] = DB::select('
                 SELECT
-                (select date(members.updated)) as daily_date,
+                (select date(members.updated_at)) as daily_date,
                 (select count(case when members.id is not null and members.member_status="premium" then 1 else null end)) as total_premium_members,
                 (select count(case when members.id is not null and members.member_status="reguler" then 1 else null end)) as total_regular_members
                 FROM members
@@ -55,9 +55,9 @@ class insertDailyReportTable extends Command
 
             $result['kuis'] = DB::select('
                 SELECT
-                (select date(member_quiz_histories.updated)) as daily_date,
+                (select date(member_quiz_histories.updated_at)) as daily_date,
                 (select count(distinct(member_quiz_histories.id))) as total_quizzes
-                FROM quizzes 
+                FROM member_quiz_histories 
                 where member_quiz_histories.updated_at Between "'. date('Y-m-d', strtotime($date->daily_date)) .' 00:00:00" AND "'. date('Y-m-d H:i:s', strtotime('+1days')).'"
                 group by date(member_quiz_histories.updated_at)
             ');
@@ -81,10 +81,10 @@ class insertDailyReportTable extends Command
             ');
             $result['kuis'] = DB::select('
                 SELECT
-                (select date(quizzes.updated_at)) as daily_date,
-                (select count(distinct(quizzes.id))) as total_quizzes
-                FROM quizzes 
-                group by date(quizzes.updated_at)
+                (select date(member_quiz_histories.updated_at)) as daily_date,
+                (select count(distinct(member_quiz_histories.id))) as total_quizzes
+                FROM member_quiz_histories 
+                group by date(member_quiz_histories.updated_at)
             ');
 
             $result['exercise'] = DB::select('

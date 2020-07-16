@@ -95,9 +95,9 @@ var Select2 = {
             })
         }), $("#edit_modal").on("shown.bs.modal", function() {
             $("#m_select2_edit_modal").select2({
-                placeholder: "Pilih.."
+                placeholder: "Pilih..."
             }), $("#m_select2_2_modal").select2({
-                placeholder: "Select a state"
+                placeholder: "Pilih..."
             }), $("#m_select2_3_modal").select2({
                 placeholder: "Select a state"
             }), $("#m_select2_4_modal").select2({

@@ -84,7 +84,6 @@
 
         latihan_table = $('#tabel_latihan').DataTable({
             processing : true,
-            serverSide : true,
             stateSave : true,
             ajax : {
                 url : "{{url('/latihan_soal/get_data')}}",

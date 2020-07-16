@@ -58,7 +58,7 @@
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group m-form__group">
-										<h6>Soal</h6>
+										<h6>Soal<span class="text-danger">*</span></h6>
 										<textarea class="form-control m-input" id="exampleTextarea" rows="10" name="question" required> {{{ Input::old('question') }}}
 										</textarea>
 										<input type="hidden" name="id_tax" value="{{$tax->id}}" />
@@ -86,10 +86,10 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi a</h6>
+										<h6>Opsi a<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="1" name="jawaban" >
+												<input type="checkbox" class="custom-control-input" value="1" name="kunci_jawaban" >
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" value="{{old('opsi_a')}}" name="opsi_a" required />
@@ -100,10 +100,10 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi c</h6>
+										<h6>Opsi c<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="3" name="jawaban">
+												<input type="checkbox" class="custom-control-input" value="3" name="kunci_jawaban">
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_c" value="{{old('opsi_c')}}"required />
@@ -116,10 +116,10 @@
 							<div class="row" style="margin-top:20px;">
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi b</h6>
+										<h6>Opsi b<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="2" name="jawaban">
+												<input type="checkbox" class="custom-control-input" value="2" name="kunci_jawaban">
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_b" value="{{old('opsi_b')}}"required />
@@ -130,10 +130,10 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group m-form__group">
-										<h6>Opsi d</h6>
+										<h6>Opsi d<span class="text-danger">*</span></h6>
 										<div class="m-checkbox-list">
 											<label class="m-checkbox">
-												<input type="checkbox" class="custom-control-input" value="4" name="jawaban">
+												<input type="checkbox" class="custom-control-input" value="4" name="kunci_jawaban">
 												<span></span>
 												<div class="col-12">
 													<input type="text" class="form-control" name="opsi_d" value="{{old('opsi_d')}}" required />
@@ -144,7 +144,7 @@
 								</div>
 							</div>
 							<div style="margin-top: 1.5em">
-								<p class=" text-bold text-danger"><i>*) Centang 1 jawaban benar</i></p>
+								<p class=" text-bold text-danger"><i>#) Centang 1 jawaban benar</i></p>
 							</div>
 						</div>
 						<div class="m-portlet__foot m-portlet__foot--fit">

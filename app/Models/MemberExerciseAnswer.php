@@ -34,7 +34,7 @@ class MemberExerciseAnswer extends Model
      */
     public function member()
     {
-        return $this->belongsTo('App\Member');
+        return $this->belongsTo('App\Models\Member');
     }
 
     /**
@@ -42,6 +42,6 @@ class MemberExerciseAnswer extends Model
      */
     public function exerciseQuestion()
     {
-        return $this->belongsTo('App\ExerciseQuestion', 'question_id');
+        return $this->belongsTo('App\Models\ExerciseQuestion', 'question_id');
     }
 }

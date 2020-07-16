@@ -1,5 +1,5 @@
 <!--begin::Modal-->
-<div class="modal fade" id="tax-edit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tax-edit-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -40,7 +40,7 @@
                             <span class="btn btn-sm btn-info btn-file">
                                 <span class="fileinput-new"> Pilih berkas </span>
                                 <span class="fileinput-exists"> Ubah </span>
-                                <input type="file" name="edit_module" accept="application/pdf" required> </span>
+                                <input type="file" value="" name="edit_module" accept="application/pdf"> </span>
                             <span class="fileinput-filename"> </span> &nbsp;
                             <a href="javascript:;" class="close fileinput-exists" data-dismiss="fileinput"> </a>
                         </div>
@@ -72,7 +72,7 @@
 			e.preventDefault();
 
 			$.ajax({
-				'type' : 'post',
+				'type' : 'POST',
 				'url' : "{{url('/pajak/update')}}"+"/"+$('input[name=edit_id]').val(),
 				'data' : new FormData(this),
 				'processData' : false,

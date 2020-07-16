@@ -23,9 +23,11 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+    <link href="{{ asset('/dist/css/sweetalert.css') }}" rel="stylesheet">
+    
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     
+    @yield('css')
 </head>
 
 <body>
@@ -45,6 +47,18 @@
                         <div class="collapse navbar-collapse main-menu-item justify-content-end"
                             id="navbarSupportedContent">
                             <ul class="navbar-nav align-items-center">
+                            <?php
+                              $pajak_pusat = DB::table('taxes')->where('tax_type', 'Pajak Pusat')->get();
+                              $pajak_daerah = DB::table('taxes')->where('tax_type', 'Pajak Daerah')->get();
+                            ?>
+                            @guest
+                            
+                            @else
+                            <?php
+                              $data = DB::table('users')->where('id', Auth::user()->id)->first()->id;
+                              $member = DB::table('members')->where('user_id', $data)->first();
+                            ?>
+                            @endguest
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{Route('index')}}">Beranda</a>
                                 </li>
@@ -53,16 +67,9 @@
                                         Pajak Pusat
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{Route('pasal4')}}">PPH Pasal 4 ayat 2</a>
-                                        <a class="dropdown-item" href="{{Route('pasal15')}}">PPh Pasal 15</a>
-                                        <a class="dropdown-item" href="{{Route('pasal21')}}">PPh Pasal 21</a>
-                                        <a class="dropdown-item" href="{{Route('pasal22')}}">PPh Pasal 22</a>
-                                        <a class="dropdown-item" href="{{Route('pasal23')}}">PPh Pasal 23</a>
-                                        <a class="dropdown-item" href="{{Route('pasal25')}}">PPh Pasal 25</a>
-                                        <a class="dropdown-item" href="{{Route('pasal26')}}">PPh Pasal 26</a>
-                                        <a class="dropdown-item" href="{{Route('ppn')}}">PPN</a>
-                                        <a class="dropdown-item" href="{{Route('pnbm')}}">PPnBM</a>
-                                        <a class="dropdown-item" href="{{Route('beamaterai')}}">Bea Materai</a>
+                                        @foreach($pajak_pusat as $pusat)
+                                            <a class="dropdown-item" href="{{route('materi.show', $pusat->id)}}">{{$pusat->name}}</a>
+                                        @endforeach
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -70,11 +77,12 @@
                                         Pajak Daerah
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{Route('pbb')}}">PBB</a>
-                                        <a class="dropdown-item" href="{{Route('pajakprovinsi')}}">Pajak Provinsi</a>
-                                        <a class="dropdown-item" href="{{Route('pajakkabupaten')}}">Pajak Kabupaten</a>
+                                        @foreach($pajak_daerah as $daerah)
+                                            <a class="dropdown-item" href="{{route('materi.show', $daerah->id)}}">{{$daerah->name}}</a>
+                                        @endforeach
                                     </div>
                                 </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{Route('bantuan')}}">Bantuan</a>
                                 </li>
@@ -92,7 +100,22 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        
+                                                @guest
+                                                <a class="dropdown-item" href="{{ route('register') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                @else
+                                                    @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('profile.show', Auth::user()->id) }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                    @else
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                    @endif
+                                                @endguest
+                                                
                                                 <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
                                                     {{ __('Profil') }}
                                                 </a>
@@ -198,6 +221,12 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/waypoints.min.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+
+    <!--Datatables-->
+    <script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/dist/js/sweetalert.min.js') }}"></script>
     @stack('custom-js')
 </body>
 

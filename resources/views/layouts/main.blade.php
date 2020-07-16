@@ -3,7 +3,6 @@
 
 <head>
     <!-- Required meta tags -->
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>KOPAJA</title>
@@ -25,6 +24,7 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
+    
 
 
 
@@ -41,8 +41,7 @@
                     <nav class="navbar navbar-expand-lg navbar-light">
                     
                     <div class="d-flex">
-                        <a class="navbar-brand logo_1" href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" height="100%" width="20%" alt="logo"> </a>
-                        <a class="navbar-brand logo_2 " href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" height="100%" width="20%" alt="logo"> </a>
+                        <a class="navbar-brand" href="{{Route('index')}}"> <img src="{{url('/')}}/etrain/img/logo.png" width="80px" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +52,18 @@
                         <div class="collapse navbar-collapse main-menu-item justify-content-end"
                             id="navbarSupportedContent">
                             <ul class="navbar-nav align-items-center">
+                            <?php
+                              $pajak_pusat = DB::table('taxes')->where('tax_type', 'Pajak Pusat')->get();
+                              $pajak_daerah = DB::table('taxes')->where('tax_type', 'Pajak Daerah')->get();
+                            ?>
+                            @guest
+                            
+                            @else
+                            <?php
+                              $data = DB::table('users')->where('id', Auth::user()->id)->first()->id;
+                              $member = DB::table('members')->where('user_id', $data)->first();
+                            ?>
+                            @endguest
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{Route('index')}}">Beranda</a>
                                 </li>
@@ -61,16 +72,9 @@
                                         Pajak Pusat
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{Route('pasal4')}}">PPH Pasal 4 ayat 2</a>
-                                        <a class="dropdown-item" href="{{Route('pasal15')}}">PPh Pasal 15</a>
-                                        <a class="dropdown-item" href="{{Route('pasal21')}}">PPh Pasal 21</a>
-                                        <a class="dropdown-item" href="{{Route('pasal22')}}">PPh Pasal 22</a>
-                                        <a class="dropdown-item" href="{{Route('pasal23')}}">PPh Pasal 23</a>
-                                        <a class="dropdown-item" href="{{Route('pasal25')}}">PPh Pasal 25</a>
-                                        <a class="dropdown-item" href="{{Route('pasal26')}}">PPh Pasal 26</a>
-                                        <a class="dropdown-item" href="{{Route('ppn')}}">PPN</a>
-                                        <a class="dropdown-item" href="{{Route('pnbm')}}">PPnBM</a>
-                                        <a class="dropdown-item" href="{{Route('beamaterai')}}">Bea Materai</a>
+                                        @foreach($pajak_pusat as $pusat)
+                                            <a class="dropdown-item" href="{{route('materi.show', $pusat->id)}}">{{$pusat->name}}</a>
+                                        @endforeach
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -78,11 +82,12 @@
                                         Pajak Daerah
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{Route('pbb')}}">PBB</a>
-                                        <a class="dropdown-item" href="{{Route('pajakprovinsi')}}">Pajak Provinsi</a>
-                                        <a class="dropdown-item" href="{{Route('pajakkabupaten')}}">Pajak Kabupaten</a>
+                                        @foreach($pajak_daerah as $daerah)
+                                            <a class="dropdown-item" href="{{route('materi.show', $daerah->id)}}">{{$daerah->name}}</a>
+                                        @endforeach
                                     </div>
                                 </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{Route('bantuan')}}">Bantuan</a>
                                 </li>
@@ -92,7 +97,7 @@
                                 <li class="d-none d-lg-block">
                                 
                                     @guest
-                                        <a class="btn_1" href="{{ route('login') }}">Sign In</a>
+                                        <a class="btn_1" href="{{ route('login') }}">Masuk</a>
                                                                                
                                     @else
                                         <li class="nav-item dropdown">
@@ -101,11 +106,30 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                @guest
+                                                <a class="dropdown-item" href="{{ route('register') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                @else
+                                                    @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('profile.show') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                    @else
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}">
+                                                    {{ __('Kuis Pajak') }}
+                                                </a>
+                                                    @endif
+                                                @endguest
+                    
+                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
+                                                    {{ __('Profil') }}
+                                                </a>
                                                 
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
+                                                    {{ __('Keluar') }}
                                                 </a>
 
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -186,6 +210,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
                 </div>
             </div>
         </div>
+
     </footer>
     <!-- footer part end-->
 
@@ -211,8 +236,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/waypoints.min.js" type="text/javascript"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js" type="text/javascript"></script>
-
-    @if (!empty(Session::get('popup')) || (Session::get('popup')==-1)  )
+    @if (Session::get('popup') !== null )
      <script>
         $(function() {
           $('#nilai').modal('show');
@@ -221,11 +245,9 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
         $(function() {
 
             $(".progress").each(function() {
-
-            var value = $(this).attr('data-value');
-            var left = $(this).find('.progress-left .progress-bar');
-            var right = $(this).find('.progress-right .progress-bar');
-
+                var value = $(this).attr('data-value');
+                var left = $(this).find('.progress-left .progress-bar');
+                var right = $(this).find('.progress-right .progress-bar');
             if (value > 0) {
                 if (value <= 50) {
                 right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')

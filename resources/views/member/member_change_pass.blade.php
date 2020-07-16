@@ -2,8 +2,11 @@
 <link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 
 @section('content')
+<section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
+  padding: 150px 0px 0px;">
 <div class="container">
     <div class="row ">
+      <div>
         <div class="card card-profile">
             <div class="info-profile">
                 <div class="profile__ava" style="background-image: url('{{ asset('/etrain/img/user.png') }}');"></div>
@@ -12,10 +15,12 @@
             <nav class="profile-nav">
                 <a class="profile-nav__link" aria-current="true" href="{{url('/profile/edit/'.Auth::user()->id)}}">Profil</a>
                 <a class="profile-nav__link active" aria-current="false" href="{{url('/account/edit/'.Auth::user()->id)}}">Ubah Kata Sandi dan Email</a>
-                <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/'.Auth::user()->id)}}">Testimoni</a>
+                <a class="profile-nav__link" aria-current="false" href="{{url('/testimoni/create/'.Auth::user()->id)}}">Testimoni</a>
             </nav>
         </div>
+      </div>
 
+      <div class="col-sm-7">
         <div class="card main-profile">
             <form method="POST" action="{{url('/update/account/'.Auth::user()->id)}}">
                 @csrf
@@ -55,4 +60,5 @@
 
     </div>
 </div>
+</section>
 @endsection

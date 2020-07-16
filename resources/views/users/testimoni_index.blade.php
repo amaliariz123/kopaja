@@ -85,7 +85,6 @@
     $(document).ready(function(){
         testi_table = $('#tabel_testi').DataTable({
             processing: true,
-            serverSide: true,
             stateSave: true,
             ajax : {
                 url : "{{url('/testimoni/get_data')}}",

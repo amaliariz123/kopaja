@@ -217,13 +217,6 @@ var data = {!! $data !!};
           labels: ['Premium','Reguler','Kuis','Latihan Soal'],
           barColors:['#36a3f7', '#34bfa3','#f4516c','#716aca']
       })
-      // new Morris.Line({
-      //     element: "m_morris_2",
-      //     data: data,
-      //     xkey: 'daily_date',
-      //     ykeys: ['daily_registration','daily_transaction_success'],
-      //     labels: ['user','order']
-      // })
       }
     }
     }else{
@@ -237,13 +230,6 @@ var data = {!! $data !!};
           labels: ['Premium','Reguler','Kuis','Latihan Soal'],
           barColors:['#36a3f7', '#34bfa3','#f4516c','#716aca']
       })
-      // new Morris.Line({
-      //     element: "m_morris_2",
-      //     data: data,
-      //     xkey: 'yearMonth',
-      //     ykeys: ['monthly_registration','monthly_transaction_success'],
-      //     labels: ['Registration','Sucessfull Purchase']
-      // })
        }
     }
     }

@@ -45,6 +45,11 @@ class ExerciseQuestion extends Model
      */
     public function exerciseQuestionSolution()
     {
-        return $this->hasMany('App\Models\ExerciseQuestionSolution');
+        return $this->hasOne('App\Models\ExerciseQuestionSolution', 'question_id');
+    }
+    
+    public function answer()
+    {
+        return $this->hasOne('App\Models\MemberExerciseAnswer', 'question_id');
     }
 }

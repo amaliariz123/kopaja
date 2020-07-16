@@ -116,7 +116,6 @@
         /*parsing data to datatable*/
         thisTable = $('#table_dev').DataTable({
                 processing: true,
-                serverSide: true,
                 stateSave: true,
                 language: {
                     search: "_INPUT_",

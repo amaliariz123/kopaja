@@ -25,7 +25,13 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
     <link href="{{ asset('/dist/css/sweetalert.css') }}" rel="stylesheet">
     
+    
+    
+
+    
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     
     @yield('css')
 </head>

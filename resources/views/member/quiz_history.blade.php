@@ -140,8 +140,8 @@
             width: 100%;
             border: 1px solid transparent;
             border-radius: 5px;
-            box-shadow: 0px 12px 20px 0px rgba(0, 0, 0, 0.15);
-            margin-bottom: 20px;
+            box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.15);
+            margin-bottom: 50px;
         }
 
         th {
@@ -194,7 +194,7 @@
         <div class="form-header">
         	<h3>Riwayat Kuis Pajak</h3>
         </div>
-        	<table id="table_history">
+        	<table id="table_history" >
                 <thead>
                     <tr>
                         <th>Tanggal</th>
@@ -210,11 +210,10 @@
                         <td>{{$data->quiz->title}}</td>
                         <td>{{$data->score}}</td>
                         <td >
-                        <div class="row align-items-center">
-                            <i class="ti-info-alt detail" value="{{$data->id}}" data-toggle="modal" data-target="#detailHistory"></i>
-                            |
+                        
+                            <i class="ti-info-alt detail" value="{{$data->id}}" data-toggle="modal" data-target="#detailHistory" data-toggle="tooltip" data-placement="top" title="Detail"></i>
                             <button value="{{$data->id}}" class="btn-icon delete_history" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="ti-trash"></i></button>
-                            </div>
+                            
                         </td>
                         
                     </tr>
@@ -475,7 +474,7 @@
 @if (Session::get('popup') !== null )
     <script>
         
-        $('#nilai').modal('show');
+        $('#test').modal('show');
         
         $(function() {
 

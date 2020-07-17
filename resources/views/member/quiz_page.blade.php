@@ -258,17 +258,7 @@
             </div>
             <div class="modal-body">
                     <h2 style="text-align: center;">Waktu Anda Telah Habis!</h2><br>
-                    <div class="progress mx-auto" data-value="{{ Session::get('popup') }}">
-                        <span class="progress-left">
-                            <span class="progress-bar border-danger"></span>
-                        </span>
-                        <span class="progress-right">
-                            <span class="progress-bar border-danger"></span>
-                        </span>
-                        <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                            <div class="font-weight-bold pt-3" style="font-size: 30px" ><h1>{{ Session::get('popup') }}<small style="font-size: 20px">%</small></h1></div>
-                        </div>
-                    </div>
+                    
                     <br><h6 style="text-align: center;">Silahkan kerjakan kembali!</h6>
 
             </div>
@@ -300,6 +290,7 @@
         })
     });
     </script>
+    
     <script>
 
         // Set the date we're counting down to

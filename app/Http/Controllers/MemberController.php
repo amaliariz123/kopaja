@@ -230,8 +230,9 @@ class MemberController extends Controller
 
     public function destroyHistory($id){
         MemberQuizHistory::findOrFail($id)->delete($id);
-        return redirect()->route('riwayat_kuispajak')
-                        ->with('alert-success','History deleted successfully');
+        // return redirect()->route('riwayat_kuispajak')
+        //                 ->with('success','History deleted successfully');
+        return response()->json(['success' => 'History deleted successfully']);
     }
     
 }

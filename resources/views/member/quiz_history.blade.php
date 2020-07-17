@@ -449,7 +449,7 @@
             .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                    type: "get",
+                    type: 'get',
                     url: "{{url('/riwayat_kuispajak/delete')}}"+"/"+id,
                     dataType: "json",
                     success: function(result){

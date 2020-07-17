@@ -226,7 +226,8 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <!--Datatables-->
     <script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('assets/vendors/custom/datatables/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{ asset('/dist/js/sweetalert.min.js') }}"></script>
+    
+    <script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
     @stack('custom-js')
 </body>
 

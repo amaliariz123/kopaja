@@ -24,7 +24,11 @@
                         </div>
                         <div>
                             <h5 style="margin-bottom:0px;">{{$data['user']['fullname']}}</h5>
-                            <p>Member {{$data['member']['member_status']}}</p>
+                            @if($data['member']['member_status'] == 'reguler')
+                            <p style="color:#F9B700;"><i class="ti-tag" ></i>Member {{$data['member']['member_status']}}</p>
+                            @else
+                            <p style="color:#F9B700;"><i class="ti-crown" ></i>Member {{$data['member']['member_status']}}</p>
+                            @endif
                         </div>
                     </div>
                     <nav class="profile-nav">
@@ -57,7 +61,7 @@
 
                 <div class="col-sm-7" style="float:right;">
                 <div class="card main-profile">
-                    <form method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}" enctype="multipart/form-data" files=true>
+                    <form id="profile-update" method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}" enctype="multipart/form-data" files=true>
                         @csrf
                         
                         <div class="form-header">
@@ -68,22 +72,24 @@
                         <div class="form-edit__avatar">
                             
                             <div class="form-edit__dropzone">
-                                <div class="profile__ava">
+                                
                                     @if($data['user']['profile_picture']==null)
                                     <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
                                         width="300px" alt="upload foto"
                                        >
                                     @else
-                                    <a src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" target="_blank">
-                                        <img id="gambar" width="100px" src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}"
-                                            >
+                                    <img src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" style="max-width:100px; margin-right:15px;">
                                     </a>
                                     @endif
-                                </div>
+                               
                                 <!-- <button class="form-edit__change-photo">Ganti foto</button> -->
                                 
                             </div>
-                            <input id="profile_picture" name="profile_picture" type="file" style="border-radius: 5px;" accept="image/*">
+                            <div >
+                                <input name="profile_picture" type="file" accept="image/*" class="input btn_2"><b class="btn_2" style="font-size:14px; padding:10px 15px;">Ganti Foto</b>
+                                <br> <small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
+                            </div>
+                            
                             
                         </div>
 
@@ -103,7 +109,7 @@
                         <div>
                             <div class="fields">
                                 <label class="fields__label">Instansi/Nama Sekolah</label>
-                                <hint style="font-size:12px; color: #EE390F;">contoh : UGM / SMAN 1 Yogyakarta</hint>
+                                <hint style="font-size:12px; color: grey;">contoh : UGM / SMAN 1 Yogyakarta</hint>
                                 <input class="fields__input" name="institution" value="{{$data['member']['institution']}}" placeholder="" required=""></input>
                             </div>
                         </div>
@@ -213,5 +219,32 @@
                 }
             });
         })
+        $('#profile-update').on('submit', function(e){
+			e.preventDefault();
+
+			$.ajax({
+				'type' : 'post',
+				'url' : "{{url('/kuis/edit/update')}}"+"/"+$('input[name=id]').val(),
+				'data' : new FormData(this),
+				'processData' : false,
+				'contentType' : false,
+				'dataType' : 'JSON',
+				'success' : function(data){
+					if(data.success)
+					{
+						$('#edit_quiz').modal('hide');
+						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
+						tabelKuis.ajax.reload();
+						//location.reload();
+					} else {
+						//console.log(data);
+						for(let count=0; count < data.errors.length; count++)
+						{
+							toastr.error(data.errors[count], 'Error', {timeOut:6000});
+						}
+					}
+				}
+			})
+		})
     </script>
 @endsection

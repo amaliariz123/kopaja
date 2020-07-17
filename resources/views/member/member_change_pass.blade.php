@@ -5,13 +5,30 @@
 <section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
   padding: 150px 0px 0px;">
 <div class="container">
+    @php
+        $member = DB::table('members')->where('user_id', Auth::user()->id)->first();
+    @endphp
     <div class="row ">
       <div>
         <div class="card card-profile">
-            <div class="info-profile">
-                <div class="profile__ava" style="background-image: url('{{ asset('/etrain/img/user.png') }}');"></div>
-                <h5>{{ $data['fullname'] }}</h5>
-            </div>
+        <div class="info-profile">
+                        <div class="profile__ava">
+                            @if($data->profile_picture == null)
+                                <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
+                                    width="300px" alt="upload foto">
+                            @else
+                                <img id="gambar" width="100px" src="{{asset('storage/images/user/'.$data->profile_picture)}}">
+                            @endif
+                        </div>
+                        <div>
+                            <h5 style="margin-bottom:0px;">{{$data->fullname}}</h5>
+                            @if($member->member_status == 'reguler')
+                            <p style="color:#F9B700;"><i class="ti-tag" ></i>Member {{$member->member_status}}</p>
+                            @else
+                            <p style="color:#F9B700;"><i class="ti-crown" ></i>Member {{$member->member_status}}</p>
+                            @endif
+                        </div>
+                    </div>
             <nav class="profile-nav">
                 <a class="profile-nav__link" aria-current="true" href="{{url('/profile/edit/'.Auth::user()->id)}}">Profil</a>
                 <a class="profile-nav__link active" aria-current="false" href="{{url('/account/edit/'.Auth::user()->id)}}">Ubah Kata Sandi dan Email</a>

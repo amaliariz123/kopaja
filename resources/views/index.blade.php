@@ -167,8 +167,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-xl-2 col-sm-4">
-                                    <div class="
-                                    ">
+                                    <div>
                                     @if($data->member->user->profile_picture == null)
                                         <img src="{{ asset('/etrain/img/user.png') }}" alt="foto">
                                     @else

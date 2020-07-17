@@ -72,8 +72,9 @@
 
 .profile-nav__link.active,
 .profile-nav__link:hover {
-  background-color :#EE390F;
+  background-color: darkorange;
   color :#fff;
+  font-weight: 500;
 }
 
 .form-header {
@@ -96,12 +97,23 @@
 
 .form-edit__dropzone {
   display : inline-block;
-  width : 70px;
-  height : 70px;
   border-radius : 50%;
   background-position : 50%;
   background-size : cover;
   margin-right : 10px; }
+
+.btn-upload{
+  background-color: transparent;
+  color: #EE390F;
+}
+.input{
+  position: absolute;
+ font-size: 25px;
+ opacity: 0;
+ cursor: pointer;
+ padding: 10px;
+ width: 80px;
+}
 
 .form-edit__change-photo {
   background: none;
@@ -140,6 +152,7 @@
   cursor: pointer;
   padding: 11px 15px;
   border-radius: 100px;
+  border-color: transparent;
   text-align: center;
 }
 

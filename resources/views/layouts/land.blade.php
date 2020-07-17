@@ -106,29 +106,30 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                @guest
-                                                <a class="dropdown-item" href="{{ route('register') }}">
+                                            @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('profile.show', Auth::user()->id) }}" style="font-weight:500;"><i class="ti-clipboard"></i>&nbsp
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
-                                                @else
-                                                    @if($member->member_status == 'reguler')
-                                                <a class="dropdown-item" href="{{  route('profile.show', Auth::user()->id) }}">
+                                            @else
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}"><i class="ti-clipboard"></i>&nbsp
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
-                                                    @else
-                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}">
-                                                    {{ __('Kuis Pajak') }}
-                                                </a>
-                                                    @endif
-                                                @endguest
+                                            @endif
+                                            <hr style="margin:0px;">
                                                 
-                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
+                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}"><i class="ti-user"></i>&nbsp
                                                     {{ __('Profil') }}
                                                 </a>
 
+                                                @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('upgrade.show') }}"><i class="ti-crown"></i>&nbsp
+                                                    {{ __('Langganan Premium') }}
+                                                </a>
+                                                @endif
+
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();"><i class="ti-power-off"></i>&nbsp
                                                     {{ __('Keluar') }}
                                                 </a>
 

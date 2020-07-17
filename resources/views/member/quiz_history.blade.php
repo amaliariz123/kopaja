@@ -1,5 +1,7 @@
 @extends ('layouts.land')
 <link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @section('css')
 <style>
@@ -211,11 +213,7 @@
                         <div class="row align-items-center">
                             <i class="ti-info-alt detail" value="{{$data->id}}" data-toggle="modal" data-target="#detailHistory"></i>
                             |
-                            <form action="{{ route('history.delete', $data->id) }}" method="post" style="width:20%; margin-bottom:0px;">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button class="btn-icon" type="submit" onclick="return confirm('Yakin ingin menghapus data?')" ><i class="ti-trash"></i></button>
-                            </form>
+                            <button value="{{$data->id}}" class="btn-icon delete_history" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="ti-trash"></i></button>
                             </div>
                         </td>
                         
@@ -246,7 +244,7 @@
       <div class="modal-body">
         <div class="col-md-6">
             <h6>Level Kuis : </h6><h6 id="level"></h6><br>
-            <h6>Durasi Pengerjaan : </h6><h6 id="duration"></h6>
+            <h6>Durasi Pengerjaan (menit): </h6><h6 id="duration"></h6>
         </div>
       </div>
       
@@ -435,6 +433,38 @@
             });
             
         });
+        //DELETE
+    $(document).on('click', '.delete_history', function(){
+        var id = $(this).val();
+        var tr = $(this).parents('tr');
+        console.log(id);
+        console.log(tr);
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "get",
+                    url: "{{url('/riwayat_kuispajak/delete')}}"+"/"+id,
+                    dataType: "json",
+                    success: function(result){
+                        swal("Sukses!", "Berhasil dihapus", "success");
+                        location.reload();
+                    }, error    : function(){
+                        swal("Error!", "Tidak bisa dihapus!", "error");
+                    }
+                })
+                
+            } else {
+                swal("Data batal dihapus!");
+            }
+        });
+    });
 </script>
 <script>
   $(document).on('click', '#start_time', function(){
@@ -442,9 +472,30 @@
     localStorage.setItem('start_time', new Date().getTime())
   });
 </script>
-<script>
-  @if (Session::get('popup'))
-      $('#test').modal('show');
-  @endif
-</script>
+@if (Session::get('popup') !== null )
+    <script>
+        
+        $('#nilai').modal('show');
+        
+        $(function() {
+
+        $(".progress").each(function() {
+            var value = $(this).attr('data-value');
+            var left = $(this).find('.progress-left .progress-bar');
+            var right = $(this).find('.progress-right .progress-bar');
+        if (value > 0) {
+            if (value <= 50) {
+            right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+            } else {
+            right.css('transform', 'rotate(180deg)')
+            left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+            }
+          }
+        })
+        function percentageToDegrees(percentage) {
+        return percentage / 100 * 360
+        }
+        });
+    </script>
+        @endif
 @endpush

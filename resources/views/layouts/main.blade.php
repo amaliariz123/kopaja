@@ -112,7 +112,7 @@
                                                 </a>
                                                 @else
                                                     @if($member->member_status == 'reguler')
-                                                <a class="dropdown-item" href="{{  route('profile.show') }}">
+                                                <a class="dropdown-item" href="{{  route('profile.show', Auth::user()->id) }}">
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
                                                     @else
@@ -212,6 +212,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
         </div>
     </footer>
     <!-- footer part end-->
+    
 
    <!-- jquery plugins here-->
     <!-- jquery -->
@@ -236,7 +237,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js" type="text/javascript"></script>
 
-    @if (!empty(Session::get('popup')) || (Session::get('popup')==-1)  )
+    @if ((Session::get('popup') !== null)  )
      <script>
         $(function() {
           $('#nilai').modal('show');

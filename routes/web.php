@@ -35,24 +35,25 @@ Route::get('/index', 'MemberController@index');
 // FOR MEMBERS //
 
     // halaman profil
-    Route::get('/getCity/{id}', 'MemberController@getCity')->name('getCity');
+    Route::get('/getCity/{id}', 'UserController@getCity')->name('getCity');
     Route::get('/upgrade', 'MemberController@upgrade')->name('upgrade');
+    Route::get('/upgrade/show', 'MemberController@showUpgrade')->name('upgrade.show');
 
-    Route::get('/profile/edit/{id}', 'MemberController@editProfile')->name('profile.show');
-    Route::get('/account/edit/{id}','MemberController@editAccount');
+    Route::get('/profile/edit/{id}', 'UserController@editProfile')->name('profile.show');
+    Route::get('/account/edit/{id}','UserController@editAccount');
     Route::get('/testimoni/create/{id}','TestiController@createTesti');
     Route::post('/update/testimoni/{id}','TestiController@updateTesti');
-    Route::post('/update/profile/{id}', 'MemberController@updateMemberProfile');
-    Route::post('/update/account/{id}', 'MemberController@updateAccount');
+    Route::post('/update/profile/{id}', 'UserController@updateMemberProfile');
+    Route::post('/update/account/{id}', 'UserController@updateAccount');
 
     // halaman materi, contoh soal
     Route::get('/materi/show/{id}','MemberController@show')->name('materi.show');
     Route::get('/contoh_soal/show/{id}','MemberController@showContohSoal')->name('contoh_soal.show');
     Route::get('/latihan_soal/show/{id}','MemberController@showLatihanSoal')->name('latihan_soal.show');
-    Route::get('/latihan_soal/show/{id}/cek', 'MemberController@cekLatihan')->name('cekLatihan');
+    Route::post('/latihan_cek/result/{id}', 'MemberController@cekLatihan')->name('cekLatihan');
 
     // halaman latihan pajak, pembahasan
-    Route::get('/pembahasan_soal/show/{id}','MemberController@pembahasan')->name('pembeamaterai');
+    Route::get('/pembahasan_soal/show/{id}','MemberController@pembahasan')->name('pembahasan.show');
 
     // halaman kuis pajak
     Route::get('/riwayat_kuispajak','MemberController@getQuizHistory')->name('riwayat_kuispajak');
@@ -60,7 +61,7 @@ Route::get('/index', 'MemberController@index');
     Route::get('/kuis_pajak/{id}','MemberController@showKuis')->name('kuis_pajak.show');
     Route::get('/optionChecked/{page}/{jawaban}','MemberController@optionChecked')->name('optionChecked');
     Route::get('/quizResult/{id_quiz}','MemberController@quizResult')->name('quizResult');
-    Route::delete('/riwayat_kuispajak/delete/{id_history}','MemberController@destroyHistory')->name('history.delete');
+    Route::get('/riwayat_kuispajak/delete/{id_history}','MemberController@destroyHistory')->name('history.delete');
    
     Route::get('/downloadPasal4', 'DownloadController@materiPasal4')->name('downloadPasal4');
 

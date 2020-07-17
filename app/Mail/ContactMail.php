@@ -32,7 +32,7 @@ class ContactMail extends Mailable
     {
         return $this->subject($this->email->category.$this->email->hp)
                     ->from($this->email->email)
-                    ->to('setyautama1999@gmail.com')
+                    ->to('kompaspajak@gmail.com')
                     ->view('email.contactmail');
     }
 }

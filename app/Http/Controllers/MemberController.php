@@ -8,8 +8,6 @@ use App\Models\QuizQuestion;
 use App\Models\Quiz;
 use App\Models\User;
 use App\Models\Member;
-use App\Models\Province;
-use App\Models\City;
 use App\Models\Testimonial;
 use App\Models\Tax;
 use App\Models\ExerciseQuestion;
@@ -43,101 +41,6 @@ class MemberController extends Controller
         
         return view('index', compact('sum_materi', 'sum_member', 'sum_dev', 'sum_soal', 'pajak', 'testi'));
     }
-
-    public function editProfile($id){
-        
-        $data = [];
-        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $province = Province::all()->pluck("provinsi", "id");
-        $data['member'] = Member::where('user_id','=',$id)->first();
-    
-        return  view('member.member_edit_profile', compact('data', 'province'));
-    }
-
-    public function editAccount($id){
-        $data = User::where('id', '=', $id)->first();
-        return view('member.member_change_pass', compact('data'));
-    }
-
-    public function getCity($id){
-        $city = City::where('provinsi_id', '=', $id)->pluck("kabupaten_kota", "id");
-        // dd(json_encode($city));
-        return json_encode($city);
-    }
-
-    public function updateMemberProfile(Request $request, $id){
-        // dd($request->city_id);
-        // dd($request->fullname);
-
-        if(!empty($request->profile_picture))
-        {
-            $file = $request->file('profile_picture');
-            $extension = strtolower($file->getClientOriginalExtension());
-            $filename = $id.'.'.$extension;
-            \Storage::delete('public/images/user/'.$request->profile_picture);
-            \Storage::put('public/images/user/'.$filename, \File::get($file));
-
-            $user = DB::table('users')
-            ->where('id',$id)
-            ->update(['profile_picture' => $filename
-            ]);
-        }
-        $user = DB::table('users')
-            ->where('id',$id)
-            ->update(['fullname' => $request->fullname
-            ]);
-        $member = DB::table('members')
-            ->where('user_id', $id)
-            ->update(['institution' => $request->institution,
-                'province_id' => $request->province_id,
-                'city_id' => $request->city_id,
-                'date_of_birth' => $request->date_of_birth
-            ]);
-
-        $data = [];
-        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $province = Province::all()->pluck("provinsi", "id");
-        $data['member'] = Member::where('user_id','=',$id)->first();
-
-        session(['success' => ['Profil berhasil diperbarui.']]);
-        return  view('member.member_edit_profile', compact('data','province'));
-    }
-
-    public function updateAccount(Request $request, $id)
-    {
-        $user = User::find($id);    
-        $rules = [
-            'email' => 'required|email',
-            'old_password' => 'nullable|min:8|max:20',
-            'new_password' => 'nullable|min:8|max:20|different:old_password',
-            'confirm_new_pass' => 'same:new_password',
-        ];
-
-        $validate = Validator::make($request->all(), $rules);
-        if($validate->fails())
-        {
-            $notification = array(
-                'message' => [$validate->errors()->all()], 
-                'alert-type' => 'error'
-            );
-            return redirect()->withInput();
-        } else {
-            $notification = array(
-                'message' => 'Berhasil diperbarui.', 
-                'alert-type' => 'success'
-                );
-            $user->email = $request->email;
-            if(Hash::check($request->old_password, $user->password))
-            {
-                $user->fill([
-                    'password' => Hash::make($request->new_password)
-                ]);
-            }
-            $user->save();
-            session(['success' => ['Profil berhasil diperbarui.']]);
-            return redirect()->back(); 
-        }
-    }
     
     public function show($id)
     {
@@ -146,18 +49,18 @@ class MemberController extends Controller
     }
     public function showContohSoal($id)
     {
-        $name = ExampleExercise::with('tax')->where('id_tax', $id)->first();
+        $pajak = Tax::with('exampleExercises')->where('id', $id)->first();
+        // dd($pajak);
         $example = ExampleExercise::with('tax')->where('id_tax', $id)->get();
 
-        return view ('member.contoh_soal', compact('example', 'name'));
+        return view ('member.contoh_soal', compact('example', 'pajak'));
     }
     public function showLatihanSoal($id)
     {
-        $name = ExerciseQuestion::with('tax')->where('id_tax', $id)->first();
-        // dd($name);
+        $pajak = Tax::with('exerciseQuestions')->where('id', $id)->first();
         $exercise = ExerciseQuestion::with('tax')->where('id_tax', $id)->get();
 
-        return view ('member.latihan_soal', compact('exercise', 'name'));
+        return view ('member.latihan_soal', compact('exercise', 'pajak'));
     }
     public function pembahasan($id)
     {
@@ -168,9 +71,16 @@ class MemberController extends Controller
         ->whereHas('exerciseQuestion', function($q) use($id) {
             $q->where('id_tax',$id);
         })->where('member_id', $member)->get();
+        // dd($answer);
         return view ('member.pembahasan_soal', compact('name', 'answer'));
     }
 
+    public function showUpgrade()
+    {
+        
+        return view ('member.upgrade');
+    }
+    
     public function upgrade(Request $request){
         // dd($request);
         $member = Member::where('user_id', Auth::user()->id)->first()->id;
@@ -178,14 +88,14 @@ class MemberController extends Controller
         if($upgrade != null){
             $member = Member::where('user_id', Auth::user()->id)->first();
             $member->premium_code = $request->code;
-            $member->status = "Premium";
+            $member->member_status = "Premium";
             $member->save();
 
             $update_code = PremiumCode::where('code', $request->code)->first();
             $update_code->status = "Aktif";
             $update_code->save();
         }
-        return redirect()->route('profile.show', ['id' => Auth::user()->id]);
+        return redirect()->route('profile.show', ['id' =>  Auth::user()->id]);
     }
 
     public function cekLatihan(Request $request, $id){
@@ -241,6 +151,7 @@ class MemberController extends Controller
     
             $result->save();
         }
+        $hasil = ($hasil/count($exercise))*100;
         return redirect()->route('latihan_soal.show', ['id' => $id])->with('popup', $hasil);
     }
 
@@ -320,7 +231,7 @@ class MemberController extends Controller
     public function destroyHistory($id){
         MemberQuizHistory::findOrFail($id)->delete($id);
         return redirect()->route('riwayat_kuispajak')
-                        ->with('success','User deleted successfully');
+                        ->with('alert-success','History deleted successfully');
     }
     
 }

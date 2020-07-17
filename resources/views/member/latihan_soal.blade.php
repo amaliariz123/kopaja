@@ -149,7 +149,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb_iner text-center" style="height : 300px">
                         <div class="breadcrumb_iner_item">
-                            <h2 style="font-size : 35px">{{$name->tax->name}}</h2>
+                            <h2 style="font-size : 35px">{{$pajak->name}}</h2>
                             <p>Latihan Soal</p>
                         </div>
                     </div>
@@ -167,14 +167,16 @@
       <div class="container">
       <?php
         $member = DB::table('members')->where('user_id', Auth::user()->id)->first();
+        
       ?>
          <div class="row">
             <div class="col-lg-8 posts-list">
                <div class="single-post">
                   <div class="blog_details">
-                     <form action="{{route('cekLatihan', $name->id_tax)}}">
-
+                     <form method="post" action="{{route('cekLatihan', $pajak->id)}}">
+                     @csrf
                         @foreach($exercise as $data)
+                          
                             <label for="default-radio">
                                 <h5 style="line-height: 30px; font-weight: bold; color: rgb(243, 105, 10); margin-right: 25px">
                                     <small><b>SOAL&nbsp;{{$i}}</b></small>
@@ -203,14 +205,18 @@
                             <br><hr width="100%"><br>
                             <?php $i++ ?>
                         @endforeach
+                            @if($pajak->exerciseQuestions->first() != null)
                          <h5>
                             <button type="submit" class="btn_1">Periksa</button>
                             @if($member->member_status == 'reguler')
                                 <a class="btn_2" href="{{Route('profile.show', Auth::user()->id)}}">Pembahasan</a>
                             @else
-                                <a class="btn_2" href="{{Route('pembeamaterai', $name->id_tax)}}">Pembahasan</a>
+                                <a class="btn_2" href="{{Route('pembahasan.show', $pajak->id)}}">Pembahasan</a>
                             @endif
                         </h5>
+                        @else
+                        <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
+                        @endif
                         
                      </form>
                    </div>
@@ -219,5 +225,124 @@
           </div>
         </div>
     </section>
-    
+    <!-- Modal -->
+
+<div class="modal fade" id="nilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nilai Anda adalah : </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if(Session::get('popup') < 25 ) <h2 style="text-align: center;">Troll!</h2><br>
+
+
+                    <div class="progress mx-auto"
+                        data-value="{{ Session::get('popup') }}">
+                        <span class="progress-left">
+                            <span class="progress-bar border-danger"></span>
+                        </span>
+                        <span class="progress-right">
+                            <span class="progress-bar border-danger"></span>
+                        </span>
+                        <div
+                            class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                            <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                <h1>{{ Session::get('popup') }}<small
+                                        style="font-size: 20px">%</small></h1>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <h6 style="text-align: center;">Terus belajar, jangan menyerah, tetap semangat, kamu pasti bisa!
+                    </h6>
+                    @elseif(Session::get('popup') < 50 ) <h2 style="text-align: center;">Dreadful!
+                        </h2><br>
+
+
+                        <div class="progress mx-auto"
+                            data-value="{{ Session::get('popup') }}">
+                            <span class="progress-left">
+                                <span class="progress-bar border-warning"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar border-warning"></span>
+                            </span>
+                            <div
+                                class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                    <h1>{{ Session::get('popup') }}<small
+                                            style="font-size: 20px">%</small></h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <h6 style="text-align: center;">Kurang sedikit lagi. Tingkatkan belajar lagi ya!</h6>
+                        @elseif(Session::get('popup') < 75 ) <h2 style="text-align: center;">
+                            Acceptable!</h2><br>
+
+
+                            <div class="progress mx-auto"
+                                data-value="{{ Session::get('popup') }}">
+                                <span class="progress-left">
+                                    <span class="progress-bar border-primary"></span>
+                                </span>
+                                <span class="progress-right">
+                                    <span class="progress-bar border-primary"></span>
+                                </span>
+                                <div
+                                    class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                    <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                        <h1>{{ Session::get('popup') }}<small
+                                                style="font-size: 20px">%</small></h1>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <br>
+                            <h6 style="text-align: center;">Wow! Bagus. Test selanjutnya pasti lebih baik!</h6>
+                            @else
+                            <h2 style="text-align: center;">Outstanding!</h2><br>
+
+
+                            <div class="progress mx-auto"
+                                data-value="{{ Session::get('popup') }}">
+                                <span class="progress-left">
+                                    <span class="progress-bar border-succes"></span>
+                                </span>
+                                <span class="progress-right">
+                                    <span class="progress-bar border-succes"></span>
+                                </span>
+                                <div
+                                    class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                    <div class="font-weight-bold pt-3" style="font-size: 30px">
+                                        <h1>{{ Session::get('popup') }}<small
+                                                style="font-size: 20px">%</small></h1>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br>
+                            <h6 style="text-align: center;">Hebat! Pertahankan terus. Jangan sampai lengah. Selamat!
+                            </h6>
+                            @endif
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

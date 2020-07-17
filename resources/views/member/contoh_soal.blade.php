@@ -6,7 +6,7 @@
                     <div class="col-lg-12">
                         <div class="breadcrumb_iner text-center">
                             <div class="breadcrumb_iner_item">
-                                <h2>{{$name->tax->name}}</h2>
+                                <h2>{{$pajak->name}}</h2>
                                 <p>Praktik Perhitungan</p>
                             </div>
                         </div>
@@ -40,6 +40,9 @@
 
                      <br>
                      @endforeach 
+                     @if($pajak->exampleExercises->first() == null)
+                        <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
+                        @endif
                </div>
             </div>
           </div>

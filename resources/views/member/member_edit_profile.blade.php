@@ -6,7 +6,8 @@
   padding: 150px 0px 0px;">
         <div class="container">
             <div class="row ">
-            <div>
+            
+            <div style="width:35%;">
                 <div class="card card-profile">
                     <div class="info-profile">
                         <div class="profile__ava">
@@ -33,22 +34,23 @@
                     </nav>
                 </div>
                 <br>
-                @if($data['member']['member_status'] == 'reguler')
+            @if($data['member']['member_status'] == 'reguler')
+            <div style="">
                 <div class="card card-profile">
                     <div class="info-profile">
                         <h5>Upgrade to Premium</h5>
                     </div>
-                    <form action="{{ route('upgrade') }}">
-                        {{ csrf_field() }}
+                    <form action="{{ route('upgrade.show') }}">
+                       
                         <div>
                             <div class="fields">
-                                <label class="fields__label">Masukkan kode premium Anda</label>
-                                <input class="fields__input" name="code" value="" placeholder="" required=""></input>
+                                <label class="fields__label">Ingin menjadi member premium? Pilih tombol Upgrade untuk mengarah ke halaman Premium</label>
                             </div>
                         </div>
                         <button type="submit" class="form-edit__btn" style="float:right;">Upgrade</button>
                     </form>
                 </div>
+            </div>
                 @else
                 @endif
             </div>
@@ -57,6 +59,7 @@
                 <div class="card main-profile">
                     <form method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}" enctype="multipart/form-data" files=true>
                         @csrf
+                        
                         <div class="form-header">
                             <h3>Ubah Profil</h3>
                             <button class="form-edit__btn" type="submit">Simpan Perubahan</button>
@@ -94,6 +97,7 @@
                             <div class="fields">
                                 <label class="fields__label">Tanggal Lahir</label>
                                 <input class="fields__input" name="date_of_birth" type="date" value="{{$data['member']['date_of_birth']}}" placeholder="" required=""></input>
+                                
                             </div>
                         </div>
                         <div>

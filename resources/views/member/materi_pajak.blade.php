@@ -58,7 +58,7 @@
     <!-- learning part end-->
 
      <!--================ Start Course Details Area =================-->
-     <section class="course_details_area section_padding" style="padding-top:0px;">
+     <!-- <section class="course_details_area section_padding" style="padding-top:0px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 course_details_left">
@@ -106,5 +106,4 @@
                 </div> -->
             </div>
         </div>
-    </section>
 @endsection

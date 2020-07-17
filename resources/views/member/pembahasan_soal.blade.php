@@ -169,8 +169,9 @@
             <div class="col-lg-8 posts-list">
                <div class="single-post">
                   <div class="blog_details">
-
                         @foreach($answer as $data)
+                         
+                           @if($data->exerciseQuestion->exerciseQuestionSolution != null)
                             <label for="default-radio">
                                 <h5 style="line-height: 30px; font-weight: bold; color: rgb(243, 105, 10); margin-right: 25px">
                                     <small><b>SOAL&nbsp;{{$i}}</b></small>
@@ -216,10 +217,14 @@
                                 @endif
                             </div>
                             <br><br><hr width="100%"><br>
+                            @else
+                                <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
+                            @endif
+                         
 
                             <?php $i++ ?>
                         @endforeach
-                        
+                      
                      
                    </div>
                </div>

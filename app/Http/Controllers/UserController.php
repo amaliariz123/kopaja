@@ -275,40 +275,56 @@ class UserController extends Controller
     }
 
     public function updateMemberProfile(Request $request, $id){
-        // dd($request->city_id);
-        // dd($request->fullname);
+        // dd($request->profile_picture);
+        $rules = [
+            'fullname' => 'required|string|max:35',
+            'date_of_birth' => 'required|date',
+            'institution' => 'required|string|max:50',
+            'province_id' => 'required|int|max:10',
+            'city_id' => 'required|string|max:10',
+            'profile_picture' => 'nullable|max:2048|mimes:png,jpg,jpeg',
+        ];
 
-        if(!empty($request->profile_picture))
-        {
-            $file = $request->file('profile_picture');
-            $extension = strtolower($file->getClientOriginalExtension());
-            $filename = $id.'.'.$extension;
-            \Storage::delete('public/images/user/'.$request->profile_picture);
-            \Storage::put('public/images/user/'.$filename, \File::get($file));
-
+        $validate = Validator::make($request->all(), $rules);
+        if($validate->fails()) {
+            session(['error' => $validate->errors()->all()]);
+            return back()->withInput();
+        } else {
+            if(!empty($request->profile_picture)) {
+                $file = $request->file('profile_picture');
+                $extension = strtolower($file->getClientOriginalExtension());
+                $filename = $id.'.'.$extension;
+                Storage::delete('public/images/user/'.$user->profile_picture);
+                Storage::put('public/images/user/'.$filename, \File::get($file));
+                $user = DB::table('users')
+                    ->where('id',$id)
+                    ->update(['profile_picture' => $filename
+                    ]);
+            } 
             $user = DB::table('users')
-            ->where('id',$id)
-            ->update(['profile_picture' => $filename
-            ]);
-        }
-        $user = DB::table('users')
-            ->where('id',$id)
-            ->update(['fullname' => $request->fullname
-            ]);
-        $member = DB::table('members')
+                ->where('id',$id)
+                ->update(['fullname' => $request->fullname
+                ]);
+            // else {
+            //     $filename = $user->profile_picture;
+            // }
+            $member = DB::table('members')
             ->where('user_id', $id)
             ->update(['institution' => $request->institution,
                 'province_id' => $request->province_id,
                 'city_id' => $request->city_id,
                 'date_of_birth' => $request->date_of_birth
-            ]);
+                ]);
 
-        $data = [];
-        $data['user'] = User::where('id', '=', Auth::user()->id)->first();
-        $province = Province::all()->pluck("provinsi", "id");
-        $data['member'] = Member::where('user_id','=',$id)->first();
+            $data = [];
+            $data['user'] = User::where('id', '=', Auth::user()->id)->first();
+            $province = Province::all()->pluck("provinsi", "id");
+            $data['member'] = Member::where('user_id','=',$id)->first();
 
-        return response()->json(['success' => 'Profil updated!']);
+            session(['success' => ['Profil berhasil diperbarui.']]);
+            return redirect()->back();
+        }
+        // return response()->json(['success' => 'Profil berhasil diperbarui!']);
         // return  view('member.member_edit_profile', compact('data','province'));
     }
 

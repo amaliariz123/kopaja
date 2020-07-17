@@ -32,11 +32,12 @@
 .info-profile {
   display : flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
   
 .profile__ava {
   display : inline-block;
+  align-items: center;
   width : 50px;
   height : 50px;
   border-radius : 50%;
@@ -44,6 +45,7 @@
   background-size : cover;
   margin-right : 10px;
 }
+
 
 .profile-nav {
   width: 350px;

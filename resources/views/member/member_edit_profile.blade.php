@@ -12,15 +12,11 @@
                     <div class="info-profile">
                         <div class="profile__ava">
                             @if($data['user']['profile_picture']==null)
-                                    <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
-                                        width="300px" alt="upload foto"
-                                       >
-                                    @else
-                                    <a src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" target="_blank">
-                                        <img id="gambar" width="100px" src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}"
-                                            >
-                                    </a>
-                                    @endif
+                                <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
+                                    width="300px" alt="upload foto">
+                                @else
+                                    <img id="gambar" max-width="100px" src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}">
+                                @endif
                         </div>
                         <div>
                             <h5 style="margin-bottom:0px;">{{$data['user']['fullname']}}</h5>
@@ -61,9 +57,8 @@
 
                 <div class="col-sm-7" style="float:right;">
                 <div class="card main-profile">
-                    <form id="profile-update" method="POST" action="{{ url('/update/profile/'.Auth::user()->id) }}" enctype="multipart/form-data" files=true>
+                    <form id="profile-update" method="post" action="" enctype="multipart/form-data" files=true>
                         @csrf
-                        
                         <div class="form-header">
                             <h3>Ubah Profil</h3>
                             <button class="form-edit__btn" type="submit">Simpan Perubahan</button>
@@ -71,23 +66,28 @@
 
                         <div class="form-edit__avatar">
                             
-                            <div class="form-edit__dropzone">
-                                
-                                    @if($data['user']['profile_picture']==null)
-                                    <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
-                                        width="300px" alt="upload foto"
-                                       >
-                                    @else
-                                    <img src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" style="max-width:100px; margin-right:15px;">
-                                    </a>
-                                    @endif
-                               
-                                <!-- <button class="form-edit__change-photo">Ganti foto</button> -->
-                                
-                            </div>
+                                <div class="fileinput fileinput-new" data-provides="fileinput" style="display:flex; align-items:center;">
+								    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                        @if($data['user']['profile_picture']==null)
+                                        <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
+                                            width="300px" alt="upload foto"
+                                        >
+                                        @else
+                                        <img src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" style="max-width:200px; margin-right:15px;">
+                                        </a>
+                                        @endif
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                                    <div style="margin-left:10px;">
+                                        <span class="btn btn-info btn-sm btn-file btn_2" style="font-size:14px; padding:10px 15px;">
+                                            <span class="fileinput-new"> Ganti foto </span>
+                                            <span class="fileinput-exists"> Ubah </span>
+                                            <input type="file" name="profile_picture" accept="image/jpg,image/jpeg,image/png"> </span>
+                                        <a href="javascript:;" class="btn btn-danger btn-sm fileinput-exists" data-dismiss="fileinput"> Hapus </a>
+                                        <br> <small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
+                                    </div>
+                                </div>
                             <div >
-                                <input name="profile_picture" type="file" accept="image/*" class="input btn_2"><b class="btn_2" style="font-size:14px; padding:10px 15px;">Ganti Foto</b>
-                                <br> <small id="emailHelp" class="form-text text-muted">Ukuran maksimal 2 MB. (*jpg, *png, *jpeg)</small>
                             </div>
                             
                             
@@ -97,6 +97,7 @@
                             <div class="fields">
                                 <label class="fields__label">Nama Lengkap</label>
                                 <input class="fields__input" name="fullname" value="{{$data['user']['fullname']}}" placeholder="" required=""></input>
+                                
                             </div>
                         </div>
                         <div>
@@ -157,54 +158,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
-        $(document).ready(function(){
-            $('#province-select').change(function(){
-                // console.log("test");
-                var province_id = $(this).val();
-                var city_id = "{{$data['member']['city_id']}}";
-                // console.log(city_id);
-                var provinsi_name = $("select[name='province-select'] option:selected").text();  //add this
-                $('#hiddenProvince').val(provinsi_name);
-                if(province_id){
-                    $.ajax({
-                        url: '/getCity/' + province_id,
-                        type : 'GET',
-                        dataType : 'json',
-                        success: function(data){
-                            // console.log("testtes");
-                            $('#province').empty();  //add this
-                            $('#province')
-                                .append("<input type='text' class='form-control' name='province' id='province' value='"+provinsi_name+"'>");
-                            // console.log(data);
-                            $('#city-select').empty();
-                            $.each(data, function(key, value){
-                                if(key == city_id){
-                                    var x = "selected";
-                                } else {
-                                    var x = "";
-                                }
-                                $('#city-select')
-                                    .append('<option '+x+' value="'+key+'">'+ value + '</option>');
-
-                            });
-                        }
-                    });
-                } else {
-                    $('#city-select').empty();
-                }
-         });
-        });
-        
-        $(document).ready(function (){
-            var provinsi_id = "{{$data['member']['province_id']}}";
-            var city_id = "{{$data['member']['city_id']}}";
-            console.log(provinsi_id, city_id);
+$(document).ready(function(){
+    $('#province-select').change(function(){
+        // console.log("test");
+        var province_id = $(this).val();
+        var city_id = "{{$data['member']['city_id']}}";
+        var provinsi_name = $("select[name='province-select'] option:selected").text();  //add this
+        console.log(provinsi_name);
+        $('#hiddenProvince').val(provinsi_name);
+        if(province_id){
             $.ajax({
-                url: '/getCity/' + provinsi_id,
+                url: '/getCity/' + province_id,
                 type : 'GET',
                 dataType : 'json',
                 success: function(data){
-                    console.log(data);
+                    // console.log("testtes");
+                    $('#province').empty();  //add this
+                    $('#province')
+                        .append("<input type='text' class='form-control' name='province' id='province' value='"+provinsi_name+"'>");
+                    // console.log(data);
                     $('#city-select').empty();
                     $.each(data, function(key, value){
                         if(key == city_id){
@@ -218,26 +190,63 @@
                     });
                 }
             });
-        })
+        } else {
+            $('#city-select').empty();
+        }
+    });
+});
+        
+$(document).ready(function (){
+    var provinsi_id = "{{$data['member']['province_id']}}";
+    var city_id = "{{$data['member']['city_id']}}";
+    console.log(provinsi_id, city_id);
+    $.ajax({
+        url: '/getCity/' + provinsi_id,
+        type : 'GET',
+        dataType : 'json',
+        success: function(data){
+            console.log(data);
+            $('#city-select').empty();
+            $.each(data, function(key, value){
+                if(key == city_id){
+                    var x = "selected";
+                } else {
+                    var x = "";
+                }
+                $('#city-select')
+                    .append('<option '+x+' value="'+key+'">'+ value + '</option>');
+
+            });
+        }
+    });
+})
+    $(document).ready(function(){
+		$.ajaxSetup({
+        	headers: {
+            	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        	}
+		});
         $('#profile-update').on('submit', function(e){
-			e.preventDefault();
+            // e.preventDefault();
+			var id = `{!! $data['user']->id !!}`;
+            console.log(id);
 
 			$.ajax({
 				'type' : 'post',
-				'url' : "{{url('/kuis/edit/update')}}"+"/"+$('input[name=id]').val(),
-				'data' : new FormData(this),
+				'url' : "{{url('/update/profile')}}"+"/"+id,
+                'data' : new FormData(this),
 				'processData' : false,
 				'contentType' : false,
 				'dataType' : 'JSON',
 				'success' : function(data){
 					if(data.success)
 					{
-						$('#edit_quiz').modal('hide');
-						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:6000});
-						tabelKuis.ajax.reload();
+						// $('#edit_quiz').modal('hide');
+						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:8000});
+						location.reload();
 						//location.reload();
 					} else {
-						//console.log(data);
+						// console.log(data);
 						for(let count=0; count < data.errors.length; count++)
 						{
 							toastr.error(data.errors[count], 'Error', {timeOut:6000});
@@ -246,5 +255,6 @@
 				}
 			})
 		})
-    </script>
+    }); 
+</script>
 @endsection

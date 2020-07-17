@@ -23,13 +23,14 @@
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="{{url('/')}}/etrain/css/style.css">
-    <link href="{{ asset('/dist/css/sweetalert.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('/dist/css/sweetalert.css') }}" rel="stylesheet"> -->
     
-    
+    <link rel="stylesheet" href="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url('/css/bootstrap-fileinput.css')}}">
     
 
     
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <link rel="stylesheet" type="text/css" href="{{url('/')}}/etrain/css/toastr.min.css">
     
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     
@@ -228,7 +229,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     <script src="{{url('/')}}/etrain/js/waypoints.min.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/etrain/js/custom.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+    <script src="{{url('/')}}/etrain/js/toastr.min.js"></script>
 
     <!--Datatables-->
     <script src="{{url('assets/vendors/custom/datatables/jquery.dataTables.min.js')}}"></script>
@@ -236,6 +237,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
     
     <script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
     @stack('custom-js')
+    <script src="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.js')}}"></script>
 </body>
 
 </html>

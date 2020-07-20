@@ -16,7 +16,7 @@
                 <div class="banner_text">
                     <div class="banner_text_iner">
                         <h5>Belajar Pajak dimanapun kapanpun!</h5>
-                        <h1>Mulai Kuis Pajak Belajar Lebih Seru</h1>
+                        <h1>Belajar Lebih Seru Bersama KOPAJA</h1>
                         <p> Kompas Pajak Ajaib atau biasa disebut KOPAJA menjadi 
                             solusi belajar perpajakan untuk siswa SMA/SMK dan Perguruan Tinggi
                             dilengkapi dengan akses latihan soal, pembahasan dan rangkuman.
@@ -24,10 +24,10 @@
                         </p>
                         
                         @guest
-                            <a href="{{ route('login') }}" class="btn_1">Mulai Kuis!</a>
+                            <a href="{{ route('login') }}" class="btn_1">Mulai Belajar!</a>
                             <a href="{{ route('register') }}" class="btn_2">Daftar</a>                          
                         @else
-                        <a href="{{ route('riwayat_kuispajak') }}" class="btn_1">Mulai Kuis!</a>
+                            <button data-toggle="modal" data-target="#exampleModalCenter" class="btn_1">Mulai Belajar!</button>
                         @endguest
                     </div>
                 </div>
@@ -43,10 +43,10 @@
             <div class="row">
                 <div class="col-sm-6 col-xl-3 align-self-center">
                     <div class="single_feature_text ">
-                        <h2>Temukan <br> Materi Pajak</h2>
-                        <p>Materi pajak yang menunjang untuk kegiatan pembelajaran,
-                            dirancang sesuai kebutuhan anda </p>
-                        <button data-toggle="modal" data-target="#exampleModalCenter" class="btn_1">Pilih Materi</button>
+                        <h2>Temukan <br>Contoh <br> Soal Pajak</h2>
+                        <p>Contoh soal-soal pajak yang menunjang untuk kegiatan pembelajaran,
+                            dirancang sesuai kebutuhan anda. </p>
+                        <button data-toggle="modal" data-target="#exampleModalCenter" class="btn_1">Lihat Contoh Soal</button>
                     </div>
                 </div>
                 <a class="col-sm-6 col-xl-3" style="cursor:pointer" data-toggle="modal" data-target="#exampleModalCenter">
@@ -92,16 +92,15 @@
                 </div>
                 <div class="col-md-5 col-lg-5">
                     <div class="learning_member_text">
-                        <h5>Tentang Kami</h5>
-                        <h2>Kompas Pajak Ajaib</h2>
-                        <p>Materi pajak yang terasa sulit akan mudah untuk dipelajari, materi yang disampaikan
-                            dibuat secara menarik dan menyenangkan.
+                        <h5>terbaru</h5>
+                        <h2>KOPAJA Premium</h2>
+                        <p>Dengan KOPAJA Premium, proses belajar pajak Anda akan lebih seru dan menyenangkan. Karena Anda bisa mengakses semua yang Anda butuhkan. Selain itu, Anda dapat juga melakukan seperti di bawah ini.
                         </p>
                         <ul>
-                            <li><span class="ti-pencil-alt"></span>Materi disampaikan dengan lengkap</li>
-                            <li><span class="ti-ruler-pencil"></span>Mudah dipahami dan juga dilengkapi latihan soal.</li>
+                            <li><span class="ti-pencil-alt"></span>Mengakses Pembahasan Latihan Soal</li>
+                            <li><span class="ti-ruler-pencil"></span>Mengikuti Kuis Pajak yang menantang</li>
                         </ul>
-                        <a href="{{route ('tentang')}}" class="btn_1">Baca lebih banyak</a>
+                        <a href="{{route ('upgrade.show')}}" class="btn_1">Mulai Kuis Pajak!</a>
                     </div>
                 </div>
             </div>
@@ -149,7 +148,7 @@
                 <div class="col-xl-5">
                     <div class="section_tittle text-center">
                         <p>testimoni</p>
-                        <h2>Mereka yang Mencoba</h2>
+                        <h2>Apa Kata Mereka?</h2>
                     </div>
                 </div>
             </div>

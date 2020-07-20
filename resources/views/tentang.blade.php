@@ -76,30 +76,19 @@
                         <h4 class="title">Dikembangkan Oleh</h4>
                         <div class="content">
                             <div class="row">
+                                @foreach($dev as $data)
                                 <div class="col-md-3">
                                     <div class="single-defination">
-                                        <h4 class="mb-20">Diah Rawanti</h4>
-                                        <img src="{{url('/')}}/etrain/img/dira.svg" alt="" class="img-fluid">
+                                        <h4 class="mb-20">{{$data->name}}</h4>
+                                        @if($data->picture != null)
+                                        <img src="{{asset('storage/images/developers_team/'.$data->picture)}}">
+                                        @else
+                                        @endif
+                                        
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="single-defination">
-                                        <h4 class="mb-20">Titis Hari Dayani</h4>
-                                        <img src="{{url('/')}}/etrain/img/titiss.svg" alt="" class="img-fluid">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="single-defination">
-                                        <h4 class="mb-20">Gagas Sandi Bharata</h4>
-                                        <img src="{{url('/')}}/etrain/img/gagas.svg" alt="" class="img-fluid">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="single-defination">
-                                        <h4 class="mb-20">Rumiyati, S.E., M.Sc.</h4>
-                                        <img src="{{url('/')}}/etrain/img/rumi.svg" alt="" class="img-fluid">
-                                    </div>
-                                </div>
+                                @endforeach
+                                
                         </div>
 
                         <h4 class="title">Hubungi Kami</h4>

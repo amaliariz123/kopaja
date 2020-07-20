@@ -171,7 +171,7 @@
                   <div class="blog_details">
                         @foreach($answer as $data)
                          
-                           @if($data->exerciseQuestion->exerciseQuestionSolution != null)
+                        @if($data->exerciseQuestion->exerciseQuestionSolution != null)
                             <label for="default-radio">
                                 <h5 style="line-height: 30px; font-weight: bold; color: rgb(243, 105, 10); margin-right: 25px">
                                     <small><b>SOAL&nbsp;{{$i}}</b></small>
@@ -181,19 +181,19 @@
                                 </h5>
                             </label>
                             
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->exerciseQuestion->option_a}}</h5>
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">A. {{$data->exerciseQuestion->option_a}}</h5>
                                 <input type="radio" name="{{$data->id}}" value="1" disabled>
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->exerciseQuestion->option_b}}</h5>
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">B. {{$data->exerciseQuestion->option_b}}</h5>
                                 <input type="radio" name="{{$data->id}}" value="2" disabled>
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->exerciseQuestion->option_c}}</h5>
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">C. {{$data->exerciseQuestion->option_c}}</h5>
                                 <input type="radio" name="{{$data->id}}" value="3" disabled>
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->exerciseQuestion->option_d}}</h5>
+                            <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">D. {{$data->exerciseQuestion->option_d}}</h5>
                                 <input type="radio" name="{{$data->id}}" value="4" disabled>
                                 <span class="checkmark"></span>
                             </label>
@@ -204,11 +204,30 @@
                                 <div class="quotes">
                                     <b>PEMBAHASAN :</b><br>
                                     {{$data->exerciseQuestion->exerciseQuestionSolution->solution}}<br>
-                                    Maka, jawaban yang benar adalah pilihan ke-{{$data->exerciseQuestion->right_answer}}
+                                    @if($data->exerciseQuestion->exerciseQuestionSolution->image != null)
+                                    <img src="{{asset('storage/images/pembahasan_soal/'.$data->exerciseQuestion->exerciseQuestionSolution->image)}}">
+                                    @else
+                                    @endif<br>
+                                    <div style="font-weight: 500;">Maka, jawaban yang benar adalah
+                                    @if($data->exerciseQuestion->right_answer == 1) A
+                                    @elseif($data->exerciseQuestion->right_answer == 2) B
+                                    @elseif($data->exerciseQuestion->right_answer == 3) C
+                                    @elseif($data->exerciseQuestion->right_answer == 4) D
+                                    @endif
+                                    </div>
                                 </div>  
                             </div>
                             <div class="row align-items-center" style="float:right; margin-right:10px;">
-                                <h5 style="vertical-align:center;">Karena jawaban Anda adalah pilihan ke-{{$data->answer}}, maka&nbsp;</h5><span>
+                            @if($data->answer != 0)
+                              <h5 style="vertical-align:center;">Karena jawaban Anda adalah 
+                                @if($data->answer == 1) A
+                                @elseif($data->answer == 2) B
+                                @elseif($data->answer == 3) C
+                                @elseif($data->answer == 4) D
+                                @endif, maka&nbsp;</h5><span>
+                            @else
+                              <h5 style="vertical-align:center;">Karena jawaban Anda adalah kosong, maka&nbsp;</h5><span>
+                            @endif
                                 @if($data->isRight == 1)
                                 <button class="btn_benar">Anda benar!</button>
                                 @else
@@ -217,9 +236,9 @@
                                 @endif
                             </div>
                             <br><br><hr width="100%"><br>
-                            @else
-                                <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
-                            @endif
+                        @else
+                            <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
+                        @endif
                          
 
                             <?php $i++ ?>

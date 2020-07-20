@@ -106,29 +106,30 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                @guest
-                                                <a class="dropdown-item" href="{{ route('register') }}">
+                                            @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('upgrade.show') }}" style="font-weight:500;"><i class="ti-clipboard"></i>&nbsp
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
-                                                @else
-                                                    @if($member->member_status == 'reguler')
-                                                <a class="dropdown-item" href="{{  route('profile.show', Auth::user()->id) }}">
+                                            @else
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}" style="font-weight:500;"><i class="ti-clipboard"></i>&nbsp
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
-                                                    @else
-                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}">
-                                                    {{ __('Kuis Pajak') }}
-                                                </a>
-                                                    @endif
-                                                @endguest
-                    
-                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}">
+                                            @endif
+                                            <hr style="margin:0px;">
+                                                
+                                                <a class="dropdown-item" href="{{ url('/profile/edit/'.Auth::user()->id) }}"><i class="ti-user"></i>&nbsp
                                                     {{ __('Profil') }}
                                                 </a>
-                                                
+
+                                                @if($member->member_status == 'reguler')
+                                                <a class="dropdown-item" href="{{  route('upgrade.show') }}"><i class="ti-crown"></i>&nbsp
+                                                    {{ __('KOPAJA Premium') }}
+                                                </a>
+                                                @endif
+
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();"><i class="ti-power-off"></i>&nbsp
                                                     {{ __('Keluar') }}
                                                 </a>
 
@@ -187,8 +188,8 @@
                         <h4>Hubungi Kami</h4>
                         <div class="contact_info">
                             <p><span> Alamat :</span> Jl. Prof. DR. Drs. Notonagoro, Bulaksumur, Yogyakarta, 55281 </p>
-                            <p><span> Phone :</span> 0823-2456-4853</p>
-                            <p><span> Email : </span>kopaja@mail.com </p>
+                            <p><span> Phone :</span> 0813-2805-9005</p>
+                            <p><span> Email : </span>kompaspajak@gmail.com </p>
                         </div>
                     </div>
                 </div>

@@ -23,9 +23,9 @@
                         <div>
                             <h5 style="margin-bottom:0px;">{{$data->fullname}}</h5>
                             @if($member->member_status == 'reguler')
-                            <p style="color:#F9B700;"><i class="ti-tag" ></i>Member {{$member->member_status}}</p>
+                            <p style="color:#F9B700;"><i class="ti-tag" ></i>&nbsp;Member {{$member->member_status}}</p>
                             @else
-                            <p style="color:#F9B700;"><i class="ti-crown" ></i>Member {{$member->member_status}}</p>
+                            <p style="color:#F9B700;"><i class="ti-crown" ></i>&nbsp;Member {{$member->member_status}}</p>
                             @endif
                         </div>
                     </div>
@@ -39,7 +39,8 @@
 
       <div class="col-sm-7">
         <div class="card main-profile">
-            <form method="POST" action="{{url('/update/account/'.Auth::user()->id)}}">
+            <form id="account-update" method="POST" action="">
+            {{ method_field('POST') }}
                 @csrf
                 <div class="form-header">
                     <h3>Ubah Kata Sandi dan Email</h3>
@@ -78,4 +79,44 @@
     </div>
 </div>
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+		$.ajaxSetup({
+        	headers: {
+            	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        	}
+		});
+        $('#account-update').on('submit', function(e){
+            e.preventDefault();
+			var id = "{{Auth::user()->id}}";
+            console.log(id)
+
+			$.ajax({
+				'type' : 'post',
+				'url' : "{{url('/update/account')}}"+"/"+id,
+                'data' : new FormData(this),
+				'processData' : false,
+				'contentType' : false,
+				'dataType' : 'JSON',
+				'success' : function(data){
+					if(data.success)
+					{
+						// $('#edit_quiz').modal('hide');
+						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:8000});
+						location.reload();
+						//location.reload();
+					} else {
+						console.log(data);
+						for(let count=0; count < data.errors.length; count++)
+						{
+							toastr.error(data.errors[count], 'Error', {timeOut:6000});
+						}
+					}
+				}
+			})
+		})
+    });     
+</script>
 @endsection

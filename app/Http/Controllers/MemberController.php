@@ -83,19 +83,19 @@ class MemberController extends Controller
     
     public function upgrade(Request $request){
         // dd($request);
-        $member = Member::where('user_id', Auth::user()->id)->first()->id;
+        // $member = Member::where('user_id', Auth::user()->id)->first()->id;
         $upgrade = PremiumCode::where('code', $request->code)->where('status', "non-aktif")->first();
         if($upgrade != null){
             $member = Member::where('user_id', Auth::user()->id)->first();
             $member->premium_code = $request->code;
-            $member->member_status = "Premium";
+            $member->member_status = "premium";
             $member->save();
 
             $update_code = PremiumCode::where('code', $request->code)->first();
-            $update_code->status = "Aktif";
+            $update_code->status = "aktif";
             $update_code->save();
         }
-        return redirect()->route('profile.show', ['id' =>  Auth::user()->id]);
+        return redirect()->route('load');
     }
 
     public function cekLatihan(Request $request, $id){
@@ -162,11 +162,22 @@ class MemberController extends Controller
 
         $durasi = Quiz::select('duration')->where('id',$id_kuis)->get();
         $kuis = QuizQuestion::with('quiz')->where('quiz_id', $id_kuis)->simplePaginate(1);
+        $allSoal = QuizQuestion::with('quiz')->where('quiz_id', $id_kuis)->get();
         $totalsoal =QuizQuestion::with('quiz')->where('quiz_id', $id_kuis)->count();
         $countdown = $durasi[0]->duration;
         $page = $kuis->currentPage();
-        return view ('member.quiz_page', compact('kuis','countdown','totalsoal','page', 'id_kuis','member'));
+        // dd($allSoal);
+        return view ('member.quiz_page', compact('kuis','countdown','totalsoal','page', 'id_kuis','member','allSoal'));
     }
+
+    public function showSoal($id_soal)
+    {
+        $kuis_soal = QuizQuestion::with('quiz')->where('id', $id_soal)->first();
+        dd($kuis_soal);
+        // return redirect()->route('soal_detail', ['id' => $id])->with('popup', $hasil);
+        // return view ('member.quiz_page', compact('kuis_soal'));
+    }
+
     public function getQuizHistory() {
         $kuis = Quiz::get();
         $member = Member::where('user_id', Auth::user()->id)->first()->id;
@@ -190,8 +201,7 @@ class MemberController extends Controller
     }
 
     public function optionChecked($nomor, $value){
-        session([$nomor => $value]);
-
+        session([$nomor."id_soal" => $value]);
         return response()->json([
             'success' => 'Save!'
         ]);
@@ -205,8 +215,8 @@ class MemberController extends Controller
             $jawab = new MemberQuizAnswers();
             $jawab->member_id = $member;
             $jawab->question_id = $item->id;
-            $jawab->answer = session($item->id);
-            if($item->right_answer == session($item->id)){
+            $jawab->answer = session($item->id."id_soal");
+            if($item->right_answer == session($item->id."id_soal")){
                 $jawab->isRight = 1;
                 $jawab->save();
                 $hasil+=1;
@@ -214,7 +224,7 @@ class MemberController extends Controller
                 $jawab->isRight = 0;
                 $jawab->save();
             }
-            $request->session()->forget($item->id);
+            $request->session()->forget($item->id."id_soal");
         }
         $jlh = QuizQuestion::where('quiz_id', $id_kuis)->count();
         $histroy = new MemberQuizHistory();

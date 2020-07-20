@@ -37,10 +37,9 @@ input:hover, input:focus {
   background-color: #f7f7f7;
 }
 
+
 /* line 18, E:/172 Etrain Education/172_Etrain_Education_html/sass/_common.scss */
-.section_padding {
-  /* padding: 140px 0px; */
-}
+
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   /* line 18, E:/172 Etrain Education/172_Etrain_Education_html/sass/_common.scss */
@@ -565,7 +564,8 @@ ul {
   /* line 24, E:/172 Etrain Education/172_Etrain_Education_html/sass/_button.scss */
   .btn_1 {
     padding: 10px 30px;
-    margin-top: 25px;
+    /*margin-top: 25px;*/
+    margin-bottom: 20px;
   }
 }
 
@@ -2228,7 +2228,7 @@ ul {
   color: #fff;
   font-size: 14px;
   padding: 11.5px 33px;
-  margin-left: 41px;
+  margin-left: 20px;
 }
 
 /* line 67, E:/172 Etrain Education/172_Etrain_Education_html/sass/_menu.scss */
@@ -2475,7 +2475,7 @@ ul {
 /**************** banner part css start ****************/
 /* line 2, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
 .banner_part {
-  height: 880px;
+  height: 680px;
   position: relative;
   overflow: hidden;
   background-image: url(../img/banner_bg.png);
@@ -2522,13 +2522,13 @@ ul {
 .banner_part .banner_text {
   display: table;
   width: 100%;
-  height: 880px;
+  height: 580px;
 }
 
 /* line 34, E:/172 Etrain Education/172_Etrain_Education_html/sass/_banner.scss */
 .banner_part .banner_text .banner_text_iner {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 
 @media (max-width: 576px) {
@@ -2750,8 +2750,8 @@ ul {
 .banner_part:after {
   position: absolute;
   top: 200px;
-  width: 41%;
-  height: 52%;
+  width: 40%;
+  height: 65%;
   content: "";
   background-image: url(../img/banner_img.png);
   background-size: 100% 100%;

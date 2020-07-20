@@ -3,7 +3,7 @@
 @section('content')
 <!-- learning part start-->
 <section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
-  padding: 180px 0px 0px;">
+  padding: 180px 0px 50px;">
         <div class="container">
             <div class="row align-items-sm-center align-items-xl-stretch">
                 <div class="col-md-6 col-lg-6">
@@ -15,7 +15,7 @@
                         <section class="feature_part">
                             <div class="container">
                                 <div class="row" style="margin-left: -20px; margin-top: -30px">                
-                                    <a href="{{Route('downloadBeaMaterai' )}}" class="col-sm-4 col-md-12 col-lg-4" style="padding: 7px;">
+                                    <a href="{{ url('storage/materi_pdf/'.$pajak->module) }}" class="col-sm-4 col-md-12 col-lg-4" style="padding: 7px;">
                                         <div class="single_feature">
                                             <div class="single_feature_part" style="padding-left: 5px 20px">
                                                 <span class="single_feature_icon"><i class="ti-layers"></i></span>

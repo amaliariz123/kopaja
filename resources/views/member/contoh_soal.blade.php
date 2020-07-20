@@ -29,12 +29,17 @@
                      <p class="excert" style="text-align: justify;">
                         Contoh Kasus :
                         <br>
-                        {{$item->question_text}}
+                        {{$item->question_text}}<br>
+                        @if($item->question_image != null)
+                        <img src="{{asset('storage/images/contoh_soal_image/'.$item->question_image)}}">
+                        @else
+                        @endif
                       </p>
                      <div class="quote-wrapper">
                         <div class="quotes">
                             <b>Penyelesaian :</b><br>
-                            {{$item->answer_text}}
+                            {{$item->answer_text}}<br>
+                            <img src="{{asset('storage/images/contoh_soal_image/'.$item->answer_image)}}">
                         </div>
                      </div>
 

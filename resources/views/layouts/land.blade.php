@@ -108,11 +108,11 @@
 
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                             @if($member->member_status == 'reguler')
-                                                <a class="dropdown-item" href="{{  route('profile.show', Auth::user()->id) }}" style="font-weight:500;"><i class="ti-clipboard"></i>&nbsp
+                                                <a class="dropdown-item" href="{{  route('upgrade.show') }}" style="font-weight:500;"><i class="ti-clipboard"></i>&nbsp
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
                                             @else
-                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}"><i class="ti-clipboard"></i>&nbsp
+                                                <a class="dropdown-item" href="{{  route('riwayat_kuispajak') }}" style="font-weight:500;"><i class="ti-clipboard"></i>&nbsp
                                                     {{ __('Kuis Pajak') }}
                                                 </a>
                                             @endif
@@ -124,7 +124,7 @@
 
                                                 @if($member->member_status == 'reguler')
                                                 <a class="dropdown-item" href="{{  route('upgrade.show') }}"><i class="ti-crown"></i>&nbsp
-                                                    {{ __('Langganan Premium') }}
+                                                    {{ __('KOPAJA Premium') }}
                                                 </a>
                                                 @endif
 
@@ -180,9 +180,9 @@
                     <div class="single-footer-widget footer_2">
                         <h4>Hubungi Kami</h4>
                         <div class="contact_info">
-                            <p><span> Alamat :</span> Jl. Prof. DR. Drs. Notonagoro, Bulaksumur, Yogyakarta, 55281 </p>
-                            <p><span> Phone :</span> 0823-2456-4853</p>
-                            <p><span> Email : </span>kopaja@mail.com </p>
+                            <p><span><i class="ti-home" style="margin-right: 10px;"></i></span> Jl. Prof. DR. Drs. Notonagoro, Bulaksumur, Yogyakarta, 55281 </p>
+                            <p><span><i class="ti-mobile" style="margin-right: 10px;"></i></span>0813-2805-9005</p>
+                            <p><span><i class="ti-email" style="margin-right: 10px;"></i></span>kompaspajak@gmail.com </p>
                         </div>
                     </div>
                 </div>

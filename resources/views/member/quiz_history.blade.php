@@ -183,7 +183,7 @@
             </div>
             <div>
                 <button type="submit" class="btn_1" style="border-radius: 5px; padding: 10px 25px; float: right;" data-toggle="modal" data-target="#pilihKuis">
-                Mulai Kuis<i class="ti-arrow-right" style="padding-right: 0px;"></i></button>
+                Mulai Kuis&nbsp;<i class="ti-arrow-right" style="padding-right: 0px;"></i></button>
             </div>
             </div>
         </div>
@@ -262,11 +262,11 @@
       <div class="modal-body">
       <div style="padding:20px;">
             @foreach($kuis as $data)
-            <a id="start_time" class="card card-profile" style="width:90%; margin:10px;" href="{{route('kuis_pajak.show', $data->id)}}">
-                <h4>{{$data->title}}</h4><br>
-                <p>{{$data->description}}</p><br>
-                {{$data->image}}<br>
-                <b>Level {{$data->level}}</b><br>
+            <a id="start_time" class="card card-profile" style="width:90%;" href="{{route('kuis_pajak.show', $data->id)}}">
+                <h4>{{$data->title}}</h4>
+                <p>{{$data->description}}</p>
+                {{$data->image}}
+                <b>Level {{$data->level}}</b>
                 <h6>{{$data->duration}} menit</h6>
             </a>
             @endforeach
@@ -288,7 +288,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                @if(Session::get('popup') < 25 ) <h2 style="text-align: center;">Troll!</h2><br>
+                @if(Session::get('popup') < 25 ) <h2 style="text-align: center;">Sangat Buruk!</h2><br>
 
 
                     <div class="progress mx-auto"
@@ -312,7 +312,7 @@
                     <br>
                     <h6 style="text-align: center;">Terus belajar, jangan menyerah, tetap semangat, kamu pasti bisa!
                     </h6>
-                    @elseif(Session::get('popup') < 50 ) <h2 style="text-align: center;">Dreadful!
+                    @elseif(Session::get('popup') < 50 ) <h2 style="text-align: center;">Kurang Baik!
                         </h2><br>
 
 
@@ -337,7 +337,7 @@
                         <br>
                         <h6 style="text-align: center;">Kurang sedikit lagi. Tingkatkan belajar lagi ya!</h6>
                         @elseif(Session::get('popup') < 75 ) <h2 style="text-align: center;">
-                            Acceptable!</h2><br>
+                            Bagus Sekali!</h2><br>
 
 
                             <div class="progress mx-auto"
@@ -362,7 +362,7 @@
                             <br>
                             <h6 style="text-align: center;">Wow! Bagus. Test selanjutnya pasti lebih baik!</h6>
                             @else
-                            <h2 style="text-align: center;">Outstanding!</h2><br>
+                            <h2 style="text-align: center;">Luar Biasa!</h2><br>
 
 
                             <div class="progress mx-auto"
@@ -390,8 +390,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">OK</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>

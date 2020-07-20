@@ -5,8 +5,10 @@
 <section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
   padding: 150px 0px 0px;">
         <div class="container">
+        @php
+            $member = DB::table('members')->where('user_id', Auth::user()->id)->first();
+        @endphp
             <div class="row ">
-            
             <div style="width:35%;">
                 <div class="card card-profile">
                     <div class="info-profile">
@@ -21,9 +23,9 @@
                         <div>
                             <h5 style="margin-bottom:0px;">{{$data['user']['fullname']}}</h5>
                             @if($data['member']['member_status'] == 'reguler')
-                            <p style="color:#F9B700;"><i class="ti-tag" ></i>Member {{$data['member']['member_status']}}</p>
+                            <p style="color:#F9B700;"><i class="ti-tag" ></i>&nbsp;Member {{$data['member']['member_status']}}</p>
                             @else
-                            <p style="color:#F9B700;"><i class="ti-crown" ></i>Member {{$data['member']['member_status']}}</p>
+                            <p style="color:#F9B700;"><i class="ti-crown" ></i>&nbsp;Member {{$data['member']['member_status']}}</p>
                             @endif
                         </div>
                     </div>
@@ -37,17 +39,16 @@
             @if($data['member']['member_status'] == 'reguler')
             <div style="">
                 <div class="card card-profile">
-                    <div class="info-profile">
-                        <h5>Upgrade to Premium</h5>
+                    <div class="info-profile" style="margin-bottom: 10px;">
+                        <h4>Langganan KOPAJA Premium</h4>
                     </div>
                     <form action="{{ route('upgrade.show') }}">
-                       
                         <div>
                             <div class="fields">
-                                <label class="fields__label">Ingin menjadi member premium? Pilih tombol Upgrade untuk mengarah ke halaman Premium</label>
+                                <label class="fields__label">Ingin menjadi member premium? Pilih tombol Premium untuk mengarah ke halaman Premium.</label>
                             </div>
                         </div>
-                        <button type="submit" class="form-edit__btn" style="float:right;">Upgrade</button>
+                        <button type="submit" class="form-edit__btn" style="float:right;">Premium</button>
                     </form>
                 </div>
             </div>
@@ -57,8 +58,9 @@
 
                 <div class="col-sm-7" style="float:right;">
                 <div class="card main-profile">
-                    <form id="profile-update" method="post" action="" enctype="multipart/form-data" files=true>
-                        @csrf
+                    <form id="profile-update" method="POST" action="" enctype="multipart/form-data" files=true>
+                    {{ method_field('POST') }}
+                        {{ csrf_field() }}
                         <div class="form-header">
                             <h3>Ubah Profil</h3>
                             <button class="form-edit__btn" type="submit">Simpan Perubahan</button>
@@ -154,7 +156,6 @@
             </div>
         </div>
     </section>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
@@ -227,9 +228,9 @@ $(document).ready(function (){
         	}
 		});
         $('#profile-update').on('submit', function(e){
-            // e.preventDefault();
-			var id = `{!! $data['user']->id !!}`;
-            console.log(id);
+            e.preventDefault();
+			var id = "{{Auth::user()->id}}";
+            console.log(id)
 
 			$.ajax({
 				'type' : 'post',
@@ -245,16 +246,11 @@ $(document).ready(function (){
 						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:8000});
 						location.reload();
 						//location.reload();
-					} else {
-						// console.log(data);
-						for(let count=0; count < data.errors.length; count++)
-						{
-							toastr.error(data.errors[count], 'Error', {timeOut:6000});
-						}
-					}
+					} 
 				}
 			})
 		})
     }); 
 </script>
+
 @endsection

@@ -36,10 +36,11 @@ class TestiController extends Controller
         return view('member.member_create_testi', compact('data'));
     }
 
-    public function updateTesti(Request $request, Member $member, $id)
+    public function updateTesti(Request $request, $id)
     {
-        $member = Member::where('user_id', Auth::id())->first()->id;
+        $member = Member::where('user_id', Auth::user()->id)->first()->id;
         $testimoni = Testimonial::where('id_member', $member)->first();
+        // return $member;
 
         if($testimoni == null){
             $testimoni = new Testimonial();
@@ -58,8 +59,8 @@ class TestiController extends Controller
         $data = [];
         $data['user'] = User::where('id', '=', Auth::user()->id)->first();
         $data['testimoni'] = Testimonial::where('id_member', $member)->first();
-        session(['success' => ['Testimoni berhasil diperbarui.']]);
-        return view('member.member_create_testi', compact('data'));
+        
+        return response()->json(['success' => 'Testimoni berhasil diperbarui!']);
     }
 
     /**

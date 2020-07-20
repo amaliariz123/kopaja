@@ -3,7 +3,7 @@
 
 @section('content')
 <section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;
-  padding: 150px 0px 0px;">
+  padding: 150px 0px 100px;">
 <div class="container">
     @php
         $member = DB::table('members')->where('user_id', Auth::user()->id)->first();
@@ -43,7 +43,8 @@
 
     <div class="col-sm-7">
         <div class="card main-profile">
-            <form method="POST" action="{{url('/update/testimoni/'.Auth::user()->id)}}">
+            <form id="testi-update" method="POST" action="">
+            {{ method_field('POST') }}
                 @csrf
                 <div class="form-header">
                     <h3>Ubah Testimoni</h3>
@@ -63,5 +64,46 @@
     </div>
 </div>
 </section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+		$.ajaxSetup({
+        	headers: {
+            	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        	}
+		});
+        $('#testi-update').on('submit', function(e){
+            e.preventDefault();
+			var id = "{{Auth::user()->id}}";
+            console.log(id)
+
+			$.ajax({
+				'type' : 'post',
+				'url' : "{{url('/update/testimoni')}}"+"/"+id,
+                'data' : new FormData(this),
+				'processData' : false,
+				'contentType' : false,
+				'dataType' : 'JSON',
+				'success' : function(data){
+					if(data.success)
+					{
+						// $('#edit_quiz').modal('hide');
+						toastr.success('Data berhasil diperbarui!', 'Success', {timeOut:8000});
+						location.reload();
+						//location.reload();
+					} else {
+						console.log(data);
+						for(let count=0; count < data.errors.length; count++)
+						{
+							toastr.error(data.errors[count], 'Error', {timeOut:6000});
+						}
+					}
+				}
+			})
+		})
+    });     
+</script>
 
 @endsection

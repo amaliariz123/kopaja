@@ -3,6 +3,7 @@
 
 @section('css')
 <style>
+
         .container2 {
             display: block;
             position: relative;
@@ -135,7 +136,7 @@
         }
 
         .btn_nav {
-            background-color: #888888;
+            background-color: #a6a6a6;
             border-radius: 90%;
             height:50px;
             width:50px;
@@ -182,43 +183,43 @@
             padding :10px;
             font-size : 15px;
         }
+        .btn-done {
+            background-color: mediumseagreen;
+            color: #fff;
+        }
 
     </style>
 @endsection
-
-@section('content')
-<section class="advance_feature learning_part" style="padding-bottom:0px; z-index: 99;padding: 180px 0px 0px;">
-    <div style="margin: center;">
-        <b id="demo" style="font-size: 24px; text-align:center; margin-left:110px;" />
-    </div>
-    <div class="container">
-        <form action="{{ route('quizResult', $id_kuis) }}">
-        <div class="row">
-            <div style="width: 60%; float: :left;">
+        @section('content')
+        <div style="width: 60%; float: :left;">
                 <div class="card main-profile">
                     @foreach($kuis as $data)
                     <input type="hidden" id="id_soal" value="{{$data->id}}">
                         <label for="default-radio" style="display:flex; margin-bottom:20px;">
                             <h5 style="font-weight: 600; color: rgb(243, 105, 10); margin-right: 25px">
-                                <small><b>{{$page}}</b></small>
+                                <b>{{$page}}</b>
                             </h5>
                             <h5>{{$data->question}}</h5>
+                            @if($data->image != null)
+                                <img src="{{asset('storage/images/kuis/'.$data->image)}}">
+                            @else
+                            @endif
                         </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_a}}</h5>
-                            <input type="radio" name="{{$data->id}}" value="1" class="pilih" {{ session($data->id) == 1 ? 'checked' : null }}>
+                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px; text-align: left;">A. {{$data->option_a}}</h5>
+                            <input type="radio" name="{{$data->id}}" value="1" class="pilih" {{ session($data->id."id_soal") == 1 ? 'checked' : null }}>
                             <span class="checkmark">
                             </span>
                         </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_b}}</h5>
-                            <input type="radio" name="{{$data->id}}" value="2" {{ session($data->id) == 2 ? 'checked' : null }} class="pilih">
+                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px; text-align: left;">B. {{$data->option_b}}</h5>
+                            <input type="radio" name="{{$data->id}}" value="2" class="pilih" {{ session($data->id."id_soal") == 2 ? 'checked' : null }}>
                             <span class="checkmark"></span>
                         </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_c}}</h5>
-                            <input type="radio" name="{{$data->id}}" value="3" {{ session($data->id) == 3 ? 'checked' : null }} class="pilih">
+                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px; text-align: left;">C. {{$data->option_c}}</h5>
+                            <input type="radio" name="{{$data->id}}" value="3" class="pilih" {{ session($data->id."id_soal") == 3 ? 'checked' : null }}>
                             <span class="checkmark"></span>
                         </label>
-                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px">{{$data->option_d}}</h5>
-                            <input type="radio" name="{{$data->id}}" value="4" {{ session($data->id) == 4 ? 'checked' : null }} class="pilih">
+                        <label class="container2"><h5 style="line-height: 30px; margin-left: 10px; text-align: left;">D. {{$data->option_d}}</h5>
+                            <input type="radio" name="{{$data->id}}" value="4" class="pilih" {{ session($data->id."id_soal") == 4 ? 'checked' : null }}>
                             <span class="checkmark"></span>
                         </label>
                     @endforeach
@@ -228,52 +229,12 @@
                     {{ $kuis->links() }}
                 </div>
             </div>
-            <div style="width: 35%; float: right; margin-right: 3%;">
-                <div class="card card-profile">
-                    <div style="margin-bottom: 20px; text-align: center;">
-                        <h4>Navigasi Soal Kuis </h4>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                        @for($i=1; $i<=$totalsoal; $i++)
-                            <button class="btn btn_nav" src="#">{{$i}}</button>
-                        @endfor
-                    </div>
-                    <div style="text-align: center;">
-                        <button type="submit" class="profile-nav__link active" style="border-radius: 5px; padding: 10px 25px;" ">Selesai</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-            </form>
-    </div>
-</section>
-    <div class="modal fade" id="nilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nilai Anda adalah : </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                    <h2 style="text-align: center;">Waktu Anda Telah Habis!</h2><br>
-                    
-                    <br><h6 style="text-align: center;">Silahkan kerjakan kembali!</h6>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" href="{{route('riwayat_kuispajak')}}">OK</button>
-            </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @push('custom-js')
     <script>
     $(document).on('change', '.pilih', function () {
         var id_soal = $("#id_soal").val();
+        console.log(id_soal);
         var jawaban = $(this).val();
         var url = '{!!url('optionChecked')!!}/'+id_soal+"/"+jawaban;
         console.log(url);
@@ -291,44 +252,6 @@
     });
     </script>
     
-    <script>
-
-        // Set the date we're counting down to
-        var countDownDate = {{$countdown}};
-        var upDate = new Date(parseInt(localStorage.getItem('start_time')));
-        upDate.setMinutes( upDate.getMinutes() + countDownDate );
-
-        // Update the count down every 1 second
-        var x = setInterval(function() {
-
-            // Get today's date and time
-            var now = new Date().getTime();
-                
-            // Find the distance between now and the count down date
-            var distance = upDate - now;
-                
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            // Output the result in an element with id="demo"
-            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-            + minutes + "m " + seconds + "s ";
-                
-            // If the count down is over, write some text 
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
-                $("#nilai").modal("show");
-                var id_kuis ="{{$id_kuis}}";
-                document.getElementById("demo").innerHTML = "EXPIRED";
-                var url = '{!!url('quizResult')!!}/'+id_kuis;
-                window.location.href = url;
-            }
-        }, 1000);
-        
-    </script>
+    
 
 @endpush

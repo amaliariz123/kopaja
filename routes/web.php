@@ -20,10 +20,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'MemberController@index')->name('index');
 Route::get('/bantuan', 'BantuanController@showHelp')->name('bantuan');
+Route::get('/tentang', 'DevelopersController@showDev')->name('tentang');
 
-Route::get('/tentang',function(){
-        return view('tentang');
-        })->name('tentang');
+Route::get('/load',function(){
+    return view('load');
+    })->name('load');
 
 // Route::get('/home', function () {
 //     return view('home');
@@ -43,7 +44,7 @@ Route::get('/index', 'MemberController@index');
     Route::get('/account/edit/{id}','UserController@editAccount');
     Route::get('/testimoni/create/{id}','TestiController@createTesti');
     Route::post('/update/testimoni/{id}','TestiController@updateTesti');
-    Route::post('/update/profile/{id}', 'UserController@updateMemberProfile');
+    Route::post('/update/profile/{id}', 'UserController@updateMemberProfile')->name('member.update');
     Route::post('/update/account/{id}', 'UserController@updateAccount');
 
     // halaman materi, contoh soal
@@ -59,6 +60,7 @@ Route::get('/index', 'MemberController@index');
     Route::get('/riwayat_kuispajak','MemberController@getQuizHistory')->name('riwayat_kuispajak');
     Route::get('/riwayat_kuispajak/detail/{id_history}','MemberController@detailQuizHistory')->name('detail_riwayat.show');
     Route::get('/kuis_pajak/{id}','MemberController@showKuis')->name('kuis_pajak.show');
+    Route::get('/soal_id/{id}','MemberController@showSoal')->name('soal_detail');
     Route::get('/optionChecked/{page}/{jawaban}','MemberController@optionChecked')->name('optionChecked');
     Route::get('/quizResult/{id_quiz}','MemberController@quizResult')->name('quizResult');
     Route::get('/riwayat_kuispajak/delete/{id_history}','MemberController@destroyHistory')->name('history.delete');

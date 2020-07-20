@@ -98,7 +98,6 @@ $(document).ready(function(){
      //parsing data to datatable
         code_table = $('#tabel_kode').DataTable({
             processing : true,
-            serverSide : true,
             stateSave : true,
             ajax : {
                 url : "{{url('/kode_premium/get_data')}}",
@@ -115,7 +114,7 @@ $(document).ready(function(){
 
          /*trigger generate-kode-modal*/
         $("#btn-create").on('click', function(){
-            
+             $('#generate-kode:input').val('');
             $('#generate-kode-modal').modal('show');
         });
     });

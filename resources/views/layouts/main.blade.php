@@ -211,6 +211,7 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
                 </div>
             </div>
         </div>
+
     </footer>
     <!-- footer part end-->
     
@@ -247,11 +248,9 @@ Universitas Gadjah Mada &copy;<script>document.write(new Date().getFullYear());<
         $(function() {
 
             $(".progress").each(function() {
-
-            var value = $(this).attr('data-value');
-            var left = $(this).find('.progress-left .progress-bar');
-            var right = $(this).find('.progress-right .progress-bar');
-
+                var value = $(this).attr('data-value');
+                var left = $(this).find('.progress-left .progress-bar');
+                var right = $(this).find('.progress-right .progress-bar');
             if (value > 0) {
                 if (value <= 50) {
                 right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')

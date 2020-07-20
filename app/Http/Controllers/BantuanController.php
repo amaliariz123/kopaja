@@ -18,7 +18,7 @@ class BantuanController extends Controller
      */
     public function indexBantuan()
     {
-        $data = Help::all();
+        $data = Help::orderBy('updated_at','desc')->get();
 
     	return view('setting.bantuan_index', compact('data'));
     }
@@ -34,7 +34,7 @@ class BantuanController extends Controller
      */
     public function getData()
     {
-    	$data = Help::orderBy('created_at','desc')->get();
+    	$data = Help::orderBy('updated_at','desc')->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {            
             $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
@@ -145,8 +145,9 @@ class BantuanController extends Controller
     {
     	$data = Help::find($id);
     	$data->delete();
-
-    	return view('setting.bantuan_index');
+    	
+        return response()->json(['success'=>'Data deleted!']);
+    	
     }
 
     public function templateImport()

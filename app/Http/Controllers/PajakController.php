@@ -29,28 +29,19 @@ class PajakController extends Controller
      * Fetch data from model with datatables.
      * @return Response
      */
-public function getData()
-{
-	$data = Tax::orderBy('created_at','desc')->get();
-	
-	return datatables()->of($data)->addColumn('option', function($row) {
-        $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"
-                data-toggle="m-tooltip" data-placement="top" title="Detail">
-                <i class="la la-exclamation-circle"></i>
-                </button>';
-        $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"
-                data-toggle="tooltip" data-placement="top" title="Edit">
-                <i class="la la-pencil-square"></i>
-                </button>';
-        $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only"
-                data-toggle="tooltip" data-placement="top" title="Hapus">
-                <i class="la la-trash"></i>
-                </button>';
+    public function getData()
+    {
+    	$data = Tax::orderBy('created_at','desc')->get();
+    	
+    	return datatables()->of($data)->addColumn('option', function($row) {
+            $btn = '<button id="detail-btn" class="btn btn-info m-btn m-btn--icon m-btn--icon-only"   data-toggle="m-tooltip" data-placement="top" title="Detail"><i class="fa fa-clipboard-list"></i></button>';
+            $btn = $btn.'  <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
+            $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="la la-trash"></i></button>';
 
-            return $btn;
-    })
-    ->rawColumns(['option'])
-    ->make(true);
+                return $btn;
+        })
+        ->rawColumns(['option'])
+        ->make(true);
     }
 
     /**

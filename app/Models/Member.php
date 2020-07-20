@@ -71,7 +71,6 @@ class Member extends Model
     {
         return $this->hasMany('App\Models\Testimonial');
     }
-
     public function historyQuiz()
     {
         return $this->hasMany(MemberQuizHistory::class, 'member_id');

@@ -157,7 +157,6 @@
             </div>
         </div>
 </section>
-
 @endsection
 @section('content')
 <?php

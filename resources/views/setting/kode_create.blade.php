@@ -14,13 +14,10 @@
 					<fieldset class="content-group">
 					<div class="form-group">
 						<label for="Jumlah kode" class="form-control-label">Jumlah kode<span class="text-danger">*</span></label><br>
-						<select  class="form-control m-input" id="exampleSelect1" name="jumlah_kode" required>
-							<option value="5">5</option>							
-							<option value="10">10</option>
-							<option value="25">25</option>
-							<option value="50">50</option>
-						</select>
+						<input type="number" class="form-control" name="jumlah_kode" min="1" max="10" placeholder="jumlah kode yang akan dibuat" required>
+						<small id="emailHelp" class="form-text text-muted">Batas  jumlah maksimal kode yang dibuat yaitu 10.</small>
 					</div>
+					
 					</fieldset>
 					<br>
 					<br>

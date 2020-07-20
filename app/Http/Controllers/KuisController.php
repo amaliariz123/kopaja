@@ -38,7 +38,7 @@ class KuisController extends Controller
      	$data = Quiz::all();
         
         return datatables()->of($data)->addColumn('option', function($row) {
-            $btn = '<a href="'.url('kuis/show/'.$row['id']).'" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="la la-exclamation-circle"></i></a>';
+            $btn = '<a href="'.url('kuis/show/'.$row['id']).'" class="btn btn-info m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Detail"> <i class="fa fa-clipboard-list"></i></a>';
             $btn =$btn . ' <button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Edit"><i class="la la-pencil-square"></i></button>';
             $btn = $btn.'  <button id="delete-btn" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="la la-trash"></i></button>';
 
@@ -176,7 +176,7 @@ class KuisController extends Controller
      public function show($id)
      {
      	$data = Quiz::find($id);
-     	$soal = QuizQuestion::where('quiz_id','=',$id)->paginate(5);
+     	$soal = QuizQuestion::where('quiz_id','=',$id)->paginate(10);
      	$number = $soal->firstItem();
         $totalSoal = DB::table('quiz_questions')->where('quiz_id','=',$id)->get();
         
@@ -321,7 +321,7 @@ class KuisController extends Controller
             $data = Quiz::where('id',$quiz_id)->first();
             $query = $request->get('query');
             $query = str_replace(" ","%",$query);
-            $soal = QuizQuestion::where('quiz_id',$data->id)->where('question','like','%'.$query.'%')->paginate(5);
+            $soal = QuizQuestion::where('quiz_id',$data->id)->where('question','like','%'.$query.'%')->paginate(10);
             $number = $soal->firstItem();
         }
 

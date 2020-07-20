@@ -84,7 +84,6 @@
         //parsing data to datatable
         tabelContoh = $('#table_contoh').DataTable({
             processing : true,
-            serverSide : true,
             stateSave : true,
             ajax : {
                 url : "{{url('/contoh_soal/get_data')}}",

@@ -35,7 +35,7 @@ class DevelopersController extends Controller
      */
     public function getData()
     {
-    	$data = Developer::orderByDesc("created_at")->get();
+    	$data = Developer::orderBy('updated_at','desc')->get();
     	
     	return datatables()->of($data)->addColumn('option', function($row) {
             $btn = '<button id="edit-btn" class="btn btn-success m-btn m-btn--icon m-btn--icon-only"

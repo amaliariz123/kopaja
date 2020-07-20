@@ -1,5 +1,5 @@
 <!--begin::Modal-->
-<div class="modal fade" id="tax-edit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tax-edit-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -72,7 +72,7 @@
 			e.preventDefault();
 
 			$.ajax({
-				'type' : 'post',
+				'type' : 'POST',
 				'url' : "{{url('/pajak/update')}}"+"/"+$('input[name=edit_id]').val(),
 				'data' : new FormData(this),
 				'processData' : false,

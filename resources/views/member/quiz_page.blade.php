@@ -3,7 +3,6 @@
 
 @section('css')
 <style>
-
         .container2 {
             display: block;
             position: relative;

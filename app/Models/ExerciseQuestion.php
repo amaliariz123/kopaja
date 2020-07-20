@@ -47,7 +47,7 @@ class ExerciseQuestion extends Model
     {
         return $this->hasOne('App\Models\ExerciseQuestionSolution', 'question_id');
     }
-
+    
     public function answer()
     {
         return $this->hasOne('App\Models\MemberExerciseAnswer', 'question_id');

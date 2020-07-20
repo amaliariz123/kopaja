@@ -83,7 +83,6 @@
     $(document).ready(function(){
         tabel_user = $('#user_table').DataTable({
             processing : true,
-            serverSide : true,
             stateSave : true,            
             ajax : {
                 url : "{{url('/users/get_data')}}",

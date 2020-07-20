@@ -74,13 +74,10 @@ class MemberController extends Controller
         // dd($answer);
         return view ('member.pembahasan_soal', compact('name', 'answer'));
     }
-
     public function showUpgrade()
     {
-        
         return view ('member.upgrade');
     }
-    
     public function upgrade(Request $request){
         // dd($request);
         // $member = Member::where('user_id', Auth::user()->id)->first()->id;

@@ -239,7 +239,6 @@
         /*parsing data to datatable*/
         helpTable = $('#table_help').DataTable({
             processing: true,
-            serverSide: true,
             stateSave: true,
             ajax: {
                 url: "{{url('/bantuan_aplikasi/get_data')}}",
@@ -248,7 +247,7 @@
             deferRender: true,
             columns: [
                 {data: 'question', name:'question', visible:true},
-                {data: 'answer', name:'answer', visible:true},
+                {data: 'answer', name:'answer', visible:true,width:'75%'},
                 {data: 'option', name:'option', visible:true},
             ],
         });

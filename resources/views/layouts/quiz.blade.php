@@ -114,7 +114,6 @@ $level = DB::table('quizzes')->where('id',$id_kuis)->get();
         </div>
     </div>
     
-    
 
     <script src="{{url('/')}}/etrain/js/jquery-1.12.1.min.js"></script>
     <!-- popper js -->

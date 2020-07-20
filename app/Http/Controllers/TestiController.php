@@ -79,7 +79,7 @@ public function getData()
 
 	return datatables()->of($data)->addColumn('option', function($row) {
         $btn = '<button type="button" id="detail-btn" 
-        class="btn m-btn--pill btn-primary btn-sm">Detail</button>';
+        class="btn m-btn--pill btn-info btn-sm"><i class="fa fa-clipboard-list"></i> &nbsp; Detail</button>';
 
             return $btn;
     })

@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="{{url('/')}}/etrain/css/profile.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 @section('css')
 <style>
     .container2 {

@@ -207,6 +207,7 @@
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
+		
 		<script src="{{url('assets/app/js/dashboard.js')}}" type="text/javascript"></script>
 		<script src="{{url('assets/demo/demo11/custom/components/base/sweetalert2.js')}}" type="text/javascript"></script>
 		@stack('custom-script')
@@ -227,6 +228,8 @@
 		<!--Jasny-bootstrap-->
 		<script src="{{url('assets/vendors/custom/jasny-bootstrap/jasny-bootstrap.min.js')}}"></script>
 		<!--end::Page Scripts -->
+		
+		
 	<!-- end::Body -->
 	</body>
 </html>

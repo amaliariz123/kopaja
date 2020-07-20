@@ -177,7 +177,6 @@
         //parsing data to datatable
         tabelKuis = $('#tabel_kuis').DataTable({
             processing : true,
-            serverSide : true,
             stateSave : true,
             ajax : {
                 url : "{{url('/kuis/get_data')}}",

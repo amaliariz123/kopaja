@@ -39,7 +39,10 @@
                         <div class="quotes">
                             <b>Penyelesaian :</b><br>
                             {{$item->answer_text}}<br>
+                            @if($item->answer_image != null)
                             <img src="{{asset('storage/images/contoh_soal_image/'.$item->answer_image)}}">
+                            @else
+                            @endif
                         </div>
                      </div>
 

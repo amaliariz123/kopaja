@@ -30,6 +30,7 @@ class ExerciseQuestionSolution extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+
     public function exerciseQuestion()
     {
         return $this->belongsTo('App\Models\ExerciseQuestion', 'question_id');

@@ -208,17 +208,10 @@
                             <?php $i++ ?>
                         @endforeach
                             @if($pajak->exerciseQuestions->first() != null)
-                         <h5>
-                            <button type="submit" class="btn_1">Periksa</button>
-                            @if($member->member_status == 'reguler')
-                                <a class="btn_2" href="{{Route('upgrade.show')}}">Pembahasan</a>
+                                <h5><button type="submit" class="btn_1">Periksa</button></h5>
                             @else
-                                <a class="btn_2" href="{{Route('pembahasan.show', $pajak->id)}}">Pembahasan</a>
+                            <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
                             @endif
-                        </h5>
-                        @else
-                        <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
-                        @endif
                         
                      </form>
                    </div>
@@ -341,6 +334,11 @@
 
             </div>
             <div class="modal-footer">
+            @if($member->member_status == 'reguler')
+                <a class="btn btn-outline-primary" href="{{Route('upgrade.show')}}">Pembahasan</a>
+            @else
+                <a class="btn btn-outline-primary" href="{{Route('pembahasan.show', $pajak->id)}}">Pembahasan</a>
+            @endif
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div>
         </div>

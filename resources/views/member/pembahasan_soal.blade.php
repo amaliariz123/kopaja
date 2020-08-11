@@ -149,7 +149,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb_iner text-center" style="height : 300px">
                         <div class="breadcrumb_iner_item">
-                            <h2 style="font-size : 35px">{{$name->tax->name}}</h2>
+                            <h2 style="font-size : 35px">{{$pajak->name}}</h2>
                             <p>Pembahasan Latihan Soal</p>
                         </div>
                     </div>
@@ -169,6 +169,7 @@
             <div class="col-lg-8 posts-list">
                <div class="single-post">
                   <div class="blog_details">
+
                         @foreach($answer as $data)
                          
                         @if($data->exerciseQuestion->exerciseQuestionSolution != null)
@@ -236,20 +237,55 @@
                                 @endif
                             </div>
                             <br><br><hr width="100%"><br>
-                        @else
-                            <h2 style="color:grey;">MOHON MAAF, KONTEN BELUM TERSEDIA</h2>
+                            
+                        @elseif($data->exerciseQuestion->exerciseQuestionSolution == null)
+                            <img src="{{url('/')}}/images/under-construction.jpg" alt="" style="margin-bottom: 5%">
+                            <h2 style="color:grey;">OOPS, KONTEN SEDANG DALAM PERBAIKAN</h2>                          
                         @endif
-                         
-
                             <?php $i++ ?>
                         @endforeach
-                      
-                     
+
+                        
+                        <h5 style="margin-top: 3%;"><button class="btn_1" data-toggle="modal" data-target="#exampleModalCenter">Pilih materi lainnya</button></h5>
                    </div>
                </div>
             </div>
           </div>
         </div>
-    </section>        
+    </section>  
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Halo, {{Auth::user()->fullname}}! Pilih materi pajak yang ingin kamu pelajari yuk!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        <div class="col-md-6">
+        @php
+            $pajak_pusat = DB::table('taxes')->where('tax_type', 'Pajak Pusat')->get();
+            $pajak_daerah = DB::table('taxes')->where('tax_type', 'Pajak Daerah')->get();
+        @endphp
+        <b style="margin-left: 10px;">Pajak Pusat</b>
+            @foreach($pajak_pusat as $pusat)
+                <a class="dropdown-item" href="{{route('materi.show', $pusat->id)}}">{{$pusat->name}}</a>
+            @endforeach
+        </div>
+        <div class="col-md-6">
+        <b style="margin-left: 10px;">Pajak Daerah</b>
+            @foreach($pajak_daerah as $daerah)
+                <a class="dropdown-item" href="{{route('materi.show', $daerah->id)}}">{{$daerah->name}}</a>
+            @endforeach
+        </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>      
     
 @endsection

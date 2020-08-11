@@ -7,8 +7,7 @@
         @guest
         @else    
         <?php
-            $data = DB::table('users')->where('id', '=', Auth::user()->id)->first()->id;
-            $member = DB::table('members')->where('user_id', $data)->first();
+            $member = DB::table('members')->where('user_id', Auth::user()->id)->first();
         ?>
         @endguest
         <div class="row align-items-center">
@@ -46,9 +45,24 @@
                         <h2>Temukan <br>Contoh <br> Soal Pajak</h2>
                         <p>Contoh soal-soal pajak yang menunjang untuk kegiatan pembelajaran,
                             dirancang sesuai kebutuhan anda. </p>
-                        <button data-toggle="modal" data-target="#exampleModalCenter" class="btn_1">Lihat Contoh Soal</button>
+                        @guest
+                            <a href="{{ route('login') }}" class="btn_1">Lihat Contoh Soal</a>
+                            @else
+                                <button data-toggle="modal" data-target="#exampleModalCenter" class="btn_1">Lihat Contoh Soal</button>
+                            @endguest
                     </div>
                 </div>
+                @guest
+                <a class="col-sm-6 col-xl-3" style="cursor:pointer" href="{{ route('login') }}">
+                    <div class="single_feature">
+                        <div class="single_feature_part">
+                            <span class="single_feature_icon"><i class="ti-layers"></i></span>
+                            <h4>Latihan Soal dan Pembahasan</h4>
+                            <p>Ikuti simulasi soal latihan dan pembahasan untuk menguji pemahaman kamu tentang perpajakan</p>
+                        </div>
+                    </div>
+                </a>
+                @else
                 <a class="col-sm-6 col-xl-3" style="cursor:pointer" data-toggle="modal" data-target="#exampleModalCenter">
                     <div class="single_feature">
                         <div class="single_feature_part">
@@ -58,6 +72,7 @@
                         </div>
                     </div>
                 </a>
+                @endguest
                 <a class="col-sm-6 col-xl-3" style="cursor:pointer" href="{{Route('downloadAllSoal')}}">
                     <div class="single_feature">
                         <div class="single_feature_part">
@@ -100,7 +115,15 @@
                             <li><span class="ti-pencil-alt"></span>Mengakses Pembahasan Latihan Soal</li>
                             <li><span class="ti-ruler-pencil"></span>Mengikuti Kuis Pajak yang menantang</li>
                         </ul>
-                        <a href="{{route ('upgrade.show')}}" class="btn_1">Mulai Kuis Pajak!</a>
+                        @guest
+                            <a href="{{route ('login')}}" class="btn_1">Mulai Kuis Pajak!</a>
+                        @else
+                            @if($member->member_status == 'reguler')
+                            <a href="{{route ('upgrade.show')}}" class="btn_1">Mulai Kuis Pajak!</a>
+                            @else
+                            <a href="{{route ('riwayat_kuispajak')}}" class="btn_1">Mulai Kuis Pajak!</a>
+                            @endif
+                        @endguest
                     </div>
                 </div>
             </div>
@@ -121,7 +144,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single_member_counter">
                         <span class="counter">{{$sum_soal}}</span>
-                        <h4> Latihan Soal</h4>
+                        <h4>Latihan Soal</h4>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
@@ -155,10 +178,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="textimonial_iner owl-carousel">
+                        @foreach($testi as $data)
                         <div class="testimonial_slider">
                             <div class="row">
-                                @foreach($testi as $data)
-                                <div class="col-lg-8 col-xl-4 col-sm-8 align-self-center">
+                                <div class="col-lg-8 col-xl-6 col-sm-8 align-self-center">
                                     <div class="testimonial_slider_text">
                                         <p>{{$data->content}}</p>
                                         <h4>{{$data->member->user->fullname}}</h4>
@@ -174,28 +197,30 @@
                                     @endif
                                     </div>
                                 </div>
-                                @endforeach
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
     <!--::blog_part end::-->
 
 <!-- Modal -->
+@guest
+@else
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Halo, Azza Ulil! Pilih materi pajak yang ingin kamu pelajari yuk!</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Halo, {{Auth::user()->fullname}}! Pilih materi pajak yang ingin kamu pelajari yuk!</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+        <div class="row">
         <div class="col-md-6">
         @php
             $pajak_pusat = DB::table('taxes')->where('tax_type', 'Pajak Pusat')->get();
@@ -205,15 +230,18 @@
             @foreach($pajak_pusat as $pusat)
                 <a class="dropdown-item" href="{{route('materi.show', $pusat->id)}}">{{$pusat->name}}</a>
             @endforeach
-            <b style="margin-left: 10px;">Pajak Daerah</b>
+        </div>
+        <div class="col-md-6">
+        <b style="margin-left: 10px;">Pajak Daerah</b>
             @foreach($pajak_daerah as $daerah)
                 <a class="dropdown-item" href="{{route('materi.show', $daerah->id)}}">{{$daerah->name}}</a>
             @endforeach
+        </div>
         </div>
       </div>
       
     </div>
   </div>
 </div>
-
+@endguest
 @endsection

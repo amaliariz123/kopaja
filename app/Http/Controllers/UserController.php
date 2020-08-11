@@ -208,7 +208,7 @@ class UserController extends Controller
      */
     public function indexMember()
     {
-    	return view('users.member_index');
+        return view('users.member_index');
     }
 
     /**
@@ -281,14 +281,13 @@ class UserController extends Controller
             $file = $request->file('profile_picture');
             $extension = strtolower($file->getClientOriginalExtension());
             $filename = $id.'.'.$extension;
-            Storage::delete('public/images/user/'.$user->profile_picture);
-            Storage::put('public/images/user/'.$filename, \File::get($file));
+            Storage::delete('storage/images/user/'.$user->profile_picture);
+            Storage::put('storage/images/user/'.$filename, \File::get($file));
 
             $user = DB::table('users')
                 ->where('id',$id)
                 ->update(['profile_picture' => $filename
                 ]);
-
         } 
         $user = DB::table('users')
             ->where('id',$id)
@@ -309,7 +308,6 @@ class UserController extends Controller
         $data['member'] = Member::where('user_id','=',$id)->first();
         
         return response()->json(['success' => 'Profil berhasil diperbarui!']);
-        // return  view('member.member_edit_profile', compact('data','province'));
     }
 
     public function updateAccount(Request $request, $id)

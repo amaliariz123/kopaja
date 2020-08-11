@@ -59,28 +59,28 @@ class MemberController extends Controller
     {
         $pajak = Tax::with('exerciseQuestions')->where('id', $id)->first();
         $exercise = ExerciseQuestion::with('tax')->where('id_tax', $id)->get();
+        $member = Member::where('user_id', Auth::user()->id)->first()->id;
 
-        return view ('member.latihan_soal', compact('exercise', 'pajak'));
+        return view ('member.latihan_soal', compact('exercise', 'pajak', 'member'));
     }
     public function pembahasan($id)
     {
         $data = User::where('id', '=', Auth::user()->id)->first()->id;
         $member = Member::where('user_id', $data)->first()->id;
-        $name = ExerciseQuestion::with('tax')->where('id_tax', $id)->first();
+        $pajak = Tax::with('exerciseQuestions')->where('id', $id)->first();
         $answer = MemberExerciseAnswer::with('exerciseQuestion', 'exerciseQuestion.exerciseQuestionSolution')
         ->whereHas('exerciseQuestion', function($q) use($id) {
             $q->where('id_tax',$id);
         })->where('member_id', $member)->get();
+        
         // dd($answer);
-        return view ('member.pembahasan_soal', compact('name', 'answer'));
+        return view ('member.pembahasan_soal', compact('pajak', 'answer'));
     }
     public function showUpgrade()
     {
         return view ('member.upgrade');
     }
     public function upgrade(Request $request){
-        // dd($request);
-        // $member = Member::where('user_id', Auth::user()->id)->first()->id;
         $upgrade = PremiumCode::where('code', $request->code)->where('status', "non-aktif")->first();
         if($upgrade != null){
             $member = Member::where('user_id', Auth::user()->id)->first();
@@ -91,6 +91,8 @@ class MemberController extends Controller
             $update_code = PremiumCode::where('code', $request->code)->first();
             $update_code->status = "aktif";
             $update_code->save();
+        } else {
+            return redirect()->route('upgrade.show')->withErrors(['error'=>'error']);;
         }
         return redirect()->route('load');
     }
@@ -128,16 +130,31 @@ class MemberController extends Controller
             foreach($exercise as $soal){
                 $id_soal = $soal->id;
                 $answer = MemberExerciseAnswer::where('question_id', $id_soal)->where('member_id', $member)->first();
-                $answer->member_id = $member;
-                $answer->question_id = $id_soal;
-                $answer->answer = $request->$id_soal;
-                if($request->$id_soal == $soal->right_answer){
-                    $answer->isRight = 1;
-                    $answer->save();
-                    $hasil+=1;
+                if($answer != null){
+                    $answer->member_id = $member;
+                    $answer->question_id = $id_soal;
+                    $answer->answer = $request->$id_soal;
+                    if($request->$id_soal == $soal->right_answer){
+                        $answer->isRight = 1;
+                        $answer->save();
+                        $hasil+=1;
+                    } else {
+                        $answer->isRight = 0;
+                        $answer->save();
+                    }
                 } else {
-                    $answer->isRight = 0;
-                    $answer->save();
+                    $answer = new MemberExerciseAnswer();
+                    $answer->member_id = $member;
+                    $answer->question_id = $id_soal;
+                    $answer->answer = $request->$id_soal;
+                    if($request->$id_soal == $soal->right_answer){
+                        $answer->isRight = 1;
+                        $answer->save();
+                        $hasil+=1;
+                    } else {
+                        $answer->isRight = 0;
+                        $answer->save();
+                    }
                 }
             }
 
@@ -148,14 +165,13 @@ class MemberController extends Controller
     
             $result->save();
         }
-        $hasil = ($hasil/count($exercise))*100;
+        $hasil = round((($hasil/count($exercise))*100));
         return redirect()->route('latihan_soal.show', ['id' => $id])->with('popup', $hasil);
     }
 
     public function showKuis($id_kuis)
     {
-        $data = User::where('id', '=', Auth::user()->id)->first()->id;
-        $member = Member::where('user_id', $data)->first()->id;
+        $member = Member::where('user_id', Auth::user()->id)->first()->id;
 
         $durasi = Quiz::select('duration')->where('id',$id_kuis)->get();
         $kuis = QuizQuestion::with('quiz')->where('quiz_id', $id_kuis)->simplePaginate(1);
@@ -229,7 +245,7 @@ class MemberController extends Controller
         $histroy->quiz_id = $id_kuis;
         $histroy->score = ($hasil/$jlh)*100;
         $histroy->save();
-        $nilai = ($hasil/$jlh)*100;
+        $nilai = round((($hasil/$jlh)*100));
 
         // return view ('quiz_history', compact('history','history_quiz','id_quiz', 'kuis'));
         return redirect()->route('riwayat_kuispajak')->with('popup', $nilai);

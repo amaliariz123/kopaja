@@ -72,7 +72,7 @@
 								    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                                         @if($data['user']['profile_picture']==null)
                                         <img id="gambar" class="navbar-brand-full" src="{{ asset('/etrain/img/user.png') }}"
-                                            width="300px" alt="upload foto"
+                                            style="max-width:75%;" alt="upload foto"
                                         >
                                         @else
                                         <img src="{{asset('storage/images/user/'.$data['user']['profile_picture'])}}" style="max-width:200px; margin-right:15px;">
@@ -99,7 +99,6 @@
                             <div class="fields">
                                 <label class="fields__label">Nama Lengkap</label>
                                 <input class="fields__input" name="fullname" value="{{$data['user']['fullname']}}" placeholder="" required=""></input>
-                                
                             </div>
                         </div>
                         <div>
@@ -125,7 +124,7 @@
                                         Provinsi
                                     </option>
                                      @foreach ($province as $key => $value)
-                                        <option value="{{ $key }}" {{ $key  === $data['member']['province_id'] ? 'selected' : null }}>{{ $value }}</option>
+                                        <option value="{{ $key }}" {{ $key  == $data['member']['province_id'] ? 'selected' : null }}>{{ $value }}</option>
                                     @endforeach
                                     </select>
                                     <!-- buat inputan kosong -->

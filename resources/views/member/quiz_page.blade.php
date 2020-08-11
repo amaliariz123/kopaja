@@ -198,7 +198,7 @@
                             <h5 style="font-weight: 600; color: rgb(243, 105, 10); margin-right: 25px">
                                 <b>{{$page}}</b>
                             </h5>
-                            <h5>{{$data->question}}</h5>
+                            <h5 style="margin-left: 10px; text-align: left;">{{$data->question}}</h5>
                             @if($data->image != null)
                                 <img src="{{asset('storage/images/kuis/'.$data->image)}}">
                             @else
@@ -250,7 +250,4 @@
         })
     });
     </script>
-    
-    
-
 @endpush

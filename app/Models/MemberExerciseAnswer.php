@@ -27,7 +27,7 @@ class MemberExerciseAnswer extends Model
     /**
      * @var array
      */
-    protected $fillable = ['member_id', 'question_id', 'id_tax', 'answer', 'isRight', 'created_at', 'updated_at'];
+    protected $fillable = ['member_id', 'question_id', 'answer', 'isRight', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

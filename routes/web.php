@@ -26,6 +26,10 @@ Route::get('/load',function(){
     return view('load');
     })->name('load');
 
+Route::get('/first',function(){
+    return view('first');
+    })->name('first');
+
 // Route::get('/home', function () {
 //     return view('home');
 // })->middleware('verified')->name('home');

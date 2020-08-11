@@ -165,6 +165,30 @@
         i:hover {
             cursor: pointer;
         }
+        .btn-medium{
+            padding: 1px 5px; 
+            border-radius: 0px;
+            border-color: transparent; 
+            font-size: 12px; 
+            color: #fff;
+            background-color: darkorange;
+        }
+        .btn-mudah{
+            padding: 1px 5px; 
+            border-radius: 0px;
+            border-color: transparent; 
+            font-size: 12px; 
+            color: #fff;
+            background-color: #F9B700;
+        }
+        .btn-sulit{
+            padding: 1px 5px; 
+            border-radius: 0px;
+            border-color: transparent; 
+            font-size: 12px; 
+            color: #fff;
+            background-color: #EE390F;
+        }
 
     </style>
 @endsection
@@ -188,7 +212,7 @@
         </div>
 
     <!-- history_page -->
-    <div style="width:60%;">
+    <div style="width:63%;">
         <div class="card main-profile">
         <div class="form-header">
         	<h3>Riwayat Kuis Pajak</h3>
@@ -197,6 +221,7 @@
                 <thead>
                     <tr>
                         <th>Tanggal</th>
+                        <th>Waktu</th>
                         <th>Judul Kuis</th>
                         <th>Nilai</th>
                         <th>Opsi</th>
@@ -205,7 +230,8 @@
                 <tbody>
                     @foreach($history as $data)
                     <tr>
-                        <td>{{$data->created_at}}</td>
+                        <td>{{Carbon\Carbon::parse($data->created_at)->formatLocalized('%d %b %Y')}}</td>
+                        <td>{{Carbon\Carbon::parse($data->created_at)->format('H:i:s')}}</td>
                         <td>{{$data->quiz->title}}</td>
                         <td>{{$data->score}}</td>
                         <td >
@@ -242,7 +268,7 @@
       <div class="modal-body">
         <div class="col-md-6">
             <h6>Level Kuis : </h6><h6 id="level"></h6><br>
-            <h6>Durasi Pengerjaan (menit): </h6><h6 id="duration"></h6>
+            <h6>Durasi Kuis (menit): </h6><h6 id="duration"></h6>
         </div>
       </div>
       
@@ -261,13 +287,23 @@
       <div class="modal-body">
       <div style="padding:20px;">
             @foreach($kuis as $data)
-            <a id="start_time" class="card card-profile" style="width:90%;" href="{{route('kuis_pajak.show', $data->id)}}">
+            <div class="card card-profile" style="width:90%;" >
                 <h4>{{$data->title}}</h4>
+                <div class="row" style="margin-left: 0px; margin-bottom: 10px;">
+                    @if($data->level == 'mudah')
+                    <button class="btn-mudah">Level {{$data->level}}</button>
+                    @elseif($data->level == 'medium')
+                    <button class="btn-medium">Level {{$data->level}}</button>
+                    @elseif($data->level == 'sulit')
+                    <button class="btn-sulit">Level {{$data->level}}</button>
+                    @endif
+                    <h6 style="padding-left: 10px; margin-bottom: 0px;"><i class="ti-timer"></i>{{$data->duration}} menit</h6>
+                </div>
                 <p>{{$data->description}}</p>
                 {{$data->image}}
-                <b>Level {{$data->level}}</b>
-                <h6>{{$data->duration}} menit</h6>
-            </a>
+                <div style="margin-top: 10px;">
+                    <a id="start_time" class="btn_1" style="padding: 7px 25px; float: right;" href="{{route('kuis_pajak.show', $data->id)}}">Mulai</a></div>
+            </div>
             @endforeach
         </div>
       </div>
@@ -437,8 +473,8 @@
         console.log(id);
         console.log(tr);
         swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
+            title: "Yakin ingin menghapus?",
+            text: "Anda tidak akan mendapatkan kembali data yang sudah dihapus!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
